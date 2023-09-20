@@ -1,0 +1,72 @@
+//https://json-generator.com/
+[
+    '{{repeat(75, 80)}}',
+    {
+        "enterprise": {
+            "name": '{{company().toUpperCase()}}',
+            "activity_type_id": "1",
+            "products": '{{lorem(2, "words")}}',
+            "constitution_type_id": '{{integer(20, 40)}}',
+            "employment": '{{integer(20, 4000)}}',
+            "pincode": "172021",
+            "district_id": '{{integer(3, 14)}}',
+            "constituency_id": '{{integer(15, 82)}}',
+            "tehsil_id": '{{integer(83, 198)}}',
+            "block_id": '{{integer(199, 337)}}',
+            "panchayat_id": '{{integer(338, 3831)}}',
+            "address": "{{integer(100, 999)}} {{street()}}"
+        },
+        "email": "{{email()}}",
+        "mobile": "{{phone()}}",
+        "owner": {
+            "name": "{{firstName()}} {{surname()}}",
+            "mobile": "{{phone()}}",
+            "email": "{{email()}}",
+            "guardian_prefix": "S\/O",
+            "guardian": "{{lorem(1, \"words\")}}",
+            "pincode": "174472",
+            "district_id": "{{ integer(20, 3500) }}",
+            "constituency_id": "{{ integer(20, 3500) }}",
+            "tehsil_id": "{{ integer(20, 3500) }}",
+            "block_id": "{{ integer(20, 3500) }}",
+            "panchayat_id": "{{ integer(20, 3500) }}",
+            "address": "{{integer(100, 999)}} {{street()}}",
+            "birth_date": "{{date(new Date(1978, 0, 1), new Date(), \"YYYY-MM-dd\")}}",
+            "aadhaar": "{{integer(444444444444, 999999999999)}}",
+            "pan": "{{company().toUpperCase()}}{{integer(1111, 9999)}}{{company().toUpperCase()}}",
+            "gender": "{{gender()}}",
+            "is_widow": '{{random("yes", "no")}}',
+            "social_category_id": "{{integer(20, 40)}}",
+            "partner_name": [
+                "{{firstName()}} {{surname()}}"
+            ],
+            "partner_birth_date": [
+                "{{date(new Date(1978, 0, 1), new Date(), \"YYYY-MM-dd\")}}"
+            ],
+            "partner_aadhaar": [
+                "{{integer(444444444444, 999999999999)}}"
+            ],
+            "partner_mobile": [
+                "{{phone()}}"
+            ]
+        },
+
+        "cost":{
+            "is_land_required": '{{random("yes", "no")}}',
+            "is_building_required": '{{random("yes", "no")}}',
+            "machinery_cost": '{{floating(10000, 900000)}}',
+            "other_fixed_assets_cost": '{{floating(10000, 900000)}}',
+            "miscellaneous_assets_cost": '{{floating(10000, 900000)}}',
+            "working_capital": '{{floating(10000, 900000)}}',
+            "project_cost": '{{floating(10000, 900000)}}'
+        },
+        "finance": {
+            "own_contribution": "{{integer(10, 25)}}",
+            "own_contribution_amount": "{{integer(10000, 150000)}}",
+            "term_loan": "{{integer(1,10)}}",
+            "bank_branch_id": '{{integer(1000, 1500)}}',
+            "has_any_loan": '{{random("yes", "no")}}',
+            "has_other_income_source": '{{random("yes", "no")}}'
+        }
+    }
+]

@@ -1,0 +1,74 @@
+[
+    {
+        "body": [{
+            "type": "html",
+            "content": "<div class=\"row\"><div class=\"col-sm-3 text-sm-end\"><b>Capital Expenditure:</b></div><div class=\"col-sm-3  text-sm-end\"><code id=\"capitalExpenditure\"></code></div><div class=\"col-sm-3  text-sm-end\"><b>Project Cost:</b></div><div class=\"col-sm-3  text-sm-end\"><code id=\"projectCost\"></code></div></div>"
+        }, {
+            "type": "input",
+            "width": "6",
+            "label": "Own Contribution Percentage (% of Capital Expenditure)",
+            "helpHtml": "Enter the percentage of Capital Expenditure you are spending. <code>Should be at least 10%.</code>",
+            "attributes": {
+                "autofocus": "autofocus",
+                "name": "own_contribution",
+                "type": "number",
+                "min": "10",
+                "max": "95",
+                "step": "any",
+                "required": "required"
+            }
+        }, {
+            "type": "input",
+            "width": "6",
+            "label": "Own Contribution Amount",
+            "attributes": {
+                "name": "own_contribution_amount",
+                "type": "number",
+                "min": "0",
+                "required": "required",
+                "readonly": "readonly"
+            }
+        }, {
+            "type": "input",
+            "width": "6",
+            "label": "Term Loan",
+            "helpHtml": "The loan amount",
+            "attributes": {
+                "name": "term_loan",
+                "type": "number",
+                "min": "0",
+                "required": "required",
+                "readonly": "readonly"
+            }
+        }, {
+            "type": "input",
+            "width": "6",
+            "label": "CC Limit",
+            "helpHtml": "CC Limit",
+            "attributes": {
+                "name": "working_capital",
+                "type": "number",
+                "min": "0",
+                "disabled": "disabled",
+                "required": "required"
+            }
+        }],
+        "type": "group",
+        "title": "Loan Details"
+    },
+    {
+        "body": [{
+            "type": "select",
+            "width": "12",
+            "label": "Name of the Loan Financing Bank",
+            "helpText": "Name of the bank from which the applicant wants to get the loan. Select the bank by searching for IFS code, branch or bank name.",
+            "attributes": {
+                "name": "bank_branch_id",
+                "data-options": "dbase:views\\BankBranchView(id,name)",
+                "required": "required"
+            }
+        }],
+        "type": "group",
+        "title": "Bank Details"
+    }
+]

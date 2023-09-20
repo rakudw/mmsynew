@@ -1,0 +1,189 @@
+[
+    {
+        "body": [
+            {
+                "type": "input",
+                "label": "Name of Proposed Unit",
+                "width": "12",
+                "helpText": "The name of unit you want to set.",
+                "attributes": {
+                    "name": "name",
+                    "required": "required",
+                    "autofocus": "autofocus"
+                }
+            },{
+                "type": "input",
+                "label": "Mobile Number of the Owner",
+                "width": "12",
+                "helpText": "Mobile Number of the Owner",
+                "attributes": {
+                    "name": "mobile",
+                    "required": "required",
+                    "autofocus": "autofocus"
+                }
+            },
+            {
+                "type": "select",
+                "label": "Type of Activity",
+                "helpText": "Activity type of the unit.",
+                "attributes": {
+                    "data-changes": "activity_id",
+                    "data-options": "dbase:enum(id,name)[type:ACTIVITY_TYPE]",
+                    "name": "activity_type_id",
+                    "required": "required"
+                }
+            },
+            {
+                "type": "select",
+                "label": "Activity of the unit",
+                "helpText": "Activity of the unit.",
+                "attributes": {
+                    "data-condition": "activity_type_id:202,203",
+                    "data-depends": "activity_type_id",
+                    "data-options": "dbase:activity(id,name)[type_id:$activity_type_id]",
+                    "name": "activity_id",
+                    "required": "required"
+                }
+            },
+            {
+                "type": "input",
+                "label": "Description of Activity in Brief",
+                "helpText": "Description of the activity to be done by the unit.",
+                "attributes": {
+                    "name": "activity_details",
+                    "data-condition": "activity_type_id:202,203",
+                    "required": "required"
+                }
+            },
+            {
+                "type": "input",
+                "label": "Products to be manufactured",
+                "helpText": "List of all the products to be manufactured by the unit.",
+                "attributes": {
+                    "name": "products",
+                    "data-condition": "activity_type_id:201",
+                    "required": "required"
+                }
+            },
+            {
+                "type": "select",
+                "label": "Constitution Type",
+                "attributes": {
+                    "name": "constitution_type_id",
+                    "data-options": "dbase:enum(id,name)[type:CONSTITUTION_TYPE]",
+                    "required": "required"
+                }
+            },
+            {
+                "type": "input",
+                "label": "Proposed Employment Generation",
+                "attributes": {
+                    "name": "employment",
+                    "type": "number",
+                    "min": "1",
+                    "required": "required"
+                }
+            }
+        ],
+        "type": "group",
+        "title": "Proposed Enterprise Information"
+    },
+    {
+        "body": [
+            {
+                "type": "html",
+                "content": "<div class=\"col-12\"><figure><blockquote class=\"blockquote\"><p class=\"ps-2\">No owner of an industrial unit after receiving a part or the whole of the grant or  subsidy  will  be  allowed  to  change  the  location  of  the  whole  or  any  part  of industrial unit or effect any substantial contraction or disposal of a substantial part  of  its  total  fixed  capital  investment  within  a  period  of  5  years  after  its going  into  commercial  production/operation  without  taking  prior  approval  of the <b>Director of Industries, Himachal Pradesh</b>.</p><figcaption class=\"blockquote-footer ps-3\">As per the Notification</figcaption></blockquote></figure></div>"
+            },
+            {
+                "type": "select",
+                "label": "Area Type",
+                "helpText": "Type of the area where the unit is being setup.",
+                "attributes": {
+                    "name": "area_type",
+                    "data-options": "csv:Rural,Urban",
+                    "required": "required"
+                }
+            }, 
+            {
+                "type": "input",
+                "label": "Pincode",
+                "helpText": "Pincode of the location where the unit will be setup.",
+                "attributes": {
+                    "name": "pincode",
+                    "max": "179999",
+                    "min": "170000",
+                    "type": "number",
+                    "required": "required"
+                }
+            },
+            {
+                "type": "select",
+                "label": "District",
+                "helpText": "Name of the district in which the unit will be setup.",
+                "attributes": {
+                    "name": "district_id",
+                    "data-options": "dbase:region(id,name)[type_id:404]",
+                    "data-changes": "constituency_id,tehsil_id,block_id",
+                    "required": "required"
+                }
+            },
+            {
+                "type": "select",
+                "label": "Constituency",
+                "helpText": "Name of the constituency in which the unit will be setup.",
+                "attributes": {
+                    "name": "constituency_id",
+                    "data-depends": "district_id",
+                    "data-options": "dbase:region(id,name)[type_id:405,parent_id:$district_id]",
+                    "required": "required"
+                }
+            },
+            {
+                "type": "select",
+                "label": "Tehsil",
+                "helpText": "Name of the tehsil in which the unit will be setup.",
+                "attributes": {
+                    "name": "tehsil_id",
+                    "data-depends": "district_id",
+                    "data-options": "dbase:region(id,name)[type_id:406,parent_id:$district_id]",
+                    "required": "required"
+                }
+            },
+            {
+                "type": "select",
+                "label": "Block",
+                "helpText": "Name of the block in which the unit will be setup.",
+                "attributes": {
+                    "name": "block_id",
+                    "data-changes": "panchayat_id",
+                    "data-depends": "district_id",
+                    "data-options": "dbase:region(id,name)[type_id:407,parent_id:$district_id]",
+                    "required": "required"
+                }
+            },
+            {
+                "type": "select",
+                "label": "Panchayat/Town",
+                "helpText": "Name of the panchayat/town in which the unit will be setup.",
+                "attributes": {
+                    "name": "panchayat_id",
+                    "data-depends": "block_id",
+                    "data-options": "dbase:region(id,name)[type_id:408,parent_id:$block_id]",
+                    "required": "required"
+                }
+            },
+            {
+                "type": "input",
+                "label": "House Number/Street/Landmark/Village name",
+                "helpText": "Address where the unit will be setup.",
+                "attributes": {
+                    "name": "address",
+                    "type": "text",
+                    "required": "required"
+                }
+            }
+        ],
+        "type": "group",
+        "title": "Unit Address"
+    }
+]

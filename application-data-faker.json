@@ -1,0 +1,5008 @@
+[
+    {
+        "enterprise": {
+            "name": "ILLUMITY",
+            "activity_type_id": 1,
+            "products": "duis eiusmod",
+            "constitution_type_id": 29,
+            "employment": 3216,
+            "pincode": 172021,
+            "district_id": 11,
+            "constituency_id": 20,
+            "tehsil_id": 96,
+            "block_id": 206,
+            "panchayat_id": 3036,
+            "address": "750 Commercial Street"
+        },
+        "email": "rebaguthrie@illumity.com",
+        "mobile": "(826) 402-3274",
+        "owner": {
+            "name": "Sheri Christensen",
+            "mobile": "(978) 568-2109",
+            "email": "sherichristensen@illumity.com",
+            "guardian_prefix": "S/O",
+            "guardian": "enim",
+            "pincode": 174472,
+            "district_id": 2932,
+            "constituency_id": 3495,
+            "tehsil_id": 413,
+            "block_id": 2478,
+            "panchayat_id": 491,
+            "address": "264 Vermont Street",
+            "birth_date": "2003-04-17",
+            "aadhaar": 799980478713,
+            "pan": "QNEKT1591XIIX",
+            "gender": "female",
+            "is_widow": "yes",
+            "social_category_id": 28,
+            "partner_name": [
+                "Katharine Poole"
+            ],
+            "partner_birth_date": [
+                "2011-12-29"
+            ],
+            "partner_aadhaar": [
+                884751904851
+            ],
+            "partner_mobile": [
+                "(937) 597-2797"
+            ]
+        },
+        "cost": {
+            "is_land_required": "no",
+            "is_building_required": "no",
+            "machinery_cost": 151263.9591,
+            "other_fixed_assets_cost": 197079.6941,
+            "miscellaneous_assets_cost": 841311.8492,
+            "working_capital": 83266.521,
+            "project_cost": 419257.1036
+        },
+        "finance": {
+            "bank_branch_id": 1482,
+            "has_any_loan": "no",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "no"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "GEOFORMA",
+            "activity_type_id": 1,
+            "products": "culpa occaecat",
+            "constitution_type_id": 26,
+            "employment": 516,
+            "pincode": 172021,
+            "district_id": 12,
+            "constituency_id": 69,
+            "tehsil_id": 108,
+            "block_id": 331,
+            "panchayat_id": 2176,
+            "address": "787 Brighton Court"
+        },
+        "email": "katharinepoole@geoforma.com",
+        "mobile": "(919) 553-2735",
+        "owner": {
+            "name": "Adkins Russo",
+            "mobile": "(914) 403-2417",
+            "email": "adkinsrusso@geoforma.com",
+            "guardian_prefix": "S/O",
+            "guardian": "eiusmod",
+            "pincode": 174472,
+            "district_id": 1657,
+            "constituency_id": 1829,
+            "tehsil_id": 1796,
+            "block_id": 3261,
+            "panchayat_id": 3122,
+            "address": "382 Dumont Avenue",
+            "birth_date": "2008-01-02",
+            "aadhaar": 545225729492,
+            "pan": "POLARIA4759PROSURE",
+            "gender": "male",
+            "is_widow": "no",
+            "social_category_id": 28,
+            "partner_name": [
+                "Maria Cote"
+            ],
+            "partner_birth_date": [
+                "2002-03-11"
+            ],
+            "partner_aadhaar": [
+                622435066461
+            ],
+            "partner_mobile": [
+                "(978) 492-2636"
+            ]
+        },
+        "cost": {
+            "is_land_required": "no",
+            "is_building_required": "yes",
+            "machinery_cost": 300173.8852,
+            "other_fixed_assets_cost": 211794.9715,
+            "miscellaneous_assets_cost": 278777.0845,
+            "working_capital": 274395.1137,
+            "project_cost": 571667.0428
+        },
+        "finance": {
+            "bank_branch_id": 1268,
+            "has_any_loan": "yes",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "no"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "COMTOUR",
+            "activity_type_id": 1,
+            "products": "ut exercitation",
+            "constitution_type_id": 26,
+            "employment": 35,
+            "pincode": 172021,
+            "district_id": 4,
+            "constituency_id": 40,
+            "tehsil_id": 178,
+            "block_id": 211,
+            "panchayat_id": 1213,
+            "address": "249 Metrotech Courtr"
+        },
+        "email": "mariacote@comtour.com",
+        "mobile": "(942) 478-2697",
+        "owner": {
+            "name": "Yolanda Ayers",
+            "mobile": "(913) 427-2675",
+            "email": "yolandaayers@comtour.com",
+            "guardian_prefix": "S/O",
+            "guardian": "pariatur",
+            "pincode": 174472,
+            "district_id": 753,
+            "constituency_id": 689,
+            "tehsil_id": 404,
+            "block_id": 860,
+            "panchayat_id": 184,
+            "address": "826 Seaview Avenue",
+            "birth_date": "2021-03-13",
+            "aadhaar": 761430812924,
+            "pan": "GLEAMINK6131EXERTA",
+            "gender": "female",
+            "is_widow": "yes",
+            "social_category_id": 31,
+            "partner_name": [
+                "Hendrix Valdez"
+            ],
+            "partner_birth_date": [
+                "2002-02-07"
+            ],
+            "partner_aadhaar": [
+                741177442750
+            ],
+            "partner_mobile": [
+                "(964) 509-2519"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "no",
+            "machinery_cost": 524378.2929,
+            "other_fixed_assets_cost": 785942.6562,
+            "miscellaneous_assets_cost": 649952.5358,
+            "working_capital": 11162.039,
+            "project_cost": 166012.7315
+        },
+        "finance": {
+            "bank_branch_id": 1051,
+            "has_any_loan": "yes",
+            "has_other_income_source": "no",
+            "is_assessed_for_income_tax": "no"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "GEEKNET",
+            "activity_type_id": 1,
+            "products": "laborum id",
+            "constitution_type_id": 38,
+            "employment": 701,
+            "pincode": 172021,
+            "district_id": 7,
+            "constituency_id": 17,
+            "tehsil_id": 111,
+            "block_id": 218,
+            "panchayat_id": 3572,
+            "address": "310 Butler Place"
+        },
+        "email": "hendrixvaldez@geeknet.com",
+        "mobile": "(956) 507-3163",
+        "owner": {
+            "name": "Angelica Molina",
+            "mobile": "(857) 461-3801",
+            "email": "angelicamolina@geeknet.com",
+            "guardian_prefix": "S/O",
+            "guardian": "magna",
+            "pincode": 174472,
+            "district_id": 93,
+            "constituency_id": 199,
+            "tehsil_id": 566,
+            "block_id": 1823,
+            "panchayat_id": 1665,
+            "address": "343 Cedar Street",
+            "birth_date": "2005-08-01",
+            "aadhaar": 808931905963,
+            "pan": "BIOHAB9623INEAR",
+            "gender": "female",
+            "is_widow": "no",
+            "social_category_id": 20,
+            "partner_name": [
+                "Lucia Hood"
+            ],
+            "partner_birth_date": [
+                "1991-10-09"
+            ],
+            "partner_aadhaar": [
+                912928850018
+            ],
+            "partner_mobile": [
+                "(987) 560-2797"
+            ]
+        },
+        "cost": {
+            "is_land_required": "no",
+            "is_building_required": "no",
+            "machinery_cost": 895785.4094,
+            "other_fixed_assets_cost": 895846.7801,
+            "miscellaneous_assets_cost": 203011.418,
+            "working_capital": 445236.1736,
+            "project_cost": 824990.5779
+        },
+        "finance": {
+            "bank_branch_id": 1235,
+            "has_any_loan": "yes",
+            "has_other_income_source": "no",
+            "is_assessed_for_income_tax": "no"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "ROCKABYE",
+            "activity_type_id": 1,
+            "products": "ex pariatur",
+            "constitution_type_id": 39,
+            "employment": 3772,
+            "pincode": 172021,
+            "district_id": 11,
+            "constituency_id": 69,
+            "tehsil_id": 195,
+            "block_id": 333,
+            "panchayat_id": 708,
+            "address": "540 Schenck Court"
+        },
+        "email": "luciahood@rockabye.com",
+        "mobile": "(858) 409-3733",
+        "owner": {
+            "name": "Bettye Cannon",
+            "mobile": "(943) 438-3904",
+            "email": "bettyecannon@rockabye.com",
+            "guardian_prefix": "S/O",
+            "guardian": "enim",
+            "pincode": 174472,
+            "district_id": 671,
+            "constituency_id": 1710,
+            "tehsil_id": 260,
+            "block_id": 1572,
+            "panchayat_id": 2399,
+            "address": "395 Montauk Court",
+            "birth_date": "2010-07-20",
+            "aadhaar": 745752011503,
+            "pan": "XOGGLE8485APPLICA",
+            "gender": "female",
+            "is_widow": "yes",
+            "social_category_id": 26,
+            "partner_name": [
+                "Chang Berry"
+            ],
+            "partner_birth_date": [
+                "1998-08-30"
+            ],
+            "partner_aadhaar": [
+                501300589640
+            ],
+            "partner_mobile": [
+                "(998) 578-2464"
+            ]
+        },
+        "cost": {
+            "is_land_required": "no",
+            "is_building_required": "no",
+            "machinery_cost": 226426.266,
+            "other_fixed_assets_cost": 308532.1206,
+            "miscellaneous_assets_cost": 439690.8944,
+            "working_capital": 854867.6079,
+            "project_cost": 885916.1188
+        },
+        "finance": {
+            "bank_branch_id": 1045,
+            "has_any_loan": "yes",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "yes"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "VOIPA",
+            "activity_type_id": 1,
+            "products": "ad Lorem",
+            "constitution_type_id": 27,
+            "employment": 3834,
+            "pincode": 172021,
+            "district_id": 5,
+            "constituency_id": 47,
+            "tehsil_id": 109,
+            "block_id": 259,
+            "panchayat_id": 2762,
+            "address": "427 John Street"
+        },
+        "email": "changberry@voipa.com",
+        "mobile": "(940) 570-2390",
+        "owner": {
+            "name": "Mejia Fletcher",
+            "mobile": "(823) 404-3398",
+            "email": "mejiafletcher@voipa.com",
+            "guardian_prefix": "S/O",
+            "guardian": "ipsum",
+            "pincode": 174472,
+            "district_id": 284,
+            "constituency_id": 3269,
+            "tehsil_id": 1893,
+            "block_id": 201,
+            "panchayat_id": 2941,
+            "address": "866 Bayview Avenue",
+            "birth_date": "1989-02-21",
+            "aadhaar": 962370486109,
+            "pan": "EXOVENT2287SENMAO",
+            "gender": "male",
+            "is_widow": "yes",
+            "social_category_id": 29,
+            "partner_name": [
+                "Raquel Schultz"
+            ],
+            "partner_birth_date": [
+                "2010-02-04"
+            ],
+            "partner_aadhaar": [
+                534416426472
+            ],
+            "partner_mobile": [
+                "(927) 484-3360"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "no",
+            "machinery_cost": 739048.1036,
+            "other_fixed_assets_cost": 536741.0356,
+            "miscellaneous_assets_cost": 366151.5234,
+            "working_capital": 863735.3579,
+            "project_cost": 842238.9493
+        },
+        "finance": {
+            "bank_branch_id": 1096,
+            "has_any_loan": "no",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "yes"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "EYERIS",
+            "activity_type_id": 1,
+            "products": "irure aliqua",
+            "constitution_type_id": 25,
+            "employment": 902,
+            "pincode": 172021,
+            "district_id": 12,
+            "constituency_id": 53,
+            "tehsil_id": 111,
+            "block_id": 335,
+            "panchayat_id": 479,
+            "address": "145 Lake Street"
+        },
+        "email": "raquelschultz@eyeris.com",
+        "mobile": "(999) 538-3556",
+        "owner": {
+            "name": "Hodge Sexton",
+            "mobile": "(934) 476-3334",
+            "email": "hodgesexton@eyeris.com",
+            "guardian_prefix": "S/O",
+            "guardian": "labore",
+            "pincode": 174472,
+            "district_id": 2976,
+            "constituency_id": 3363,
+            "tehsil_id": 1471,
+            "block_id": 2770,
+            "panchayat_id": 1432,
+            "address": "866 Cook Street",
+            "birth_date": "1995-02-01",
+            "aadhaar": 643880891531,
+            "pan": "ROBOID3396EWAVES",
+            "gender": "male",
+            "is_widow": "yes",
+            "social_category_id": 31,
+            "partner_name": [
+                "Sellers Frost"
+            ],
+            "partner_birth_date": [
+                "2010-08-24"
+            ],
+            "partner_aadhaar": [
+                793071869813
+            ],
+            "partner_mobile": [
+                "(907) 442-3588"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "no",
+            "machinery_cost": 713380.306,
+            "other_fixed_assets_cost": 185536.876,
+            "miscellaneous_assets_cost": 539857.4325,
+            "working_capital": 835020.7713,
+            "project_cost": 27892.6149
+        },
+        "finance": {
+            "bank_branch_id": 1247,
+            "has_any_loan": "no",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "yes"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "RUGSTARS",
+            "activity_type_id": 1,
+            "products": "enim id",
+            "constitution_type_id": 31,
+            "employment": 448,
+            "pincode": 172021,
+            "district_id": 7,
+            "constituency_id": 53,
+            "tehsil_id": 97,
+            "block_id": 302,
+            "panchayat_id": 831,
+            "address": "641 Crooke Avenue"
+        },
+        "email": "sellersfrost@rugstars.com",
+        "mobile": "(845) 428-2829",
+        "owner": {
+            "name": "Cherry Jefferson",
+            "mobile": "(955) 422-3640",
+            "email": "cherryjefferson@rugstars.com",
+            "guardian_prefix": "S/O",
+            "guardian": "occaecat",
+            "pincode": 174472,
+            "district_id": 116,
+            "constituency_id": 1065,
+            "tehsil_id": 239,
+            "block_id": 1360,
+            "panchayat_id": 2472,
+            "address": "519 Estate Road",
+            "birth_date": "2009-06-25",
+            "aadhaar": 795434782769,
+            "pan": "ENERVATE4323XUMONK",
+            "gender": "male",
+            "is_widow": "no",
+            "social_category_id": 28,
+            "partner_name": [
+                "Claudine Reilly"
+            ],
+            "partner_birth_date": [
+                "2009-08-25"
+            ],
+            "partner_aadhaar": [
+                929990133480
+            ],
+            "partner_mobile": [
+                "(857) 587-3174"
+            ]
+        },
+        "cost": {
+            "is_land_required": "no",
+            "is_building_required": "yes",
+            "machinery_cost": 560826.4675,
+            "other_fixed_assets_cost": 740648.5484,
+            "miscellaneous_assets_cost": 212199.287,
+            "working_capital": 804629.4382,
+            "project_cost": 262521.5846
+        },
+        "finance": {
+            "bank_branch_id": 1428,
+            "has_any_loan": "yes",
+            "has_other_income_source": "no",
+            "is_assessed_for_income_tax": "no"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "VINCH",
+            "activity_type_id": 1,
+            "products": "adipisicing proident",
+            "constitution_type_id": 20,
+            "employment": 1071,
+            "pincode": 172021,
+            "district_id": 5,
+            "constituency_id": 74,
+            "tehsil_id": 198,
+            "block_id": 334,
+            "panchayat_id": 1375,
+            "address": "285 Chase Court"
+        },
+        "email": "claudinereilly@vinch.com",
+        "mobile": "(809) 406-2100",
+        "owner": {
+            "name": "Snider Hodges",
+            "mobile": "(939) 572-2134",
+            "email": "sniderhodges@vinch.com",
+            "guardian_prefix": "S/O",
+            "guardian": "aliqua",
+            "pincode": 174472,
+            "district_id": 3014,
+            "constituency_id": 3387,
+            "tehsil_id": 1551,
+            "block_id": 151,
+            "panchayat_id": 1577,
+            "address": "529 Dooley Street",
+            "birth_date": "2010-04-04",
+            "aadhaar": 746177675255,
+            "pan": "PEARLESEX4513ZIDOX",
+            "gender": "male",
+            "is_widow": "no",
+            "social_category_id": 23,
+            "partner_name": [
+                "Carrie Solis"
+            ],
+            "partner_birth_date": [
+                "2014-01-21"
+            ],
+            "partner_aadhaar": [
+                823150611823
+            ],
+            "partner_mobile": [
+                "(891) 483-3315"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "no",
+            "machinery_cost": 196965.2338,
+            "other_fixed_assets_cost": 104968.2887,
+            "miscellaneous_assets_cost": 393003.8338,
+            "working_capital": 813240.4055,
+            "project_cost": 149305.4027
+        },
+        "finance": {
+            "bank_branch_id": 1073,
+            "has_any_loan": "yes",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "no"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "PRIMORDIA",
+            "activity_type_id": 1,
+            "products": "enim enim",
+            "constitution_type_id": 39,
+            "employment": 3608,
+            "pincode": 172021,
+            "district_id": 6,
+            "constituency_id": 15,
+            "tehsil_id": 95,
+            "block_id": 238,
+            "panchayat_id": 3133,
+            "address": "366 Myrtle Avenue"
+        },
+        "email": "carriesolis@primordia.com",
+        "mobile": "(966) 519-3899",
+        "owner": {
+            "name": "Fry Haney",
+            "mobile": "(908) 541-2556",
+            "email": "fryhaney@primordia.com",
+            "guardian_prefix": "S/O",
+            "guardian": "esse",
+            "pincode": 174472,
+            "district_id": 2518,
+            "constituency_id": 2470,
+            "tehsil_id": 321,
+            "block_id": 2545,
+            "panchayat_id": 855,
+            "address": "844 Ashford Street",
+            "birth_date": "2015-11-13",
+            "aadhaar": 927518863112,
+            "pan": "LOTRON3043PATHWAYS",
+            "gender": "male",
+            "is_widow": "no",
+            "social_category_id": 33,
+            "partner_name": [
+                "Lindsay Harvey"
+            ],
+            "partner_birth_date": [
+                "1988-03-24"
+            ],
+            "partner_aadhaar": [
+                916719446149
+            ],
+            "partner_mobile": [
+                "(986) 566-3428"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "no",
+            "machinery_cost": 375752.5268,
+            "other_fixed_assets_cost": 30741.6223,
+            "miscellaneous_assets_cost": 835774.4111,
+            "working_capital": 681341.4062,
+            "project_cost": 730093.6511
+        },
+        "finance": {
+            "bank_branch_id": 1127,
+            "has_any_loan": "no",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "no"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "EXOPLODE",
+            "activity_type_id": 1,
+            "products": "proident mollit",
+            "constitution_type_id": 31,
+            "employment": 863,
+            "pincode": 172021,
+            "district_id": 9,
+            "constituency_id": 69,
+            "tehsil_id": 147,
+            "block_id": 253,
+            "panchayat_id": 2429,
+            "address": "101 Croton Loop"
+        },
+        "email": "lindsayharvey@exoplode.com",
+        "mobile": "(803) 436-2028",
+        "owner": {
+            "name": "Selma Randall",
+            "mobile": "(934) 404-3673",
+            "email": "selmarandall@exoplode.com",
+            "guardian_prefix": "S/O",
+            "guardian": "sunt",
+            "pincode": 174472,
+            "district_id": 2891,
+            "constituency_id": 3189,
+            "tehsil_id": 2048,
+            "block_id": 355,
+            "panchayat_id": 1370,
+            "address": "596 Devoe Street",
+            "birth_date": "2017-11-06",
+            "aadhaar": 659997410042,
+            "pan": "SKINSERVE6935AQUACINE",
+            "gender": "female",
+            "is_widow": "no",
+            "social_category_id": 39,
+            "partner_name": [
+                "Franklin Short"
+            ],
+            "partner_birth_date": [
+                "1983-06-29"
+            ],
+            "partner_aadhaar": [
+                977035630535
+            ],
+            "partner_mobile": [
+                "(876) 408-3107"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "yes",
+            "machinery_cost": 192243.2436,
+            "other_fixed_assets_cost": 185734.2028,
+            "miscellaneous_assets_cost": 104590.2322,
+            "working_capital": 81173.618,
+            "project_cost": 861043.2118
+        },
+        "finance": {
+            "bank_branch_id": 1431,
+            "has_any_loan": "yes",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "no"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "FLOTONIC",
+            "activity_type_id": 1,
+            "products": "tempor amet",
+            "constitution_type_id": 23,
+            "employment": 2667,
+            "pincode": 172021,
+            "district_id": 7,
+            "constituency_id": 39,
+            "tehsil_id": 158,
+            "block_id": 235,
+            "panchayat_id": 1459,
+            "address": "489 Grace Court"
+        },
+        "email": "franklinshort@flotonic.com",
+        "mobile": "(974) 471-2761",
+        "owner": {
+            "name": "Hensley Suarez",
+            "mobile": "(920) 477-2691",
+            "email": "hensleysuarez@flotonic.com",
+            "guardian_prefix": "S/O",
+            "guardian": "sunt",
+            "pincode": 174472,
+            "district_id": 2341,
+            "constituency_id": 797,
+            "tehsil_id": 1575,
+            "block_id": 467,
+            "panchayat_id": 1718,
+            "address": "441 Kings Hwy",
+            "birth_date": "1998-10-12",
+            "aadhaar": 940421803771,
+            "pan": "GYNK6149ZORROMOP",
+            "gender": "male",
+            "is_widow": "no",
+            "social_category_id": 40,
+            "partner_name": [
+                "Simpson Heath"
+            ],
+            "partner_birth_date": [
+                "2019-04-29"
+            ],
+            "partner_aadhaar": [
+                456765705486
+            ],
+            "partner_mobile": [
+                "(868) 426-2897"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "yes",
+            "machinery_cost": 846432.4344,
+            "other_fixed_assets_cost": 319756.7229,
+            "miscellaneous_assets_cost": 506263.2524,
+            "working_capital": 789575.8087,
+            "project_cost": 37447.7475
+        },
+        "finance": {
+            "bank_branch_id": 1253,
+            "has_any_loan": "yes",
+            "has_other_income_source": "no",
+            "is_assessed_for_income_tax": "yes"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "ENTHAZE",
+            "activity_type_id": 1,
+            "products": "commodo pariatur",
+            "constitution_type_id": 37,
+            "employment": 285,
+            "pincode": 172021,
+            "district_id": 6,
+            "constituency_id": 79,
+            "tehsil_id": 172,
+            "block_id": 235,
+            "panchayat_id": 1121,
+            "address": "989 Harway Avenue"
+        },
+        "email": "simpsonheath@enthaze.com",
+        "mobile": "(896) 451-2263",
+        "owner": {
+            "name": "Velazquez Cardenas",
+            "mobile": "(909) 489-2575",
+            "email": "velazquezcardenas@enthaze.com",
+            "guardian_prefix": "S/O",
+            "guardian": "magna",
+            "pincode": 174472,
+            "district_id": 1469,
+            "constituency_id": 3054,
+            "tehsil_id": 2390,
+            "block_id": 3497,
+            "panchayat_id": 3158,
+            "address": "956 Tiffany Place",
+            "birth_date": "1994-10-05",
+            "aadhaar": 537022120648,
+            "pan": "LIQUICOM8967ZILODYNE",
+            "gender": "male",
+            "is_widow": "yes",
+            "social_category_id": 36,
+            "partner_name": [
+                "Carla Gates"
+            ],
+            "partner_birth_date": [
+                "2010-06-28"
+            ],
+            "partner_aadhaar": [
+                456438637303
+            ],
+            "partner_mobile": [
+                "(855) 501-2676"
+            ]
+        },
+        "cost": {
+            "is_land_required": "no",
+            "is_building_required": "no",
+            "machinery_cost": 368714.6552,
+            "other_fixed_assets_cost": 625031.6101,
+            "miscellaneous_assets_cost": 440393.7747,
+            "working_capital": 444353.9168,
+            "project_cost": 534011.0403
+        },
+        "finance": {
+            "bank_branch_id": 1244,
+            "has_any_loan": "no",
+            "has_other_income_source": "no",
+            "is_assessed_for_income_tax": "no"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "SOFTMICRO",
+            "activity_type_id": 1,
+            "products": "velit Lorem",
+            "constitution_type_id": 32,
+            "employment": 2442,
+            "pincode": 172021,
+            "district_id": 12,
+            "constituency_id": 40,
+            "tehsil_id": 89,
+            "block_id": 252,
+            "panchayat_id": 3704,
+            "address": "830 Ovington Avenue"
+        },
+        "email": "carlagates@softmicro.com",
+        "mobile": "(997) 562-3160",
+        "owner": {
+            "name": "Reba Church",
+            "mobile": "(936) 500-2969",
+            "email": "rebachurch@softmicro.com",
+            "guardian_prefix": "S/O",
+            "guardian": "elit",
+            "pincode": 174472,
+            "district_id": 3103,
+            "constituency_id": 616,
+            "tehsil_id": 1586,
+            "block_id": 2308,
+            "panchayat_id": 1935,
+            "address": "470 Hillel Place",
+            "birth_date": "1986-09-11",
+            "aadhaar": 598641562657,
+            "pan": "NAXDIS4965SURELOGIC",
+            "gender": "female",
+            "is_widow": "no",
+            "social_category_id": 37,
+            "partner_name": [
+                "Katheryn Bell"
+            ],
+            "partner_birth_date": [
+                "1999-12-27"
+            ],
+            "partner_aadhaar": [
+                779098870865
+            ],
+            "partner_mobile": [
+                "(993) 414-3730"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "no",
+            "machinery_cost": 624330.4576,
+            "other_fixed_assets_cost": 433647.5058,
+            "miscellaneous_assets_cost": 92041.0884,
+            "working_capital": 693584.9139,
+            "project_cost": 835245.9723
+        },
+        "finance": {
+            "bank_branch_id": 1470,
+            "has_any_loan": "yes",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "no"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "FANFARE",
+            "activity_type_id": 1,
+            "products": "est irure",
+            "constitution_type_id": 39,
+            "employment": 1927,
+            "pincode": 172021,
+            "district_id": 11,
+            "constituency_id": 17,
+            "tehsil_id": 197,
+            "block_id": 293,
+            "panchayat_id": 3678,
+            "address": "719 Lynch Street"
+        },
+        "email": "katherynbell@fanfare.com",
+        "mobile": "(945) 585-2383",
+        "owner": {
+            "name": "Blackburn Hewitt",
+            "mobile": "(961) 515-2826",
+            "email": "blackburnhewitt@fanfare.com",
+            "guardian_prefix": "S/O",
+            "guardian": "ullamco",
+            "pincode": 174472,
+            "district_id": 2190,
+            "constituency_id": 1465,
+            "tehsil_id": 1624,
+            "block_id": 1698,
+            "panchayat_id": 736,
+            "address": "965 Knapp Street",
+            "birth_date": "2007-09-04",
+            "aadhaar": 775076771901,
+            "pan": "GENEKOM2818EVEREST",
+            "gender": "male",
+            "is_widow": "no",
+            "social_category_id": 30,
+            "partner_name": [
+                "Colette Kirk"
+            ],
+            "partner_birth_date": [
+                "1989-08-13"
+            ],
+            "partner_aadhaar": [
+                785676485676
+            ],
+            "partner_mobile": [
+                "(852) 578-3738"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "yes",
+            "machinery_cost": 216534.1888,
+            "other_fixed_assets_cost": 729063.1754,
+            "miscellaneous_assets_cost": 351456.9412,
+            "working_capital": 894960.8287,
+            "project_cost": 519430.4066
+        },
+        "finance": {
+            "bank_branch_id": 1314,
+            "has_any_loan": "no",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "yes"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "RENOVIZE",
+            "activity_type_id": 1,
+            "products": "sint occaecat",
+            "constitution_type_id": 21,
+            "employment": 3937,
+            "pincode": 172021,
+            "district_id": 6,
+            "constituency_id": 40,
+            "tehsil_id": 170,
+            "block_id": 216,
+            "panchayat_id": 1109,
+            "address": "334 Coventry Road"
+        },
+        "email": "colettekirk@renovize.com",
+        "mobile": "(992) 517-3618",
+        "owner": {
+            "name": "Latisha Mueller",
+            "mobile": "(950) 448-3860",
+            "email": "latishamueller@renovize.com",
+            "guardian_prefix": "S/O",
+            "guardian": "nostrud",
+            "pincode": 174472,
+            "district_id": 2170,
+            "constituency_id": 1388,
+            "tehsil_id": 95,
+            "block_id": 3479,
+            "panchayat_id": 3059,
+            "address": "817 Krier Place",
+            "birth_date": "2005-02-19",
+            "aadhaar": 652351047954,
+            "pan": "SHOPABOUT5342ZENSOR",
+            "gender": "female",
+            "is_widow": "no",
+            "social_category_id": 33,
+            "partner_name": [
+                "Holloway Hart"
+            ],
+            "partner_birth_date": [
+                "2004-02-21"
+            ],
+            "partner_aadhaar": [
+                582241827454
+            ],
+            "partner_mobile": [
+                "(946) 410-2033"
+            ]
+        },
+        "cost": {
+            "is_land_required": "no",
+            "is_building_required": "yes",
+            "machinery_cost": 16633.5982,
+            "other_fixed_assets_cost": 362308.6191,
+            "miscellaneous_assets_cost": 221422.8861,
+            "working_capital": 381065.7382,
+            "project_cost": 836651.5816
+        },
+        "finance": {
+            "bank_branch_id": 1182,
+            "has_any_loan": "yes",
+            "has_other_income_source": "no",
+            "is_assessed_for_income_tax": "no"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "QUALITEX",
+            "activity_type_id": 1,
+            "products": "id cillum",
+            "constitution_type_id": 25,
+            "employment": 3627,
+            "pincode": 172021,
+            "district_id": 5,
+            "constituency_id": 64,
+            "tehsil_id": 154,
+            "block_id": 288,
+            "panchayat_id": 2038,
+            "address": "329 McClancy Place"
+        },
+        "email": "hollowayhart@qualitex.com",
+        "mobile": "(846) 585-2599",
+        "owner": {
+            "name": "Guzman Marshall",
+            "mobile": "(909) 553-3729",
+            "email": "guzmanmarshall@qualitex.com",
+            "guardian_prefix": "S/O",
+            "guardian": "eu",
+            "pincode": 174472,
+            "district_id": 3402,
+            "constituency_id": 3256,
+            "tehsil_id": 873,
+            "block_id": 1239,
+            "panchayat_id": 2525,
+            "address": "273 Dinsmore Place",
+            "birth_date": "2003-02-20",
+            "aadhaar": 721956205131,
+            "pan": "ASSURITY2250EXOSPEED",
+            "gender": "male",
+            "is_widow": "no",
+            "social_category_id": 27,
+            "partner_name": [
+                "Daniels Norton"
+            ],
+            "partner_birth_date": [
+                "2008-08-15"
+            ],
+            "partner_aadhaar": [
+                863780738411
+            ],
+            "partner_mobile": [
+                "(875) 524-3653"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "no",
+            "machinery_cost": 380560.5592,
+            "other_fixed_assets_cost": 399147.8343,
+            "miscellaneous_assets_cost": 514854.0405,
+            "working_capital": 897191.4839,
+            "project_cost": 29585.1372
+        },
+        "finance": {
+            "bank_branch_id": 1194,
+            "has_any_loan": "no",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "yes"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "WRAPTURE",
+            "activity_type_id": 1,
+            "products": "officia ea",
+            "constitution_type_id": 22,
+            "employment": 857,
+            "pincode": 172021,
+            "district_id": 14,
+            "constituency_id": 51,
+            "tehsil_id": 180,
+            "block_id": 224,
+            "panchayat_id": 1944,
+            "address": "986 Cove Lane"
+        },
+        "email": "danielsnorton@wrapture.com",
+        "mobile": "(811) 479-3077",
+        "owner": {
+            "name": "Gwen Bentley",
+            "mobile": "(985) 428-3458",
+            "email": "gwenbentley@wrapture.com",
+            "guardian_prefix": "S/O",
+            "guardian": "excepteur",
+            "pincode": 174472,
+            "district_id": 2197,
+            "constituency_id": 2055,
+            "tehsil_id": 3273,
+            "block_id": 3067,
+            "panchayat_id": 3359,
+            "address": "500 Polar Street",
+            "birth_date": "2000-11-29",
+            "aadhaar": 600665867947,
+            "pan": "ISOPLEX9516TSUNAMIA",
+            "gender": "female",
+            "is_widow": "yes",
+            "social_category_id": 32,
+            "partner_name": [
+                "Washington Potts"
+            ],
+            "partner_birth_date": [
+                "1996-02-23"
+            ],
+            "partner_aadhaar": [
+                571057971976
+            ],
+            "partner_mobile": [
+                "(873) 578-3933"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "no",
+            "machinery_cost": 645431.7127,
+            "other_fixed_assets_cost": 193038.8994,
+            "miscellaneous_assets_cost": 850417.312,
+            "working_capital": 444153.7495,
+            "project_cost": 296190.8703
+        },
+        "finance": {
+            "bank_branch_id": 1304,
+            "has_any_loan": "yes",
+            "has_other_income_source": "no",
+            "is_assessed_for_income_tax": "yes"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "ZOARERE",
+            "activity_type_id": 1,
+            "products": "et tempor",
+            "constitution_type_id": 35,
+            "employment": 632,
+            "pincode": 172021,
+            "district_id": 3,
+            "constituency_id": 32,
+            "tehsil_id": 164,
+            "block_id": 241,
+            "panchayat_id": 2090,
+            "address": "192 Bowery Street"
+        },
+        "email": "washingtonpotts@zoarere.com",
+        "mobile": "(892) 446-3984",
+        "owner": {
+            "name": "Sallie Mccormick",
+            "mobile": "(806) 445-2232",
+            "email": "salliemccormick@zoarere.com",
+            "guardian_prefix": "S/O",
+            "guardian": "nulla",
+            "pincode": 174472,
+            "district_id": 3458,
+            "constituency_id": 872,
+            "tehsil_id": 1031,
+            "block_id": 147,
+            "panchayat_id": 913,
+            "address": "417 Schenck Street",
+            "birth_date": "1978-06-11",
+            "aadhaar": 980068511100,
+            "pan": "SEQUITUR6979ARCTIQ",
+            "gender": "female",
+            "is_widow": "yes",
+            "social_category_id": 25,
+            "partner_name": [
+                "Erin Frazier"
+            ],
+            "partner_birth_date": [
+                "1997-10-16"
+            ],
+            "partner_aadhaar": [
+                842494237614
+            ],
+            "partner_mobile": [
+                "(858) 440-3026"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "no",
+            "machinery_cost": 524934.3495,
+            "other_fixed_assets_cost": 842729.1824,
+            "miscellaneous_assets_cost": 886831.1773,
+            "working_capital": 496309.3815,
+            "project_cost": 764374.5431
+        },
+        "finance": {
+            "bank_branch_id": 1489,
+            "has_any_loan": "no",
+            "has_other_income_source": "no",
+            "is_assessed_for_income_tax": "yes"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "QUIZMO",
+            "activity_type_id": 1,
+            "products": "tempor nisi",
+            "constitution_type_id": 36,
+            "employment": 3162,
+            "pincode": 172021,
+            "district_id": 10,
+            "constituency_id": 45,
+            "tehsil_id": 94,
+            "block_id": 232,
+            "panchayat_id": 1814,
+            "address": "363 Greenwood Avenue"
+        },
+        "email": "erinfrazier@quizmo.com",
+        "mobile": "(880) 487-3361",
+        "owner": {
+            "name": "Gabrielle Foley",
+            "mobile": "(999) 424-2782",
+            "email": "gabriellefoley@quizmo.com",
+            "guardian_prefix": "S/O",
+            "guardian": "reprehenderit",
+            "pincode": 174472,
+            "district_id": 781,
+            "constituency_id": 162,
+            "tehsil_id": 2808,
+            "block_id": 2217,
+            "panchayat_id": 2294,
+            "address": "258 Brightwater Avenue",
+            "birth_date": "1993-12-19",
+            "aadhaar": 492541109733,
+            "pan": "JUMPSTACK2251QUONATA",
+            "gender": "female",
+            "is_widow": "yes",
+            "social_category_id": 34,
+            "partner_name": [
+                "Ruthie Gay"
+            ],
+            "partner_birth_date": [
+                "1988-08-07"
+            ],
+            "partner_aadhaar": [
+                944721979124
+            ],
+            "partner_mobile": [
+                "(811) 511-2913"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "no",
+            "machinery_cost": 507324.5748,
+            "other_fixed_assets_cost": 554260.95,
+            "miscellaneous_assets_cost": 867444.8545,
+            "working_capital": 206018.1481,
+            "project_cost": 605863.4311
+        },
+        "finance": {
+            "bank_branch_id": 1050,
+            "has_any_loan": "no",
+            "has_other_income_source": "no",
+            "is_assessed_for_income_tax": "no"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "ZOLAR",
+            "activity_type_id": 1,
+            "products": "quis do",
+            "constitution_type_id": 40,
+            "employment": 2268,
+            "pincode": 172021,
+            "district_id": 9,
+            "constituency_id": 24,
+            "tehsil_id": 197,
+            "block_id": 209,
+            "panchayat_id": 2441,
+            "address": "993 Tudor Terrace"
+        },
+        "email": "ruthiegay@zolar.com",
+        "mobile": "(824) 473-3206",
+        "owner": {
+            "name": "Pugh Benson",
+            "mobile": "(863) 447-2024",
+            "email": "pughbenson@zolar.com",
+            "guardian_prefix": "S/O",
+            "guardian": "non",
+            "pincode": 174472,
+            "district_id": 2304,
+            "constituency_id": 1300,
+            "tehsil_id": 1553,
+            "block_id": 1093,
+            "panchayat_id": 90,
+            "address": "290 Bartlett Place",
+            "birth_date": "2016-11-22",
+            "aadhaar": 511213983220,
+            "pan": "ZILPHUR1480GENESYNK",
+            "gender": "male",
+            "is_widow": "no",
+            "social_category_id": 39,
+            "partner_name": [
+                "Dodson Mcleod"
+            ],
+            "partner_birth_date": [
+                "1988-09-29"
+            ],
+            "partner_aadhaar": [
+                791145332399
+            ],
+            "partner_mobile": [
+                "(919) 422-3089"
+            ]
+        },
+        "cost": {
+            "is_land_required": "no",
+            "is_building_required": "no",
+            "machinery_cost": 464632.4535,
+            "other_fixed_assets_cost": 402832.4093,
+            "miscellaneous_assets_cost": 177039.3904,
+            "working_capital": 362132.6563,
+            "project_cost": 470807.6282
+        },
+        "finance": {
+            "bank_branch_id": 1121,
+            "has_any_loan": "no",
+            "has_other_income_source": "no",
+            "is_assessed_for_income_tax": "yes"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "VERBUS",
+            "activity_type_id": 1,
+            "products": "ullamco officia",
+            "constitution_type_id": 25,
+            "employment": 815,
+            "pincode": 172021,
+            "district_id": 13,
+            "constituency_id": 41,
+            "tehsil_id": 106,
+            "block_id": 244,
+            "panchayat_id": 2366,
+            "address": "343 Dearborn Court"
+        },
+        "email": "dodsonmcleod@verbus.com",
+        "mobile": "(946) 575-3331",
+        "owner": {
+            "name": "Burns Mullins",
+            "mobile": "(915) 442-2762",
+            "email": "burnsmullins@verbus.com",
+            "guardian_prefix": "S/O",
+            "guardian": "ea",
+            "pincode": 174472,
+            "district_id": 1912,
+            "constituency_id": 1814,
+            "tehsil_id": 1633,
+            "block_id": 20,
+            "panchayat_id": 1901,
+            "address": "143 Gilmore Court",
+            "birth_date": "1993-01-09",
+            "aadhaar": 930766845344,
+            "pan": "MOLTONIC2736EXOSIS",
+            "gender": "male",
+            "is_widow": "yes",
+            "social_category_id": 26,
+            "partner_name": [
+                "Paulette Taylor"
+            ],
+            "partner_birth_date": [
+                "1983-09-28"
+            ],
+            "partner_aadhaar": [
+                450663036690
+            ],
+            "partner_mobile": [
+                "(866) 483-2215"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "no",
+            "machinery_cost": 185644.8205,
+            "other_fixed_assets_cost": 392043.9806,
+            "miscellaneous_assets_cost": 125522.3096,
+            "working_capital": 224623.2879,
+            "project_cost": 344176.7987
+        },
+        "finance": {
+            "bank_branch_id": 1223,
+            "has_any_loan": "yes",
+            "has_other_income_source": "no",
+            "is_assessed_for_income_tax": "no"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "ASSISTIX",
+            "activity_type_id": 1,
+            "products": "ipsum enim",
+            "constitution_type_id": 22,
+            "employment": 1099,
+            "pincode": 172021,
+            "district_id": 7,
+            "constituency_id": 22,
+            "tehsil_id": 183,
+            "block_id": 314,
+            "panchayat_id": 3486,
+            "address": "660 Gerald Court"
+        },
+        "email": "paulettetaylor@assistix.com",
+        "mobile": "(845) 520-3268",
+        "owner": {
+            "name": "Floyd Lewis",
+            "mobile": "(912) 556-3087",
+            "email": "floydlewis@assistix.com",
+            "guardian_prefix": "S/O",
+            "guardian": "esse",
+            "pincode": 174472,
+            "district_id": 179,
+            "constituency_id": 1585,
+            "tehsil_id": 1015,
+            "block_id": 1706,
+            "panchayat_id": 911,
+            "address": "370 Onderdonk Avenue",
+            "birth_date": "2017-07-21",
+            "aadhaar": 954482639139,
+            "pan": "HAIRPORT4171FRENEX",
+            "gender": "male",
+            "is_widow": "yes",
+            "social_category_id": 25,
+            "partner_name": [
+                "Ferrell Glenn"
+            ],
+            "partner_birth_date": [
+                "2008-01-30"
+            ],
+            "partner_aadhaar": [
+                981244751589
+            ],
+            "partner_mobile": [
+                "(830) 594-3978"
+            ]
+        },
+        "cost": {
+            "is_land_required": "no",
+            "is_building_required": "no",
+            "machinery_cost": 288736.1041,
+            "other_fixed_assets_cost": 896437.4857,
+            "miscellaneous_assets_cost": 716796.9038,
+            "working_capital": 429384.6108,
+            "project_cost": 731876.8064
+        },
+        "finance": {
+            "bank_branch_id": 1368,
+            "has_any_loan": "yes",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "no"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "IMANT",
+            "activity_type_id": 1,
+            "products": "enim ut",
+            "constitution_type_id": 31,
+            "employment": 666,
+            "pincode": 172021,
+            "district_id": 8,
+            "constituency_id": 22,
+            "tehsil_id": 89,
+            "block_id": 246,
+            "panchayat_id": 3237,
+            "address": "916 Bond Street"
+        },
+        "email": "ferrellglenn@imant.com",
+        "mobile": "(947) 466-2201",
+        "owner": {
+            "name": "Sutton Dillard",
+            "mobile": "(810) 445-3246",
+            "email": "suttondillard@imant.com",
+            "guardian_prefix": "S/O",
+            "guardian": "nisi",
+            "pincode": 174472,
+            "district_id": 804,
+            "constituency_id": 1859,
+            "tehsil_id": 1198,
+            "block_id": 901,
+            "panchayat_id": 2921,
+            "address": "532 India Street",
+            "birth_date": "2019-07-10",
+            "aadhaar": 589415071375,
+            "pan": "NIMON6753EXTRAWEAR",
+            "gender": "male",
+            "is_widow": "yes",
+            "social_category_id": 30,
+            "partner_name": [
+                "Kelli Black"
+            ],
+            "partner_birth_date": [
+                "2010-03-01"
+            ],
+            "partner_aadhaar": [
+                976892585397
+            ],
+            "partner_mobile": [
+                "(813) 554-3063"
+            ]
+        },
+        "cost": {
+            "is_land_required": "no",
+            "is_building_required": "no",
+            "machinery_cost": 848905.7086,
+            "other_fixed_assets_cost": 749489.5787,
+            "miscellaneous_assets_cost": 574578.8308,
+            "working_capital": 485548.9152,
+            "project_cost": 490944.0484
+        },
+        "finance": {
+            "bank_branch_id": 1406,
+            "has_any_loan": "no",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "yes"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "SPRINGBEE",
+            "activity_type_id": 1,
+            "products": "voluptate amet",
+            "constitution_type_id": 34,
+            "employment": 2113,
+            "pincode": 172021,
+            "district_id": 3,
+            "constituency_id": 37,
+            "tehsil_id": 179,
+            "block_id": 217,
+            "panchayat_id": 2403,
+            "address": "403 National Drive"
+        },
+        "email": "kelliblack@springbee.com",
+        "mobile": "(886) 521-2733",
+        "owner": {
+            "name": "Gena Jones",
+            "mobile": "(994) 561-3231",
+            "email": "genajones@springbee.com",
+            "guardian_prefix": "S/O",
+            "guardian": "tempor",
+            "pincode": 174472,
+            "district_id": 2057,
+            "constituency_id": 3225,
+            "tehsil_id": 2300,
+            "block_id": 2360,
+            "panchayat_id": 2111,
+            "address": "862 Roosevelt Place",
+            "birth_date": "2020-05-03",
+            "aadhaar": 642079368428,
+            "pan": "ORBOID3004ZOGAK",
+            "gender": "female",
+            "is_widow": "no",
+            "social_category_id": 39,
+            "partner_name": [
+                "Carly Crane"
+            ],
+            "partner_birth_date": [
+                "2020-07-06"
+            ],
+            "partner_aadhaar": [
+                664940345432
+            ],
+            "partner_mobile": [
+                "(898) 495-2902"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "yes",
+            "machinery_cost": 739836.0056,
+            "other_fixed_assets_cost": 610249.6635,
+            "miscellaneous_assets_cost": 719244.989,
+            "working_capital": 651096.1423,
+            "project_cost": 437440.3114
+        },
+        "finance": {
+            "bank_branch_id": 1388,
+            "has_any_loan": "no",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "no"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "TECHTRIX",
+            "activity_type_id": 1,
+            "products": "occaecat non",
+            "constitution_type_id": 30,
+            "employment": 836,
+            "pincode": 172021,
+            "district_id": 9,
+            "constituency_id": 67,
+            "tehsil_id": 115,
+            "block_id": 218,
+            "panchayat_id": 2618,
+            "address": "292 Atkins Avenue"
+        },
+        "email": "carlycrane@techtrix.com",
+        "mobile": "(916) 542-3431",
+        "owner": {
+            "name": "Hewitt Fulton",
+            "mobile": "(872) 600-2213",
+            "email": "hewittfulton@techtrix.com",
+            "guardian_prefix": "S/O",
+            "guardian": "ut",
+            "pincode": 174472,
+            "district_id": 706,
+            "constituency_id": 3311,
+            "tehsil_id": 66,
+            "block_id": 2488,
+            "panchayat_id": 870,
+            "address": "717 Frank Court",
+            "birth_date": "1985-03-20",
+            "aadhaar": 566582209247,
+            "pan": "ENORMO2675ZILLACTIC",
+            "gender": "male",
+            "is_widow": "yes",
+            "social_category_id": 24,
+            "partner_name": [
+                "Berry Garrett"
+            ],
+            "partner_birth_date": [
+                "2011-06-27"
+            ],
+            "partner_aadhaar": [
+                679932002040
+            ],
+            "partner_mobile": [
+                "(919) 436-3749"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "yes",
+            "machinery_cost": 190199.8255,
+            "other_fixed_assets_cost": 252628.0971,
+            "miscellaneous_assets_cost": 821832.6407,
+            "working_capital": 59933.7364,
+            "project_cost": 280003.3398
+        },
+        "finance": {
+            "bank_branch_id": 1158,
+            "has_any_loan": "no",
+            "has_other_income_source": "no",
+            "is_assessed_for_income_tax": "no"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "ZIDANT",
+            "activity_type_id": 1,
+            "products": "voluptate nostrud",
+            "constitution_type_id": 28,
+            "employment": 2985,
+            "pincode": 172021,
+            "district_id": 11,
+            "constituency_id": 68,
+            "tehsil_id": 149,
+            "block_id": 278,
+            "panchayat_id": 1512,
+            "address": "782 Oak Street"
+        },
+        "email": "berrygarrett@zidant.com",
+        "mobile": "(850) 549-3370",
+        "owner": {
+            "name": "Holman Bond",
+            "mobile": "(908) 483-3719",
+            "email": "holmanbond@zidant.com",
+            "guardian_prefix": "S/O",
+            "guardian": "excepteur",
+            "pincode": 174472,
+            "district_id": 2454,
+            "constituency_id": 2178,
+            "tehsil_id": 354,
+            "block_id": 1295,
+            "panchayat_id": 1844,
+            "address": "495 Florence Avenue",
+            "birth_date": "2001-11-19",
+            "aadhaar": 896684447203,
+            "pan": "SUREMAX2420FLEETMIX",
+            "gender": "male",
+            "is_widow": "no",
+            "social_category_id": 33,
+            "partner_name": [
+                "Whitaker Ross"
+            ],
+            "partner_birth_date": [
+                "1997-02-23"
+            ],
+            "partner_aadhaar": [
+                697214727755
+            ],
+            "partner_mobile": [
+                "(854) 472-3020"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "yes",
+            "machinery_cost": 814218.0393,
+            "other_fixed_assets_cost": 758524.9613,
+            "miscellaneous_assets_cost": 378683.6051,
+            "working_capital": 660452.2627,
+            "project_cost": 480033.7566
+        },
+        "finance": {
+            "bank_branch_id": 1256,
+            "has_any_loan": "no",
+            "has_other_income_source": "no",
+            "is_assessed_for_income_tax": "no"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "CENTREE",
+            "activity_type_id": 1,
+            "products": "consequat qui",
+            "constitution_type_id": 20,
+            "employment": 1620,
+            "pincode": 172021,
+            "district_id": 6,
+            "constituency_id": 22,
+            "tehsil_id": 99,
+            "block_id": 220,
+            "panchayat_id": 1584,
+            "address": "351 Flatlands Avenue"
+        },
+        "email": "whitakerross@centree.com",
+        "mobile": "(919) 524-3247",
+        "owner": {
+            "name": "Shields Jensen",
+            "mobile": "(912) 520-2368",
+            "email": "shieldsjensen@centree.com",
+            "guardian_prefix": "S/O",
+            "guardian": "aliquip",
+            "pincode": 174472,
+            "district_id": 835,
+            "constituency_id": 743,
+            "tehsil_id": 3312,
+            "block_id": 2749,
+            "panchayat_id": 738,
+            "address": "923 Kings Place",
+            "birth_date": "2011-01-19",
+            "aadhaar": 802548975968,
+            "pan": "ISOTERNIA6634ENTALITY",
+            "gender": "male",
+            "is_widow": "no",
+            "social_category_id": 32,
+            "partner_name": [
+                "Kirby Clements"
+            ],
+            "partner_birth_date": [
+                "1986-01-24"
+            ],
+            "partner_aadhaar": [
+                728640740282
+            ],
+            "partner_mobile": [
+                "(834) 407-2717"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "yes",
+            "machinery_cost": 623980.5049,
+            "other_fixed_assets_cost": 608245.1792,
+            "miscellaneous_assets_cost": 195942.2993,
+            "working_capital": 28612.1952,
+            "project_cost": 803782.0651
+        },
+        "finance": {
+            "bank_branch_id": 1212,
+            "has_any_loan": "no",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "no"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "ZOSIS",
+            "activity_type_id": 1,
+            "products": "minim reprehenderit",
+            "constitution_type_id": 20,
+            "employment": 129,
+            "pincode": 172021,
+            "district_id": 13,
+            "constituency_id": 71,
+            "tehsil_id": 172,
+            "block_id": 325,
+            "panchayat_id": 3811,
+            "address": "952 Virginia Place"
+        },
+        "email": "kirbyclements@zosis.com",
+        "mobile": "(800) 555-3506",
+        "owner": {
+            "name": "Terrie Peck",
+            "mobile": "(861) 559-2750",
+            "email": "terriepeck@zosis.com",
+            "guardian_prefix": "S/O",
+            "guardian": "culpa",
+            "pincode": 174472,
+            "district_id": 2950,
+            "constituency_id": 2985,
+            "tehsil_id": 3028,
+            "block_id": 220,
+            "panchayat_id": 2390,
+            "address": "595 Norfolk Street",
+            "birth_date": "1984-10-18",
+            "aadhaar": 869243229253,
+            "pan": "COFINE8611ZOXY",
+            "gender": "female",
+            "is_widow": "no",
+            "social_category_id": 29,
+            "partner_name": [
+                "Hilda Warren"
+            ],
+            "partner_birth_date": [
+                "1994-01-19"
+            ],
+            "partner_aadhaar": [
+                895783425403
+            ],
+            "partner_mobile": [
+                "(857) 575-3971"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "yes",
+            "machinery_cost": 489133.8263,
+            "other_fixed_assets_cost": 581835.0561,
+            "miscellaneous_assets_cost": 144056.0832,
+            "working_capital": 371173.637,
+            "project_cost": 670495.2749
+        },
+        "finance": {
+            "bank_branch_id": 1262,
+            "has_any_loan": "yes",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "no"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "TRANSLINK",
+            "activity_type_id": 1,
+            "products": "ex ut",
+            "constitution_type_id": 23,
+            "employment": 1872,
+            "pincode": 172021,
+            "district_id": 10,
+            "constituency_id": 80,
+            "tehsil_id": 162,
+            "block_id": 270,
+            "panchayat_id": 3668,
+            "address": "594 Canal Avenue"
+        },
+        "email": "hildawarren@translink.com",
+        "mobile": "(997) 490-2037",
+        "owner": {
+            "name": "Terrell Hoover",
+            "mobile": "(831) 595-2133",
+            "email": "terrellhoover@translink.com",
+            "guardian_prefix": "S/O",
+            "guardian": "nostrud",
+            "pincode": 174472,
+            "district_id": 2492,
+            "constituency_id": 971,
+            "tehsil_id": 2658,
+            "block_id": 3252,
+            "panchayat_id": 1258,
+            "address": "256 Lefferts Avenue",
+            "birth_date": "2003-12-09",
+            "aadhaar": 968671238187,
+            "pan": "CHORIZON8477THREDZ",
+            "gender": "male",
+            "is_widow": "yes",
+            "social_category_id": 36,
+            "partner_name": [
+                "Estrada Hendrix"
+            ],
+            "partner_birth_date": [
+                "1993-03-05"
+            ],
+            "partner_aadhaar": [
+                923667863944
+            ],
+            "partner_mobile": [
+                "(987) 494-2019"
+            ]
+        },
+        "cost": {
+            "is_land_required": "no",
+            "is_building_required": "no",
+            "machinery_cost": 139055.6806,
+            "other_fixed_assets_cost": 581826.0674,
+            "miscellaneous_assets_cost": 680089.0068,
+            "working_capital": 806371.5062,
+            "project_cost": 865708.3254
+        },
+        "finance": {
+            "bank_branch_id": 1169,
+            "has_any_loan": "no",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "no"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "CONFRENZY",
+            "activity_type_id": 1,
+            "products": "adipisicing tempor",
+            "constitution_type_id": 26,
+            "employment": 57,
+            "pincode": 172021,
+            "district_id": 10,
+            "constituency_id": 78,
+            "tehsil_id": 104,
+            "block_id": 299,
+            "panchayat_id": 2297,
+            "address": "322 Losee Terrace"
+        },
+        "email": "estradahendrix@confrenzy.com",
+        "mobile": "(865) 590-3347",
+        "owner": {
+            "name": "Sexton Castro",
+            "mobile": "(866) 544-3405",
+            "email": "sextoncastro@confrenzy.com",
+            "guardian_prefix": "S/O",
+            "guardian": "exercitation",
+            "pincode": 174472,
+            "district_id": 380,
+            "constituency_id": 1968,
+            "tehsil_id": 1965,
+            "block_id": 3410,
+            "panchayat_id": 769,
+            "address": "410 Narrows Avenue",
+            "birth_date": "1996-07-18",
+            "aadhaar": 741744375662,
+            "pan": "DENTREX9890EXODOC",
+            "gender": "male",
+            "is_widow": "no",
+            "social_category_id": 28,
+            "partner_name": [
+                "Janet Williams"
+            ],
+            "partner_birth_date": [
+                "1980-05-14"
+            ],
+            "partner_aadhaar": [
+                496218322246
+            ],
+            "partner_mobile": [
+                "(944) 553-3776"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "no",
+            "machinery_cost": 397276.2899,
+            "other_fixed_assets_cost": 267933.0598,
+            "miscellaneous_assets_cost": 596743.6036,
+            "working_capital": 147401.7959,
+            "project_cost": 851192.7412
+        },
+        "finance": {
+            "bank_branch_id": 1230,
+            "has_any_loan": "yes",
+            "has_other_income_source": "no",
+            "is_assessed_for_income_tax": "no"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "RETRACK",
+            "activity_type_id": 1,
+            "products": "amet adipisicing",
+            "constitution_type_id": 34,
+            "employment": 3063,
+            "pincode": 172021,
+            "district_id": 8,
+            "constituency_id": 72,
+            "tehsil_id": 152,
+            "block_id": 321,
+            "panchayat_id": 2915,
+            "address": "520 Wilson Avenue"
+        },
+        "email": "janetwilliams@retrack.com",
+        "mobile": "(824) 420-2635",
+        "owner": {
+            "name": "Charity Holman",
+            "mobile": "(971) 501-3590",
+            "email": "charityholman@retrack.com",
+            "guardian_prefix": "S/O",
+            "guardian": "dolor",
+            "pincode": 174472,
+            "district_id": 3111,
+            "constituency_id": 1733,
+            "tehsil_id": 1389,
+            "block_id": 2613,
+            "panchayat_id": 1372,
+            "address": "784 Newton Street",
+            "birth_date": "1987-01-29",
+            "aadhaar": 821772559523,
+            "pan": "RECRISYS6447TERRAGO",
+            "gender": "female",
+            "is_widow": "yes",
+            "social_category_id": 23,
+            "partner_name": [
+                "Leola Weeks"
+            ],
+            "partner_birth_date": [
+                "1999-11-29"
+            ],
+            "partner_aadhaar": [
+                776914262982
+            ],
+            "partner_mobile": [
+                "(930) 541-3471"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "no",
+            "machinery_cost": 199208.118,
+            "other_fixed_assets_cost": 541536.5723,
+            "miscellaneous_assets_cost": 17898.4764,
+            "working_capital": 375179.5917,
+            "project_cost": 539636.2622
+        },
+        "finance": {
+            "bank_branch_id": 1381,
+            "has_any_loan": "yes",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "yes"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "POSHOME",
+            "activity_type_id": 1,
+            "products": "est et",
+            "constitution_type_id": 30,
+            "employment": 529,
+            "pincode": 172021,
+            "district_id": 5,
+            "constituency_id": 16,
+            "tehsil_id": 191,
+            "block_id": 274,
+            "panchayat_id": 1596,
+            "address": "683 Burnett Street"
+        },
+        "email": "leolaweeks@poshome.com",
+        "mobile": "(977) 570-2583",
+        "owner": {
+            "name": "Villarreal Fischer",
+            "mobile": "(976) 503-2817",
+            "email": "villarrealfischer@poshome.com",
+            "guardian_prefix": "S/O",
+            "guardian": "duis",
+            "pincode": 174472,
+            "district_id": 124,
+            "constituency_id": 101,
+            "tehsil_id": 1566,
+            "block_id": 1301,
+            "panchayat_id": 1912,
+            "address": "911 Monaco Place",
+            "birth_date": "2007-12-18",
+            "aadhaar": 848086109865,
+            "pan": "AQUAZURE3823BEDLAM",
+            "gender": "male",
+            "is_widow": "yes",
+            "social_category_id": 24,
+            "partner_name": [
+                "Hahn Ewing"
+            ],
+            "partner_birth_date": [
+                "1993-03-01"
+            ],
+            "partner_aadhaar": [
+                778075968323
+            ],
+            "partner_mobile": [
+                "(933) 487-3182"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "yes",
+            "machinery_cost": 240549.2969,
+            "other_fixed_assets_cost": 99898.0343,
+            "miscellaneous_assets_cost": 643811.6513,
+            "working_capital": 812619.7358,
+            "project_cost": 890699.6952
+        },
+        "finance": {
+            "bank_branch_id": 1095,
+            "has_any_loan": "yes",
+            "has_other_income_source": "no",
+            "is_assessed_for_income_tax": "no"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "BARKARAMA",
+            "activity_type_id": 1,
+            "products": "pariatur quis",
+            "constitution_type_id": 34,
+            "employment": 1677,
+            "pincode": 172021,
+            "district_id": 13,
+            "constituency_id": 53,
+            "tehsil_id": 118,
+            "block_id": 318,
+            "panchayat_id": 2677,
+            "address": "592 Goodwin Place"
+        },
+        "email": "hahnewing@barkarama.com",
+        "mobile": "(986) 444-2804",
+        "owner": {
+            "name": "Morrow Valenzuela",
+            "mobile": "(949) 562-2818",
+            "email": "morrowvalenzuela@barkarama.com",
+            "guardian_prefix": "S/O",
+            "guardian": "irure",
+            "pincode": 174472,
+            "district_id": 1578,
+            "constituency_id": 1132,
+            "tehsil_id": 287,
+            "block_id": 3168,
+            "panchayat_id": 2084,
+            "address": "486 Box Street",
+            "birth_date": "2017-05-13",
+            "aadhaar": 662508678794,
+            "pan": "MOMENTIA5482UNIA",
+            "gender": "male",
+            "is_widow": "yes",
+            "social_category_id": 33,
+            "partner_name": [
+                "Mcbride Cotton"
+            ],
+            "partner_birth_date": [
+                "2014-01-13"
+            ],
+            "partner_aadhaar": [
+                819730266061
+            ],
+            "partner_mobile": [
+                "(856) 454-2502"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "no",
+            "machinery_cost": 813518.7809,
+            "other_fixed_assets_cost": 251917.1037,
+            "miscellaneous_assets_cost": 197756.3541,
+            "working_capital": 861290.6472,
+            "project_cost": 377642.7528
+        },
+        "finance": {
+            "bank_branch_id": 1345,
+            "has_any_loan": "yes",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "yes"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "COMTRACT",
+            "activity_type_id": 1,
+            "products": "dolore voluptate",
+            "constitution_type_id": 39,
+            "employment": 1124,
+            "pincode": 172021,
+            "district_id": 4,
+            "constituency_id": 20,
+            "tehsil_id": 198,
+            "block_id": 206,
+            "panchayat_id": 1594,
+            "address": "630 Delmonico Place"
+        },
+        "email": "mcbridecotton@comtract.com",
+        "mobile": "(840) 445-2925",
+        "owner": {
+            "name": "Holly Slater",
+            "mobile": "(923) 517-2990",
+            "email": "hollyslater@comtract.com",
+            "guardian_prefix": "S/O",
+            "guardian": "deserunt",
+            "pincode": 174472,
+            "district_id": 3277,
+            "constituency_id": 800,
+            "tehsil_id": 1977,
+            "block_id": 421,
+            "panchayat_id": 520,
+            "address": "274 Schenck Place",
+            "birth_date": "1985-06-15",
+            "aadhaar": 669588874711,
+            "pan": "DIGIQUE5690COMCUR",
+            "gender": "female",
+            "is_widow": "yes",
+            "social_category_id": 20,
+            "partner_name": [
+                "Taylor Carrillo"
+            ],
+            "partner_birth_date": [
+                "1997-10-24"
+            ],
+            "partner_aadhaar": [
+                574071058123
+            ],
+            "partner_mobile": [
+                "(890) 408-3101"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "yes",
+            "machinery_cost": 888262.0549,
+            "other_fixed_assets_cost": 179578.2744,
+            "miscellaneous_assets_cost": 544915.4868,
+            "working_capital": 753070.7843,
+            "project_cost": 771241.0876
+        },
+        "finance": {
+            "bank_branch_id": 1499,
+            "has_any_loan": "no",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "yes"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "TELLIFLY",
+            "activity_type_id": 1,
+            "products": "dolor aute",
+            "constitution_type_id": 32,
+            "employment": 2304,
+            "pincode": 172021,
+            "district_id": 5,
+            "constituency_id": 31,
+            "tehsil_id": 184,
+            "block_id": 219,
+            "panchayat_id": 2352,
+            "address": "368 Irvington Place"
+        },
+        "email": "taylorcarrillo@tellifly.com",
+        "mobile": "(989) 489-3424",
+        "owner": {
+            "name": "Bryant Bolton",
+            "mobile": "(916) 489-3490",
+            "email": "bryantbolton@tellifly.com",
+            "guardian_prefix": "S/O",
+            "guardian": "ullamco",
+            "pincode": 174472,
+            "district_id": 1933,
+            "constituency_id": 1517,
+            "tehsil_id": 1757,
+            "block_id": 1708,
+            "panchayat_id": 1901,
+            "address": "679 Bleecker Street",
+            "birth_date": "1988-07-14",
+            "aadhaar": 540092021116,
+            "pan": "ZILLAN6440ZILLIDIUM",
+            "gender": "male",
+            "is_widow": "no",
+            "social_category_id": 37,
+            "partner_name": [
+                "Phyllis Horn"
+            ],
+            "partner_birth_date": [
+                "2011-09-08"
+            ],
+            "partner_aadhaar": [
+                455276566547
+            ],
+            "partner_mobile": [
+                "(916) 577-2847"
+            ]
+        },
+        "cost": {
+            "is_land_required": "no",
+            "is_building_required": "yes",
+            "machinery_cost": 213234.007,
+            "other_fixed_assets_cost": 896570.1474,
+            "miscellaneous_assets_cost": 458592.5991,
+            "working_capital": 223058.4496,
+            "project_cost": 495626.2997
+        },
+        "finance": {
+            "bank_branch_id": 1447,
+            "has_any_loan": "yes",
+            "has_other_income_source": "no",
+            "is_assessed_for_income_tax": "yes"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "ELECTONIC",
+            "activity_type_id": 1,
+            "products": "deserunt irure",
+            "constitution_type_id": 36,
+            "employment": 3142,
+            "pincode": 172021,
+            "district_id": 9,
+            "constituency_id": 45,
+            "tehsil_id": 143,
+            "block_id": 200,
+            "panchayat_id": 3366,
+            "address": "651 Hubbard Place"
+        },
+        "email": "phyllishorn@electonic.com",
+        "mobile": "(938) 501-3729",
+        "owner": {
+            "name": "Davis Allen",
+            "mobile": "(971) 443-2638",
+            "email": "davisallen@electonic.com",
+            "guardian_prefix": "S/O",
+            "guardian": "eu",
+            "pincode": 174472,
+            "district_id": 885,
+            "constituency_id": 2022,
+            "tehsil_id": 2785,
+            "block_id": 1255,
+            "panchayat_id": 2452,
+            "address": "119 Heyward Street",
+            "birth_date": "2019-09-15",
+            "aadhaar": 868583155588,
+            "pan": "ZILLACOM1600YOGASM",
+            "gender": "male",
+            "is_widow": "yes",
+            "social_category_id": 32,
+            "partner_name": [
+                "Elise Schmidt"
+            ],
+            "partner_birth_date": [
+                "2005-04-29"
+            ],
+            "partner_aadhaar": [
+                949225726917
+            ],
+            "partner_mobile": [
+                "(848) 443-3383"
+            ]
+        },
+        "cost": {
+            "is_land_required": "no",
+            "is_building_required": "yes",
+            "machinery_cost": 719907.8909,
+            "other_fixed_assets_cost": 193033.8886,
+            "miscellaneous_assets_cost": 145149.2246,
+            "working_capital": 867427.5728,
+            "project_cost": 501759.419
+        },
+        "finance": {
+            "bank_branch_id": 1430,
+            "has_any_loan": "yes",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "no"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "TROPOLIS",
+            "activity_type_id": 1,
+            "products": "laboris sint",
+            "constitution_type_id": 32,
+            "employment": 470,
+            "pincode": 172021,
+            "district_id": 7,
+            "constituency_id": 77,
+            "tehsil_id": 119,
+            "block_id": 305,
+            "panchayat_id": 2596,
+            "address": "954 Dwight Street"
+        },
+        "email": "eliseschmidt@tropolis.com",
+        "mobile": "(818) 568-2275",
+        "owner": {
+            "name": "Leta Ellison",
+            "mobile": "(916) 416-3978",
+            "email": "letaellison@tropolis.com",
+            "guardian_prefix": "S/O",
+            "guardian": "sint",
+            "pincode": 174472,
+            "district_id": 3322,
+            "constituency_id": 1763,
+            "tehsil_id": 1093,
+            "block_id": 147,
+            "panchayat_id": 2832,
+            "address": "217 Strauss Street",
+            "birth_date": "1987-06-03",
+            "aadhaar": 628023116474,
+            "pan": "NSPIRE9235RONELON",
+            "gender": "female",
+            "is_widow": "no",
+            "social_category_id": 36,
+            "partner_name": [
+                "Lucinda Torres"
+            ],
+            "partner_birth_date": [
+                "1990-07-26"
+            ],
+            "partner_aadhaar": [
+                733404189737
+            ],
+            "partner_mobile": [
+                "(994) 469-2702"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "no",
+            "machinery_cost": 383794.7916,
+            "other_fixed_assets_cost": 203066.5029,
+            "miscellaneous_assets_cost": 39622.3405,
+            "working_capital": 221214.0502,
+            "project_cost": 661796.3162
+        },
+        "finance": {
+            "bank_branch_id": 1308,
+            "has_any_loan": "yes",
+            "has_other_income_source": "no",
+            "is_assessed_for_income_tax": "no"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "VITRICOMP",
+            "activity_type_id": 1,
+            "products": "commodo duis",
+            "constitution_type_id": 20,
+            "employment": 2774,
+            "pincode": 172021,
+            "district_id": 8,
+            "constituency_id": 78,
+            "tehsil_id": 171,
+            "block_id": 225,
+            "panchayat_id": 2095,
+            "address": "558 Cobek Court"
+        },
+        "email": "lucindatorres@vitricomp.com",
+        "mobile": "(936) 579-2128",
+        "owner": {
+            "name": "Sears Wilson",
+            "mobile": "(902) 597-2542",
+            "email": "searswilson@vitricomp.com",
+            "guardian_prefix": "S/O",
+            "guardian": "ea",
+            "pincode": 174472,
+            "district_id": 3180,
+            "constituency_id": 1853,
+            "tehsil_id": 2443,
+            "block_id": 2300,
+            "panchayat_id": 2333,
+            "address": "217 Kensington Street",
+            "birth_date": "1998-10-17",
+            "aadhaar": 597604954137,
+            "pan": "FURNIGEER2466IMAGEFLOW",
+            "gender": "male",
+            "is_widow": "no",
+            "social_category_id": 35,
+            "partner_name": [
+                "Shirley Cross"
+            ],
+            "partner_birth_date": [
+                "2015-02-22"
+            ],
+            "partner_aadhaar": [
+                761872342399
+            ],
+            "partner_mobile": [
+                "(889) 419-3702"
+            ]
+        },
+        "cost": {
+            "is_land_required": "no",
+            "is_building_required": "yes",
+            "machinery_cost": 334341.2738,
+            "other_fixed_assets_cost": 870699.271,
+            "miscellaneous_assets_cost": 635482.6397,
+            "working_capital": 463495.4643,
+            "project_cost": 329851.8143
+        },
+        "finance": {
+            "bank_branch_id": 1009,
+            "has_any_loan": "no",
+            "has_other_income_source": "no",
+            "is_assessed_for_income_tax": "yes"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "FURNITECH",
+            "activity_type_id": 1,
+            "products": "reprehenderit adipisicing",
+            "constitution_type_id": 32,
+            "employment": 2522,
+            "pincode": 172021,
+            "district_id": 6,
+            "constituency_id": 72,
+            "tehsil_id": 95,
+            "block_id": 290,
+            "panchayat_id": 3260,
+            "address": "849 Clinton Street"
+        },
+        "email": "shirleycross@furnitech.com",
+        "mobile": "(953) 433-3714",
+        "owner": {
+            "name": "Kelley Fitzpatrick",
+            "mobile": "(968) 476-2047",
+            "email": "kelleyfitzpatrick@furnitech.com",
+            "guardian_prefix": "S/O",
+            "guardian": "mollit",
+            "pincode": 174472,
+            "district_id": 3148,
+            "constituency_id": 425,
+            "tehsil_id": 742,
+            "block_id": 928,
+            "panchayat_id": 455,
+            "address": "392 Cozine Avenue",
+            "birth_date": "2021-03-11",
+            "aadhaar": 590295162236,
+            "pan": "OMATOM3544OHMNET",
+            "gender": "male",
+            "is_widow": "yes",
+            "social_category_id": 35,
+            "partner_name": [
+                "Rebecca Landry"
+            ],
+            "partner_birth_date": [
+                "2020-11-05"
+            ],
+            "partner_aadhaar": [
+                862880252844
+            ],
+            "partner_mobile": [
+                "(947) 475-3077"
+            ]
+        },
+        "cost": {
+            "is_land_required": "no",
+            "is_building_required": "yes",
+            "machinery_cost": 261011.0166,
+            "other_fixed_assets_cost": 508174.2497,
+            "miscellaneous_assets_cost": 545078.4459,
+            "working_capital": 434746.7312,
+            "project_cost": 406501.674
+        },
+        "finance": {
+            "bank_branch_id": 1159,
+            "has_any_loan": "no",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "yes"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "TURNABOUT",
+            "activity_type_id": 1,
+            "products": "dolor commodo",
+            "constitution_type_id": 39,
+            "employment": 1396,
+            "pincode": 172021,
+            "district_id": 14,
+            "constituency_id": 67,
+            "tehsil_id": 94,
+            "block_id": 274,
+            "panchayat_id": 726,
+            "address": "529 Cypress Avenue"
+        },
+        "email": "rebeccalandry@turnabout.com",
+        "mobile": "(958) 484-2579",
+        "owner": {
+            "name": "Emilia Greene",
+            "mobile": "(990) 534-2081",
+            "email": "emiliagreene@turnabout.com",
+            "guardian_prefix": "S/O",
+            "guardian": "culpa",
+            "pincode": 174472,
+            "district_id": 2911,
+            "constituency_id": 179,
+            "tehsil_id": 1696,
+            "block_id": 2278,
+            "panchayat_id": 1002,
+            "address": "561 Branton Street",
+            "birth_date": "2009-12-21",
+            "aadhaar": 474589518337,
+            "pan": "FIBRODYNE5549BIFLEX",
+            "gender": "female",
+            "is_widow": "yes",
+            "social_category_id": 34,
+            "partner_name": [
+                "Willie Terrell"
+            ],
+            "partner_birth_date": [
+                "2010-05-31"
+            ],
+            "partner_aadhaar": [
+                954526624083
+            ],
+            "partner_mobile": [
+                "(864) 552-2174"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "yes",
+            "machinery_cost": 748810.7367,
+            "other_fixed_assets_cost": 713677.799,
+            "miscellaneous_assets_cost": 309383.8623,
+            "working_capital": 222930.0667,
+            "project_cost": 103421.4964
+        },
+        "finance": {
+            "bank_branch_id": 1198,
+            "has_any_loan": "yes",
+            "has_other_income_source": "no",
+            "is_assessed_for_income_tax": "no"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "REMOTION",
+            "activity_type_id": 1,
+            "products": "id aliquip",
+            "constitution_type_id": 40,
+            "employment": 1608,
+            "pincode": 172021,
+            "district_id": 13,
+            "constituency_id": 56,
+            "tehsil_id": 142,
+            "block_id": 250,
+            "panchayat_id": 1048,
+            "address": "221 Glendale Court"
+        },
+        "email": "willieterrell@remotion.com",
+        "mobile": "(851) 458-3150",
+        "owner": {
+            "name": "Bird Love",
+            "mobile": "(965) 558-2670",
+            "email": "birdlove@remotion.com",
+            "guardian_prefix": "S/O",
+            "guardian": "magna",
+            "pincode": 174472,
+            "district_id": 1980,
+            "constituency_id": 2964,
+            "tehsil_id": 3002,
+            "block_id": 2578,
+            "panchayat_id": 530,
+            "address": "679 Jefferson Avenue",
+            "birth_date": "2016-03-01",
+            "aadhaar": 989579919728,
+            "pan": "AUSTEX1205MENBRAIN",
+            "gender": "male",
+            "is_widow": "no",
+            "social_category_id": 28,
+            "partner_name": [
+                "Carr Gutierrez"
+            ],
+            "partner_birth_date": [
+                "2005-04-12"
+            ],
+            "partner_aadhaar": [
+                913403194215
+            ],
+            "partner_mobile": [
+                "(956) 584-3982"
+            ]
+        },
+        "cost": {
+            "is_land_required": "no",
+            "is_building_required": "no",
+            "machinery_cost": 186549.8444,
+            "other_fixed_assets_cost": 43952.2404,
+            "miscellaneous_assets_cost": 359314.7494,
+            "working_capital": 745558.5068,
+            "project_cost": 373592.6635
+        },
+        "finance": {
+            "bank_branch_id": 1320,
+            "has_any_loan": "no",
+            "has_other_income_source": "no",
+            "is_assessed_for_income_tax": "yes"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "POWERNET",
+            "activity_type_id": 1,
+            "products": "excepteur nostrud",
+            "constitution_type_id": 27,
+            "employment": 2419,
+            "pincode": 172021,
+            "district_id": 10,
+            "constituency_id": 42,
+            "tehsil_id": 107,
+            "block_id": 306,
+            "panchayat_id": 2416,
+            "address": "539 Elton Street"
+        },
+        "email": "carrgutierrez@powernet.com",
+        "mobile": "(940) 459-2279",
+        "owner": {
+            "name": "Maggie Carroll",
+            "mobile": "(859) 555-3325",
+            "email": "maggiecarroll@powernet.com",
+            "guardian_prefix": "S/O",
+            "guardian": "esse",
+            "pincode": 174472,
+            "district_id": 1743,
+            "constituency_id": 3096,
+            "tehsil_id": 1731,
+            "block_id": 2315,
+            "panchayat_id": 3282,
+            "address": "644 Bergen Street",
+            "birth_date": "1994-07-14",
+            "aadhaar": 459820997999,
+            "pan": "FURNAFIX1289CINESANCT",
+            "gender": "female",
+            "is_widow": "no",
+            "social_category_id": 26,
+            "partner_name": [
+                "Harper Abbott"
+            ],
+            "partner_birth_date": [
+                "2021-04-29"
+            ],
+            "partner_aadhaar": [
+                763667135615
+            ],
+            "partner_mobile": [
+                "(878) 573-2387"
+            ]
+        },
+        "cost": {
+            "is_land_required": "no",
+            "is_building_required": "no",
+            "machinery_cost": 884345.9469,
+            "other_fixed_assets_cost": 41313.1193,
+            "miscellaneous_assets_cost": 716423.5632,
+            "working_capital": 389620.2817,
+            "project_cost": 254688.3545
+        },
+        "finance": {
+            "bank_branch_id": 1086,
+            "has_any_loan": "no",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "no"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "ENOMEN",
+            "activity_type_id": 1,
+            "products": "consectetur pariatur",
+            "constitution_type_id": 38,
+            "employment": 69,
+            "pincode": 172021,
+            "district_id": 10,
+            "constituency_id": 42,
+            "tehsil_id": 121,
+            "block_id": 267,
+            "panchayat_id": 855,
+            "address": "690 Humboldt Street"
+        },
+        "email": "harperabbott@enomen.com",
+        "mobile": "(820) 437-3828",
+        "owner": {
+            "name": "Madge Castillo",
+            "mobile": "(856) 564-2709",
+            "email": "madgecastillo@enomen.com",
+            "guardian_prefix": "S/O",
+            "guardian": "est",
+            "pincode": 174472,
+            "district_id": 1142,
+            "constituency_id": 3486,
+            "tehsil_id": 2386,
+            "block_id": 2330,
+            "panchayat_id": 2112,
+            "address": "814 Noel Avenue",
+            "birth_date": "1982-03-01",
+            "aadhaar": 679024517993,
+            "pan": "NITRACYR9788TALAE",
+            "gender": "female",
+            "is_widow": "yes",
+            "social_category_id": 21,
+            "partner_name": [
+                "Saunders Mcmillan"
+            ],
+            "partner_birth_date": [
+                "1999-11-04"
+            ],
+            "partner_aadhaar": [
+                586285085404
+            ],
+            "partner_mobile": [
+                "(864) 420-2170"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "no",
+            "machinery_cost": 684476.65,
+            "other_fixed_assets_cost": 596005.9871,
+            "miscellaneous_assets_cost": 112670.9727,
+            "working_capital": 299678.2398,
+            "project_cost": 447406.7256
+        },
+        "finance": {
+            "bank_branch_id": 1299,
+            "has_any_loan": "no",
+            "has_other_income_source": "no",
+            "is_assessed_for_income_tax": "yes"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "ASIMILINE",
+            "activity_type_id": 1,
+            "products": "officia est",
+            "constitution_type_id": 29,
+            "employment": 2465,
+            "pincode": 172021,
+            "district_id": 12,
+            "constituency_id": 29,
+            "tehsil_id": 138,
+            "block_id": 300,
+            "panchayat_id": 607,
+            "address": "512 Varick Street"
+        },
+        "email": "saundersmcmillan@asimiline.com",
+        "mobile": "(931) 506-2112",
+        "owner": {
+            "name": "Lena Foster",
+            "mobile": "(928) 430-2019",
+            "email": "lenafoster@asimiline.com",
+            "guardian_prefix": "S/O",
+            "guardian": "veniam",
+            "pincode": 174472,
+            "district_id": 878,
+            "constituency_id": 1558,
+            "tehsil_id": 2050,
+            "block_id": 1438,
+            "panchayat_id": 327,
+            "address": "812 Alton Place",
+            "birth_date": "2004-12-04",
+            "aadhaar": 893793110781,
+            "pan": "PERMADYNE2808GOKO",
+            "gender": "female",
+            "is_widow": "no",
+            "social_category_id": 35,
+            "partner_name": [
+                "Loraine Estrada"
+            ],
+            "partner_birth_date": [
+                "2010-01-06"
+            ],
+            "partner_aadhaar": [
+                943542648481
+            ],
+            "partner_mobile": [
+                "(984) 438-2350"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "no",
+            "machinery_cost": 476455.6088,
+            "other_fixed_assets_cost": 539286.1509,
+            "miscellaneous_assets_cost": 752969.3159,
+            "working_capital": 109132.1077,
+            "project_cost": 779590.2536
+        },
+        "finance": {
+            "bank_branch_id": 1378,
+            "has_any_loan": "no",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "no"
+        }
+    },
+
+    {
+        "enterprise": {
+            "name": "EARTHPLEX",
+            "activity_type_id": 1,
+            "products": "sunt adipisicing",
+            "constitution_type_id": 25,
+            "employment": 977,
+            "pincode": 172021,
+            "district_id": 8,
+            "constituency_id": 28,
+            "tehsil_id": 104,
+            "block_id": 264,
+            "panchayat_id": 2923,
+            "address": "644 Dekoven Court"
+        },
+        "email": "loraineestrada@earthplex.com",
+        "mobile": "(983) 551-3414",
+        "owner": {
+            "name": "Susana Riley",
+            "mobile": "(834) 558-3989",
+            "email": "susanariley@earthplex.com",
+            "guardian_prefix": "S/O",
+            "guardian": "sunt",
+            "pincode": 174472,
+            "district_id": 1312,
+            "constituency_id": 2657,
+            "tehsil_id": 2616,
+            "block_id": 994,
+            "panchayat_id": 1080,
+            "address": "663 Indiana Place",
+            "birth_date": "1997-07-08",
+            "aadhaar": 619145709754,
+            "pan": "SLOGANAUT2646ISOSPHERE",
+            "gender": "female",
+            "is_widow": "no",
+            "social_category_id": 40,
+            "partner_name": [
+                "Murphy Barrera"
+            ],
+            "partner_birth_date": [
+                "2015-09-03"
+            ],
+            "partner_aadhaar": [
+                662084674502
+            ],
+            "partner_mobile": [
+                "(898) 507-2326"
+            ]
+        },
+        "cost": {
+            "is_land_required": "no",
+            "is_building_required": "yes",
+            "machinery_cost": 467888.1852,
+            "other_fixed_assets_cost": 381967.7496,
+            "miscellaneous_assets_cost": 682115.5793,
+            "working_capital": 161760.7112,
+            "project_cost": 565294.2547
+        },
+        "finance": {
+            "bank_branch_id": 1347,
+            "has_any_loan": "no",
+            "has_other_income_source": "no",
+            "is_assessed_for_income_tax": "yes"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "CALLFLEX",
+            "activity_type_id": 1,
+            "products": "non ea",
+            "constitution_type_id": 26,
+            "employment": 3845,
+            "pincode": 172021,
+            "district_id": 7,
+            "constituency_id": 43,
+            "tehsil_id": 102,
+            "block_id": 294,
+            "panchayat_id": 1889,
+            "address": "264 Arkansas Drive"
+        },
+        "email": "murphybarrera@callflex.com",
+        "mobile": "(893) 486-2454",
+        "owner": {
+            "name": "Morin Vargas",
+            "mobile": "(824) 408-2076",
+            "email": "morinvargas@callflex.com",
+            "guardian_prefix": "S/O",
+            "guardian": "magna",
+            "pincode": 174472,
+            "district_id": 106,
+            "constituency_id": 1905,
+            "tehsil_id": 1246,
+            "block_id": 2784,
+            "panchayat_id": 2714,
+            "address": "504 Herbert Street",
+            "birth_date": "2010-07-16",
+            "aadhaar": 451482132338,
+            "pan": "SENTIA5374APPLIDEC",
+            "gender": "male",
+            "is_widow": "no",
+            "social_category_id": 29,
+            "partner_name": [
+                "Soto Chambers"
+            ],
+            "partner_birth_date": [
+                "1985-07-27"
+            ],
+            "partner_aadhaar": [
+                829483803387
+            ],
+            "partner_mobile": [
+                "(931) 452-2037"
+            ]
+        },
+        "cost": {
+            "is_land_required": "no",
+            "is_building_required": "yes",
+            "machinery_cost": 806019.1026,
+            "other_fixed_assets_cost": 823565.29,
+            "miscellaneous_assets_cost": 705057.2876,
+            "working_capital": 691703.4961,
+            "project_cost": 399158.9612
+        },
+        "finance": {
+            "bank_branch_id": 1442,
+            "has_any_loan": "no",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "no"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "GLASSTEP",
+            "activity_type_id": 1,
+            "products": "deserunt enim",
+            "constitution_type_id": 24,
+            "employment": 3637,
+            "pincode": 172021,
+            "district_id": 6,
+            "constituency_id": 76,
+            "tehsil_id": 155,
+            "block_id": 245,
+            "panchayat_id": 3445,
+            "address": "189 Friel Place"
+        },
+        "email": "sotochambers@glasstep.com",
+        "mobile": "(834) 485-3045",
+        "owner": {
+            "name": "Florence Vazquez",
+            "mobile": "(996) 571-3703",
+            "email": "florencevazquez@glasstep.com",
+            "guardian_prefix": "S/O",
+            "guardian": "exercitation",
+            "pincode": 174472,
+            "district_id": 1901,
+            "constituency_id": 1471,
+            "tehsil_id": 1232,
+            "block_id": 2496,
+            "panchayat_id": 323,
+            "address": "288 Vista Place",
+            "birth_date": "2009-06-06",
+            "aadhaar": 896380695879,
+            "pan": "EPLOSION1955SLUMBERIA",
+            "gender": "female",
+            "is_widow": "yes",
+            "social_category_id": 37,
+            "partner_name": [
+                "Jeanie Diaz"
+            ],
+            "partner_birth_date": [
+                "1998-04-22"
+            ],
+            "partner_aadhaar": [
+                736285373880
+            ],
+            "partner_mobile": [
+                "(862) 459-2738"
+            ]
+        },
+        "cost": {
+            "is_land_required": "no",
+            "is_building_required": "yes",
+            "machinery_cost": 202800.5368,
+            "other_fixed_assets_cost": 396970.3554,
+            "miscellaneous_assets_cost": 775003.6274,
+            "working_capital": 600782.6217,
+            "project_cost": 643663.1202
+        },
+        "finance": {
+            "bank_branch_id": 1089,
+            "has_any_loan": "no",
+            "has_other_income_source": "no",
+            "is_assessed_for_income_tax": "yes"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "MARKETOID",
+            "activity_type_id": 1,
+            "products": "et ex",
+            "constitution_type_id": 40,
+            "employment": 157,
+            "pincode": 172021,
+            "district_id": 9,
+            "constituency_id": 21,
+            "tehsil_id": 149,
+            "block_id": 276,
+            "panchayat_id": 2785,
+            "address": "652 Fayette Street"
+        },
+        "email": "jeaniediaz@marketoid.com",
+        "mobile": "(886) 489-2898",
+        "owner": {
+            "name": "Downs Keith",
+            "mobile": "(907) 544-2888",
+            "email": "downskeith@marketoid.com",
+            "guardian_prefix": "S/O",
+            "guardian": "fugiat",
+            "pincode": 174472,
+            "district_id": 1791,
+            "constituency_id": 1522,
+            "tehsil_id": 3333,
+            "block_id": 2450,
+            "panchayat_id": 2081,
+            "address": "333 Nassau Avenue",
+            "birth_date": "1983-01-16",
+            "aadhaar": 756721958417,
+            "pan": "ESSENSIA2739EMTRAK",
+            "gender": "male",
+            "is_widow": "no",
+            "social_category_id": 22,
+            "partner_name": [
+                "Magdalena Snider"
+            ],
+            "partner_birth_date": [
+                "2017-05-13"
+            ],
+            "partner_aadhaar": [
+                746163899702
+            ],
+            "partner_mobile": [
+                "(932) 566-2497"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "no",
+            "machinery_cost": 809834.4307,
+            "other_fixed_assets_cost": 215069.3052,
+            "miscellaneous_assets_cost": 536438.4559,
+            "working_capital": 377942.1542,
+            "project_cost": 479477.8507
+        },
+        "finance": {
+            "bank_branch_id": 1467,
+            "has_any_loan": "no",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "no"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "ZENTILITY",
+            "activity_type_id": 1,
+            "products": "deserunt ad",
+            "constitution_type_id": 35,
+            "employment": 1299,
+            "pincode": 172021,
+            "district_id": 11,
+            "constituency_id": 67,
+            "tehsil_id": 142,
+            "block_id": 321,
+            "panchayat_id": 965,
+            "address": "115 Nevins Street"
+        },
+        "email": "magdalenasnider@zentility.com",
+        "mobile": "(819) 445-2717",
+        "owner": {
+            "name": "Blanche Fry",
+            "mobile": "(925) 580-2196",
+            "email": "blanchefry@zentility.com",
+            "guardian_prefix": "S/O",
+            "guardian": "culpa",
+            "pincode": 174472,
+            "district_id": 1813,
+            "constituency_id": 1436,
+            "tehsil_id": 2136,
+            "block_id": 59,
+            "panchayat_id": 797,
+            "address": "544 Evans Street",
+            "birth_date": "2020-10-04",
+            "aadhaar": 500307524516,
+            "pan": "RAMJOB3686TELPOD",
+            "gender": "female",
+            "is_widow": "yes",
+            "social_category_id": 22,
+            "partner_name": [
+                "Krista Delacruz"
+            ],
+            "partner_birth_date": [
+                "2007-08-31"
+            ],
+            "partner_aadhaar": [
+                813050571950
+            ],
+            "partner_mobile": [
+                "(877) 477-3308"
+            ]
+        },
+        "cost": {
+            "is_land_required": "no",
+            "is_building_required": "no",
+            "machinery_cost": 529333.587,
+            "other_fixed_assets_cost": 475812.7126,
+            "miscellaneous_assets_cost": 36968.9076,
+            "working_capital": 282177.9009,
+            "project_cost": 104684.1217
+        },
+        "finance": {
+            "bank_branch_id": 1438,
+            "has_any_loan": "no",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "no"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "ZORK",
+            "activity_type_id": 1,
+            "products": "culpa dolor",
+            "constitution_type_id": 21,
+            "employment": 3264,
+            "pincode": 172021,
+            "district_id": 11,
+            "constituency_id": 56,
+            "tehsil_id": 148,
+            "block_id": 304,
+            "panchayat_id": 661,
+            "address": "805 Tillary Street"
+        },
+        "email": "kristadelacruz@zork.com",
+        "mobile": "(979) 578-2584",
+        "owner": {
+            "name": "Peggy Ramsey",
+            "mobile": "(810) 427-2705",
+            "email": "peggyramsey@zork.com",
+            "guardian_prefix": "S/O",
+            "guardian": "consectetur",
+            "pincode": 174472,
+            "district_id": 1126,
+            "constituency_id": 431,
+            "tehsil_id": 648,
+            "block_id": 2559,
+            "panchayat_id": 2578,
+            "address": "669 Devon Avenue",
+            "birth_date": "2005-04-07",
+            "aadhaar": 508638106975,
+            "pan": "DIGIRANG8000ENDIPINE",
+            "gender": "female",
+            "is_widow": "yes",
+            "social_category_id": 31,
+            "partner_name": [
+                "Martina Whitfield"
+            ],
+            "partner_birth_date": [
+                "1982-05-07"
+            ],
+            "partner_aadhaar": [
+                526137040226
+            ],
+            "partner_mobile": [
+                "(999) 586-2847"
+            ]
+        },
+        "cost": {
+            "is_land_required": "no",
+            "is_building_required": "no",
+            "machinery_cost": 527737.5845,
+            "other_fixed_assets_cost": 388234.8214,
+            "miscellaneous_assets_cost": 762100.8731,
+            "working_capital": 238510.2193,
+            "project_cost": 565234.2317
+        },
+        "finance": {
+            "bank_branch_id": 1318,
+            "has_any_loan": "yes",
+            "has_other_income_source": "no",
+            "is_assessed_for_income_tax": "yes"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "ACUSAGE",
+            "activity_type_id": 1,
+            "products": "id qui",
+            "constitution_type_id": 38,
+            "employment": 3166,
+            "pincode": 172021,
+            "district_id": 11,
+            "constituency_id": 81,
+            "tehsil_id": 127,
+            "block_id": 223,
+            "panchayat_id": 1563,
+            "address": "665 Grove Place"
+        },
+        "email": "martinawhitfield@acusage.com",
+        "mobile": "(993) 444-3848",
+        "owner": {
+            "name": "Marlene Hardy",
+            "mobile": "(876) 562-2798",
+            "email": "marlenehardy@acusage.com",
+            "guardian_prefix": "S/O",
+            "guardian": "occaecat",
+            "pincode": 174472,
+            "district_id": 1042,
+            "constituency_id": 415,
+            "tehsil_id": 1783,
+            "block_id": 1243,
+            "panchayat_id": 2124,
+            "address": "278 Bryant Street",
+            "birth_date": "1997-10-02",
+            "aadhaar": 597761824307,
+            "pan": "ZOID1330QABOOS",
+            "gender": "female",
+            "is_widow": "no",
+            "social_category_id": 35,
+            "partner_name": [
+                "Pauline Potter"
+            ],
+            "partner_birth_date": [
+                "1987-08-18"
+            ],
+            "partner_aadhaar": [
+                512842837076
+            ],
+            "partner_mobile": [
+                "(979) 471-3794"
+            ]
+        },
+        "cost": {
+            "is_land_required": "no",
+            "is_building_required": "no",
+            "machinery_cost": 712353.7144,
+            "other_fixed_assets_cost": 891533.2306,
+            "miscellaneous_assets_cost": 834388.4782,
+            "working_capital": 714230.3447,
+            "project_cost": 764867.4817
+        },
+        "finance": {
+            "bank_branch_id": 1150,
+            "has_any_loan": "yes",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "yes"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "INSURON",
+            "activity_type_id": 1,
+            "products": "magna nostrud",
+            "constitution_type_id": 24,
+            "employment": 2490,
+            "pincode": 172021,
+            "district_id": 7,
+            "constituency_id": 81,
+            "tehsil_id": 176,
+            "block_id": 208,
+            "panchayat_id": 3409,
+            "address": "965 Hastings Street"
+        },
+        "email": "paulinepotter@insuron.com",
+        "mobile": "(936) 493-2070",
+        "owner": {
+            "name": "Tammi Robinson",
+            "mobile": "(955) 469-2375",
+            "email": "tammirobinson@insuron.com",
+            "guardian_prefix": "S/O",
+            "guardian": "mollit",
+            "pincode": 174472,
+            "district_id": 1773,
+            "constituency_id": 606,
+            "tehsil_id": 2138,
+            "block_id": 1946,
+            "panchayat_id": 1371,
+            "address": "224 Prospect Place",
+            "birth_date": "1994-11-07",
+            "aadhaar": 943709664710,
+            "pan": "COMSTRUCT6151EQUITOX",
+            "gender": "female",
+            "is_widow": "yes",
+            "social_category_id": 38,
+            "partner_name": [
+                "Cynthia Young"
+            ],
+            "partner_birth_date": [
+                "1995-12-17"
+            ],
+            "partner_aadhaar": [
+                858695000738
+            ],
+            "partner_mobile": [
+                "(914) 553-3839"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "yes",
+            "machinery_cost": 45959.1741,
+            "other_fixed_assets_cost": 651341.0689,
+            "miscellaneous_assets_cost": 131723.6322,
+            "working_capital": 752163.2289,
+            "project_cost": 241873.9537
+        },
+        "finance": {
+            "bank_branch_id": 1191,
+            "has_any_loan": "no",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "yes"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "ANDRYX",
+            "activity_type_id": 1,
+            "products": "adipisicing velit",
+            "constitution_type_id": 26,
+            "employment": 697,
+            "pincode": 172021,
+            "district_id": 7,
+            "constituency_id": 24,
+            "tehsil_id": 159,
+            "block_id": 213,
+            "panchayat_id": 1506,
+            "address": "610 Rutledge Street"
+        },
+        "email": "cynthiayoung@andryx.com",
+        "mobile": "(876) 539-3534",
+        "owner": {
+            "name": "Maryanne Norris",
+            "mobile": "(848) 421-2211",
+            "email": "maryannenorris@andryx.com",
+            "guardian_prefix": "S/O",
+            "guardian": "ex",
+            "pincode": 174472,
+            "district_id": 210,
+            "constituency_id": 748,
+            "tehsil_id": 2204,
+            "block_id": 3349,
+            "panchayat_id": 1777,
+            "address": "520 Beverly Road",
+            "birth_date": "2011-06-14",
+            "aadhaar": 518910825613,
+            "pan": "SPEEDBOLT9821GREEKER",
+            "gender": "female",
+            "is_widow": "yes",
+            "social_category_id": 26,
+            "partner_name": [
+                "Summer Bridges"
+            ],
+            "partner_birth_date": [
+                "1988-06-10"
+            ],
+            "partner_aadhaar": [
+                851793768091
+            ],
+            "partner_mobile": [
+                "(941) 561-2807"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "yes",
+            "machinery_cost": 130322.7022,
+            "other_fixed_assets_cost": 826565.8923,
+            "miscellaneous_assets_cost": 802695.8256,
+            "working_capital": 855711.2016,
+            "project_cost": 849053.8703
+        },
+        "finance": {
+            "bank_branch_id": 1321,
+            "has_any_loan": "no",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "yes"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "MAGNEMO",
+            "activity_type_id": 1,
+            "products": "et sunt",
+            "constitution_type_id": 38,
+            "employment": 124,
+            "pincode": 172021,
+            "district_id": 13,
+            "constituency_id": 42,
+            "tehsil_id": 107,
+            "block_id": 301,
+            "panchayat_id": 2471,
+            "address": "373 Hooper Street"
+        },
+        "email": "summerbridges@magnemo.com",
+        "mobile": "(954) 498-2343",
+        "owner": {
+            "name": "Brittany Wooten",
+            "mobile": "(943) 436-2120",
+            "email": "brittanywooten@magnemo.com",
+            "guardian_prefix": "S/O",
+            "guardian": "in",
+            "pincode": 174472,
+            "district_id": 2843,
+            "constituency_id": 2425,
+            "tehsil_id": 332,
+            "block_id": 2232,
+            "panchayat_id": 82,
+            "address": "704 Everett Avenue",
+            "birth_date": "2004-10-08",
+            "aadhaar": 821101170968,
+            "pan": "MUSAPHICS8982MOREGANIC",
+            "gender": "female",
+            "is_widow": "yes",
+            "social_category_id": 35,
+            "partner_name": [
+                "Leach Drake"
+            ],
+            "partner_birth_date": [
+                "1983-07-19"
+            ],
+            "partner_aadhaar": [
+                503893790835
+            ],
+            "partner_mobile": [
+                "(870) 460-3647"
+            ]
+        },
+        "cost": {
+            "is_land_required": "no",
+            "is_building_required": "yes",
+            "machinery_cost": 847192.0903,
+            "other_fixed_assets_cost": 67517.4599,
+            "miscellaneous_assets_cost": 60175.5295,
+            "working_capital": 838673.6475,
+            "project_cost": 393968.5448
+        },
+        "finance": {
+            "bank_branch_id": 1489,
+            "has_any_loan": "no",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "no"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "KAGGLE",
+            "activity_type_id": 1,
+            "products": "minim eu",
+            "constitution_type_id": 21,
+            "employment": 2737,
+            "pincode": 172021,
+            "district_id": 10,
+            "constituency_id": 53,
+            "tehsil_id": 185,
+            "block_id": 223,
+            "panchayat_id": 1023,
+            "address": "183 Regent Place"
+        },
+        "email": "leachdrake@kaggle.com",
+        "mobile": "(829) 562-2266",
+        "owner": {
+            "name": "Cohen Koch",
+            "mobile": "(851) 529-2130",
+            "email": "cohenkoch@kaggle.com",
+            "guardian_prefix": "S/O",
+            "guardian": "aliquip",
+            "pincode": 174472,
+            "district_id": 502,
+            "constituency_id": 570,
+            "tehsil_id": 1316,
+            "block_id": 3389,
+            "panchayat_id": 1123,
+            "address": "255 Barbey Street",
+            "birth_date": "1995-03-31",
+            "aadhaar": 449671591718,
+            "pan": "BIOTICA3573KANGLE",
+            "gender": "male",
+            "is_widow": "yes",
+            "social_category_id": 36,
+            "partner_name": [
+                "Angelia Hutchinson"
+            ],
+            "partner_birth_date": [
+                "1982-08-28"
+            ],
+            "partner_aadhaar": [
+                556491665116
+            ],
+            "partner_mobile": [
+                "(893) 537-2804"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "yes",
+            "machinery_cost": 58873.8519,
+            "other_fixed_assets_cost": 383345.372,
+            "miscellaneous_assets_cost": 649116.193,
+            "working_capital": 561385.6281,
+            "project_cost": 209568.6746
+        },
+        "finance": {
+            "bank_branch_id": 1412,
+            "has_any_loan": "no",
+            "has_other_income_source": "no",
+            "is_assessed_for_income_tax": "no"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "FROLIX",
+            "activity_type_id": 1,
+            "products": "elit eiusmod",
+            "constitution_type_id": 22,
+            "employment": 3271,
+            "pincode": 172021,
+            "district_id": 12,
+            "constituency_id": 54,
+            "tehsil_id": 179,
+            "block_id": 326,
+            "panchayat_id": 3001,
+            "address": "402 Oxford Street"
+        },
+        "email": "angeliahutchinson@frolix.com",
+        "mobile": "(931) 476-2273",
+        "owner": {
+            "name": "Goodman Vincent",
+            "mobile": "(888) 523-3265",
+            "email": "goodmanvincent@frolix.com",
+            "guardian_prefix": "S/O",
+            "guardian": "consectetur",
+            "pincode": 174472,
+            "district_id": 3482,
+            "constituency_id": 2177,
+            "tehsil_id": 1115,
+            "block_id": 691,
+            "panchayat_id": 1088,
+            "address": "537 Vandervoort Avenue",
+            "birth_date": "1987-09-20",
+            "aadhaar": 934971836482,
+            "pan": "ZINCA7361STROZEN",
+            "gender": "male",
+            "is_widow": "yes",
+            "social_category_id": 39,
+            "partner_name": [
+                "Stokes Saunders"
+            ],
+            "partner_birth_date": [
+                "2018-08-15"
+            ],
+            "partner_aadhaar": [
+                777429570521
+            ],
+            "partner_mobile": [
+                "(979) 499-2030"
+            ]
+        },
+        "cost": {
+            "is_land_required": "no",
+            "is_building_required": "no",
+            "machinery_cost": 839842.784,
+            "other_fixed_assets_cost": 496672.9452,
+            "miscellaneous_assets_cost": 576762.7245,
+            "working_capital": 762945.7646,
+            "project_cost": 781392.2797
+        },
+        "finance": {
+            "bank_branch_id": 1403,
+            "has_any_loan": "no",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "yes"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "FUELTON",
+            "activity_type_id": 1,
+            "products": "commodo nulla",
+            "constitution_type_id": 23,
+            "employment": 3416,
+            "pincode": 172021,
+            "district_id": 13,
+            "constituency_id": 47,
+            "tehsil_id": 117,
+            "block_id": 314,
+            "panchayat_id": 890,
+            "address": "695 Windsor Place"
+        },
+        "email": "stokessaunders@fuelton.com",
+        "mobile": "(896) 450-2181",
+        "owner": {
+            "name": "Kara Wiley",
+            "mobile": "(900) 562-3648",
+            "email": "karawiley@fuelton.com",
+            "guardian_prefix": "S/O",
+            "guardian": "ut",
+            "pincode": 174472,
+            "district_id": 278,
+            "constituency_id": 1791,
+            "tehsil_id": 1806,
+            "block_id": 1440,
+            "panchayat_id": 254,
+            "address": "522 Seigel Court",
+            "birth_date": "1988-11-21",
+            "aadhaar": 798837818403,
+            "pan": "TECHADE2451LOVEPAD",
+            "gender": "female",
+            "is_widow": "no",
+            "social_category_id": 37,
+            "partner_name": [
+                "Claudette Sutton"
+            ],
+            "partner_birth_date": [
+                "1992-02-08"
+            ],
+            "partner_aadhaar": [
+                688884559373
+            ],
+            "partner_mobile": [
+                "(886) 567-3975"
+            ]
+        },
+        "cost": {
+            "is_land_required": "no",
+            "is_building_required": "no",
+            "machinery_cost": 786217.1669,
+            "other_fixed_assets_cost": 798555.8215,
+            "miscellaneous_assets_cost": 887498.4903,
+            "working_capital": 380571.8346,
+            "project_cost": 495675.5653
+        },
+        "finance": {
+            "bank_branch_id": 1294,
+            "has_any_loan": "no",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "yes"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "PARLEYNET",
+            "activity_type_id": 1,
+            "products": "pariatur culpa",
+            "constitution_type_id": 32,
+            "employment": 3345,
+            "pincode": 172021,
+            "district_id": 7,
+            "constituency_id": 81,
+            "tehsil_id": 167,
+            "block_id": 287,
+            "panchayat_id": 1320,
+            "address": "284 Belmont Avenue"
+        },
+        "email": "claudettesutton@parleynet.com",
+        "mobile": "(805) 521-3855",
+        "owner": {
+            "name": "Hill Day",
+            "mobile": "(890) 452-3296",
+            "email": "hillday@parleynet.com",
+            "guardian_prefix": "S/O",
+            "guardian": "Lorem",
+            "pincode": 174472,
+            "district_id": 531,
+            "constituency_id": 625,
+            "tehsil_id": 2952,
+            "block_id": 1185,
+            "panchayat_id": 2612,
+            "address": "549 Hall Street",
+            "birth_date": "2002-10-26",
+            "aadhaar": 594122105054,
+            "pan": "COREPAN1931EXOBLUE",
+            "gender": "male",
+            "is_widow": "no",
+            "social_category_id": 31,
+            "partner_name": [
+                "Sheryl Harris"
+            ],
+            "partner_birth_date": [
+                "1991-06-01"
+            ],
+            "partner_aadhaar": [
+                579604476275
+            ],
+            "partner_mobile": [
+                "(817) 590-3503"
+            ]
+        },
+        "cost": {
+            "is_land_required": "no",
+            "is_building_required": "no",
+            "machinery_cost": 408520.1536,
+            "other_fixed_assets_cost": 308536.7614,
+            "miscellaneous_assets_cost": 581361.2988,
+            "working_capital": 339255.7415,
+            "project_cost": 601529.0402
+        },
+        "finance": {
+            "bank_branch_id": 1471,
+            "has_any_loan": "yes",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "yes"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "DUOFLEX",
+            "activity_type_id": 1,
+            "products": "commodo velit",
+            "constitution_type_id": 35,
+            "employment": 586,
+            "pincode": 172021,
+            "district_id": 10,
+            "constituency_id": 60,
+            "tehsil_id": 170,
+            "block_id": 236,
+            "panchayat_id": 3569,
+            "address": "766 Sedgwick Street"
+        },
+        "email": "sherylharris@duoflex.com",
+        "mobile": "(973) 416-3826",
+        "owner": {
+            "name": "Glenda Reyes",
+            "mobile": "(941) 574-2111",
+            "email": "glendareyes@duoflex.com",
+            "guardian_prefix": "S/O",
+            "guardian": "velit",
+            "pincode": 174472,
+            "district_id": 1942,
+            "constituency_id": 369,
+            "tehsil_id": 1519,
+            "block_id": 3489,
+            "panchayat_id": 2055,
+            "address": "959 Jay Street",
+            "birth_date": "1980-04-08",
+            "aadhaar": 701067084446,
+            "pan": "AEORA3041CYCLONICA",
+            "gender": "female",
+            "is_widow": "yes",
+            "social_category_id": 23,
+            "partner_name": [
+                "Fran Greer"
+            ],
+            "partner_birth_date": [
+                "1998-10-21"
+            ],
+            "partner_aadhaar": [
+                833057179698
+            ],
+            "partner_mobile": [
+                "(848) 444-2554"
+            ]
+        },
+        "cost": {
+            "is_land_required": "no",
+            "is_building_required": "no",
+            "machinery_cost": 294782.6093,
+            "other_fixed_assets_cost": 683495.8366,
+            "miscellaneous_assets_cost": 282703.5402,
+            "working_capital": 711261.4389,
+            "project_cost": 833195.6287
+        },
+        "finance": {
+            "bank_branch_id": 1146,
+            "has_any_loan": "no",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "yes"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "SOLGAN",
+            "activity_type_id": 1,
+            "products": "aute et",
+            "constitution_type_id": 26,
+            "employment": 3830,
+            "pincode": 172021,
+            "district_id": 3,
+            "constituency_id": 30,
+            "tehsil_id": 154,
+            "block_id": 279,
+            "panchayat_id": 3434,
+            "address": "586 Clifford Place"
+        },
+        "email": "frangreer@solgan.com",
+        "mobile": "(829) 595-3904",
+        "owner": {
+            "name": "Stella Woodward",
+            "mobile": "(841) 419-2020",
+            "email": "stellawoodward@solgan.com",
+            "guardian_prefix": "S/O",
+            "guardian": "reprehenderit",
+            "pincode": 174472,
+            "district_id": 2584,
+            "constituency_id": 3296,
+            "tehsil_id": 1300,
+            "block_id": 2209,
+            "panchayat_id": 314,
+            "address": "316 Manor Court",
+            "birth_date": "2002-03-02",
+            "aadhaar": 834222900071,
+            "pan": "BUGSALL1135OULU",
+            "gender": "female",
+            "is_widow": "no",
+            "social_category_id": 20,
+            "partner_name": [
+                "Ladonna Monroe"
+            ],
+            "partner_birth_date": [
+                "1983-08-07"
+            ],
+            "partner_aadhaar": [
+                838856977010
+            ],
+            "partner_mobile": [
+                "(931) 531-3832"
+            ]
+        },
+        "cost": {
+            "is_land_required": "no",
+            "is_building_required": "yes",
+            "machinery_cost": 91345.2004,
+            "other_fixed_assets_cost": 300642.6003,
+            "miscellaneous_assets_cost": 425266.2997,
+            "working_capital": 489406.1282,
+            "project_cost": 268743.4483
+        },
+        "finance": {
+            "bank_branch_id": 1329,
+            "has_any_loan": "yes",
+            "has_other_income_source": "no",
+            "is_assessed_for_income_tax": "yes"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "HOMELUX",
+            "activity_type_id": 1,
+            "products": "aliqua commodo",
+            "constitution_type_id": 25,
+            "employment": 806,
+            "pincode": 172021,
+            "district_id": 8,
+            "constituency_id": 36,
+            "tehsil_id": 140,
+            "block_id": 311,
+            "panchayat_id": 3254,
+            "address": "359 Prospect Street"
+        },
+        "email": "ladonnamonroe@homelux.com",
+        "mobile": "(837) 596-3693",
+        "owner": {
+            "name": "Monique Fuller",
+            "mobile": "(819) 407-3428",
+            "email": "moniquefuller@homelux.com",
+            "guardian_prefix": "S/O",
+            "guardian": "sunt",
+            "pincode": 174472,
+            "district_id": 3348,
+            "constituency_id": 1206,
+            "tehsil_id": 301,
+            "block_id": 3339,
+            "panchayat_id": 2394,
+            "address": "351 Withers Street",
+            "birth_date": "1983-09-25",
+            "aadhaar": 567231831514,
+            "pan": "SYNKGEN8757OPTICALL",
+            "gender": "female",
+            "is_widow": "yes",
+            "social_category_id": 22,
+            "partner_name": [
+                "Natasha Ellis"
+            ],
+            "partner_birth_date": [
+                "1995-10-19"
+            ],
+            "partner_aadhaar": [
+                879712769700
+            ],
+            "partner_mobile": [
+                "(961) 478-2008"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "yes",
+            "machinery_cost": 500999.7752,
+            "other_fixed_assets_cost": 227966.318,
+            "miscellaneous_assets_cost": 293231.1552,
+            "working_capital": 213601.1454,
+            "project_cost": 321049.9382
+        },
+        "finance": {
+            "bank_branch_id": 1343,
+            "has_any_loan": "yes",
+            "has_other_income_source": "no",
+            "is_assessed_for_income_tax": "yes"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "BUZZOPIA",
+            "activity_type_id": 1,
+            "products": "tempor exercitation",
+            "constitution_type_id": 27,
+            "employment": 2638,
+            "pincode": 172021,
+            "district_id": 11,
+            "constituency_id": 29,
+            "tehsil_id": 136,
+            "block_id": 235,
+            "panchayat_id": 3477,
+            "address": "405 Vermont Court"
+        },
+        "email": "natashaellis@buzzopia.com",
+        "mobile": "(976) 436-3157",
+        "owner": {
+            "name": "Bridgett Everett",
+            "mobile": "(860) 472-3045",
+            "email": "bridgetteverett@buzzopia.com",
+            "guardian_prefix": "S/O",
+            "guardian": "consectetur",
+            "pincode": 174472,
+            "district_id": 1835,
+            "constituency_id": 3258,
+            "tehsil_id": 738,
+            "block_id": 3125,
+            "panchayat_id": 50,
+            "address": "738 Fleet Street",
+            "birth_date": "2009-12-22",
+            "aadhaar": 889160367879,
+            "pan": "PYRAMIS2777KROG",
+            "gender": "female",
+            "is_widow": "no",
+            "social_category_id": 22,
+            "partner_name": [
+                "Buchanan Ball"
+            ],
+            "partner_birth_date": [
+                "1979-11-08"
+            ],
+            "partner_aadhaar": [
+                870110604861
+            ],
+            "partner_mobile": [
+                "(913) 577-3475"
+            ]
+        },
+        "cost": {
+            "is_land_required": "no",
+            "is_building_required": "no",
+            "machinery_cost": 111531.0709,
+            "other_fixed_assets_cost": 263684.881,
+            "miscellaneous_assets_cost": 324567.5925,
+            "working_capital": 212542.9108,
+            "project_cost": 646502.9004
+        },
+        "finance": {
+            "bank_branch_id": 1258,
+            "has_any_loan": "no",
+            "has_other_income_source": "no",
+            "is_assessed_for_income_tax": "yes"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "EXTRAGEN",
+            "activity_type_id": 1,
+            "products": "qui amet",
+            "constitution_type_id": 23,
+            "employment": 1890,
+            "pincode": 172021,
+            "district_id": 14,
+            "constituency_id": 61,
+            "tehsil_id": 193,
+            "block_id": 321,
+            "panchayat_id": 1507,
+            "address": "474 Ashland Place"
+        },
+        "email": "buchananball@extragen.com",
+        "mobile": "(831) 547-3131",
+        "owner": {
+            "name": "Janie Sykes",
+            "mobile": "(913) 410-2721",
+            "email": "janiesykes@extragen.com",
+            "guardian_prefix": "S/O",
+            "guardian": "reprehenderit",
+            "pincode": 174472,
+            "district_id": 355,
+            "constituency_id": 687,
+            "tehsil_id": 2398,
+            "block_id": 3266,
+            "panchayat_id": 3244,
+            "address": "414 Polhemus Place",
+            "birth_date": "1981-01-19",
+            "aadhaar": 889103242273,
+            "pan": "ACRODANCE6166PHEAST",
+            "gender": "female",
+            "is_widow": "no",
+            "social_category_id": 32,
+            "partner_name": [
+                "Wilcox Mosley"
+            ],
+            "partner_birth_date": [
+                "2007-11-08"
+            ],
+            "partner_aadhaar": [
+                459473852643
+            ],
+            "partner_mobile": [
+                "(902) 404-2980"
+            ]
+        },
+        "cost": {
+            "is_land_required": "no",
+            "is_building_required": "no",
+            "machinery_cost": 379909.3415,
+            "other_fixed_assets_cost": 197794.1574,
+            "miscellaneous_assets_cost": 22763.5473,
+            "working_capital": 253465.1257,
+            "project_cost": 113249.9184
+        },
+        "finance": {
+            "bank_branch_id": 1045,
+            "has_any_loan": "no",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "yes"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "QOT",
+            "activity_type_id": 1,
+            "products": "proident quis",
+            "constitution_type_id": 24,
+            "employment": 3284,
+            "pincode": 172021,
+            "district_id": 7,
+            "constituency_id": 74,
+            "tehsil_id": 85,
+            "block_id": 230,
+            "panchayat_id": 3756,
+            "address": "340 Highland Avenue"
+        },
+        "email": "wilcoxmosley@qot.com",
+        "mobile": "(980) 467-2694",
+        "owner": {
+            "name": "Trudy Branch",
+            "mobile": "(994) 468-2623",
+            "email": "trudybranch@qot.com",
+            "guardian_prefix": "S/O",
+            "guardian": "duis",
+            "pincode": 174472,
+            "district_id": 2937,
+            "constituency_id": 2550,
+            "tehsil_id": 505,
+            "block_id": 1041,
+            "panchayat_id": 2570,
+            "address": "869 Noble Street",
+            "birth_date": "1998-10-10",
+            "aadhaar": 520794447655,
+            "pan": "CUIZINE4488AVIT",
+            "gender": "female",
+            "is_widow": "no",
+            "social_category_id": 29,
+            "partner_name": [
+                "Guadalupe Puckett"
+            ],
+            "partner_birth_date": [
+                "1999-12-08"
+            ],
+            "partner_aadhaar": [
+                631703815486
+            ],
+            "partner_mobile": [
+                "(815) 512-2728"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "no",
+            "machinery_cost": 457914.9362,
+            "other_fixed_assets_cost": 157771.9305,
+            "miscellaneous_assets_cost": 115202.9561,
+            "working_capital": 62782.4437,
+            "project_cost": 567255.8411
+        },
+        "finance": {
+            "bank_branch_id": 1147,
+            "has_any_loan": "yes",
+            "has_other_income_source": "no",
+            "is_assessed_for_income_tax": "yes"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "SUPREMIA",
+            "activity_type_id": 1,
+            "products": "deserunt labore",
+            "constitution_type_id": 24,
+            "employment": 925,
+            "pincode": 172021,
+            "district_id": 5,
+            "constituency_id": 72,
+            "tehsil_id": 195,
+            "block_id": 217,
+            "panchayat_id": 1868,
+            "address": "373 Randolph Street"
+        },
+        "email": "guadalupepuckett@supremia.com",
+        "mobile": "(933) 500-3953",
+        "owner": {
+            "name": "Brandi Wyatt",
+            "mobile": "(844) 415-3432",
+            "email": "brandiwyatt@supremia.com",
+            "guardian_prefix": "S/O",
+            "guardian": "et",
+            "pincode": 174472,
+            "district_id": 2868,
+            "constituency_id": 3207,
+            "tehsil_id": 2744,
+            "block_id": 38,
+            "panchayat_id": 2903,
+            "address": "510 Court Square",
+            "birth_date": "2002-01-05",
+            "aadhaar": 771393470789,
+            "pan": "XANIDE7718DREAMIA",
+            "gender": "female",
+            "is_widow": "yes",
+            "social_category_id": 34,
+            "partner_name": [
+                "Opal Bradley"
+            ],
+            "partner_birth_date": [
+                "2021-03-13"
+            ],
+            "partner_aadhaar": [
+                768333173857
+            ],
+            "partner_mobile": [
+                "(988) 487-3380"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "yes",
+            "machinery_cost": 865773.7162,
+            "other_fixed_assets_cost": 513091.6647,
+            "miscellaneous_assets_cost": 195790.4149,
+            "working_capital": 407701.3447,
+            "project_cost": 572311.7884
+        },
+        "finance": {
+            "bank_branch_id": 1165,
+            "has_any_loan": "yes",
+            "has_other_income_source": "no",
+            "is_assessed_for_income_tax": "yes"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "KNOWLYSIS",
+            "activity_type_id": 1,
+            "products": "fugiat laboris",
+            "constitution_type_id": 21,
+            "employment": 2275,
+            "pincode": 172021,
+            "district_id": 14,
+            "constituency_id": 78,
+            "tehsil_id": 185,
+            "block_id": 312,
+            "panchayat_id": 729,
+            "address": "454 Brown Street"
+        },
+        "email": "opalbradley@knowlysis.com",
+        "mobile": "(977) 500-2285",
+        "owner": {
+            "name": "Bond Dejesus",
+            "mobile": "(938) 592-3064",
+            "email": "bonddejesus@knowlysis.com",
+            "guardian_prefix": "S/O",
+            "guardian": "eu",
+            "pincode": 174472,
+            "district_id": 1632,
+            "constituency_id": 1738,
+            "tehsil_id": 3174,
+            "block_id": 1424,
+            "panchayat_id": 2451,
+            "address": "202 Wythe Avenue",
+            "birth_date": "1979-04-19",
+            "aadhaar": 613378576215,
+            "pan": "MIRACULA6725GROK",
+            "gender": "male",
+            "is_widow": "yes",
+            "social_category_id": 25,
+            "partner_name": [
+                "Reyna Durham"
+            ],
+            "partner_birth_date": [
+                "1985-02-10"
+            ],
+            "partner_aadhaar": [
+                992010126691
+            ],
+            "partner_mobile": [
+                "(889) 485-2019"
+            ]
+        },
+        "cost": {
+            "is_land_required": "no",
+            "is_building_required": "no",
+            "machinery_cost": 895729.4676,
+            "other_fixed_assets_cost": 323975.5878,
+            "miscellaneous_assets_cost": 771579.9174,
+            "working_capital": 171593.0766,
+            "project_cost": 142296.9643
+        },
+        "finance": {
+            "bank_branch_id": 1363,
+            "has_any_loan": "no",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "yes"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "PHOLIO",
+            "activity_type_id": 1,
+            "products": "minim sunt",
+            "constitution_type_id": 35,
+            "employment": 3229,
+            "pincode": 172021,
+            "district_id": 12,
+            "constituency_id": 38,
+            "tehsil_id": 132,
+            "block_id": 319,
+            "panchayat_id": 486,
+            "address": "526 Irwin Street"
+        },
+        "email": "reynadurham@pholio.com",
+        "mobile": "(945) 563-3123",
+        "owner": {
+            "name": "Jimenez Nielsen",
+            "mobile": "(897) 586-2525",
+            "email": "jimeneznielsen@pholio.com",
+            "guardian_prefix": "S/O",
+            "guardian": "aliqua",
+            "pincode": 174472,
+            "district_id": 2364,
+            "constituency_id": 1150,
+            "tehsil_id": 74,
+            "block_id": 2561,
+            "panchayat_id": 1748,
+            "address": "353 Frost Street",
+            "birth_date": "1978-06-17",
+            "aadhaar": 898506144810,
+            "pan": "SPORTAN5061ZENSURE",
+            "gender": "male",
+            "is_widow": "no",
+            "social_category_id": 24,
+            "partner_name": [
+                "Caldwell Andrews"
+            ],
+            "partner_birth_date": [
+                "2018-11-22"
+            ],
+            "partner_aadhaar": [
+                857501486748
+            ],
+            "partner_mobile": [
+                "(824) 575-2974"
+            ]
+        },
+        "cost": {
+            "is_land_required": "no",
+            "is_building_required": "no",
+            "machinery_cost": 463571.6035,
+            "other_fixed_assets_cost": 824405.549,
+            "miscellaneous_assets_cost": 650474.5935,
+            "working_capital": 380961.1363,
+            "project_cost": 63122.2351
+        },
+        "finance": {
+            "bank_branch_id": 1234,
+            "has_any_loan": "yes",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "yes"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "QUILK",
+            "activity_type_id": 1,
+            "products": "reprehenderit deserunt",
+            "constitution_type_id": 30,
+            "employment": 880,
+            "pincode": 172021,
+            "district_id": 6,
+            "constituency_id": 18,
+            "tehsil_id": 167,
+            "block_id": 328,
+            "panchayat_id": 3127,
+            "address": "643 Lyme Avenue"
+        },
+        "email": "caldwellandrews@quilk.com",
+        "mobile": "(807) 584-2711",
+        "owner": {
+            "name": "Stanton David",
+            "mobile": "(941) 556-2123",
+            "email": "stantondavid@quilk.com",
+            "guardian_prefix": "S/O",
+            "guardian": "voluptate",
+            "pincode": 174472,
+            "district_id": 1295,
+            "constituency_id": 1265,
+            "tehsil_id": 2942,
+            "block_id": 1474,
+            "panchayat_id": 2927,
+            "address": "811 Rugby Road",
+            "birth_date": "2013-01-16",
+            "aadhaar": 651733471547,
+            "pan": "KIDGREASE5157EARTHMARK",
+            "gender": "male",
+            "is_widow": "no",
+            "social_category_id": 34,
+            "partner_name": [
+                "Beasley Howe"
+            ],
+            "partner_birth_date": [
+                "2020-05-25"
+            ],
+            "partner_aadhaar": [
+                536558224221
+            ],
+            "partner_mobile": [
+                "(895) 563-2804"
+            ]
+        },
+        "cost": {
+            "is_land_required": "no",
+            "is_building_required": "yes",
+            "machinery_cost": 49641.8163,
+            "other_fixed_assets_cost": 114275.766,
+            "miscellaneous_assets_cost": 250983.6186,
+            "working_capital": 75786.6282,
+            "project_cost": 120632.3163
+        },
+        "finance": {
+            "bank_branch_id": 1306,
+            "has_any_loan": "no",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "no"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "GLOBOIL",
+            "activity_type_id": 1,
+            "products": "culpa sunt",
+            "constitution_type_id": 40,
+            "employment": 1575,
+            "pincode": 172021,
+            "district_id": 7,
+            "constituency_id": 40,
+            "tehsil_id": 194,
+            "block_id": 203,
+            "panchayat_id": 1533,
+            "address": "715 Aurelia Court"
+        },
+        "email": "beasleyhowe@globoil.com",
+        "mobile": "(860) 507-3037",
+        "owner": {
+            "name": "Dejesus Hodge",
+            "mobile": "(935) 539-3791",
+            "email": "dejesushodge@globoil.com",
+            "guardian_prefix": "S/O",
+            "guardian": "esse",
+            "pincode": 174472,
+            "district_id": 3334,
+            "constituency_id": 551,
+            "tehsil_id": 1300,
+            "block_id": 2364,
+            "panchayat_id": 429,
+            "address": "282 Java Street",
+            "birth_date": "2001-06-09",
+            "aadhaar": 616017449300,
+            "pan": "OTHERSIDE9813BUZZWORKS",
+            "gender": "male",
+            "is_widow": "yes",
+            "social_category_id": 31,
+            "partner_name": [
+                "Rosales Gilmore"
+            ],
+            "partner_birth_date": [
+                "2017-01-04"
+            ],
+            "partner_aadhaar": [
+                967318553205
+            ],
+            "partner_mobile": [
+                "(828) 501-2019"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "no",
+            "machinery_cost": 425424.3532,
+            "other_fixed_assets_cost": 492425.9598,
+            "miscellaneous_assets_cost": 408401.7939,
+            "working_capital": 514130.8182,
+            "project_cost": 871620.7794
+        },
+        "finance": {
+            "bank_branch_id": 1367,
+            "has_any_loan": "yes",
+            "has_other_income_source": "no",
+            "is_assessed_for_income_tax": "no"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "EVENTAGE",
+            "activity_type_id": 1,
+            "products": "occaecat id",
+            "constitution_type_id": 39,
+            "employment": 565,
+            "pincode": 172021,
+            "district_id": 10,
+            "constituency_id": 76,
+            "tehsil_id": 123,
+            "block_id": 286,
+            "panchayat_id": 2778,
+            "address": "654 Seba Avenue"
+        },
+        "email": "rosalesgilmore@eventage.com",
+        "mobile": "(930) 482-3142",
+        "owner": {
+            "name": "Mari Hopper",
+            "mobile": "(867) 423-2146",
+            "email": "marihopper@eventage.com",
+            "guardian_prefix": "S/O",
+            "guardian": "excepteur",
+            "pincode": 174472,
+            "district_id": 422,
+            "constituency_id": 1018,
+            "tehsil_id": 2787,
+            "block_id": 1756,
+            "panchayat_id": 1865,
+            "address": "379 Verona Street",
+            "birth_date": "1985-01-16",
+            "aadhaar": 463840519472,
+            "pan": "UNCORP7870ROCKLOGIC",
+            "gender": "female",
+            "is_widow": "no",
+            "social_category_id": 31,
+            "partner_name": [
+                "Sanchez Mann"
+            ],
+            "partner_birth_date": [
+                "2002-06-26"
+            ],
+            "partner_aadhaar": [
+                915822715715
+            ],
+            "partner_mobile": [
+                "(850) 571-3374"
+            ]
+        },
+        "cost": {
+            "is_land_required": "no",
+            "is_building_required": "no",
+            "machinery_cost": 233002.1441,
+            "other_fixed_assets_cost": 93732.2265,
+            "miscellaneous_assets_cost": 611643.011,
+            "working_capital": 232300.656,
+            "project_cost": 616489.665
+        },
+        "finance": {
+            "bank_branch_id": 1292,
+            "has_any_loan": "no",
+            "has_other_income_source": "no",
+            "is_assessed_for_income_tax": "yes"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "EXIAND",
+            "activity_type_id": 1,
+            "products": "velit officia",
+            "constitution_type_id": 39,
+            "employment": 1974,
+            "pincode": 172021,
+            "district_id": 11,
+            "constituency_id": 34,
+            "tehsil_id": 176,
+            "block_id": 289,
+            "panchayat_id": 2384,
+            "address": "320 Wortman Avenue"
+        },
+        "email": "sanchezmann@exiand.com",
+        "mobile": "(972) 416-3562",
+        "owner": {
+            "name": "Shaffer Hahn",
+            "mobile": "(943) 438-2958",
+            "email": "shafferhahn@exiand.com",
+            "guardian_prefix": "S/O",
+            "guardian": "nisi",
+            "pincode": 174472,
+            "district_id": 178,
+            "constituency_id": 1137,
+            "tehsil_id": 2781,
+            "block_id": 1764,
+            "panchayat_id": 3345,
+            "address": "143 Hendrix Street",
+            "birth_date": "1979-09-09",
+            "aadhaar": 780408452152,
+            "pan": "COLAIRE1180MAROPTIC",
+            "gender": "male",
+            "is_widow": "yes",
+            "social_category_id": 21,
+            "partner_name": [
+                "Matthews Myers"
+            ],
+            "partner_birth_date": [
+                "1993-07-13"
+            ],
+            "partner_aadhaar": [
+                521669206932
+            ],
+            "partner_mobile": [
+                "(937) 535-3127"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "no",
+            "machinery_cost": 699098.6215,
+            "other_fixed_assets_cost": 703564.0637,
+            "miscellaneous_assets_cost": 172254.4693,
+            "working_capital": 564024.2846,
+            "project_cost": 503221.843
+        },
+        "finance": {
+            "bank_branch_id": 1113,
+            "has_any_loan": "no",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "no"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "IDETICA",
+            "activity_type_id": 1,
+            "products": "excepteur cupidatat",
+            "constitution_type_id": 37,
+            "employment": 3057,
+            "pincode": 172021,
+            "district_id": 8,
+            "constituency_id": 74,
+            "tehsil_id": 181,
+            "block_id": 292,
+            "panchayat_id": 3524,
+            "address": "788 Eaton Court"
+        },
+        "email": "matthewsmyers@idetica.com",
+        "mobile": "(930) 557-3456",
+        "owner": {
+            "name": "Marla Montgomery",
+            "mobile": "(950) 572-3073",
+            "email": "marlamontgomery@idetica.com",
+            "guardian_prefix": "S/O",
+            "guardian": "aliqua",
+            "pincode": 174472,
+            "district_id": 1536,
+            "constituency_id": 3413,
+            "tehsil_id": 2245,
+            "block_id": 1786,
+            "panchayat_id": 526,
+            "address": "771 Buffalo Avenue",
+            "birth_date": "1991-12-29",
+            "aadhaar": 807416307217,
+            "pan": "HONOTRON6865TYPHONICA",
+            "gender": "female",
+            "is_widow": "no",
+            "social_category_id": 29,
+            "partner_name": [
+                "Eloise Cole"
+            ],
+            "partner_birth_date": [
+                "1990-08-27"
+            ],
+            "partner_aadhaar": [
+                657281065365
+            ],
+            "partner_mobile": [
+                "(899) 550-2373"
+            ]
+        },
+        "cost": {
+            "is_land_required": "no",
+            "is_building_required": "yes",
+            "machinery_cost": 641818.1277,
+            "other_fixed_assets_cost": 487698.1866,
+            "miscellaneous_assets_cost": 751034.6609,
+            "working_capital": 782879.4202,
+            "project_cost": 728305.5225
+        },
+        "finance": {
+            "bank_branch_id": 1310,
+            "has_any_loan": "yes",
+            "has_other_income_source": "no",
+            "is_assessed_for_income_tax": "no"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "DIGIFAD",
+            "activity_type_id": 1,
+            "products": "dolore deserunt",
+            "constitution_type_id": 23,
+            "employment": 1302,
+            "pincode": 172021,
+            "district_id": 5,
+            "constituency_id": 21,
+            "tehsil_id": 131,
+            "block_id": 316,
+            "panchayat_id": 2364,
+            "address": "544 Anchorage Place"
+        },
+        "email": "eloisecole@digifad.com",
+        "mobile": "(818) 495-2452",
+        "owner": {
+            "name": "Deena Blake",
+            "mobile": "(978) 575-3991",
+            "email": "deenablake@digifad.com",
+            "guardian_prefix": "S/O",
+            "guardian": "incididunt",
+            "pincode": 174472,
+            "district_id": 1324,
+            "constituency_id": 3412,
+            "tehsil_id": 3278,
+            "block_id": 509,
+            "panchayat_id": 876,
+            "address": "375 President Street",
+            "birth_date": "1991-01-15",
+            "aadhaar": 886643402325,
+            "pan": "OPTICON4589ULTRIMAX",
+            "gender": "female",
+            "is_widow": "no",
+            "social_category_id": 39,
+            "partner_name": [
+                "Beatriz Wilder"
+            ],
+            "partner_birth_date": [
+                "2020-02-03"
+            ],
+            "partner_aadhaar": [
+                839753882910
+            ],
+            "partner_mobile": [
+                "(803) 541-2787"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "no",
+            "machinery_cost": 348187.9328,
+            "other_fixed_assets_cost": 182204.8672,
+            "miscellaneous_assets_cost": 580127.7455,
+            "working_capital": 257926.5075,
+            "project_cost": 232948.9646
+        },
+        "finance": {
+            "bank_branch_id": 1452,
+            "has_any_loan": "yes",
+            "has_other_income_source": "yes",
+            "is_assessed_for_income_tax": "no"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "INSURETY",
+            "activity_type_id": 1,
+            "products": "amet aliqua",
+            "constitution_type_id": 24,
+            "employment": 882,
+            "pincode": 172021,
+            "district_id": 6,
+            "constituency_id": 20,
+            "tehsil_id": 159,
+            "block_id": 277,
+            "panchayat_id": 2117,
+            "address": "733 Franklin Avenue"
+        },
+        "email": "beatrizwilder@insurety.com",
+        "mobile": "(884) 407-3707",
+        "owner": {
+            "name": "Ferguson Garcia",
+            "mobile": "(864) 466-2822",
+            "email": "fergusongarcia@insurety.com",
+            "guardian_prefix": "S/O",
+            "guardian": "officia",
+            "pincode": 174472,
+            "district_id": 437,
+            "constituency_id": 2015,
+            "tehsil_id": 822,
+            "block_id": 1430,
+            "panchayat_id": 1913,
+            "address": "982 Cropsey Avenue",
+            "birth_date": "1991-07-15",
+            "aadhaar": 720526818816,
+            "pan": "ERSUM5033DANCERITY",
+            "gender": "male",
+            "is_widow": "yes",
+            "social_category_id": 33,
+            "partner_name": [
+                "Cindy Caldwell"
+            ],
+            "partner_birth_date": [
+                "2003-07-13"
+            ],
+            "partner_aadhaar": [
+                592396466846
+            ],
+            "partner_mobile": [
+                "(956) 457-2501"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "yes",
+            "machinery_cost": 331036.597,
+            "other_fixed_assets_cost": 184233.4724,
+            "miscellaneous_assets_cost": 801363.3281,
+            "working_capital": 129584.0409,
+            "project_cost": 731392.5507
+        },
+        "finance": {
+            "bank_branch_id": 1429,
+            "has_any_loan": "no",
+            "has_other_income_source": "no",
+            "is_assessed_for_income_tax": "yes"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "ENDICIL",
+            "activity_type_id": 1,
+            "products": "aliqua veniam",
+            "constitution_type_id": 35,
+            "employment": 3050,
+            "pincode": 172021,
+            "district_id": 12,
+            "constituency_id": 81,
+            "tehsil_id": 176,
+            "block_id": 264,
+            "panchayat_id": 537,
+            "address": "460 Varick Avenue"
+        },
+        "email": "cindycaldwell@endicil.com",
+        "mobile": "(940) 544-2968",
+        "owner": {
+            "name": "Cantu Sims",
+            "mobile": "(975) 511-3315",
+            "email": "cantusims@endicil.com",
+            "guardian_prefix": "S/O",
+            "guardian": "ex",
+            "pincode": 174472,
+            "district_id": 502,
+            "constituency_id": 2017,
+            "tehsil_id": 1349,
+            "block_id": 2013,
+            "panchayat_id": 410,
+            "address": "274 Guider Avenue",
+            "birth_date": "2012-07-21",
+            "aadhaar": 483233593299,
+            "pan": "IPLAX8396DEVILTOE",
+            "gender": "male",
+            "is_widow": "yes",
+            "social_category_id": 40,
+            "partner_name": [
+                "Blanchard Mclean"
+            ],
+            "partner_birth_date": [
+                "2015-01-05"
+            ],
+            "partner_aadhaar": [
+                848444916364
+            ],
+            "partner_mobile": [
+                "(943) 573-3532"
+            ]
+        },
+        "cost": {
+            "is_land_required": "no",
+            "is_building_required": "no",
+            "machinery_cost": 568303.491,
+            "other_fixed_assets_cost": 350563.3303,
+            "miscellaneous_assets_cost": 676687.9334,
+            "working_capital": 895748.4017,
+            "project_cost": 275517.1938
+        },
+        "finance": {
+            "bank_branch_id": 1105,
+            "has_any_loan": "yes",
+            "has_other_income_source": "no",
+            "is_assessed_for_income_tax": "yes"
+        }
+    },
+    {
+        "enterprise": {
+            "name": "PORTALIS",
+            "activity_type_id": 1,
+            "products": "ut anim",
+            "constitution_type_id": 37,
+            "employment": 3616,
+            "pincode": 172021,
+            "district_id": 14,
+            "constituency_id": 29,
+            "tehsil_id": 183,
+            "block_id": 236,
+            "panchayat_id": 1306,
+            "address": "799 Dorchester Road"
+        },
+        "email": "blanchardmclean@portalis.com",
+        "mobile": "(834) 446-2763",
+        "owner": {
+            "name": "Witt Nixon",
+            "mobile": "(897) 542-3627",
+            "email": "wittnixon@portalis.com",
+            "guardian_prefix": "S/O",
+            "guardian": "velit",
+            "pincode": 174472,
+            "district_id": 1137,
+            "constituency_id": 2125,
+            "tehsil_id": 3005,
+            "block_id": 2098,
+            "panchayat_id": 226,
+            "address": "541 Furman Avenue",
+            "birth_date": "1981-08-12",
+            "aadhaar": 454199602142,
+            "pan": "WATERBABY1781ZILLAR",
+            "gender": "male",
+            "is_widow": "yes",
+            "social_category_id": 28,
+            "partner_name": [
+                "Carmela Conner"
+            ],
+            "partner_birth_date": [
+                "2022-01-14"
+            ],
+            "partner_aadhaar": [
+                520562700659
+            ],
+            "partner_mobile": [
+                "(994) 505-2026"
+            ]
+        },
+        "cost": {
+            "is_land_required": "yes",
+            "is_building_required": "yes",
+            "machinery_cost": 147130.8506,
+            "other_fixed_assets_cost": 80810.7458,
+            "miscellaneous_assets_cost": 717851.243,
+            "working_capital": 443964.2221,
+            "project_cost": 29135.5783
+        },
+        "finance": {
+            "bank_branch_id": 1107,
+            "has_any_loan": "no",
+            "has_other_income_source": "no",
+            "is_assessed_for_income_tax": "no"
+        }
+    }
+]

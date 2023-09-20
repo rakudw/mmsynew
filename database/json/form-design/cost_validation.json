@@ -1,0 +1,12 @@
+{
+    "land_status": "required|in:Not Required,Owned,To be Purchased,To be Taken on Lease",
+    "land_cost": "required_if:land_status,To be Purchased,To be Taken on Lease|numeric",
+    "building_status": "required|in:Already Constructed,Not Required,To be Constructed,To be Taken on Rent",
+    "building_cost": "required_if:building_status,To be Constructed,To be Taken on Rent|numeric",
+    "building_area": "required_if:building_status,To be Constructed,To be Taken on Rent|numeric",
+    "assets_cost": "required_if:building_status,To be Constructed,To be Taken on Rent|numeric",
+    "assets_detail": "required_if:building_status,To be Constructed,To be Taken on Rent",
+    "machinery_cost": "required|numeric",
+    "machinery_detail": "required",
+    "working_capital": "required|numeric"
+}

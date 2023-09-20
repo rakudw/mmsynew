@@ -1,0 +1,1 @@
+{{ $bank_branch }}({{ $bank_branch_ifsc }})

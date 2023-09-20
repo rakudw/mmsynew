@@ -1,0 +1,46 @@
+https://demos.creative-tim.com/material-dashboard-pro/pages/dashboards/analytics.html
+
+
+Schedule meeting
+	# id
+	MF Total
+	Mobile
+	Bank
+	Branch
+	Bank (Remark)
+	View
+	Action
+
+Meeting Schedule
+	#
+	Created
+	UiD
+	Meeting Time
+	Description
+	Action
+
+Dic Approved
+	CheckBox
+	Date
+	Reg No.
+	Name & Address of Unit
+	Permanent Address
+
+Dealing Level Committee
+	AppID
+	Name & Address of Applicant
+	Type of Activity
+	Product Description
+	Proposed Investment
+		Land
+		Technical Civil Work
+		other civil Work
+		Machinery & Equipment
+		Other Fixed Assets
+		Misc. Fixed Assets
+		Working Capital
+		Total
+
+	Name of bank
+	Branch
+	Bank/Remark

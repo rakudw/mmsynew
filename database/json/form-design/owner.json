@@ -1,0 +1,273 @@
+[
+    {
+        "body": [
+            {
+                "type": "html",
+                "content": "<div class=\"col-12\"><div class=\"alert alert-info text-white\">Enter the details of major partner below.</div></div>"
+            }
+        ],
+        "type": "group",
+        "renderIf": "in_array(\\App\\Enums\\ConstitutionTypeEnum::fromId($data->enterprise->constitution_type_id), [\\App\\Enums\\ConstitutionTypeEnum::PARTNERSHIP, \\App\\Enums\\ConstitutionTypeEnum::LIMITED_LIABILITY_PARTNERSHIP])"
+    },
+    {
+        "body": [
+            {
+                "type": "html",
+                "content": "<div class=\"col-12\"><div class=\"alert alert-info text-white\">Enter the details of major shareholder below.</div></div>"
+            }
+        ],
+        "type": "group",
+        "renderIf": "\\App\\Enums\\ConstitutionTypeEnum::fromId($data->enterprise->constitution_type_id) == \\App\\Enums\\ConstitutionTypeEnum::PRIVATE_LIMITED"
+    },
+    {
+        "body": [
+            {
+                "type": "input",
+                "label": "Name",
+                "helpText": "The name of the applicant.",
+                "attributes": {
+                    "name": "name",
+                    "type": "text",
+                    "required": "required",
+                    "autofocus": "autofocus"
+                }
+            },
+            {
+                "type": "input",
+                "label": "Father/Husband/Mother Name",
+                "helpText": "Name of the guardian/parent/spouse.",
+                "attributes": {
+                    "name": "guardian",
+                    "type": "text",
+                    "required": "required",
+                    "autofocus": "autofocus",
+                    "data-prefix": "S/O,W/O,D/O,C/O"
+                }
+            },
+            {
+                "type": "input",
+                "label": "Mobile Number",
+                "default": "user.mobile",
+                "helpText": "Mobile number of the applicant linked to Aadhaar.",
+                "attributes": {
+                    "name": "mobile",
+                    "pattern": "[1-9]{1}[0-9]{9}",
+                    "type": "tel",
+                    "required": "required"
+                }
+            },
+            {
+                "type": "input",
+                "label": "Email",
+                "default": "user.email",
+                "helpText": "Email address of the applicant.",
+                "attributes": {
+                    "name": "email",
+                    "type": "email"
+                }
+            },
+            {
+                "type": "input",
+                "label": "Pincode",
+                "default": "enterprise.pincode",
+                "helpText": "Pincode of the location of the applicant.",
+                "attributes": {
+                    "name": "pincode",
+                    "max": "179999",
+                    "min": "170000",
+                    "type": "number",
+                    "required": "required"
+                }
+            },
+            {
+                "type": "select",
+                "label": "District",
+                "default": "enterprise.district_id",
+                "helpText": "Name of the district of the applicant.",
+                "attributes": {
+                    "name": "district_id",
+                    "data-options": "dbase:region(id,name)[type_id:404]",
+                    "data-changes": "constituency_id,tehsil_id,block_id",
+                    "required": "required"
+                }
+            },
+            {
+                "type": "select",
+                "label": "Constituency",
+                "default": "enterprise.constituency_id",
+                "helpText": "Name of the constituency of the applicant.",
+                "attributes": {
+                    "name": "constituency_id",
+                    "data-depends": "district_id",
+                    "data-options": "dbase:region(id,name)[type_id:405,parent_id:$district_id]",
+                    "required": "required"
+                }
+            },
+            {
+                "type": "select",
+                "label": "Tehsil",
+                "default": "enterprise.tehsil_id",
+                "helpText": "Name of the tehsil of the applicant.",
+                "attributes": {
+                    "name": "tehsil_id",
+                    "data-depends": "district_id",
+                    "data-options": "dbase:region(id,name)[type_id:406,parent_id:$district_id]",
+                    "required": "required"
+                }
+            },
+            {
+                "type": "select",
+                "label": "Block",
+                "default": "enterprise.block_id",
+                "helpText": "Name of the block of the applicant.",
+                "attributes": {
+                    "name": "block_id",
+                    "data-changes": "panchayat_id",
+                    "data-depends": "district_id",
+                    "data-options": "dbase:region(id,name)[type_id:407,parent_id:$district_id]",
+                    "required": "required"
+                }
+            },
+            {
+                "type": "select",
+                "label": "Panchayat/Town",
+                "default": "enterprise.panchayat_id",
+                "helpText": "Name of the panchayat/town of the applicant.",
+                "attributes": {
+                    "name": "panchayat_id",
+                    "data-depends": "block_id",
+                    "data-options": "dbase:region(id,name)[type_id:408,parent_id:$block_id]",
+                    "required": "required"
+                }
+            },
+            {
+                "type": "input",
+                "label": "House Number/Street/Landmark/Village name",
+                "default": "enterprise.address",
+                "helpText": "Address of the applicant.",
+                "attributes": {
+                    "name": "address",
+                    "type": "text",
+                    "required": "required"
+                }
+            }
+        ],
+        "type": "group",
+        "title": "Contact Details"
+    },
+    {
+        "body": [
+            {
+                "type": "input",
+                "label": "Aadhaar Number",
+                "helpText": "Aadhaar number of the applicant.",
+                "attributes": {
+                    "name": "aadhaar",
+                    "type": "tel",
+                    "required": "required",
+                    "pattern": "^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$"
+                }
+            },
+            {
+                "type": "input",
+                "label": "PAN Number",
+                "helpText": "PAN number of the applicant.",
+                "attributes": {
+                    "name": "pan",
+                    "type": "text",
+                    "pattern": "^([a-zA-Z]([a-zA-Z]([a-zA-Z]([a-zA-Z]([a-zA-Z]([0-9]([0-9]([0-9]([0-9]([a-zA-Z])?)?)?)?)?)?)?)?)?)?$"
+                }
+            },
+            {
+                "type": "select",
+                "label": "Gender",
+                "helpText": "Gender of the applicant.",
+                "attributes": {
+                    "name": "gender",
+                    "data-options": "csv:Female,Male,Other",
+                    "required": "required",
+                    "data-limit-age": "birth_date"
+                }
+            },
+            {
+                "type": "select",
+                "label": "Marital Status",
+                "helpText": "Marital status of the applicant.",
+                "attributes": {
+                    "name": "marital_status",
+                    "data-options": "csv:Unmarried,Married,Divorced,Widowed",
+                    "required": "required"
+                }
+            },
+            {
+                "type": "input",
+                "label": "Spouse's Aadhaar Number",
+                "helpText": "Aadhaar number of the spouse of the applicant.",
+                "attributes": {
+                    "name": "spouse_aadhaar",
+                    "type": "tel",
+                    "required": "required",
+                    "data-condition": "marital_status:Married",
+                    "pattern": "^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$"
+                }
+            },
+            {
+                "type": "input",
+                "label": "Date of Birth",
+                "helpHtml": "Date of birth of the applicant. <span id=\"birth_date_age\" class=\"badge badge-info bg-dark\"></span>",
+                "attributes": {
+                    "name": "birth_date",
+                    "type": "date",
+                    "pattern": "\\d\\d\\d\\d-(\\d)?\\d-(\\d)?\\d",
+                    "required": "required",
+                    "data-age": "true",
+                    "data-datepicker-xformat": "yyyy-mm-dd",
+                    "data-datepicker-xmax-date": "-18"
+                }
+            },
+            {
+                "type": "select",
+                "label": "Specially Abled (दिव्यांग)",
+                "helpHtml": "Choose <b>YES</b> if the applicant is a specially abled person.",
+                "attributes": {
+                    "name": "is_specially_abled",
+                    "data-options": "csv:No,Yes",
+                    "required": "required"
+                }
+            },
+            {
+                "type": "select",
+                "label": "Category",
+                "helpText": "Category of the applicant.",
+                "attributes": {
+                    "name": "social_category_id",
+                    "data-options": "dbase:enum(id,name)[type:SOCIAL_CATEGORY]",
+                    "required": "required"
+                }
+            },
+            {
+                "type": "select",
+                "label": "Belongs to Minority",
+                "helpHtml": "Choose <b>YES</b> if the applicant belongs to minority.",
+                "attributes": {
+                    "name": "belongs_to_minority",
+                    "data-options": "csv:No,Yes",
+                    "required": "required"
+                }
+            }
+        ],
+        "type": "group",
+        "title": "Personal Details"
+    },
+    {
+        "body": [
+            {
+                "type": "view",
+                "name": "form.partners"
+            }
+        ],
+        "type": "group",
+        "title": "Other Partners/Shareholders",
+        "renderIf": "\\App\\Enums\\ConstitutionTypeEnum::fromId($data->enterprise->constitution_type_id) != \\App\\Enums\\ConstitutionTypeEnum::PROPRIETORSHIP"
+    }
+]

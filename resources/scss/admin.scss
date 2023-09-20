@@ -1,0 +1,34 @@
+// Bootstrap 5
+@import '../../node_modules/bootstrap/scss/bootstrap';
+
+// FontAwesome 4
+@import './fontawesome.scss';
+
+@import '../css/admin';
+
+@import '../../node_modules/choices.js/src/styles/choices';
+
+@import '../../node_modules/vanillajs-datepicker/sass/datepicker-bs5';
+
+@import '../material/scss/material-dashboard';
+
+.choices__list{z-index: 10!important;}
+.choices__list--dropdown, .choices__list[aria-expanded] {word-break: break-word!important;}
+
+.checkbox-toggle{
+    padding-left: inherit;
+    padding-right: inherit;
+    border: none;
+    margin-left: -1rem;
+    .fas{
+        width: 1rem;
+        font-size: 1rem;
+        color: white;
+        border: 1px solid #d1d7e1;
+        border-radius:.25rem;
+    }
+    .fa-check-square{
+        color: #e91e63;
+        border-color: transparent;
+    }
+}

@@ -1,0 +1,18 @@
+{
+    "name": "required|max:255",
+    "mobile": "required|max:255",
+    "activity_type_id": "required|numeric|exists:App\\Models\\Enum,id",
+    "activity_id": "required_if:activity_type_id,202,203|exists:App\\Models\\Activity,id",
+    "activity_details": "required_if:activity_type_id,202,203",
+    "products": "required_if:activity_type_id,201",
+    "constitution_type_id": "required|numeric|exists:App\\Models\\Enum,id",
+    "employment": "required|numeric|min:1",
+    "area_type": "required|in:Urban,Rural",
+    "pincode": "required|numeric|min:170000|max:179999",
+    "district_id": "required|numeric|exists:App\\Models\\Region,id",
+    "constituency_id": "required|numeric|exists:App\\Models\\Region,id",
+    "tehsil_id": "required|numeric|exists:App\\Models\\Region,id",
+    "block_id": "required|numeric|exists:App\\Models\\Region,id",
+    "panchayat_id": "required|numeric|exists:App\\Models\\Region,id",
+    "address": "required"
+}

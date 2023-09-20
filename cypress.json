@@ -1,0 +1,9 @@
+{
+    "baseUrl": "https://mmsy-laravel9.test/",
+    "viewportHeight": 800,
+    "viewportWidth": 1024,
+    "component": {
+      "viewportHeight": 800,
+      "viewportWidth": 800
+    }
+  }

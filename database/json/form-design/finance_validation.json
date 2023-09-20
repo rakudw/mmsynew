@@ -1,0 +1,4 @@
+{
+    "own_contribution": "required|numeric|min:10|max:95",
+    "bank_branch_id": "required|numeric|exists:App\\Models\\BankBranch,id"
+}

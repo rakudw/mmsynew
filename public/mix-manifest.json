@@ -1,0 +1,14 @@
+{
+    "/build/js/app.js": "/build/js/app.js",
+    "/front/js/front-end.js": "/front/js/front-end.js",
+    "/build/js/chartjs.min.js": "/build/js/chartjs.min.js",
+    "/build/js/admin.js": "/build/js/admin.js",
+    "/build/js/login.js": "/build/js/login.js",
+    "/build/js/form.js": "/build/js/form.js",
+    "/build/js/pendency.js": "/build/js/pendency.js",
+    "/build/js/dashboard.js": "/build/js/dashboard.js",
+    "/build/js/view.js": "/build/js/view.js",
+    "/build/css/stylesheet.css": "/build/css/stylesheet.css",
+    "/build/css/app.css": "/build/css/app.css",
+    "/build/css/admin.css": "/build/css/admin.css"
+}

@@ -1,0 +1,153 @@
+[
+    {
+        "body": [{
+            "type": "select",
+            "label": "Land Status",
+            "helpText": "Land Status for the project.",
+            "width": "6",
+            "attributes": {
+                "name": "land_status",
+                "data-options": "csv:Not Required,Owned,To be Purchased,To be Taken on Lease",
+                "required": "required"
+            }
+        },
+        {
+            "type": "input",
+            "label": "Cost of Land",
+            "helpText": "Estimated cost of land.",
+            "width": "6",
+            "attributes": {
+                "name": "land_cost",
+                "type": "number",
+                "min": "0",
+                "data-condition": "land_status:To be Purchased,To be Taken on Lease",
+                "required": "required"
+            }
+        }],
+        "type": "group",
+        "renderIf": "!property_exists($data->enterprise, 'activity_id') || \\App\\Models\\Activity::find($data->enterprise->activity_id)->has_land_component",
+        "title": "Land"
+    },
+    {
+        "content": "<input type=\"hidden\" name=\"land_status\" value=\"Not Required\" />",
+        "type": "html",
+        "renderIf": "property_exists($data->enterprise, 'activity_id') && !\\App\\Models\\Activity::find($data->enterprise->activity_id)->has_land_component"
+    },
+    {
+        "body": [{
+            "type": "select",
+            "label": "Building Status",
+            "width": "6",
+            "helpText": "Building Status for the project.",
+            "attributes": {
+                "name": "building_status",
+                "data-options": "csv:Already Constructed,Not Required,To be Constructed,To be Taken on Rent",
+                "required": "required"
+            }
+        }, {
+            "type": "input",
+            "label": "Cost of Building Construction",
+            "helpHtml": "Estimated cost of building construction, excluding the rennovation cost. <span class=\"badge bg-gradient-primary\">Subsidized Component</span>",
+            "width": "6",
+            "attributes": {
+                "name": "building_cost",
+                "type": "number",
+                "min": "0",
+                "data-condition": "building_status:To be Constructed,To be Taken on Rent",
+                "required": "required"
+            }
+        }, {
+            "type": "input",
+            "label": "Estimated Buildup Area (in Square Feet)",
+            "helpHtml": "Estimated Buildup Area in Square Feet.",
+            "width": "6",
+            "attributes": {
+                "name": "building_area",
+                "type": "text",
+                "min": "0",
+                "data-condition": "building_status:To be Constructed,To be Taken on Rent",
+                "required": "required"
+            }
+        }, {
+            "type": "input",
+            "label": "Furniture, Fixtures, IT related items, Rennovation, Interrior Work and Other Fixed Assets Cost",
+            "helpHtml": "Estimated cost of furniture, fixtures, IT related items, rennovation, interrior work and other fixed assets. <span class=\"badge bg-gradient-primary\" data-check-manufacturing=\"true\">Subsidized Component</span>",
+            "attributes": {
+                "name": "assets_cost",
+                "type": "number",
+                "min": "0",
+                "required": "required"
+            }
+        }, {
+            "type": "input",
+            "label": "Details of Furniture, Fixtures, IT related items, Rennovation, Interrior Work and Other Fixed Assets",
+            "helpHtml": "Brief details of furniture, fixtures, IT related items, rennovation, interrior work and other fixed assets.",
+            "width": "12",
+            "attributes": {
+                "name": "assets_detail",
+                "type": "text",
+                "required": "required"
+            }
+        }],
+        "type": "group",
+        "renderIf": "!property_exists($data->enterprise, 'activity_id') || \\App\\Models\\Activity::find($data->enterprise->activity_id)->has_building_component",
+        "title": "Building"
+    },
+    {
+        "content": "<input type=\"hidden\" name=\"building_status\" value=\"Not Required\" />",
+        "type": "html",
+        "renderIf": "property_exists($data->enterprise, 'activity_id') && !\\App\\Models\\Activity::find($data->enterprise->activity_id)->has_building_component"
+    },
+    {
+        "body": [{
+            "type": "input",
+            "label": "Machinery/Equipments Cost",
+            "helpHtml": "Estimated cost of the machinery/equipments. <span class=\"badge bg-gradient-primary\">Subsidized Component</span>",
+            "attributes": {
+                "name": "machinery_cost",
+                "type": "number",
+                "min": "0",
+                "required": "required"
+            }
+        }, {
+            "type": "input",
+            "label": "Working Capital/CC Limit",
+            "helpText": "Estimated working capital/Cash Credit(CC) required.",
+            "attributes": {
+                "name": "working_capital",
+                "type": "number",
+                "min": "0",
+                "required": "required"
+            }
+        }, {
+            "type": "input",
+            "label": "Details of Machinery/Equipments",
+            "helpHtml": "Brief details of machinery/equipments.",
+            "width": "12",
+            "attributes": {
+                "name": "machinery_detail",
+                "type": "text",
+                "required": "required"
+            }
+        }],
+        "type": "group",
+        "title": "Machinery/Equipments Cost and Working Capital"
+    },
+    {
+        "body": [{
+            "type": "input",
+            "width": "12",
+            "label": "Total Project Cost",
+            "helpText": "Calculated project cost.",
+            "attributes": {
+                "readonly": "readonly",
+                "name": "project_cost",
+                "type": "text",
+                "required": "required",
+                "data-calculate": ""
+            }
+        }],
+        "type": "group",
+        "title": "Total Project Cost"
+    }
+]

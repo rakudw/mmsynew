@@ -1,0 +1,426 @@
+// Bootstrap 5
+@import 'app';
+
+@import '../../node_modules/animate.css/animate.min.css';
+@import '../css/style.css';
+
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+$themePrimaryColor: rgb(83, 93, 162);
+$themeSecondaryColor: rgb(238, 136, 28);
+$whiteColor: #FFFFFF;
+$blackColor: #000000;
+$fontFamily: 'Oswald', sans-serif;
+$fontFamilyTwo: 'Roboto', sans-serif;
+
+:root {
+    --primary-color: rgb(83, 93, 162);
+    --secondary-color: rgb(238, 136, 28);
+    --font-color: rgba(0, 0, 0, .84);
+    --bg-color: rgb(255, 255, 255);
+    --bg-light-color: rgb(245, 245, 245);
+    --bg-color-overlay: rgba(0, 0, 0, 0.74);
+    --font-color-overlay: rgba(255, 255, 255, 0.93);
+    --primary-color-overlay: rgba(83, 93, 162, .84);
+    --secondary-color-overlay: rgba(238, 136, 28, .84);
+    --heading-color: rgba(0, 0, 0, .74);
+    --link-color: rgb(83, 93, 162);
+    --link-hover-color: rgb(66, 74, 135);
+}
+
+[data-theme="dark"] {
+    --primary-color: rgb(238, 136, 28);
+    --secondary-color: rgb(83, 93, 162);
+    --font-color: rgb(255, 255, 255);
+    --bg-color: rgba(0, 0, 0, .74);
+    --bg-light-color: rgba(20, 20, 20, .74);
+    --bg-color-overlay: rgba(255, 255, 255, .74);
+    --primary-color-overlay: rgba(238, 136, 28, .84);
+    --secondary-color-overlay: rgba(83, 93, 162, .84);
+    --font-color-overlay: rgba(0, 0, 0, 0.93);
+    --heading-color: rgb(255, 255, 255);
+    --link-color: rgb(238, 136, 28);
+    --link-hover-color: rgb(199, 110, 21);
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--font-color);
+    line-height: normal;
+    font-size: 1rem;
+    font-family: $fontFamily;
+
+    .btn-theme-primary {
+        background: var(--primary-color);
+        border-color: var(--primary-color-overlay);
+        color: $whiteColor;
+
+        &:hover, &:focus {
+            background: var(--primary-color-overlay);
+            border-color: var(--primary-color);
+            color: $whiteColor;
+        }
+    }
+
+    .btn-theme-secondary {
+        background: var(--secondary-color);
+        border-color: var(--secondary-color-overlay);
+        color: $whiteColor;
+
+        &:hover, &:focus {
+            background: var(--secondary-color-overlay);
+            border-color: var(--secondary-color);
+            color: $whiteColor;
+        }
+    }
+
+    a {
+        color: var(--link-color);
+
+        &:hover, &:focus {
+            color: var(--link-hover-color);
+        }
+    }
+
+    .btn-link-secondary {
+        color: var(--link-color);
+
+        &:hover, &:focus {
+            color: var(--link-hover-color);
+        }
+    }
+}
+
+header {
+    .top-header {
+        background-color: var(--primary-color);
+        color: var(--font-color-overlay);
+
+        a {
+            color: var(--font-color-overlay);
+
+            &:hover, &:focus {
+                color: var(--font-color-overlay);
+            }
+        }
+    }
+
+    .hero-header {
+        background-position: center;
+        background-attachment: fixed;
+        background-size: cover;
+        background-repeat: no-repeat;
+
+        .hp-govt-logo {
+            width: 100%;
+            max-width: 145px;
+            padding-right: .75rem;
+            @media screen and (max-width: 767px) {
+                display: block;
+                text-align: center;
+                padding-left: calc(50% - 36px);
+                width: 100%;
+                max-width: calc(50% + 36px);
+            }
+        }
+
+        .middle-header {
+            background: var(--secondary-color-overlay);
+            @media screen and (max-width: 767px) {
+                text-align: center;
+                justify-content: center;
+                padding-bottom: 1.25rem;
+            }
+        }
+
+        .navbar-light {
+            padding-top: inherit;
+            padding-bottom: inherit;
+
+            .nav-item {
+                font-family: 'Source Sans Pro', sans-serif;
+                text-transform: uppercase;
+
+                .nav-link {
+                    padding-top: .75rem;
+                    padding-bottom: .75rem;
+                    color: black;
+
+                    &:hover {
+                        background: var(--secondary-color);
+                        color: $whiteColor;
+                    }
+                }
+            }
+        }
+
+        .hero-content {
+            min-height: 50vh;
+            padding-top: 15vh;
+            /* padding-bottom: 15vh; */
+
+            .content-block {
+                padding-top: .75rem;
+                padding-bottom: .75rem;
+                background-color: var(--bg-color-overlay);
+                color: var(--font-color-overlay);
+                border: 3px solid $themeSecondaryColor;
+            }
+
+            h2 {
+                color: $themeSecondaryColor;
+                text-transform: uppercase;
+            }
+        }
+    }
+}
+
+.news-section {
+    .latest-news {
+        padding: .5rem .75rem;
+        background: var(--secondary-color);
+        color: var(--font-color);
+        margin-bottom: inherit;
+        position: relative;
+
+        &::after {
+            position: absolute;
+            content: "";
+            right: -40px;
+            border-left: 20px solid var(--secondary-color);
+            border-top: 28px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 21px solid transparent;
+            top: 0;
+            z-index: 1023;
+            @media screen and (max-width: 767px) {
+                right: -40px;
+                border-left: 19px solid var(--secondary-color);
+                border-top: 23px solid transparent;
+                border-right: 21px solid transparent;
+                border-bottom: 19px solid transparent;
+            }
+        }
+    }
+
+    .latest-news-p {
+        width: calc(100% - 174px);
+        left: 174px;
+        font-family: $fontFamily;
+        font-weight: bold;
+        align-items: center;
+        margin-bottom: inherit;
+
+        a, span {
+            position: relative;
+            padding-left: .75rem;
+            padding-right: .75rem;
+            text-decoration: none;
+            color: var(--primary-color);
+
+            &::before {
+                content: '|';
+                position: absolute;
+                padding-left: .5rem;
+                padding-right: .5rem;
+                right: -0.5rem;
+                top: -0.5rem;
+                width: 1rem;
+                font-size: 1.5rem;
+                color: var(--secondary-color);
+            }
+        }
+    }
+}
+
+.about {
+    position: relative;
+    padding-top: 2.5%;
+    padding-bottom: 2.5%;
+    background: var(--bg-light-color);
+    z-index: 1020;
+
+    &:before {
+        content: '';
+        position: absolute;
+        background-position: left top;
+        background-repeat: no-repeat;
+        background-size: 50vh 75vh;
+        left: 0;
+        right: 0;
+        top: 0;
+        width: 45%;
+        height: 100%;
+        opacity: 0.24;
+        z-index: -1;
+    }
+
+    .about-content {
+        background: var(--bg-color);
+        font-family: $fontFamilyTwo;
+        font-size: 1.15rem;
+        line-height: 1.4;
+        padding: 1rem 1.25rem;
+        z-index: 1030;
+    }
+
+    .img-right {
+        background: var(--primary-color);
+        text-align: center;
+        padding: .5rem 1rem;
+    }
+
+    .content-right {
+        background: var(--secondary-color);
+        color: var(--font-color);
+        padding: .5rem 1rem;
+        text-align: center;
+    }
+
+    .yojna-content {
+        .col-md-4 {
+            text-align: center;
+
+            .useful-tips {
+                background: var(--secondary-color-overlay);
+                color: var(--font-color-overlay);
+                padding: 3.75rem;
+            }
+
+            .guideline {
+                background: var(--bg-color-overlay);
+                color: var(--font-color-overlay);
+                padding: 3.75rem;
+            }
+
+            .apply-now {
+                background: var(--primary-color-overlay);
+                color: var(--font-color-overlay);
+                padding: 3.75rem;
+            }
+
+            .fa-solid {
+                text-align: center;
+                font-size: 1.75rem;
+                color: var(--font-color-overlay);
+                margin-bottom: 1.25rem;
+            }
+        }
+
+    }
+
+    .key-feature {
+        .col-md-4 {
+            text-align: center;
+            margin-bottom: 1.25rem;
+
+            .feature-block {
+                background: var(--bg-color);
+                color: var(--font-color);
+                padding: 2.75rem 2.25rem;
+                border: 1px solid var(--secondary-color);
+            }
+
+            .fa-solid {
+                text-align: center;
+                font-size: 1.75rem;
+                color: var(--secondary-color);
+                margin-bottom: 1.25rem;
+            }
+        }
+    }
+
+    .news-circular {
+        border: 1px solid var(--secondary-color);
+
+        .nav-link {
+            background: var(--bg-color);
+        }
+
+        .nav-link.active {
+            color: var(--font-color-overlay);
+            background: var(--primary-color);
+        }
+
+        .list-group {
+            .list-group-item {
+                background: transparent;
+                color: var(--font-color);
+            }
+        }
+    }
+
+    .important-links {
+        display: block;
+        background: var(--bg-color);
+        height: 100%;
+        padding: .5rem;
+        border: 1px solid var(--secondary-color);
+    }
+}
+
+.counter-section {
+    padding: 2.75rem 1rem;
+    background: var(--secondary-color-overlay);
+    color: var(--font-color-overlay);
+
+    &::before {
+        content: '';
+        position: absolute;
+        background-position: left top;
+        background-repeat: no-repeat;
+        background-size: cover;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.24;
+        z-index: -1;
+    }
+
+    .col {
+        text-align: center;
+    }
+}
+
+.footer-section {
+    padding-top: 2.5%;
+    padding-bottom: 2.5%;
+    background: var(--bg-color);
+
+    .hp-govt-logo {
+        width: 100%;
+        max-width: 132px;
+        @media screen and (max-width: 767px) {
+            width: 100%;
+            max-width: 72px;
+        }
+    }
+
+    h4 {
+        color: var(--font-color);
+    }
+
+    h5 {
+        color: var(--secondary-color);
+    }
+
+    .important-links {
+        color: var(--font-color) !important;
+        text-decoration: none;
+    }
+}
+
+.copyright-section {
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+    background: var(--bg-light-color);
+    color: var(--font-color);
+
+    .visitor-counter {
+        color: var(--secondary-color);
+    }
+}
