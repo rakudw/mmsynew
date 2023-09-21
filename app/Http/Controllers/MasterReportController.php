@@ -8,6 +8,8 @@ use App\Models\Region;
 use App\Enums\ApplicationStatusEnum;
 use App\Models\Views\ApplicationView;
 use Exception;
+use App\Exports\NumericReportExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MasterReportController extends Controller
 {
@@ -190,6 +192,159 @@ class MasterReportController extends Controller
 
     // Numaric reports here
     public function recievedApplication(Request $request){
-        dd('asd');
+        $district_ids = $request->input('district_id', 'All');
+        $tehsil_ids = $request->input('tehsil_id', 'All');
+        $constituency_ids = $request->input('constituency_id', 'All');
+        $block_ids = $request->input('block_id', 'All');
+        $panchayat_ids = $request->input('panchayat_id', 'All');
+
+        // Get Data from Filters
+        $title = 'Recieved Applications';
+        $districts = Region::userBasedDistricts(null)->select('name','id')->get();
+        $districtsIds = $district_ids == 'All' ? Region::userBasedDistricts(null)->pluck('id')->values() : $district_ids;
+        $constituencies = null;
+        $tehsils = null;
+        $blocks = null;
+        $panchayatWards = null;
+        $statusId = null;
+        $selectedFY = request()->get('fy'); // Get the selected fiscal year from the request
+        if($selectedFY && $selectedFY != 'All'){
+            // dd($selectedFY);
+            // Split the fiscal year into two years
+            list($startYear, $endYear) = explode('-', $selectedFY);
+    
+            // Calculate the start and end dates of the fiscal year
+            $startDate = "{$startYear}-04-01";
+            $endDate = "{$endYear}-03-31";
+    
+            
+        }
+       $reportData = $this->numaricQuery($districtsIds,$selectedFY);
+        //    dd($selectedFY);
+       $totals = null;
+
+        foreach ($reportData as $item) {
+            if (isset($item['Total'])) {
+                $totals = $item['Total'];
+                break;
+            }
+        }
+        $request->session()->flash('exportData', $reportData);
+        $request->session()->flash('totals', $totals);
+        return view('numaric_reports.index',compact('districts','constituencies','tehsils','blocks','panchayatWards','title','statusId','reportData','totals'));
     }
+    public function numaricQuery($districtIds, $selectedFY)
+    {
+        $selectedFiscalYears = $selectedFY && $selectedFY !== "All" ? [$selectedFY] : ['2020-21', '2021-22', '2022-23'];
+    
+        $reportData = [];
+    
+        // Initialize totals
+        $totals = [
+            'Received' => 0,
+            'Approved' => 0,
+            'RejectedByDLC' => 0,
+            'RejectedByBank' => 0,
+            'PendingForDLC' => 0,
+            'PendingAtBank' => 0,
+        ];
+    
+        // Loop through each district
+        foreach ($districtIds as $districtId) {
+            $districtData = [
+                'District' => Region::find($districtId)->name, 
+                'Year' => [],
+            ];
+    
+            // Loop through each fiscal year
+            foreach ($selectedFiscalYears as $fiscalYear) {
+                list($startYear, $endYear) = explode('-', $fiscalYear);
+    
+                $startDate = "{$startYear}-04-01";
+                $endDate = "{$endYear}-03-31";
+    
+                $receivedCount = Application::where('region_id', $districtId)
+                    ->whereNot('status_id', 302)
+                    ->whereBetween('created_at', [$startDate, $endDate])
+                    ->count();
+                // Build the query to count approved applications
+                $approvedCount = Application::where('region_id', $districtId)
+                    ->where('status_id', '>', 308) 
+                    ->whereBetween('created_at', [$startDate, $endDate])
+                    ->count();
+    
+                // Build the query to count rejected applications by DLC
+                $rejectedByDlcCount = Application::where('region_id', $districtId)
+                    ->whereIn('status_id', [310]) 
+                    ->whereBetween('created_at', [$startDate, $endDate])
+                    ->count();
+    
+                // Build the query to count rejected applications by bank
+                $rejectedByBankCount = Application::where('region_id', $districtId)
+                    ->whereIn('status_id', [304]) 
+                    ->whereBetween('created_at', [$startDate, $endDate])
+                    ->count();
+    
+                // Build the query to count pending applications for DLC
+                $pendingForDlcCount = Application::where('region_id', $districtId)
+                    ->whereIn('status_id', [309])
+                    ->whereBetween('created_at', [$startDate, $endDate])
+                    ->count();
+    
+                // Build the query to count pending applications at the bank
+                $pendingAtBankCount = Application::where('region_id', $districtId)
+                    ->whereIn('status_id', [308])
+                    ->whereBetween('created_at', [$startDate, $endDate])
+                    ->count();
+    
+                // Update the totals
+                $totals['Received'] += $receivedCount;
+                $totals['Approved'] += $approvedCount;
+                $totals['RejectedByDLC'] += $rejectedByDlcCount;
+                $totals['RejectedByBank'] += $rejectedByBankCount;
+                $totals['PendingForDLC'] += $pendingForDlcCount;
+                $totals['PendingAtBank'] += $pendingAtBankCount;
+    
+                // Create an array for the current fiscal year's data
+                $fiscalYearData = [
+                    'Year' => $fiscalYear,
+                    'Received' => $receivedCount,
+                    'Approved' => $approvedCount,
+                    'Rejected By DLC' => $rejectedByDlcCount,
+                    'Rejected By Bank' => $rejectedByBankCount,
+                    'Pending For DLC' => $pendingForDlcCount,
+                    'Pending At Bank' => $pendingAtBankCount,
+                ];
+    
+                // Add the fiscal year data to the 'Year' key
+                $districtData['Year'][] = $fiscalYearData;
+            }
+    
+            // Add the district data to the report data
+            $reportData[] = $districtData;
+        }
+    
+        // Add the totals to the report data
+        $reportData[] = ['Total' => $totals];
+    
+        return $reportData;
+    }
+
+    public function exportReports(Request $request)
+    {
+        // Retrieve the flashed data from the session
+        $reportData = $request->session()->get('exportData');
+        $totals = $request->session()->get('totals');
+        // dd($reportData);
+        // Check if the data is available
+        if (!$reportData) {
+            abort(404); 
+        }
+        $title = 'Recieved Applications';
+        // Generate and download the Excel file
+        return Excel::download(new NumericReportExport($reportData, $title, $totals), 'numeric_report.xlsx');
+    }
+    
+    
+    
 }

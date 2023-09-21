@@ -310,6 +310,25 @@
 
         @if(auth()->user()->isSuperAdmin())
             <x-sidebar.nav-item>
+                <x-sidebar.sub-menu :active="request()->routeIs('numaric_report.*')" :menuId="'numaric_reports'">
+                    <x-slot:icon><em class="material-icons opacity-10">report</em></x-slot:icon>
+                    <x-slot:title :title="__('Numaric Reports')">{{ __('Numaric Reports') }}</x-slot:title>
+                    <x-slot:collapse>
+                        <x-sidebar.collapse-show :menuId="'numaric_reports'">
+                                    <x-sidebar.nav-item>
+                                        <x-sidebar.nav-link href="{{ route('numaric_reports.recieved') }}" :active="request()->routeIs('numaric_reports.recieved')">
+                                            <x-slot:icon><em class="material-icons opacity-10">description</em></x-slot:icon>
+                                            <x-slot:title>{{ __('Application Recieved') }}</x-slot:title>
+                                        </x-sidebar.nav-link>
+                                    </x-sidebar.nav-item>
+                        </x-sidebar.collapse-show>
+                    </x-slot:collapse>
+                </x-sidebar.sub-menu>
+            </x-sidebar.nav-item>
+        @endif
+
+        @if(auth()->user()->isSuperAdmin())
+            <x-sidebar.nav-item>
                 <x-sidebar.nav-link href="{{ url('adminer') }}" target="_blank">
                     <x-slot:icon><em class="material-icons opacity-10">list_alt</em></x-slot:icon>
                     <x-slot:title>{{ __('Database Access') }}</x-slot:title>

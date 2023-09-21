@@ -140,8 +140,9 @@ Route::middleware('auth')->group(function () {
         Route::post('/get-data-from-districts', [MasterReportController::class, 'getDataFromDistricts'])->name('get-data-from-districts');
 
     });
-    Route::controller(MasterReportController::class)->prefix('/numaric_report')->group(function () {
-        Route::get('/application-recieved', 'recievedApplication')->name('numaric_report.recieved');
+    Route::controller(MasterReportController::class)->prefix('/numaric_reports')->group(function () {
+        Route::get('/application-recieved', 'recievedApplication')->name('numaric_reports.recieved');
+        Route::get('/export-recieved/{type}', 'exportReports')->name('numaric_reports.exportReports');
     });
 });
 
