@@ -142,6 +142,7 @@ Route::middleware('auth')->group(function () {
     });
     Route::controller(MasterReportController::class)->prefix('/numaric_reports')->group(function () {
         Route::get('/application-recieved', 'recievedApplication')->name('numaric_reports.recieved');
+        Route::get('/application-released', 'releasedApplication')->name('numaric_reports.released');
         Route::get('/export-recieved/{type}', 'exportReports')->name('numaric_reports.exportReports');
     });
 });

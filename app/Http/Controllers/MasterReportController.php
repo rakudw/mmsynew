@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Application;
 use App\Models\Region;
+use App\Models\Enum;
 use App\Enums\ApplicationStatusEnum;
 use App\Models\Views\ApplicationView;
 use Exception;
 use App\Exports\NumericReportExport;
+use App\Exports\NumaricAllStatusExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class MasterReportController extends Controller
@@ -219,7 +221,7 @@ class MasterReportController extends Controller
     
             
         }
-       $reportData = $this->numaricQuery($districtsIds,$selectedFY);
+       $reportData = $this->numaricQueryRecieved($districtsIds,$selectedFY);
         //    dd($selectedFY);
        $totals = null;
 
@@ -231,9 +233,121 @@ class MasterReportController extends Controller
         }
         $request->session()->flash('exportData', $reportData);
         $request->session()->flash('totals', $totals);
-        return view('numaric_reports.index',compact('districts','constituencies','tehsils','blocks','panchayatWards','title','statusId','reportData','totals'));
+        return view('numaric_reports.recieved',compact('districts','constituencies','tehsils','blocks','panchayatWards','title','statusId','reportData','totals'));
     }
-    public function numaricQuery($districtIds, $selectedFY)
+    public function releasedApplication(Request $request){
+        $district_ids = $request->input('district_id', 'All');
+        $tehsil_ids = $request->input('tehsil_id', 'All');
+        $constituency_ids = $request->input('constituency_id', 'All');
+        $block_ids = $request->input('block_id', 'All');
+        $panchayat_ids = $request->input('panchayat_id', 'All');
+
+        // Get Data from Filters
+        $title = 'Recieved Applications';
+        $districts = Region::userBasedDistricts(null)->select('name','id')->get();
+        $districtsIds = $district_ids == 'All' ? Region::userBasedDistricts(null)->pluck('id')->values() : $district_ids;
+        $constituencies = null;
+        $tehsils = null;
+        $blocks = null;
+        $panchayatWards = null;
+        $statusId = null;
+        $selectedFY = request()->get('fy'); // Get the selected fiscal year from the request
+        if($selectedFY && $selectedFY != 'All'){
+            // dd($selectedFY);
+            // Split the fiscal year into two years
+            list($startYear, $endYear) = explode('-', $selectedFY);
+    
+            // Calculate the start and end dates of the fiscal year
+            $startDate = "{$startYear}-04-01";
+            $endDate = "{$endYear}-03-31";
+    
+            
+        }
+        $statusCodes = Enum::where('type', 'APPLICATION_STATUS')->whereNot('name','Unknown')->select('id','name')->get()->toArray();
+       $reportData = $this->numaricQueryReleased($districtsIds,$selectedFY,$statusCodes);
+        //    dd($reportData);
+       $totals = null;
+
+        foreach ($reportData as $item) {
+            if (isset($item['Total'])) {
+                $totals = $item['Total'];
+                break;
+            }
+        }
+        $request->session()->flash('exportData', $reportData);
+        $request->session()->flash('totals', $totals);
+        $request->session()->flash('statusCodes', $statusCodes);
+        return view('numaric_reports.released',compact('districts','constituencies','tehsils','blocks','panchayatWards','title','statusId','reportData','totals','statusCodes'));
+    }
+    public function numaricQueryReleased($districtIds, $selectedFY,$statusCodes)
+    {
+        
+        $selectedFiscalYears = $selectedFY && $selectedFY !== "All" ? [$selectedFY] : ['2020-21', '2021-22', '2022-23'];
+    
+        $reportData = [];
+    
+        // Initialize totals
+        $totals = [];
+    
+        // Initialize the totals array based on the status codes
+        foreach ($statusCodes as $status) {
+            $totals[$status['name']] = 0;
+        }
+    
+        // Loop through each district
+        foreach ($districtIds as $districtId) {
+            $districtData = [
+                'District' => Region::find($districtId)->name,
+                'Year' => [],
+            ];
+    
+            // Loop through each fiscal year
+            foreach ($selectedFiscalYears as $fiscalYear) {
+                list($startYear, $endYear) = explode('-', $fiscalYear);
+    
+                $startDate = "{$startYear}-04-01";
+                $endDate = "{$endYear}-03-31";
+    
+                // Initialize an array to store counts for each status
+                $statusCounts = [];
+    
+                // Loop through status codes
+                foreach ($statusCodes as $status) {
+                    // Build the query to count applications for the current status
+                    $statusCount = Application::where('region_id', $districtId)
+                        ->where('status_id', $status['id'])
+                        ->whereBetween('created_at', [$startDate, $endDate])
+                        ->count();
+    
+                    // Update the status count
+                    $statusCounts[$status['name']] = $statusCount;
+    
+                    // Update the totals
+                    $totals[$status['name']] += $statusCount;
+                }
+    
+                // Create an array for the current fiscal year's data
+                $fiscalYearData = [
+                    'Year' => $fiscalYear,
+                ];
+    
+                // Merge status counts into the fiscal year data
+                $fiscalYearData = array_merge($fiscalYearData, $statusCounts);
+    
+                // Add the fiscal year data to the 'Year' key
+                $districtData['Year'][] = $fiscalYearData;
+            }
+    
+            // Add the district data to the report data
+            $reportData[] = $districtData;
+        }
+    
+        // Add the totals to the report data
+        $reportData[] = ['Total' => $totals];
+    
+        return $reportData;
+    }
+    public function numaricQueryRecieved($districtIds, $selectedFY)
     {
         $selectedFiscalYears = $selectedFY && $selectedFY !== "All" ? [$selectedFY] : ['2020-21', '2021-22', '2022-23'];
     
@@ -329,22 +443,22 @@ class MasterReportController extends Controller
     
         return $reportData;
     }
-
     public function exportReports(Request $request)
     {
         // Retrieve the flashed data from the session
         $reportData = $request->session()->get('exportData');
         $totals = $request->session()->get('totals');
-        // dd($reportData);
-        // Check if the data is available
         if (!$reportData) {
             abort(404); 
         }
-        $title = 'Recieved Applications';
-        // Generate and download the Excel file
-        return Excel::download(new NumericReportExport($reportData, $title, $totals), 'numeric_report.xlsx');
+        if($request->type == "allStatus"){
+            $statusCodes = $request->session()->get('statusCodes');
+            $title = 'Recieved Applications';
+            return Excel::download(new NumaricAllStatusExport($reportData, $title, $totals, $statusCodes), 'all_status_numeric_report.xlsx');
+        }else{
+            $title = 'Recieved Applications';
+            return Excel::download(new NumericReportExport($reportData, $title, $totals), 'recieved_applications_report.xlsx');
+        }
     }
-    
-    
     
 }

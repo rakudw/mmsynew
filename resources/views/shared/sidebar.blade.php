@@ -315,12 +315,18 @@
                     <x-slot:title :title="__('Numaric Reports')">{{ __('Numaric Reports') }}</x-slot:title>
                     <x-slot:collapse>
                         <x-sidebar.collapse-show :menuId="'numaric_reports'">
-                                    <x-sidebar.nav-item>
-                                        <x-sidebar.nav-link href="{{ route('numaric_reports.recieved') }}" :active="request()->routeIs('numaric_reports.recieved')">
-                                            <x-slot:icon><em class="material-icons opacity-10">description</em></x-slot:icon>
-                                            <x-slot:title>{{ __('Application Recieved') }}</x-slot:title>
-                                        </x-sidebar.nav-link>
-                                    </x-sidebar.nav-item>
+                            <x-sidebar.nav-item>
+                                <x-sidebar.nav-link href="{{ route('numaric_reports.recieved') }}" :active="request()->routeIs('numaric_reports.recieved')">
+                                    <x-slot:icon><em class="material-icons opacity-10">description</em></x-slot:icon>
+                                    <x-slot:title>{{ __('Application Recieved') }}</x-slot:title>
+                                </x-sidebar.nav-link>
+                            </x-sidebar.nav-item>
+                            <x-sidebar.nav-item>
+                                <x-sidebar.nav-link href="{{ route('numaric_reports.released') }}" :active="request()->routeIs('numaric_reports.released')">
+                                    <x-slot:icon><em class="material-icons opacity-10">description</em></x-slot:icon>
+                                    <x-slot:title>{{ __('Subsidy Released') }}</x-slot:title>
+                                </x-sidebar.nav-link>
+                            </x-sidebar.nav-item>
                         </x-sidebar.collapse-show>
                     </x-slot:collapse>
                 </x-sidebar.sub-menu>
