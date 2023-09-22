@@ -33,13 +33,13 @@
                 <!-- District Dropdown -->
                 <label class="form-label">Select District</label>
                 <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn btn-info dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         District
                     </button>
                     <ul class="dropdown-menu" id="district-multiselect">
                         <li>
-                            <label class="dropdown-item">
-                                <input type="checkbox" id="select-all-districts-multiselect"> Select All
+                            <label class="dropdown-item ">
+                                <input type="checkbox" class="district-checkbox" id="select-all-districts-multiselect"> Select All
                             </label>
                         </li>
                         @foreach($districts as $district)
@@ -59,7 +59,7 @@
                 <label class="form-label">Select Constituency</label>
                 <!-- Constituency Dropdown -->
                 <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn btn-info dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Constituency
                     </button>
                     <ul class="dropdown-menu" id="constituency-multiselect">
@@ -86,7 +86,7 @@
             <label class="form-label">Select Tehsil</label>
             <!-- Tehsil Dropdown -->
             <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="btn btn-info dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Tehsil
                 </button>
                 <ul class="dropdown-menu" id="tehsil-multiselect">
@@ -112,7 +112,7 @@
             <label class="form-label">Select Block/Town</label>
             <!-- Block/Town Dropdown -->
             <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="btn btn-info dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Block/Town
                 </button>
                 <ul class="dropdown-menu" id="block-town-multiselect">
@@ -138,7 +138,7 @@
             <label class="form-label">Select Panchayat/Ward</label>
             <!-- Panchayat/Ward Dropdown -->
             <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="btn btn-info dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Panchayat/Ward
                 </button>
                 <ul class="dropdown-menu" id="panchayat-ward-multiselect">
