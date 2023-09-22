@@ -17,6 +17,8 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Nullix\CryptoJsAes\CryptoJsAes;
 use App\Models\Banner;
+use App\Models\User;
+use App\Models\Application;
 use App\Models\Usefultip;
 
 class HomeController extends Controller
@@ -42,6 +44,16 @@ class HomeController extends Controller
 
     public function login()
     {
+        // dd(request()->query('source'));
+        $source = request()->query('source');
+
+        // You can use $source to determine the source and customize your logic
+        if ($source === 'existing_application') {
+            request()->session()->put('_key', Str::random(8));
+            return view('home.otplogin', [
+                'captchaUrl' => captcha_src(),
+            ]);
+        }
         if ($this->user()) {
             return redirect('dashboard');
         }
@@ -93,8 +105,29 @@ class HomeController extends Controller
     {
         $identity = CryptoJsAes::decrypt($request->identity, $request->session()->get('_key'));
 
+        // Check if the identity is a valid mobile number in the users table
+        $user = User::where('mobile', $identity)->first();
+
+        // If not found in users table, check if it exists in the application table
+        if (!$user) {
+            $applicationUser = Application::whereJsonContains('data->enterprise->mobile', $identity)->first();
+        }
+
+        // If the identity is an email, check if it exists in the users table
+        if (!$user && filter_var($identity, FILTER_VALIDATE_EMAIL)) {
+            $user = User::where('email', $identity)->first();
+        }
+
+        // If not found in either table, return an error
+        if (!$user && !$applicationUser) {
+            return response()->json(['error' => 'Identity not found in users or application table','status' => 404], 404);
+        }
+
+        // Rest of your OTP generation and sending logic...
+        
         $otps = Otp::where('identity', $identity)->get();
         $currentOtp = null;
+        
         foreach ($otps as $otp) {
             if ($otp->expires_at < now()) {
                 $otp->forceDelete();
@@ -102,10 +135,12 @@ class HomeController extends Controller
                 $currentOtp = $otp;
             }
         }
+
         if (!$currentOtp) {
             $currentOtp = Otp::create([
                 'identity' => $identity,
             ]);
+
             if (!env('APP_DEBUG')) {
                 if ($currentOtp->isForEmail()) {
                     Mail::to($identity)->send(new LoginOtpMail($currentOtp));
@@ -114,7 +149,8 @@ class HomeController extends Controller
                 }
             }
         }
-        return response()->json(['hash' => md5($currentOtp->code), 'resendAfter' => Carbon::parse($currentOtp->expires_at)->diffInMilliseconds(now())], 202);
+
+        return response()->json(['hash' => md5($currentOtp->code), 'resendAfter' => Carbon::parse($currentOtp->expires_at)->diffInMilliseconds(now()),'status' => 202], 202);
     }
 
     public function otpLogin(int $otpId, string $hash, Request $request)

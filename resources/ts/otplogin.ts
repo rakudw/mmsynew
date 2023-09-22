@@ -65,10 +65,10 @@ import Swal from 'sweetalert2';
                 body: JSON.stringify(data)
             })).json();
             console.log(response.status)
-            if(response.resendAfter) {
-                console.log('showPasswordButton:', showPasswordButton);
-                setTimeout(showPasswordButton.click.bind(showPasswordButton), response.resendAfter);
-            }
+            // if(response.resendAfter) {
+            //     console.log('showPasswordButton:', showPasswordButton);
+            //     setTimeout(showPasswordButton.click.bind(showPasswordButton), response.resendAfter);
+            // }
             if(response.status == 202){
 
                 Swal.fire({
