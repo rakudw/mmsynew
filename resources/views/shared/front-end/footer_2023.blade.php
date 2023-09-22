@@ -36,6 +36,7 @@
 
 </div>
 
+
 <!-- copyright footer starts-->
 
 <div class="footer_section_copyright">

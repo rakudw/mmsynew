@@ -15,6 +15,7 @@ export default defineConfig({
                 'resources/material/js/plugins/chartjs.min.js',
 
                 'resources/scss/admin.scss',
+                'resources/scss/applicant.scss',
                 'resources/scss/app.scss',
                 'resources/scss/fontawesome.scss',
                 'resources/scss/stylesheet.scss',

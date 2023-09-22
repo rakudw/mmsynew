@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.applicant')
 
 @section('title', $title ?? 'Application for Approval')
 
@@ -15,41 +15,9 @@
 @endsection
 
 @section('content')
-    
-    <!-- @if (!$application->id) -->
-        <div class="row" id="instructions">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header custom">
-                        <h4>Instructions and Declaration</h4>
-                        <a href="{{ route("login") }}"><button class="btn btn-success">Login To Existing Application</button></a>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">By clicking the button below you agree to the following:</h5>
-                        <ul class="list-group">
-                            <li class="list-group-item">&bull; The applicant is a <abbr
-                                    title="Bonafide certificate is certification provided to the citizen by the government confirming and testifying their place of residence in the district of Himachal Pradesh.">Bonafied
-                                    Himachali</abbr>.</li>
-                            <li class="list-group-item">&bull; The age of the applicant is as per the policy requirements.
-                            </li>
-                            <li class="list-group-item">&bull; The applicant and their spouse have not taken the benefit of
-                                this scheme yet.</li>
-                            <li class="list-group-item">&bull; The applicant has read the policy document thoroughly.</li>
-                            <li class="list-group-item">* <small>The applicant above refers to all the partners/shareholders
-                                    collectively or the individual in case of a proprietorship.</small></li>
-                        </ul>
-                    </div>
-                    <div class="card-footer">
-                        <button class="btn btn-primary"
-                            onclick="javascript:document.getElementById('formHolder').classList.remove('d-none');document.getElementById('instructions').classList.add('d-none');document.querySelector('input[type=text]').focus();">
-                            Continue With New Application</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    <!-- @endif -->
+@include('shared.front-end.applicant_header')
 
-    <div class="row {{ $application->id ? '' : 'd-none' }}" id="formHolder">
+    <div class="row " id="formHolder">
         <div class="col-12">
             <x-forms.form />
         </div>
@@ -57,9 +25,15 @@
 @endsection
 
 <style>
-    aside{
-        display: none
+    .application-form{
+        width: 100%;
+        overflow: hidden;
     }
+    .style1{
+        color: white
+    }
+</style>
+<style>
     /*Generated from Designmycss.com*/
     .button {  
         /* Fix to remove extra padding in IE */
@@ -141,24 +115,24 @@
     }
     table
     {
-        border-spacing:1px;
-        border-style:solid;
-        border-color:#2C4F85;
-        font-family:Verdana, Arial, Helvetica, sans-serif;
-        font-size:12px;
-        padding:0;
-        box-shadow:0px 0px #000000;
-        table-layout:auto;
+        border-spacing:1px !important;
+        border-style:solid !important;
+        border-color:#2C4F85 !important;
+        font-family:Verdana, Arial, Helvetica, sans-serif !important;
+        font-size:12px !important;
+        padding:0 !important;
+        box-shadow:0px 0px #000000 !important;
+        table-layout:auto !important;
     }
 
 
     th
     {
         color:#333333 !important;
-        background:#EFE0D1 !important;
+        background:#cfe2ff !important;
         border-style:solid !important;
-        border-width:0px !important;
-        border-color:#2C4F85 !important;
+        border-width: 1px !important;
+        border-color: #ffffff !important;
         font-weight:bold !important;
         font-size:12px !important;
         padding:5px !important;
@@ -168,21 +142,21 @@
     
     tr
     {
-        color:#333333;
-        font-weight:bold;
+        color:#333333 !important;
+        font-weight:bold !important;
     }
     
     tr:hover td
     {
-        color:#081C6B;
+        color:#081C6B !important;
     }
     
     td
     {
-        padding:3px 5px;
-        text-align:left;
-        vertical-align:top;
-        font-weight:bold;
+        padding:3px 5px !important;
+        text-align:left !important;
+        vertical-align:top !important;
+        font-weight:bold !important;
     }
     
     th:first-child
@@ -193,13 +167,27 @@
     th:last-child
     {
         border-top-right-radius:10px;
+        height: 50px;
+        display: flex;
+        font-size: 16px !important;
+        justify-content: left;
+        align-items: center;
     }
-    
+    .section-heading {
+        font-size: 16px !important;
+        vertical-align: middle !important;   
+    }
+    .section-heading strong{
+        font-size: 16px;
+    }
     tr:last-child td:first-child
     {
         border-bottom-left-radius:10px;
     }
     
+    .td-1{
+        width: 1050px;
+    }
     tr:last-child td:last-child
     {
         border-bottom-right-radius:10px;
@@ -761,12 +749,6 @@
     left: 0;
     width: 100%;
     height: 100%;
-    }
-</style>
-<style>
-    .application-form{
-        width: 100%;
-        overflow: hidden;
     }
 </style>
 @section('scripts')
