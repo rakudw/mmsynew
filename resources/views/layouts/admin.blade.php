@@ -30,7 +30,7 @@
 </head>
 
 <body class="g-sidenav-show  bg-gray-200">
-    {{-- @include('shared.sidebar') --}}
+    @include('shared.sidebar')
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
         @include('shared.navbar')
         <div class="container-fluid py-4">
