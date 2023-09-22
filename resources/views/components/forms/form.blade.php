@@ -543,7 +543,7 @@
                                 </tr>
                                 <tr>
                                     <th class="section-heading">(D)</th>
-                                    <th ><strong>Means of Finance / वित्त प्राधिकृति
+                                    <th class="section-heading" ><strong>Means of Finance / वित्त प्राधिकृति
                                             <input name="FH_NAME" id="FH_NAME" type="hidden" value="-">
                                             <input name="FH_NM_DESC" id="FH_NM_DESC" type="hidden" value="-">
                                     </strong></th>
@@ -552,7 +552,7 @@
                                 </tr>
                                 <tr>
                                     <th>(46)</th>
-                                    <th class="section-heading" ><strong>Own Contribution Percentage (% of Capital Expenditure):</strong></th>
+                                    <th  ><strong>Own Contribution Percentage (% of Capital Expenditure):</strong></th>
                                     <td colspan="4">
                                         <input type="number" id="own_contribution" name="own_contribution" min="10" max="95" step="any" required autofocus>
                                         <small>Should be at least 10%.</small>
