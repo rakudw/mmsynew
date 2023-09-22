@@ -117,6 +117,73 @@ $notPendingNotRejected = ($type == 'pending' || $type == 'rejected');
     </div>
 </div>
 @endsection
+<style>
+    #status-id
+    {
+      background-color: #EC407A !important;
+      border: 1px solid #EC407A !important;
+    }
+    button.btn.btn-info.dropdown-toggle
+    {
+      background-color: #EC407A !important; 
+      border: 1px solid #EC407A !important; 
+    }
+    #status-id option,ul#district-multiselect,ul#constituency-multiselect,ul#tehsil-multiselect,ul#block-town-multiselect,ul#panchayat-ward-multiselect
+    {
+    width: 100% !important;
+    background-color: #66BB6A !important;  
+    overflow-x: hidden;
+    } 
+
+    button.dt-button.buttons-copy.buttons-html5,.buttons-csv.buttons-html5,.buttons-excel.buttons-html5,.buttons-pdf.buttons-html5,.buttons-print
+    {
+    background-color: #66BB6A !important;  
+    border: 1px solid #66BB6A !important;
+    border-radius: 4px !important;
+    padding: 5px !important;
+    color: #fff !important;
+    text-transform: uppercase;   
+    }
+    input[type="search"]
+    {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    appearance: none;
+    border-radius: 0.375rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    }
+    label.dropdown-item
+    {
+    color: #fff;
+    }
+    ::-webkit-scrollbar 
+    {
+     width: 10px;
+    }
+
+
+::-webkit-scrollbar-track
+ {
+  background: #f1f1f1; 
+ }
+
+::-webkit-scrollbar-thumb 
+{
+  background: #EC407A; 
+}
+::-webkit-scrollbar-thumb:hover 
+{
+  background: #EC407A; 
+}
+</style>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css"/>
 <link href="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.css" rel="stylesheet">
