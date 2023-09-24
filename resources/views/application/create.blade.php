@@ -23,7 +23,12 @@
         </div>
     </div>
 @endsection
-
+<style>
+    tr.sub_row th {
+        background: white !important;
+        border-right: 1px solid black !important;
+    }
+</style>
 @section('scripts')
     <script>
         window.APPLICATION = {

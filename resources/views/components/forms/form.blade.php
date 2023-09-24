@@ -2,8 +2,8 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
 
-<form class="form application-form" action="/application/save-data/" method="POST" id="applicant-form">
-    @csrf
+    <form class="form application-form" action="/application/save-data/" method="POST" id="applicant-form">
+        @csrf
         <table class="table">
             <tbody>
                 <tr>
@@ -19,189 +19,6 @@
                                 </tr>
                                 <tr>
                                     <th class="section-heading">(A)</th>
-                                    <th class="section-heading" ><strong>Enterprise / उद्यम*
-                                            <input name="FH_NAME" id="FH_NAME" type="hidden" value="-">
-                                            <input name="FH_NM_DESC" id="FH_NM_DESC" type="hidden" value="-">
-                                    </strong></th>
-                                    <th colspan="4"> <input name="BENF_TYPE_CD" id="BENF_TYPE_CD" type="hidden" value="1">
-                                    Fill Enterprise Information / उद्यम जानकारी भरें</th>
-                                </tr>
-                                <tr>
-                                    <th>(1)</th>
-                                    <th ><strong>Name of Proposed Unit / प्रस्तावित इकाई का नाम:</strong></th>
-                                    <td colspan="4">
-                                        <input type="text" id="name" name="name" required autofocus>
-                                        <small>The name of the unit you want to set.</small>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th >(2)</th>
-                                    <th ><strong>Mobile Number of the Owner /इकाई के मालिक का मोबाइल नंबर:</strong></th>
-                                    <td colspan="4">
-                                        <input type="text" id="mobile" name="mobile" required>
-                                        <small>Mobile Number of the Owner</small>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>(3)</th>
-                                    <th ><strong>Type of Activity / गतिविधि का प्रकार:</strong></th>
-                                    <td colspan="4">
-                                        <select id="activity_type_id" name="activity_type_id" required data-changes="activity_id" class="button"
-                                            data-options="dbase:enum(id,name)[type:ACTIVITY_TYPE]">
-                                            <option value="-1">--Select Activity--</option>
-                                            @foreach($activities as $activity)
-                                                <option value="{{ $activity->id }}">{{ $activity->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        <small>Activity type of the unit.</small>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>(4)</th>
-                                    <th ><strong>Activity of the unit / इकाई की गतिविधि:</strong></th>
-                                    <td colspan="4">
-                                        <select id="activity_id" name="activity_id" required data-condition="activity_type_id:202,203" class="button"
-                                            data-depends="activity_type_id"
-                                            data-options="dbase:activity(id,name)[type_id:$activity_type_id]">
-                                            <option value="-1">--Select Unit--</option>
-                                        </select>
-                                        <small>Activity of the unit.</small>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>(5)</th>
-                                    <th ><strong>Description of Activity in Brief /संक्षेप में गतिविधि का विवरण :</strong></th>
-                                    <td colspan="4">
-                                        <input type="text" id="activity_details" name="activity_details" required
-                                            data-condition="activity_type_id:202,203">
-                                        <small>Description of the activity to be done by the unit.</small>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>(6)</th>
-                                    <th ><strong>Products to be manufactured / उत्पाद जो निर्मित किए जाने हैं:</strong></th>
-                                    <td colspan="4">
-                                        <input type="text" id="products" name="products" required data-condition="activity_type_id:201">
-                                        <small>List of all the products to be manufactured by the unit.</small>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>(7)</th>
-                                    <th ><strong>Constitution Type / संविधान प्रकार:</strong></th>
-                                    <td colspan="4">
-                                        <select id="constitution_type_id" name="constitution_type_id" required class="button"
-                                            data-options="dbase:enum(id,name)[type:CONSTITUTION_TYPE]">
-                                            <option value="-1">--Select Constitution--</option>
-                                            @foreach($cons as $con)
-                                                <option value="{{ $con->id }}">{{ $con->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        <small> Constitution Type</small>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>(8)</th>
-                                    <th ><strong>Proposed Employment Generation / प्रस्तावित रोजगार उत्पन्न:</strong></th>
-                                    <td colspan="4">
-                                        <input type="number" id="employment" name="employment" min="1" required>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th class="section-heading">(9)</th>
-                                    <th class="section-heading" ><strong>Unit Address / इकाई का पता
-                                            <input name="FH_NAME" id="FH_NAME" type="hidden" value="-">
-                                            <input name="FH_NM_DESC" id="FH_NM_DESC" type="hidden" value="-">
-                                    </strong></th>
-                                    <th colspan="4"> <input name="BENF_TYPE_CD" id="BENF_TYPE_CD" type="hidden" value="1">
-                                    Fill Unit Address / इकाई का पता भरें</th>
-                                </tr>
-                                <tr>
-                                    <th>(9)</th>
-                                    <th ><strong>Area Type / क्षेत्र प्रकार:</strong></th>
-                                    <td colspan="4">
-                                        <select id="area_type" name="area_type" class="button" required>
-                                            <option value="-1">--Select Area--</option>
-                                            <option value="Rural">Rural</option>
-                                            <option value="Urban">Urban</option>
-                                        </select>
-                                        <small>Area Type</small>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>(10)</th>
-                                    <th ><strong>Pincode / पिनकोड:</strong></th>
-                                    <td colspan="4">
-                                        <input type="number" id="pincode" name="pincode" min="170000" max="179999" required>
-                                        <small>Pincode</small>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>(11)</th>
-                                    <th ><strong>District / जिला:</strong></th>
-                                    <td colspan="4">
-                                        <select id="district_id" name="district_id" class="button" required>
-                                        <option value="-1">--Select District--</option>
-                                            @foreach($diss as $dis)
-                                                <option value="{{ $dis->id }}">{{ $dis->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        <small>District</small>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>(12)</th>
-                                    <th ><strong>Constituency / संसदीय क्षेत्र:</strong></th>
-                                    <td colspan="4">
-                                        <select id="constituency_id" name="constituency_id" class="button" required>
-                                        <option value="-1">--Select Constituency--</option>
-                                            <!-- Populate options dynamically using JavaScript or your backend -->
-                                        </select>
-                                        <small>Constituency</small>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>(13)</th>
-                                    <th ><strong>Tehsil / तहसील:</strong></th>
-                                    <td colspan="4">
-                                        <select id="tehsil_id" name="tehsil_id" class="button" required>
-                                        <option value="-1">--Select Tehsil--</option>
-                                            <!-- Populate options dynamically using JavaScript or your backend -->
-                                        </select>
-                                        <small>Tehsil</small>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>(14)</th>
-                                    <th ><strong>Block / ब्लॉक:</strong></th>
-                                    <td colspan="4">
-                                        <select id="block_id" name="block_id" class="button" required>
-                                        <option value="-1">--Select Block--</option>
-                                            <!-- Populate options dynamically using JavaScript or your backend -->
-                                        </select>
-                                        <small>Block</small>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>(15)</th>
-                                    <th ><strong>Panchayat/Town / पंचायत/नगर:</strong></th>
-                                    <td colspan="4">
-                                        <select id="panchayat_id" name="panchayat_id" class="button" required>
-                                        <option value="-1">--Select Panchayat/Town--</option>
-                                            <!-- Populate options dynamically using JavaScript or your backend -->
-                                        </select>
-                                        <small>Panchayat/Town</small>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>(16)</th>
-                                    <th ><strong>House Number/Street/Landmark/Village name /घर क्रमांक/सड़क/सूचना/गांव का नाम:</strong></th>
-                                    <td colspan="4">
-                                        <input type="text" id="address" name="address" required>
-                                        <small>House Number/Street/Landmark/Village name</small>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th class="section-heading">(B)</th>
                                     <th class="section-heading" ><strong>Legal Type/कानूनी  प्रकार*
                                             <input name="FH_NAME" id="FH_NAME" type="hidden" value="-">
                                             <input name="FH_NM_DESC" id="FH_NM_DESC" type="hidden" value="-">
@@ -211,7 +28,15 @@
                                 </tr>
                                 <!-- (17) -->
                                 <tr>
-                                    <th>(17)</th>
+                                    <th>(1)</th>
+                                    <th ><strong>Aadhaar Number / आधार नंबर:</strong></th>
+                                    <td colspan="4">
+                                        <input type="tel" id="aadhaar" name="aadhaar" required pattern="^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$">
+                                        <small>Enter Aadhaar Number</small>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>(2)</th>
                                     <th ><strong>Name of Owner / मालिक का नाम:</strong></th>
                                     <td colspan="4">
                                         <input type="text" id="name" name="owner_name" required autofocus>
@@ -219,7 +44,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>(18)</th>
+                                    <th>(3)</th>
                                     <th ><strong>Father/Husband/Mother Name /प्रतिरक्षक/माता-पिता/पति-पत्नी नाम:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="guardian_prefix" name="guardian_prefix" required>
@@ -233,28 +58,11 @@
                                         <small>Name of the guardian/parent/spouse.</small>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <th>(19)</th>
-                                    <th ><strong>Mobile Number / मोबाइल नंबर:</strong><br><small>Mobile Number of the Owner</small></th>
-                                    <td colspan="4">
-                                        <input type="tel" id="owner_mobile" name="owner_mobile" pattern="[1-9]{1}[0-9]{9}" required>
-                                        <small>Enter Mobile Number</small>
-                                    </td>
-                                </tr>
+                               
 
-                                <!-- (18) -->
+                                <!-- (4) -->
                                 <tr>
-                                    <th>(20)</th>
-                                    <th ><strong>Email / ईमेल:</strong></th>
-                                    <td colspan="4">
-                                        <input type="email" id="owner_email" name="owner_email">
-                                        <small>Enter Email Address</small>
-                                    </td>
-                                </tr>
-
-                                <!-- (19) -->
-                                <tr>
-                                    <th>(21)</th>
+                                    <th>(4)</th>
                                     <th ><strong>Pincode / पिनकोड:</strong></th>
                                     <td colspan="4">
                                         <input type="number" id="owner_pincode" name="owner_pincode" min="170000" max="179999" required>
@@ -262,9 +70,9 @@
                                     </td>
                                 </tr>
 
-                                <!-- (20) -->
+                                <!-- (5) -->
                                 <tr>
-                                    <th>(22)</th>
+                                    <th>(5)</th>
                                     <th ><strong>District / जिला:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="owner_district_id" name="owner_district_id" required>
@@ -277,9 +85,9 @@
                                     </td>
                                 </tr>
 
-                                <!-- (21) -->
-                                <tr>
-                                    <th>(23)</th>
+                                <!-- (6) -->
+                                <tr class="sub_row">
+                                    <th>&nbsp;</th>
                                     <th ><strong>Constituency / संसदीय क्षेत्र:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="owner_constituency_id" name="owner_constituency_id" required>
@@ -289,9 +97,9 @@
                                     </td>
                                 </tr>
 
-                                <!-- (22) -->
-                                <tr>
-                                    <th>(24)</th>
+                                <!-- (7) -->
+                                <tr class="sub_row">
+                                    <th>&nbsp;</th>
                                     <th ><strong>Tehsil / तहसील:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="owner_tehsil_id" name="owner_tehsil_id" required>
@@ -302,8 +110,8 @@
                                 </tr>
 
                                 <!-- (23) -->
-                                <tr>
-                                    <th>(25)</th>
+                                <tr class="sub_row">
+                                    <th></th>
                                     <th ><strong>Block / ब्लॉक:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="owner_block_id" name="owner_block_id" required>
@@ -314,8 +122,8 @@
                                 </tr>
 
                                 <!-- (24) -->
-                                <tr>
-                                    <th>(26)</th>
+                                <tr class="sub_row">
+                                    <th></th>
                                     <th ><strong>Panchayat/Town / पंचायत/नगर :</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="owner_panchayat_id" name="owner_panchayat_id" required>
@@ -326,26 +134,36 @@
                                 </tr>
 
                                 <!-- (25) -->
-                                <tr>
-                                    <th>(27)</th>
+                                <tr class="sub_row">
+                                    <th></th>
                                     <th ><strong>House Number/Street/Landmark/Village name /घर क्रमांक/सड़क/सूचना/गांव का नाम:</strong></th>
                                     <td colspan="4">
                                         <input type="text" id="owner_address" name="address" required>
                                         <small>Enter House Number/Street/Landmark/Village name</small>
                                     </td>
                                 </tr>
+
                                 <tr>
-                                    <th>(28)</th>
-                                    <th ><strong>Aadhaar Number / आधार नंबर:</strong></th>
+                                    <th>(6)</th>
+                                    <th ><strong>Mobile Number / मोबाइल नंबर:</strong><br><small>Mobile Number of the Owner</small></th>
                                     <td colspan="4">
-                                        <input type="tel" id="aadhaar" name="aadhaar" required pattern="^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$">
-                                        <small>Enter Aadhaar Number</small>
+                                        <input type="tel" id="owner_mobile" name="owner_mobile" pattern="[1-9]{1}[0-9]{9}" required>
+                                        <small>Enter Mobile Number</small>
                                     </td>
                                 </tr>
 
+                                <!-- (18) -->
+                                <tr>
+                                    <th>(7)</th>
+                                    <th ><strong>Email / ईमेल:</strong></th>
+                                    <td colspan="4">
+                                        <input type="email" id="owner_email" name="owner_email">
+                                        <small>Enter Email Address</small>
+                                    </td>
+                                </tr>
                                 <!-- (27) -->
                                 <tr>
-                                    <th>(29)</th>
+                                    <th>(8)</th>
                                     <th ><strong>PAN Number / न नंबर:</strong></th>
                                     <td colspan="4">
                                         <input type="text" id="pan" name="pan" pattern="^([a-zA-Z]([a-zA-Z]([a-zA-Z]([a-zA-Z]([a-zA-Z]([0-9]([0-9]([0-9]([0-9]([a-zA-Z])?)?)?)?)?)?)?)?)?)?$">
@@ -355,7 +173,7 @@
 
                                 <!-- (28) -->
                                 <tr>
-                                    <th>(30)</th>
+                                    <th>(9)</th>
                                     <th ><strong>Gender / लिंग:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="gender" name="gender" required data-limit-age="birth_date">
@@ -370,7 +188,7 @@
 
                                 <!-- (29) -->
                                 <tr>
-                                    <th>(31)</th>
+                                    <th>(10)</th>
                                     <th ><strong>Marital Status / वैवाहिक स्थिति:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="marital_status" name="marital_status" required>
@@ -386,7 +204,7 @@
 
                                 <!-- (30) -->
                                 <tr>
-                                    <th>(32)</th>
+                                    <th>(11)</th>
                                     <th ><strong>Spouse's Aadhaar Number / पति/पत्नी का आधार नंबर:</strong></th>
                                     <td colspan="4">
                                         <input type="tel" id="spouse_aadhaar" name="spouse_aadhaar" required data-condition="marital_status:Married" pattern="^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$">
@@ -396,7 +214,7 @@
 
                                 <!-- (31) -->
                                 <tr>
-                                    <th>(33)</th>
+                                    <th>(12)</th>
                                     <th ><strong>Date of Birth / जन्म तिथि:</strong></th>
                                     <td colspan="4">
                                         <input type="date" id="birth_date" name="birth_date" required pattern="\d\d\d\d-(\d)?\d-(\d)?\d" data-age="true" data-datepicker-xformat="yyyy-mm-dd" data-datepicker-xmax-date="-18">
@@ -407,7 +225,7 @@
 
                                 <!-- (32) -->
                                 <tr>
-                                    <th>(34)</th>
+                                    <th>(13)</th>
                                     <th ><strong>Specially Abled (दिव्यांग):</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="is_specially_abled" name="is_specially_abled" required>
@@ -420,7 +238,7 @@
 
                                 <!-- (33) -->
                                 <tr>
-                                    <th>(35)</th>
+                                    <th>(14)</th>
                                     <th ><strong>Category / श्रेणी:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="social_category_id" name="social_category_id" required>
@@ -434,8 +252,8 @@
                                 </tr>
 
                                 <!-- (34) -->
-                                <tr>
-                                    <th>(36)</th>
+                                <tr class="sub_row">
+                                    <th></th>
                                     <th ><strong>Belongs to Minority / अल्पसंख्यक है ?:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="belongs_to_minority" name="belongs_to_minority" required>
@@ -445,6 +263,190 @@
                                         <small>Do you belong to a Minority?</small>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <th class="section-heading">(B)</th>
+                                    <th class="section-heading" ><strong>Enterprise / उद्यम*
+                                            <input name="FH_NAME" id="FH_NAME" type="hidden" value="-">
+                                            <input name="FH_NM_DESC" id="FH_NM_DESC" type="hidden" value="-">
+                                    </strong></th>
+                                    <th colspan="4"> <input name="BENF_TYPE_CD" id="BENF_TYPE_CD" type="hidden" value="1">
+                                    Fill Enterprise Information / उद्यम जानकारी भरें</th>
+                                </tr>
+                                <tr>
+                                    <th>(15)</th>
+                                    <th ><strong>Name of Proposed Unit / प्रस्तावित इकाई का नाम:</strong></th>
+                                    <td colspan="4">
+                                        <input type="text" id="name" name="name" required autofocus>
+                                        <small>The name of the unit you want to set.</small>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th >(16)</th>
+                                    <th ><strong>Mobile Number of the Owner /इकाई के मालिक का मोबाइल नंबर:</strong></th>
+                                    <td colspan="4">
+                                        <input type="text" id="mobile" name="mobile" required>
+                                        <small>Mobile Number of the Owner</small>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>(17)</th>
+                                    <th ><strong>Type of Activity / गतिविधि का प्रकार:</strong></th>
+                                    <td colspan="4">
+                                        <select id="activity_type_id" name="activity_type_id" required data-changes="activity_id" class="button"
+                                            data-options="dbase:enum(id,name)[type:ACTIVITY_TYPE]">
+                                            <option value="-1">--Select Activity--</option>
+                                            @foreach($activities as $activity)
+                                                <option value="{{ $activity->id }}">{{ $activity->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        <small>Activity type of the unit.</small>
+                                    </td>
+                                </tr>
+                                <tr class="sub_row">
+                                    <th ></th>
+                                    <th ><strong>Activity of the unit / इकाई की गतिविधि:</strong></th>
+                                    <td colspan="4">
+                                        <select id="activity_id" name="activity_id" required data-condition="activity_type_id:202,203" class="button"
+                                            data-depends="activity_type_id"
+                                            data-options="dbase:activity(id,name)[type_id:$activity_type_id]">
+                                            <option value="-1">--Select Unit--</option>
+                                        </select>
+                                        <small>Activity of the unit.</small>
+                                    </td>
+                                </tr>
+                                <tr class="sub_row">
+                                    <th></th>
+                                    <th ><strong>Description of Activity in Brief /संक्षेप में गतिविधि का विवरण :</strong></th>
+                                    <td colspan="4">
+                                        <input type="text" id="activity_details" name="activity_details" required
+                                            data-condition="activity_type_id:202,203">
+                                        <small>Description of the activity to be done by the unit.</small>
+                                    </td>
+                                </tr>
+                                <tr class="sub_row">
+                                    <th></th>
+                                    <th ><strong>Products to be manufactured / उत्पाद जो निर्मित किए जाने हैं:</strong></th>
+                                    <td colspan="4">
+                                        <input type="text" id="products" name="products" required data-condition="activity_type_id:201">
+                                        <small>List of all the products to be manufactured by the unit.</small>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>(18)</th>
+                                    <th ><strong>Constitution Type / संविधान प्रकार:</strong></th>
+                                    <td colspan="4">
+                                        <select id="constitution_type_id" name="constitution_type_id" required class="button"
+                                            data-options="dbase:enum(id,name)[type:CONSTITUTION_TYPE]">
+                                            <option value="-1">--Select Constitution--</option>
+                                            @foreach($cons as $con)
+                                                <option value="{{ $con->id }}">{{ $con->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        <small> Constitution Type</small>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>(19)</th>
+                                    <th ><strong>Proposed Employment Generation / प्रस्तावित रोजगार उत्पन्न:</strong></th>
+                                    <td colspan="4">
+                                        <input type="number" id="employment" name="employment" min="1" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="section-heading">(C)</th>
+                                    <th class="section-heading" ><strong>Unit Address / इकाई का पता
+                                            <input name="FH_NAME" id="FH_NAME" type="hidden" value="-">
+                                            <input name="FH_NM_DESC" id="FH_NM_DESC" type="hidden" value="-">
+                                    </strong></th>
+                                    <th colspan="4"> <input name="BENF_TYPE_CD" id="BENF_TYPE_CD" type="hidden" value="1">
+                                    Fill Unit Address / इकाई का पता भरें</th>
+                                </tr>
+                                <tr>
+                                    <th>(20)</th>
+                                    <th ><strong>Area Type / क्षेत्र प्रकार:</strong></th>
+                                    <td colspan="4">
+                                        <select id="area_type" name="area_type" class="button" required>
+                                            <option value="-1">--Select Area--</option>
+                                            <option value="Rural">Rural</option>
+                                            <option value="Urban">Urban</option>
+                                        </select>
+                                        <small>Area Type</small>
+                                    </td>
+                                </tr>
+                                <tr class="sub_row">
+                                    <th>&nbsp;</th>
+                                    <th ><strong>Pincode / पिनकोड:</strong></th>
+                                    <td colspan="4">
+                                        <input type="number" id="pincode" name="pincode" min="170000" max="179999" required>
+                                        <small>Pincode</small>
+                                    </td>
+                                </tr>
+                                <tr class="sub_row">
+                                    <th>&nbsp;</th>
+                                    <th ><strong>District / जिला:</strong></th>
+                                    <td colspan="4">
+                                        <select id="district_id" name="district_id" class="button" required>
+                                        <option value="-1">--Select District--</option>
+                                            @foreach($diss as $dis)
+                                                <option value="{{ $dis->id }}">{{ $dis->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        <small>District</small>
+                                    </td>
+                                </tr>
+                                <tr class="sub_row">
+                                    <th>&nbsp;</th>
+                                    <th ><strong>Constituency / संसदीय क्षेत्र:</strong></th>
+                                    <td colspan="4">
+                                        <select id="constituency_id" name="constituency_id" class="button" required>
+                                        <option value="-1">--Select Constituency--</option>
+                                            <!-- Populate options dynamically using JavaScript or your backend -->
+                                        </select>
+                                        <small>Constituency</small>
+                                    </td>
+                                </tr>
+                                <tr class="sub_row">
+                                    <th>&nbsp;</th>
+                                    <th ><strong>Tehsil / तहसील:</strong></th>
+                                    <td colspan="4">
+                                        <select id="tehsil_id" name="tehsil_id" class="button" required>
+                                        <option value="-1">--Select Tehsil--</option>
+                                            <!-- Populate options dynamically using JavaScript or your backend -->
+                                        </select>
+                                        <small>Tehsil</small>
+                                    </td>
+                                </tr>
+                                <tr class="sub_row">
+                                    <th>&nbsp;</th>
+                                    <th ><strong>Block / ब्लॉक:</strong></th>
+                                    <td colspan="4">
+                                        <select id="block_id" name="block_id" class="button" required>
+                                        <option value="-1">--Select Block--</option>
+                                            <!-- Populate options dynamically using JavaScript or your backend -->
+                                        </select>
+                                        <small>Block</small>
+                                    </td>
+                                </tr>
+                                <tr class="sub_row">
+                                    <th>&nbsp;</th>
+                                    <th ><strong>Panchayat/Town / पंचायत/नगर:</strong></th>
+                                    <td colspan="4">
+                                        <select id="panchayat_id" name="panchayat_id" class="button" required>
+                                        <option value="-1">--Select Panchayat/Town--</option>
+                                            <!-- Populate options dynamically using JavaScript or your backend -->
+                                        </select>
+                                        <small>Panchayat/Town</small>
+                                    </td>
+                                </tr>
+                                <tr class="sub_row">
+                                    <th >&nbsp;</th>
+                                    <th ><strong>House Number/Street/Landmark/Village name /घर क्रमांक/सड़क/सूचना/गांव का नाम:</strong></th>
+                                    <td colspan="4">
+                                        <input type="text" id="address" name="address" required>
+                                        <small>House Number/Street/Landmark/Village name</small>
+                                    </td>
+                                </tr>
+                                
                                 <tr>
                                     <th class="section-heading">(C)</th>
                                     <th class="section-heading"><strong>Project Cost / परियोजना की लागतण
@@ -456,7 +458,7 @@
                                 </tr>
                                 <!-- Land Status -->
                                 <tr>
-                                    <th>(37)</th>
+                                    <th>(21)</th>
                                     <th width="300" ><strong>Land Status / भूमि की स्थिति:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="land_status" name="land_status" required>
@@ -470,8 +472,8 @@
                                 </tr>
 
                                 <!-- Cost of Land -->
-                                <tr>
-                                    <th>(38)</th>
+                                <tr class="sub_row">
+                                    <th></th>
                                     <th ><strong>Cost of Land / भूमि का लागत:</strong></th>
                                     <td colspan="4">
                                         <input type="number" id="land_cost" name="land_cost" min="0" data-condition="land_status:To be Purchased,To be Taken on Lease" required>
@@ -479,7 +481,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>(39)</th>
+                                    <th >(22)</th>
                                     <th ><strong>Building Status / इमारत की स्थिति:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="building_status" name="building_status" required>
@@ -493,8 +495,8 @@
                                 </tr>
 
                                 <!-- (38) -->
-                                <tr>
-                                    <th>(40)</th>
+                                <tr class="sub_row">
+                                    <th></th>
                                     <th ><strong>Cost of Building Construction / इमारत निर्माण की लागत:</strong></th>
                                     <td colspan="4">
                                         <input type="number" id="building_cost" name="building_cost" min="0" data-condition="building_status:To be Constructed,To be Taken on Rent" required>
@@ -503,8 +505,8 @@
                                 </tr>
 
                                 <!-- (39) -->
-                                <tr>
-                                    <th>(41)</th>
+                                <tr class="sub_row">
+                                    <th></th>
                                     <th ><strong>Estimated Buildup Area (in Square Feet) पूर्वानुमानित बिल्डअप क्षेत्र (वर्ग फीट में)" :</strong></th>
                                     <td colspan="4">
                                         <input type="text" id="building_area" name="building_area" min="0" data-condition="building_status:To be Constructed,To be Taken on Rent" required>
@@ -514,7 +516,7 @@
 
                                 <!-- (40) -->
                                 <tr>
-                                    <th>(42)</th>
+                                    <th>(23)</th>
                                     <th ><strong>Furniture, Fixtures, IT related items, Renovation, Interior Work and Other Fixed Assets Cost:</strong></th>
                                     <td colspan="4">
                                         <input  value="{{ old('assets_cost') }}" type="number" id="assets_cost" name="assets_cost" min="0" required>
@@ -524,7 +526,7 @@
 
                                 <!-- (41) -->
                                 <tr>
-                                    <th>(43)</th>
+                                    <th>(24)</th>
                                     <th ><strong>Details of Furniture, Fixtures, IT related items, Renovation, Interior Work and Other Fixed Assets:</strong></th>
                                     <td colspan="4">
                                         <input value="{{ old('assets_detail') }}" type="text" id="assets_detail" name="assets_detail" required>
@@ -532,7 +534,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>(44)</th>
+                                    <th>(25)</th>
                                     <th ><strong>Machinery/Equipments Cost / मशीनरी/उपकरण की लागत:</strong></th>
                                     <td colspan="4">
                                         <input  value="{{ old('machinery_cost') }}" type="number" id="machinery_cost" name="machinery_cost" min="0" required>
@@ -542,7 +544,7 @@
 
                                 <!-- (43) -->
                                 <tr>
-                                    <th>(45)</th>
+                                    <th>(26)</th>
                                     <th ><strong>Working Capital/CC Limit / कामकाज पूंजी/क्रेडिट लिमिट:</strong></th>
                                     <td colspan="4">
                                         <input  type="number" id="working_capital" name="working_capital" min="0"  value="{{ old('working_capital') }}" required>
@@ -552,7 +554,7 @@
 
                                 <!-- (44) -->
                                 <tr>
-                                    <th>(46)</th>
+                                    <th>(27)</th>
                                     <th ><strong>Details of Machinery/Equipments / मशीनरी/उपकरण का विवरण:</strong></th>
                                     <td colspan="4">
                                         <input type="text" id="machinery_detail" name="machinery_detail" value="{{ old('machinery_detail') }}" required>
@@ -561,8 +563,8 @@
                                 </tr>
 
                                 <!-- (45) -->
-                                <tr>
-                                    <th>(47)</th>
+                                <tr class="sub_row">
+                                    <th></th>
                                     <th ><strong>Total Project Cost (Calculated) /कुल प्रोजेक्ट लागत (गणना की गई):</strong></th>
                                     <td colspan="4">
                                         <input type="text" value="{{ old('project_cost') }}" id="project_cost" name="project_cost" readonly required data-calculate="">
@@ -579,7 +581,7 @@
                                     Means of Finance / वित्त प्राधिकृति</th>
                                 </tr>
                                 <tr>
-                                    <th>(48)</th>
+                                    <th>(28)</th>
                                     <th  ><strong>Own Contribution Percentage (10% of Capital Expenditure) / स्वयं सहायता प्रतिशत (पूंजी व्यय का 10%):</strong></th>
                                     <td colspan="4">
                                         <input type="number" id="own_contribution" name="own_contribution" value="{{ old('own_contribution') }}" min="10" max="95" step="any" required autofocus>
@@ -587,37 +589,8 @@
                                     </td>
                                 </tr>
 
-                                <!-- (47) -->
                                 <tr>
-                                    <th>(49)</th>
-                                    <th ><strong>Own Contribution Amount (Readonly) / स्वयं सहायता राशि (केवल पठनीय):</strong></th>
-                                    <td colspan="4">
-                                        <input type="number" id="own_contribution_amount" name="own_contribution_amount" min="0" required readonly>
-                                        <small>Own Contribution Amount</small>
-                                    </td>
-                                </tr>
-
-                                <!-- (48) -->
-                                <tr>
-                                    <th>(50)</th>
-                                    <th ><strong>Term Loan (Readonly) / क़र्ज़ अवधि (केवल पठनीय):</strong></th>
-                                    <td colspan="4">
-                                        <input type="number" id="term_loan" name="term_loan" min="0" required readonly>
-                                        <small>Term Loan</small>
-                                    </td>
-                                </tr>
-
-                                <!-- (49) -->
-                                <tr>
-                                    <th width="50">(51)</th>
-                                    <th ><strong>CC Limit (Disabled) / सीसी सीमा (अक्षम):</strong></th>
-                                    <td colspan="4">
-                                        <input type="number" id="cc_limit" name="cc_limit" min="0" disabled required>
-                                        <small>CC Limit</small>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>(52)</th>
+                                    <th>(29)</th>
                                     <th ><strong>Name of the Loan Financing Bank / ऋण वित्तपोषण बैंक का नाम:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="bank_id" name="bank_id" required>
@@ -630,7 +603,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>(53)</th>
+                                    <th></th>
                                     <th ><strong>Name of the Loan Financing Branch / ऋण वित्तपोषण शाखा का नाम:</strong></th>
                                     <td colspan="4">
                                         <select class="button select2" id="bank_branch_id" name="bank_branch_id" required>
@@ -648,18 +621,34 @@
                             </tbody>
                         </table>
                     </td>
-                                        <td>
-                                            <table class="CSSTableGenerator">
-                                                <tbody>
-                                                <tr bgcolor="#E36E2C">
+                    <td>
+                        <table class="CSSTableGenerator">
+                        <tbody>
+                        <tr bgcolor="#E36E2C">
                         <td colspan="2"><h6 align="center" class="style1"> Guidelines for Filling the Online MMSY Application /
                             ऑनलाइन एमएमएसवाई  आवेदन भरने हेतु दिशानिर्देश
                             </h6></td>
                         </tr>
                         <tr>
                         <td>(1)</td>
-                        <td><strong>Name of Proposed Unit/प्रस्तावित इकाई का नाम:</strong> : Please type the name of your unit in this field./कृपया इस क्षेत्र में अपनी इकाई का नाम टाइप करें</td>
+                        <td><strong>Aadhaar Number / आधार नंबर:</strong> : Kindly enter your Aadhaar Number accurately, as it's essential for precise identification in this form. Ensure it matches your official records./कृपया ध्यानपूर्वक अपना आधार नंबर दर्ज करें, क्योंकि इस फॉर्म में सटीक पहचान के लिए यह महत्वपूर्ण है। सुनिश्चित करें कि यह आपके आधिकारिक रिकॉर्ड से मेल खाता है।</td>
                         </tr>
+                        <tr>
+                        <td>(2)</td>
+                        <td><strong>Name of Owner / मालिक का नाम:</strong> : Please provide the Name of Owner for accurate identification in this form./कृपया इस फॉर्म में सटीक पहचान के लिए मालिक का नाम प्रदान करें।</td>
+                        </tr>
+                        <tr>
+                        <td>(3)</td>
+                        <td><strong>Father/Husband/Mother Name /प्रतिरक्षक/माता-पिता/पति-पत्नी नाम:</strong> :Please provide the Father/Husband/Mother Name for identification in this form./कृपया इस फॉर्म में पहचान के लिए प्रतिरक्षक/माता-पिता/पति-पत्नी का नाम प्रदान करें।</td>
+                        </tr>
+                        <tr>
+                        <td>(5)</td>
+                        <td><strong>Pincode / पिनकोड:</strong> :Enter the 6 digit Pincode for location information in this form./कृपया इस फॉर्म में स्थान सूचना के लिए 6-अंकीय पिनकोड दर्ज करें।</td>
+                        </tr>
+                        <tr>
+                            <td>(4)</td>
+                            <td><strong>Address:- District / जिला:</strong> :To ensure accurate location identification and effective communication, please provide the requested details, including district, constituency, tehsil, block, panchayat/town, and specific address information./सटीक स्थान पहचान और प्रभावी संचार सुनिश्चित करने के लिए, कृपया जिला, संसदीय क्षेत्र, तहसील, ब्लॉक, पंचायत/नगर, और विशिष्ट पता जानकारी प्रदान करें।</td>
+                            </tr>
                         <tr>
                         <td >(2)</td>
                         <td><strong>Mobile Number of the Owner/मालिक का मोबाइल नंबर::</strong> : Please type mobile number of unit's owner here./कृपया इस इकाई के मालिक का मोबाइल नंबर यहाँ टाइप करें</td>
