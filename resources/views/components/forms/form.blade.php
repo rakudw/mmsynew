@@ -1,4 +1,9 @@
-<form action="your_form_processing_script.php" class="form application-form" method="post">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
+
+<form class="form application-form" action="/your-form-action" method="POST" id="applicant-form">
+    @csrf
         <table class="table">
             <tbody>
                 <tr>
@@ -44,10 +49,9 @@
                                         <select id="activity_type_id" name="activity_type_id" required data-changes="activity_id" class="button"
                                             data-options="dbase:enum(id,name)[type:ACTIVITY_TYPE]">
                                             <option value="-1">--Select Activity--</option>
-                                            <option value="KV">KVIC</option>
-                                            <option value="KB">KVIB</option>
-                                            <option value="DI">DIC</option>
-                                            <option value="CB">COIR BOARD</option>
+                                            @foreach($activities as $activity)
+                                                <option value="{{ $activity->id }}">{{ $activity->name }}</option>
+                                            @endforeach
                                         </select>
                                         <small>Activity type of the unit.</small>
                                     </td>
@@ -60,10 +64,6 @@
                                             data-depends="activity_type_id"
                                             data-options="dbase:activity(id,name)[type_id:$activity_type_id]">
                                             <option value="-1">--Select Unit--</option>
-                                            <option value="KV">KVIC</option>
-                                            <option value="KB">KVIB</option>
-                                            <option value="DI">DIC</option>
-                                            <option value="CB">COIR BOARD</option>
                                         </select>
                                         <small>Activity of the unit.</small>
                                     </td>
@@ -92,11 +92,9 @@
                                         <select id="constitution_type_id" name="constitution_type_id" required class="button"
                                             data-options="dbase:enum(id,name)[type:CONSTITUTION_TYPE]">
                                             <option value="-1">--Select Constitution--</option>
-                                            <option value="KV">KVIC</option>
-                                            <option value="KB">KVIB</option>
-                                            <option value="DI">DIC</option>
-                                            <option value="CB">COIR BOARD</option>
-                                           
+                                            @foreach($cons as $con)
+                                                <option value="{{ $con->id }}">{{ $con->name }}</option>
+                                            @endforeach
                                         </select>
                                         <small> Constitution Type</small>
                                     </td>
@@ -134,7 +132,9 @@
                                     <td colspan="4">
                                         <select id="district_id" name="district_id" class="button" required>
                                         <option value="-1">--Select District--</option>
-                                            <!-- Populate options dynamically using JavaScript or your backend -->
+                                            @foreach($diss as $dis)
+                                                <option value="{{ $dis->id }}">{{ $dis->name }}</option>
+                                            @endforeach
                                         </select>
                                         <small>District</small>
                                     </td>
@@ -202,10 +202,33 @@
                                 </tr>
                                 <!-- (17) -->
                                 <tr>
+                                    <th>(1)</th>
+                                    <th ><strong>Name of Owner:</strong></th>
+                                    <td colspan="4">
+                                        <input type="text" id="name" name="owner_name" required autofocus>
+                                        <small>Name of Owner.</small>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>(1)</th>
+                                    <th ><strong>Father/Husband/Mother Name:</strong></th>
+                                    <td colspan="4">
+                                        <select class="button" id="guardian_prefix" name="guardian_prefix" required>
+                                            <option value="-1">--Select guardian/parent/spouse.--</option>
+                                                <option value="S/O">S/O</option>
+                                                <option value="W/O">W/O</option>
+                                                <option value="D/O">D/O</option>
+                                                <option value="C/O">C/O</option>
+                                        </select>
+                                        <input  type="text" name="guardian" required="required" autofocus="autofocus" data-prefix="S/O,W/O,D/O,C/O">
+                                        <small>Name of the guardian/parent/spouse.</small>
+                                    </td>
+                                </tr>
+                                <tr>
                                     <th>(17)</th>
                                     <th ><strong>Mobile Number:</strong><br><small>Mobile Number of the Owner</small></th>
                                     <td colspan="4">
-                                        <input type="tel" id="mobile" name="mobile" pattern="[1-9]{1}[0-9]{9}" required>
+                                        <input type="tel" id="owner_mobile" name="owner_mobile" pattern="[1-9]{1}[0-9]{9}" required>
                                         <small>Enter Mobile Number</small>
                                     </td>
                                 </tr>
@@ -215,7 +238,7 @@
                                     <th>(18)</th>
                                     <th ><strong>Email:</strong></th>
                                     <td colspan="4">
-                                        <input type="email" id="email" name="email">
+                                        <input type="email" id="owner_email" name="owner_email">
                                         <small>Enter Email Address</small>
                                     </td>
                                 </tr>
@@ -225,7 +248,7 @@
                                     <th>(19)</th>
                                     <th ><strong>Pincode:</strong></th>
                                     <td colspan="4">
-                                        <input type="number" id="pincode" name="pincode" min="170000" max="179999" required>
+                                        <input type="number" id="owner_pincode" name="owner_pincode" min="170000" max="179999" required>
                                         <small>Enter Pincode</small>
                                     </td>
                                 </tr>
@@ -235,8 +258,11 @@
                                     <th>(20)</th>
                                     <th ><strong>District:</strong></th>
                                     <td colspan="4">
-                                        <select class="button" id="district_id" name="district_id" required>
-                                            <!-- Populate options dynamically using JavaScript or your backend -->
+                                        <select class="button" id="owner_district_id" name="owner_district_id" required>
+                                            <option value="-1">--Select District--</option>
+                                            @foreach($diss as $dis)
+                                                <option value="{{ $dis->id }}">{{ $dis->name }}</option>
+                                            @endforeach
                                         </select>
                                         <small>Select District</small>
                                     </td>
@@ -247,8 +273,8 @@
                                     <th>(21)</th>
                                     <th ><strong>Constituency:</strong></th>
                                     <td colspan="4">
-                                        <select class="button" id="constituency_id" name="constituency_id" required>
-                                            <!-- Populate options dynamically using JavaScript or your backend -->
+                                        <select class="button" id="owner_constituency_id" name="owner_constituency_id" required>
+                                        <option value="-1">--Select Constituency--</option>
                                         </select>
                                         <small>Select Constituency</small>
                                     </td>
@@ -259,8 +285,8 @@
                                     <th>(22)</th>
                                     <th ><strong>Tehsil:</strong></th>
                                     <td colspan="4">
-                                        <select class="button" id="tehsil_id" name="tehsil_id" required>
-                                            <!-- Populate options dynamically using JavaScript or your backend -->
+                                        <select class="button" id="owner_tehsil_id" name="owner_tehsil_id" required>
+                                        <option value="-1">--Select Tehsil--</option>
                                         </select>
                                         <small>Select Tehsil</small>
                                     </td>
@@ -271,8 +297,8 @@
                                     <th>(23)</th>
                                     <th ><strong>Block:</strong></th>
                                     <td colspan="4">
-                                        <select class="button" id="block_id" name="block_id" required>
-                                            <!-- Populate options dynamically using JavaScript or your backend -->
+                                        <select class="button" id="owner_block_id" name="owner_block_id" required>
+                                        <option value="-1">--Select Block--</option>
                                         </select>
                                         <small>Select Block</small>
                                     </td>
@@ -283,8 +309,8 @@
                                     <th>(24)</th>
                                     <th ><strong>Panchayat/Town:</strong></th>
                                     <td colspan="4">
-                                        <select class="button" id="panchayat_id" name="panchayat_id" required>
-                                            <!-- Populate options dynamically using JavaScript or your backend -->
+                                        <select class="button" id="owner_panchayat_id" name="owner_panchayat_id" required>
+                                        <option value="-1">--Select Panchayat/Town--</option>
                                         </select>
                                         <small>Select Panchayat/Town</small>
                                     </td>
@@ -295,7 +321,7 @@
                                     <th>(25)</th>
                                     <th ><strong>House Number/Street/Landmark/Village name:</strong></th>
                                     <td colspan="4">
-                                        <input type="text" id="address" name="address" required>
+                                        <input type="text" id="owner_address" name="address" required>
                                         <small>Enter House Number/Street/Landmark/Village name</small>
                                     </td>
                                 </tr>
@@ -324,6 +350,7 @@
                                     <th ><strong>Gender:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="gender" name="gender" required data-limit-age="birth_date">
+                                            <option value="-1">--Select Gender--</option>
                                             <option value="Female">Female</option>
                                             <option value="Male">Male</option>
                                             <option value="Other">Other</option>
@@ -338,6 +365,7 @@
                                     <th ><strong>Marital Status:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="marital_status" name="marital_status" required>
+                                            <option value="-1">--Select Marital Status--</option>
                                             <option value="Unmarried">Unmarried</option>
                                             <option value="Married">Married</option>
                                             <option value="Divorced">Divorced</option>
@@ -387,7 +415,10 @@
                                     <th ><strong>Category:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="social_category_id" name="social_category_id" required>
-                                            <!-- Populate options dynamically using JavaScript or your backend -->
+                                            <option value="-1">--Select Category--</option>
+                                        @foreach($cats as $cat)
+                                                <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                            @endforeach
                                         </select>
                                         <small>Select Category</small>
                                     </td>
@@ -414,18 +445,6 @@
                                     <th colspan="4"> <input name="BENF_TYPE_CD" id="BENF_TYPE_CD" type="hidden" value="1">
                                     Project Cost / परियोजना की लागतण</th>
                                 </tr>
-                                <tr>
-                                    <th>(34)</th>
-                                    <th ><strong>Belongs to Minority:</strong></th>
-                                    <td colspan="4">
-                                        <select class="button" id="belongs_to_minority" name="belongs_to_minority" required>
-                                            <option value="No">No</option>
-                                            <option value="Yes">Yes</option>
-                                        </select>
-                                        <small>Belongs to Minority</small>
-                                    </td>
-                                </tr>
-
                                 <!-- Land Status -->
                                 <tr>
                                     <th>(35)</th>
@@ -592,11 +611,30 @@
                                     <th>(50)</th>
                                     <th ><strong>Name of the Loan Financing Bank:</strong></th>
                                     <td colspan="4">
-                                        <select class="button" id="bank_branch_id" name="bank_branch_id" required>
-                                            <!-- Populate options dynamically using JavaScript or your backend -->
+                                        <select class="button" id="bank_id" name="bank_id" required>
+                                            <option value="-1">--Select Bank--</option>
+                                            @foreach($banks as $bank)
+                                                <option value="{{ $bank->id }}">{{ $bank->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        <small>Select name of the bank from which the applicant wants to get the loan.</small>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>(51)</th>
+                                    <th ><strong>Name of the Loan Financing Branch:</strong></th>
+                                    <td colspan="4">
+                                        <select class="button select2" id="bank_branch_id" name="bank_branch_id" required>
+                                            <option value="-1">--Select Branch--</option>
                                         </select>
                                         <small>Name of the bank from which the applicant wants to get the loan. Select the bank by searching for IFS code, branch, or bank name.</small>
                                     </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="6"><div align="center">&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <input  type="button" class="button" id="submit-button" value="Save Applicant Data">
+                                    </div></td>
+                                    
                                 </tr>
                             </tbody>
                         </table>
@@ -635,3 +673,428 @@
         </table>
         <!-- Add any submit button or additional form elements here -->
     </form>
+
+    <script>
+    // When the page is ready
+    $(document).ready(function() {
+        // Get a reference to the first select element
+        $('.select2').select2({
+        // Add any additional options you need here
+         });
+        const activityTypeSelect = $('#activity_type_id');
+        const districtTypeSelect = $('#district_id');
+        const blockTypeSelect = $('#block_id');
+        const ownerdistrictTypeSelect = $('#owner_district_id');
+        const ownerblockTypeSelect = $('#owner_block_id');
+        const bankTypeSelect = $('#bank_id');
+
+        // Get a reference to the second select element
+        const activitySelect = $('#activity_id');
+        const constituencySelect = $('#constituency_id');
+        const tehsilSelect = $('#tehsil_id');
+        const blockSelect = $('#block_id');
+        const panchayatSelect = $('#panchayat_id');
+        const ownerconstituencySelect = $('#owner_constituency_id');
+        const ownertehsilSelect = $('#owner_tehsil_id');
+        const ownerblockSelect = $('#owner_block_id');
+        const ownerpanchayatSelect = $('#owner_panchayat_id');
+        const branchSelect = $('#bank_branch_id');
+
+        // Function to load options into the second select element
+        function loadActivityOptions(selectedActivityTypeId) {
+            // Clear existing options
+            activitySelect.empty();
+
+            // Add a default option
+            activitySelect.append($('<option>', {
+                value: '-1',
+                text: '--Select Unit--'
+            }));
+
+            // Load options based on the selected activity type ID
+            console.log('dadsa',selectedActivityTypeId)
+            // if (selectedActivityTypeId === '202' || selectedActivityTypeId === '203' || selectedActivityTypeId === '201') {
+                // Load options dynamically based on your logic here
+                // You can make an AJAX request to fetch data from the server and populate the options
+                // Example:
+                
+                $.ajax({
+                    url: '/application/get-data/',
+                    method: 'GET',
+                    data: {
+                    activity_type_id: selectedActivityTypeId
+                    },
+                    success: function(data) {
+                        // Add the retrieved options to the select element
+                        data.forEach(function(option) {
+                            activitySelect.append($('<option>', {
+                                value: option.id,
+                                text: option.name
+                            }));
+                        });
+
+                    },
+                    error: function() {
+                        // Handle error
+                    }
+                });
+                
+            // }
+        }
+        function loadPanchayatOptions(selectedBlockTypeId) {
+            // Clear existing options
+            panchayatSelect.empty();
+
+            // Add a default option
+            panchayatSelect.append($('<option>', {
+                value: '-1',
+                text: '--Select Panchayat--'
+            }));
+
+            // Load options based on the selected activity type ID
+            console.log('dadsa',selectedBlockTypeId)
+            // if (selectedActivityTypeId === '202' || selectedActivityTypeId === '203' || selectedActivityTypeId === '201') {
+                // Load options dynamically based on your logic here
+                // You can make an AJAX request to fetch data from the server and populate the options
+                // Example:
+                
+                $.ajax({
+                    url: '/application/get-data/',
+                    method: 'GET',
+                    data: {
+                    block_type_id: selectedBlockTypeId
+                    },
+                    success: function(data) {
+                        // Add the retrieved options to the select element
+                        data.forEach(function(option) {
+                            panchayatSelect.append($('<option>', {
+                                value: option.id,
+                                text: option.name
+                            }));
+                        });
+
+                    },
+                    error: function() {
+                        // Handle error
+                    }
+                });
+                
+            // }
+        }
+        function loadBranchOptions(selectedBankTypeId) {
+            // Clear existing options
+            branchSelect.empty();
+
+            // Add a default option
+            branchSelect.append($('<option>', {
+                value: '-1',
+                text: '--Select Branch--'
+            }));
+
+            // Load options based on the selected activity type ID
+            console.log('dadsa',selectedBankTypeId)
+            // if (selectedActivityTypeId === '202' || selectedActivityTypeId === '203' || selectedActivityTypeId === '201') {
+                // Load options dynamically based on your logic here
+                // You can make an AJAX request to fetch data from the server and populate the options
+                // Example:
+                
+                $.ajax({
+                    url: '/application/get-data/',
+                    method: 'GET',
+                    data: {
+                    bank_id: selectedBankTypeId
+                    },
+                    success: function(data) {
+                        // Add the retrieved options to the select element
+                        data.forEach(function(option) {
+                            branchSelect.append($('<option>', {
+                                value: option.id,
+                                text: option.name
+                            }));
+                        });
+
+                    },
+                    error: function() {
+                        // Handle error
+                    }
+                });
+                
+            // }
+        }
+        function loadownerPanchayatOptions(ownerselectedBlockTypeId) {
+            // Clear existing options
+            ownerpanchayatSelect.empty();
+
+            // Add a default option
+            ownerpanchayatSelect.append($('<option>', {
+                value: '-1',
+                text: '--Select Panchayat--'
+            }));
+
+            // Load options based on the selected activity type ID
+            console.log('dadsa',ownerselectedBlockTypeId)
+            // if (selectedActivityTypeId === '202' || selectedActivityTypeId === '203' || selectedActivityTypeId === '201') {
+                // Load options dynamically based on your logic here
+                // You can make an AJAX request to fetch data from the server and populate the options
+                // Example:
+                
+                $.ajax({
+                    url: '/application/get-data/',
+                    method: 'GET',
+                    data: {
+                    block_type_id: ownerselectedBlockTypeId
+                    },
+                    success: function(data) {
+                        // Add the retrieved options to the select element
+                        data.forEach(function(option) {
+            var $option = $('<option>', {
+                value: option.id,
+                text: option.name
+            });
+            
+            // Create a hidden input element to store the IFS code
+            var $hiddenInput = $('<input>', {
+                type: 'hidden',
+                value: option.ifsc, // Assuming you have an 'ifs_code' field in your data
+                class: 'ifs-code'
+            });
+            
+            // Append the hidden input element to the option
+            $option.append($hiddenInput);
+            
+            // Append the option to the select element
+            branchSelect.append($option);
+        });
+        
+        // After adding the options, trigger the Select2 update
+        branchSelect.trigger('change');
+    },
+                    error: function() {
+                        // Handle error
+                    }
+                });
+                
+            // }
+        }
+        function loadConOptions(selectedDistrictTypeId) {
+            // Clear existing options
+            constituencySelect.empty();
+            tehsilSelect.empty();
+            blockSelect.empty();
+
+            // Add a default option
+            constituencySelect.append($('<option>', {
+                value: '-1',
+                text: '--Select Constituency--'
+            }));
+            tehsilSelect.append($('<option>', {
+                value: '-1',
+                text: '--Select Tehsil--'
+            }));
+            blockSelect.append($('<option>', {
+                value: '-1',
+                text: '--Select Block--'
+            }));
+
+            // Load options based on the selected activity type ID
+            console.log('dadsa',selectedDistrictTypeId)
+            // if (selectedActivityTypeId === '202' || selectedActivityTypeId === '203' || selectedActivityTypeId === '201') {
+                // Load options dynamically based on your logic here
+                // You can make an AJAX request to fetch data from the server and populate the options
+                // Example:
+                
+                $.ajax({
+                    url: '/application/get-data/',
+                    method: 'GET',
+                    data: {
+                    district_type_id: selectedDistrictTypeId
+                    },
+                    success: function(data) {
+                        // Add the retrieved options to the select element
+                        console.log('dada',data.block)
+                        var block = data.block
+                        var cons = data.cons
+                        var teh = data.cons
+                        cons.forEach(function(option) {
+                            
+                            constituencySelect.append($('<option>', {
+                                value: option.id,
+                                text: option.name
+                            }));
+                        });
+                        block.forEach(function(option) {
+                            
+                            blockSelect.append($('<option>', {
+                                value: option.id,
+                                text: option.name
+                            }));
+                        });
+                        teh.forEach(function(option) {
+                            
+                            tehsilSelect.append($('<option>', {
+                                value: option.id,
+                                text: option.name
+                            }));
+                        });
+
+                    },
+                    error: function() {
+                        // Handle error
+                    }
+                });
+                
+            // }
+        }
+        function loadownerConOptions(ownerselectedDistrictTypeId) {
+            // Clear existing options
+            ownerconstituencySelect.empty();
+            ownertehsilSelect.empty();
+            ownerblockSelect.empty();
+
+            // Add a default option
+            ownerconstituencySelect.append($('<option>', {
+                value: '-1',
+                text: '--Select Constituency--'
+            }));
+            ownertehsilSelect.append($('<option>', {
+                value: '-1',
+                text: '--Select Tehsil--'
+            }));
+            ownerblockSelect.append($('<option>', {
+                value: '-1',
+                text: '--Select Block--'
+            }));
+
+            // Load options based on the selected activity type ID
+            console.log('dadsa',ownerselectedDistrictTypeId)
+            // if (selectedActivityTypeId === '202' || selectedActivityTypeId === '203' || selectedActivityTypeId === '201') {
+                // Load options dynamically based on your logic here
+                // You can make an AJAX request to fetch data from the server and populate the options
+                // Example:
+                
+                $.ajax({
+                    url: '/application/get-data/',
+                    method: 'GET',
+                    data: {
+                    district_type_id: ownerselectedDistrictTypeId
+                    },
+                    success: function(data) {
+                        // Add the retrieved options to the select element
+                        console.log('dada',data.block)
+                        var block = data.block
+                        var cons = data.cons
+                        var teh = data.cons
+                        cons.forEach(function(option) {
+                            
+                            ownerconstituencySelect.append($('<option>', {
+                                value: option.id,
+                                text: option.name
+                            }));
+                        });
+                        block.forEach(function(option) {
+                            
+                            ownerblockSelect.append($('<option>', {
+                                value: option.id,
+                                text: option.name
+                            }));
+                        });
+                        teh.forEach(function(option) {
+                            
+                            ownertehsilSelect.append($('<option>', {
+                                value: option.id,
+                                text: option.name
+                            }));
+                        });
+
+                    },
+                    error: function() {
+                        // Handle error
+                    }
+                });
+                
+            // }
+        }
+
+        // Event handler for the change event on the first select element
+        activityTypeSelect.on('change', function() {
+            const selectedActivityTypeId = $(this).val();
+            loadActivityOptions(selectedActivityTypeId);
+        });
+        districtTypeSelect.on('change', function() {
+            const selectedDistrictTypeId = $(this).val();
+            loadConOptions(selectedDistrictTypeId);
+        });
+        blockTypeSelect.on('change', function() {
+            const selectedBlockTypeId = $(this).val();
+            loadPanchayatOptions(selectedBlockTypeId);
+        });
+        bankTypeSelect.on('change', function() {
+            const selectedBankTypeId = $(this).val();
+            loadBranchOptions(selectedBankTypeId);
+        });
+        ownerdistrictTypeSelect.on('change', function() {
+            const ownerselectedDistrictTypeId = $(this).val();
+            loadownerConOptions(ownerselectedDistrictTypeId);
+        });
+        ownerblockTypeSelect.on('change', function() {
+            const ownerselectedBlockTypeId = $(this).val();
+            loadownerPanchayatOptions(ownerselectedBlockTypeId);
+        });
+
+        // Trigger the change event on page load if a value is pre-selected
+        const preSelectedActivityTypeId = activityTypeSelect.val();
+        if (preSelectedActivityTypeId) {
+            loadActivityOptions(preSelectedActivityTypeId);
+        }
+
+        $('#submit-button').click(function() {
+        // Serialize the form data
+        var formData = $('#applicant-form').serialize();
+        // var inputValues = [];
+        // var selectValues = [];
+        
+        // // Iterate through input elements
+        // $('input[name^="input_name"]').each(function() {
+        //     inputValues.push($(this).val());
+        // });
+        
+        // // Iterate through select elements
+        // $('select[name^="select_name"]').each(function() {
+        //     selectValues.push($(this).val());
+        // });
+        
+        // // Create an object to hold the arrays
+        // var formData = {
+        //     'input_values': inputValues,
+        //     'select_values': selectValues,
+        // };
+        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+        console.log('csrf', csrfToken);
+        // Make an AJAX POST request to submit the form
+        $.ajax({
+            url: '/application/save-data/', // Specify the form action URL
+            method: 'POST',
+            data: formData,
+            headers: {
+                'X-CSRF-TOKEN': csrfToken // Include the CSRF token in headers
+            },
+            contentType: 'application/x-www-form-urlencoded',
+            success: function(response) {
+                // Handle the success response here
+                // console.log('Form submitted successfully');
+                console.log('Form submitted successfully',response);
+                // You can update the UI or perform other actions as needed
+            },
+            error: function() {
+                // Handle errors here
+                console.error('Error occurred while submitting the form');
+            }
+        });
+    });
+
+    });
+</script>
+
+
+

@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Enum;
+use App\Models\Activity;
+use App\Models\Region;
+use App\Models\Bank;
+use App\Models\BankBranch;
 use App\Models\Form;
 use App\Models\User;
 use App\Enums\TypeEnum;
@@ -20,6 +24,9 @@ use App\Models\ApplicationTimeline;
 use App\Enums\ApplicationStatusEnum;
 use App\Events\ApplicationStatusEvent;
 use App\Events\IncompleteApplicationEvent;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class ApplicationController extends Controller
 {
@@ -40,15 +47,134 @@ class ApplicationController extends Controller
      */
     public function create(Form $form, int $formDesignId = null)
     {
-        
+        $activity = Enum::where('type', 'ACTIVITY_TYPE')->get();
+        $bank = Bank::all();
+        $con = Enum::where('type', 'CONSTITUTION_TYPE')->get();
+        $CAT = Enum::where('type', 'SOCIAL_CATEGORY')->get();
+        $Diss = Region::where('type_id', 404)->get();
         $formDesigns = $form->formDesigns()->orderBy('order')->get();
-        // dd($formDesigns);
+        // dd($formDesigns[1]->design);
         $formDesign = (is_null($formDesignId) ? $formDesigns : $formDesigns->where('id', $formDesignId))->firstOrFail();
+        $formDesign1 = ($formDesigns->where('id', 1))->firstOrFail();
+        $formDesign2 = ($formDesigns->where('id', 2))->firstOrFail();
+        $formDesign3 = ($formDesigns->where('id', 3))->firstOrFail();
+        $formDesign4 = ($formDesigns->where('id', 4))->firstOrFail();
         $application = new Application();
         $this->setTitle($form->name . '|' . $formDesign->name);
         $this->addJs('resources/ts/form.ts');
         $formDesign->assets && $this->addAssets($formDesign->assets);
-        return view('application.create', compact('form', 'formDesign', 'application', 'formDesigns'));
+        // dd($Diss);
+        return view('application.create', compact('form',
+        'formDesign', 'formDesign2', 'activity',
+        'con', 'CAT', 'Diss', 'bank', 'application', 'formDesigns'));
+    }
+
+
+    public function get()
+    {
+        // return response()->json(request('activity_type_id'));
+        if (request()->has('activity_type_id')) {
+        $activities = Activity::where('type_id', request('activity_type_id'))->get(); // Replace with your actual query to fetch activities
+        return response()->json($activities);
+        }
+        else if (request()->has('district_type_id')){
+            // return response()->json(request('district_type_id'));
+            $cons = Region::where('type_id', 405 )->where('parent_id', request('district_type_id') )->get(); // Replace with your actual query to fetch activities
+            $teh = Region::where('type_id', 406 )->where('parent_id', request('district_type_id') )->get(); // Replace with your actual query to fetch activities
+            $block = Region::where('type_id', 407 )->where('parent_id', request('district_type_id') )->get(); // Replace with your actual query to fetch activities
+            $responseData = [
+                'cons' => $cons,
+                'teh' => $teh,
+                'block' => $block,
+            ];
+            
+            return response()->json($responseData);
+        }else if (request()->has('block_type_id')){
+            // return response()->json(request('district_type_id'));
+            $panchayat = Region::where('type_id', 408 )->where('parent_id', request('block_type_id') )->get(); // Replace with your actual query to fetch activities
+            return response()->json($panchayat);
+        }else if (request()->has('bank_id')){
+            // return response()->json(request('bank_id'));
+            $branch = BankBranch::where('bank_id', request('bank_id'))->get(); // Replace with your actual query to fetch activities
+            return response()->json($branch);
+        } 
+    }
+
+
+    public function saveData(Request $request)
+    {   
+        
+        $filePath = public_path('validation.json');
+       
+        $jsonContent = File::get($filePath);
+        
+        $validationRules = json_decode($jsonContent, true);
+        return response()->json($request->all());
+        try {
+            $validationRules = json_decode($jsonContent, true);
+            // Define your validation rules
+            // $validationRules = [
+            //     'field1' => 'required',
+            //     'field2' => 'numeric',
+            //     // Add more validation rules as needed
+            // ];
+    
+            // Perform validation
+            $validator = Validator::make($request->all(), $validationRules);
+    
+            // Check if validation fails
+            if ($validator->fails()) {
+                throw new ValidationException($validator);
+            }
+    
+            // Validation passed, proceed with saving data
+            // ...
+    
+            return response()->json(['message' => 'Data saved successfully']);
+        } catch (ValidationException $e) {
+            // Handle validation errors
+            return response()->json(['errors' => $e->errors()], 400);
+        } catch (\Exception $e) {
+            // Handle other exceptions
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+        // $validator = Validator::make($request->all(), $validationRules);
+        // return response()->json($validator);
+        // if ($validator->fails()) {
+        //     // Handle validation errors as needed
+        //     return response()->json(['errors' => $validator->errors()], 400);
+        // }
+        // else{
+        //     $jsonData = json_encode([
+        //         'cost' => [
+        //             'land_cost' => $request->input('land_cost'),
+        //             'assets_cost' => $request->input('assets_cost'),
+        //             'land_status' => $request->input('land_status'),
+        //             // Add other cost-related fields here
+        //         ],
+        //         'owner' => [
+        //             'pan' => $request->input('pan'),
+        //             'name' => $request->input('name'),
+        //             'email' => $request->input('email'),
+        //             // Add other owner-related fields here
+        //         ],
+        //         'finance' => [
+        //             'bank_branch_id' => $request->input('bank_branch_id'),
+        //             'own_contribution' => $request->input('own_contribution'),
+        //             // Add other finance-related fields here
+        //         ],
+        //         'enterprise' => [
+        //             'name' => $request->input('enterprise_name'),
+        //             'address' => $request->input('enterprise_address'),
+        //             // Add other enterprise-related fields here
+        //         ],
+        //     ]);
+        // }
+        // $application = new Application();
+        // $application->data = $jsonData;
+        // $application->save();
+
+        // return response()->json(request());
     }
 
     /**

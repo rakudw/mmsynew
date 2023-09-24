@@ -98,6 +98,8 @@ Route::middleware('auth')->group(function () {
     Route::controller(ApplicationController::class)->prefix('/application')->group(function () {
         Route::get('/view/{application}/{annexure?}/{applicationDocument?}', 'view')->name('application.view');
         Route::get('/withdraw/{application}', 'withdraw')->name('application.withdraw');
+        Route::get('/get-data', 'get')->name('application.get')->withoutMiddleware(['auth']);
+        Route::post('/save-data', 'saveData')->name('application.saveData')->withoutMiddleware(['auth']);
         Route::get('/dp/{application}', 'dp')->name('application.dp');
         Route::get('/annexure/{application}/{type?}/{download?}', 'annexure')->name('application.annexure');
         Route::get('/documents/{application}', 'documents')->name('application.documents');
