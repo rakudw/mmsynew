@@ -2,7 +2,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
 
-<form class="form application-form" action="/your-form-action" method="POST" id="applicant-form">
+<form class="form application-form" action="/application/save-data/" method="POST" id="applicant-form">
     @csrf
         <table class="table">
             <tbody>
@@ -28,7 +28,7 @@
                                 </tr>
                                 <tr>
                                     <th>(1)</th>
-                                    <th ><strong>Name of Proposed Unit:</strong></th>
+                                    <th ><strong>Name of Proposed Unit / प्रस्तावित इकाई का नाम:</strong></th>
                                     <td colspan="4">
                                         <input type="text" id="name" name="name" required autofocus>
                                         <small>The name of the unit you want to set.</small>
@@ -36,7 +36,7 @@
                                 </tr>
                                 <tr>
                                     <th >(2)</th>
-                                    <th ><strong>Mobile Number of the Owner:</strong></th>
+                                    <th ><strong>Mobile Number of the Owner /इकाई के मालिक का मोबाइल नंबर:</strong></th>
                                     <td colspan="4">
                                         <input type="text" id="mobile" name="mobile" required>
                                         <small>Mobile Number of the Owner</small>
@@ -44,7 +44,7 @@
                                 </tr>
                                 <tr>
                                     <th>(3)</th>
-                                    <th ><strong>Type of Activity:</strong></th>
+                                    <th ><strong>Type of Activity / गतिविधि का प्रकार:</strong></th>
                                     <td colspan="4">
                                         <select id="activity_type_id" name="activity_type_id" required data-changes="activity_id" class="button"
                                             data-options="dbase:enum(id,name)[type:ACTIVITY_TYPE]">
@@ -58,7 +58,7 @@
                                 </tr>
                                 <tr>
                                     <th>(4)</th>
-                                    <th ><strong>Activity of the unit:</strong></th>
+                                    <th ><strong>Activity of the unit / इकाई की गतिविधि:</strong></th>
                                     <td colspan="4">
                                         <select id="activity_id" name="activity_id" required data-condition="activity_type_id:202,203" class="button"
                                             data-depends="activity_type_id"
@@ -70,7 +70,7 @@
                                 </tr>
                                 <tr>
                                     <th>(5)</th>
-                                    <th ><strong>Description of Activity in Brief:</strong></th>
+                                    <th ><strong>Description of Activity in Brief /संक्षेप में गतिविधि का विवरण :</strong></th>
                                     <td colspan="4">
                                         <input type="text" id="activity_details" name="activity_details" required
                                             data-condition="activity_type_id:202,203">
@@ -79,7 +79,7 @@
                                 </tr>
                                 <tr>
                                     <th>(6)</th>
-                                    <th ><strong>Products to be manufactured:</strong></th>
+                                    <th ><strong>Products to be manufactured / उत्पाद जो निर्मित किए जाने हैं:</strong></th>
                                     <td colspan="4">
                                         <input type="text" id="products" name="products" required data-condition="activity_type_id:201">
                                         <small>List of all the products to be manufactured by the unit.</small>
@@ -87,7 +87,7 @@
                                 </tr>
                                 <tr>
                                     <th>(7)</th>
-                                    <th ><strong>Constitution Type:</strong></th>
+                                    <th ><strong>Constitution Type / संविधान प्रकार:</strong></th>
                                     <td colspan="4">
                                         <select id="constitution_type_id" name="constitution_type_id" required class="button"
                                             data-options="dbase:enum(id,name)[type:CONSTITUTION_TYPE]">
@@ -101,14 +101,23 @@
                                 </tr>
                                 <tr>
                                     <th>(8)</th>
-                                    <th ><strong>Proposed Employment Generation:</strong></th>
+                                    <th ><strong>Proposed Employment Generation / प्रस्तावित रोजगार उत्पन्न:</strong></th>
                                     <td colspan="4">
                                         <input type="number" id="employment" name="employment" min="1" required>
                                     </td>
                                 </tr>
                                 <tr>
+                                    <th class="section-heading">(9)</th>
+                                    <th class="section-heading" ><strong>Unit Address / इकाई का पता
+                                            <input name="FH_NAME" id="FH_NAME" type="hidden" value="-">
+                                            <input name="FH_NM_DESC" id="FH_NM_DESC" type="hidden" value="-">
+                                    </strong></th>
+                                    <th colspan="4"> <input name="BENF_TYPE_CD" id="BENF_TYPE_CD" type="hidden" value="1">
+                                    Fill Unit Address / इकाई का पता भरें</th>
+                                </tr>
+                                <tr>
                                     <th>(9)</th>
-                                    <th ><strong>Area Type:</strong></th>
+                                    <th ><strong>Area Type / क्षेत्र प्रकार:</strong></th>
                                     <td colspan="4">
                                         <select id="area_type" name="area_type" class="button" required>
                                             <option value="-1">--Select Area--</option>
@@ -120,7 +129,7 @@
                                 </tr>
                                 <tr>
                                     <th>(10)</th>
-                                    <th ><strong>Pincode:</strong></th>
+                                    <th ><strong>Pincode / पिनकोड:</strong></th>
                                     <td colspan="4">
                                         <input type="number" id="pincode" name="pincode" min="170000" max="179999" required>
                                         <small>Pincode</small>
@@ -128,7 +137,7 @@
                                 </tr>
                                 <tr>
                                     <th>(11)</th>
-                                    <th ><strong>District:</strong></th>
+                                    <th ><strong>District / जिला:</strong></th>
                                     <td colspan="4">
                                         <select id="district_id" name="district_id" class="button" required>
                                         <option value="-1">--Select District--</option>
@@ -141,7 +150,7 @@
                                 </tr>
                                 <tr>
                                     <th>(12)</th>
-                                    <th ><strong>Constituency:</strong></th>
+                                    <th ><strong>Constituency / संसदीय क्षेत्र:</strong></th>
                                     <td colspan="4">
                                         <select id="constituency_id" name="constituency_id" class="button" required>
                                         <option value="-1">--Select Constituency--</option>
@@ -152,7 +161,7 @@
                                 </tr>
                                 <tr>
                                     <th>(13)</th>
-                                    <th ><strong>Tehsil:</strong></th>
+                                    <th ><strong>Tehsil / तहसील:</strong></th>
                                     <td colspan="4">
                                         <select id="tehsil_id" name="tehsil_id" class="button" required>
                                         <option value="-1">--Select Tehsil--</option>
@@ -163,7 +172,7 @@
                                 </tr>
                                 <tr>
                                     <th>(14)</th>
-                                    <th ><strong>Block:</strong></th>
+                                    <th ><strong>Block / ब्लॉक:</strong></th>
                                     <td colspan="4">
                                         <select id="block_id" name="block_id" class="button" required>
                                         <option value="-1">--Select Block--</option>
@@ -174,7 +183,7 @@
                                 </tr>
                                 <tr>
                                     <th>(15)</th>
-                                    <th ><strong>Panchayat/Town:</strong></th>
+                                    <th ><strong>Panchayat/Town / पंचायत/नगर:</strong></th>
                                     <td colspan="4">
                                         <select id="panchayat_id" name="panchayat_id" class="button" required>
                                         <option value="-1">--Select Panchayat/Town--</option>
@@ -185,7 +194,7 @@
                                 </tr>
                                 <tr>
                                     <th>(16)</th>
-                                    <th ><strong>House Number/Street/Landmark/Village name:</strong></th>
+                                    <th ><strong>House Number/Street/Landmark/Village name /घर क्रमांक/सड़क/सूचना/गांव का नाम:</strong></th>
                                     <td colspan="4">
                                         <input type="text" id="address" name="address" required>
                                         <small>House Number/Street/Landmark/Village name</small>
@@ -202,16 +211,16 @@
                                 </tr>
                                 <!-- (17) -->
                                 <tr>
-                                    <th>(1)</th>
-                                    <th ><strong>Name of Owner:</strong></th>
+                                    <th>(17)</th>
+                                    <th ><strong>Name of Owner / मालिक का नाम:</strong></th>
                                     <td colspan="4">
                                         <input type="text" id="name" name="owner_name" required autofocus>
                                         <small>Name of Owner.</small>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>(1)</th>
-                                    <th ><strong>Father/Husband/Mother Name:</strong></th>
+                                    <th>(18)</th>
+                                    <th ><strong>Father/Husband/Mother Name /प्रतिरक्षक/माता-पिता/पति-पत्नी नाम:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="guardian_prefix" name="guardian_prefix" required>
                                             <option value="-1">--Select guardian/parent/spouse.--</option>
@@ -225,8 +234,8 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>(17)</th>
-                                    <th ><strong>Mobile Number:</strong><br><small>Mobile Number of the Owner</small></th>
+                                    <th>(19)</th>
+                                    <th ><strong>Mobile Number / मोबाइल नंबर:</strong><br><small>Mobile Number of the Owner</small></th>
                                     <td colspan="4">
                                         <input type="tel" id="owner_mobile" name="owner_mobile" pattern="[1-9]{1}[0-9]{9}" required>
                                         <small>Enter Mobile Number</small>
@@ -235,8 +244,8 @@
 
                                 <!-- (18) -->
                                 <tr>
-                                    <th>(18)</th>
-                                    <th ><strong>Email:</strong></th>
+                                    <th>(20)</th>
+                                    <th ><strong>Email / ईमेल:</strong></th>
                                     <td colspan="4">
                                         <input type="email" id="owner_email" name="owner_email">
                                         <small>Enter Email Address</small>
@@ -245,8 +254,8 @@
 
                                 <!-- (19) -->
                                 <tr>
-                                    <th>(19)</th>
-                                    <th ><strong>Pincode:</strong></th>
+                                    <th>(21)</th>
+                                    <th ><strong>Pincode / पिनकोड:</strong></th>
                                     <td colspan="4">
                                         <input type="number" id="owner_pincode" name="owner_pincode" min="170000" max="179999" required>
                                         <small>Enter Pincode</small>
@@ -255,8 +264,8 @@
 
                                 <!-- (20) -->
                                 <tr>
-                                    <th>(20)</th>
-                                    <th ><strong>District:</strong></th>
+                                    <th>(22)</th>
+                                    <th ><strong>District / जिला:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="owner_district_id" name="owner_district_id" required>
                                             <option value="-1">--Select District--</option>
@@ -270,8 +279,8 @@
 
                                 <!-- (21) -->
                                 <tr>
-                                    <th>(21)</th>
-                                    <th ><strong>Constituency:</strong></th>
+                                    <th>(23)</th>
+                                    <th ><strong>Constituency / संसदीय क्षेत्र:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="owner_constituency_id" name="owner_constituency_id" required>
                                         <option value="-1">--Select Constituency--</option>
@@ -282,8 +291,8 @@
 
                                 <!-- (22) -->
                                 <tr>
-                                    <th>(22)</th>
-                                    <th ><strong>Tehsil:</strong></th>
+                                    <th>(24)</th>
+                                    <th ><strong>Tehsil / तहसील:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="owner_tehsil_id" name="owner_tehsil_id" required>
                                         <option value="-1">--Select Tehsil--</option>
@@ -294,8 +303,8 @@
 
                                 <!-- (23) -->
                                 <tr>
-                                    <th>(23)</th>
-                                    <th ><strong>Block:</strong></th>
+                                    <th>(25)</th>
+                                    <th ><strong>Block / ब्लॉक:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="owner_block_id" name="owner_block_id" required>
                                         <option value="-1">--Select Block--</option>
@@ -306,8 +315,8 @@
 
                                 <!-- (24) -->
                                 <tr>
-                                    <th>(24)</th>
-                                    <th ><strong>Panchayat/Town:</strong></th>
+                                    <th>(26)</th>
+                                    <th ><strong>Panchayat/Town / पंचायत/नगर :</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="owner_panchayat_id" name="owner_panchayat_id" required>
                                         <option value="-1">--Select Panchayat/Town--</option>
@@ -318,16 +327,16 @@
 
                                 <!-- (25) -->
                                 <tr>
-                                    <th>(25)</th>
-                                    <th ><strong>House Number/Street/Landmark/Village name:</strong></th>
+                                    <th>(27)</th>
+                                    <th ><strong>House Number/Street/Landmark/Village name /घर क्रमांक/सड़क/सूचना/गांव का नाम:</strong></th>
                                     <td colspan="4">
                                         <input type="text" id="owner_address" name="address" required>
                                         <small>Enter House Number/Street/Landmark/Village name</small>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>(26)</th>
-                                    <th ><strong>Aadhaar Number:</strong></th>
+                                    <th>(28)</th>
+                                    <th ><strong>Aadhaar Number / आधार नंबर:</strong></th>
                                     <td colspan="4">
                                         <input type="tel" id="aadhaar" name="aadhaar" required pattern="^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$">
                                         <small>Enter Aadhaar Number</small>
@@ -336,8 +345,8 @@
 
                                 <!-- (27) -->
                                 <tr>
-                                    <th>(27)</th>
-                                    <th ><strong>PAN Number:</strong></th>
+                                    <th>(29)</th>
+                                    <th ><strong>PAN Number / न नंबर:</strong></th>
                                     <td colspan="4">
                                         <input type="text" id="pan" name="pan" pattern="^([a-zA-Z]([a-zA-Z]([a-zA-Z]([a-zA-Z]([a-zA-Z]([0-9]([0-9]([0-9]([0-9]([a-zA-Z])?)?)?)?)?)?)?)?)?)?$">
                                         <small>Enter PAN Number</small>
@@ -346,8 +355,8 @@
 
                                 <!-- (28) -->
                                 <tr>
-                                    <th>(28)</th>
-                                    <th ><strong>Gender:</strong></th>
+                                    <th>(30)</th>
+                                    <th ><strong>Gender / लिंग:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="gender" name="gender" required data-limit-age="birth_date">
                                             <option value="-1">--Select Gender--</option>
@@ -361,8 +370,8 @@
 
                                 <!-- (29) -->
                                 <tr>
-                                    <th>(29)</th>
-                                    <th ><strong>Marital Status:</strong></th>
+                                    <th>(31)</th>
+                                    <th ><strong>Marital Status / वैवाहिक स्थिति:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="marital_status" name="marital_status" required>
                                             <option value="-1">--Select Marital Status--</option>
@@ -377,8 +386,8 @@
 
                                 <!-- (30) -->
                                 <tr>
-                                    <th>(30)</th>
-                                    <th ><strong>Spouse's Aadhaar Number:</strong></th>
+                                    <th>(32)</th>
+                                    <th ><strong>Spouse's Aadhaar Number / पति/पत्नी का आधार नंबर:</strong></th>
                                     <td colspan="4">
                                         <input type="tel" id="spouse_aadhaar" name="spouse_aadhaar" required data-condition="marital_status:Married" pattern="^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$">
                                         <small>Enter Spouse's Aadhaar Number (if Married)</small>
@@ -387,8 +396,8 @@
 
                                 <!-- (31) -->
                                 <tr>
-                                    <th>(31)</th>
-                                    <th ><strong>Date of Birth:</strong></th>
+                                    <th>(33)</th>
+                                    <th ><strong>Date of Birth / जन्म तिथि:</strong></th>
                                     <td colspan="4">
                                         <input type="date" id="birth_date" name="birth_date" required pattern="\d\d\d\d-(\d)?\d-(\d)?\d" data-age="true" data-datepicker-xformat="yyyy-mm-dd" data-datepicker-xmax-date="-18">
                                         <span id="birth_date_age" class="badge badge-info bg-dark"></span>
@@ -398,7 +407,7 @@
 
                                 <!-- (32) -->
                                 <tr>
-                                    <th>(32)</th>
+                                    <th>(34)</th>
                                     <th ><strong>Specially Abled (दिव्यांग):</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="is_specially_abled" name="is_specially_abled" required>
@@ -411,8 +420,8 @@
 
                                 <!-- (33) -->
                                 <tr>
-                                    <th>(33)</th>
-                                    <th ><strong>Category:</strong></th>
+                                    <th>(35)</th>
+                                    <th ><strong>Category / श्रेणी:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="social_category_id" name="social_category_id" required>
                                             <option value="-1">--Select Category--</option>
@@ -426,8 +435,8 @@
 
                                 <!-- (34) -->
                                 <tr>
-                                    <th>(34)</th>
-                                    <th ><strong>Belongs to Minority:</strong></th>
+                                    <th>(36)</th>
+                                    <th ><strong>Belongs to Minority / अल्पसंख्यक है ?:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="belongs_to_minority" name="belongs_to_minority" required>
                                             <option value="No">No</option>
@@ -447,8 +456,8 @@
                                 </tr>
                                 <!-- Land Status -->
                                 <tr>
-                                    <th>(35)</th>
-                                    <th width="300" ><strong>Land Status:</strong></th>
+                                    <th>(37)</th>
+                                    <th width="300" ><strong>Land Status / भूमि की स्थिति:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="land_status" name="land_status" required>
                                             <option value="Not Required">Not Required</option>
@@ -462,16 +471,16 @@
 
                                 <!-- Cost of Land -->
                                 <tr>
-                                    <th>(36)</th>
-                                    <th ><strong>Cost of Land:</strong></th>
+                                    <th>(38)</th>
+                                    <th ><strong>Cost of Land / भूमि का लागत:</strong></th>
                                     <td colspan="4">
                                         <input type="number" id="land_cost" name="land_cost" min="0" data-condition="land_status:To be Purchased,To be Taken on Lease" required>
                                         <small>Cost of Land</small>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>(37)</th>
-                                    <th ><strong>Building Status:</strong></th>
+                                    <th>(39)</th>
+                                    <th ><strong>Building Status / इमारत की स्थिति:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="building_status" name="building_status" required>
                                             <option value="Already Constructed">Already Constructed</option>
@@ -485,8 +494,8 @@
 
                                 <!-- (38) -->
                                 <tr>
-                                    <th>(38)</th>
-                                    <th ><strong>Cost of Building Construction:</strong></th>
+                                    <th>(40)</th>
+                                    <th ><strong>Cost of Building Construction / इमारत निर्माण की लागत:</strong></th>
                                     <td colspan="4">
                                         <input type="number" id="building_cost" name="building_cost" min="0" data-condition="building_status:To be Constructed,To be Taken on Rent" required>
                                         <small>Cost of Building Construction</small>
@@ -495,8 +504,8 @@
 
                                 <!-- (39) -->
                                 <tr>
-                                    <th>(39)</th>
-                                    <th ><strong>Estimated Buildup Area (in Square Feet):</strong></th>
+                                    <th>(41)</th>
+                                    <th ><strong>Estimated Buildup Area (in Square Feet) पूर्वानुमानित बिल्डअप क्षेत्र (वर्ग फीट में)" :</strong></th>
                                     <td colspan="4">
                                         <input type="text" id="building_area" name="building_area" min="0" data-condition="building_status:To be Constructed,To be Taken on Rent" required>
                                         <small>Estimated Buildup Area (in Square Feet)</small>
@@ -505,58 +514,58 @@
 
                                 <!-- (40) -->
                                 <tr>
-                                    <th>(40)</th>
+                                    <th>(42)</th>
                                     <th ><strong>Furniture, Fixtures, IT related items, Renovation, Interior Work and Other Fixed Assets Cost:</strong></th>
                                     <td colspan="4">
-                                        <input type="number" id="assets_cost" name="assets_cost" min="0" required>
+                                        <input  value="{{ old('assets_cost') }}" type="number" id="assets_cost" name="assets_cost" min="0" required>
                                         <small>Cost of Furniture, Fixtures, IT related items, Renovation, Interior Work and Other Fixed Assets</small>
                                     </td>
                                 </tr>
 
                                 <!-- (41) -->
                                 <tr>
-                                    <th>(41)</th>
+                                    <th>(43)</th>
                                     <th ><strong>Details of Furniture, Fixtures, IT related items, Renovation, Interior Work and Other Fixed Assets:</strong></th>
                                     <td colspan="4">
-                                        <input type="text" id="assets_detail" name="assets_detail" required>
+                                        <input value="{{ old('assets_detail') }}" type="text" id="assets_detail" name="assets_detail" required>
                                         <small>Details of Furniture, Fixtures, IT related items, Renovation, Interior Work and Other Fixed Assets</small>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>(42)</th>
-                                    <th ><strong>Machinery/Equipments Cost:</strong></th>
+                                    <th>(44)</th>
+                                    <th ><strong>Machinery/Equipments Cost / मशीनरी/उपकरण की लागत:</strong></th>
                                     <td colspan="4">
-                                        <input type="number" id="machinery_cost" name="machinery_cost" min="0" required>
+                                        <input  value="{{ old('machinery_cost') }}" type="number" id="machinery_cost" name="machinery_cost" min="0" required>
                                         <small>Machinery/Equipments Cost</small>
                                     </td>
                                 </tr>
 
                                 <!-- (43) -->
                                 <tr>
-                                    <th>(43)</th>
-                                    <th ><strong>Working Capital/CC Limit:</strong></th>
+                                    <th>(45)</th>
+                                    <th ><strong>Working Capital/CC Limit / कामकाज पूंजी/क्रेडिट लिमिट:</strong></th>
                                     <td colspan="4">
-                                        <input type="number" id="working_capital" name="working_capital" min="0" required>
+                                        <input  type="number" id="working_capital" name="working_capital" min="0"  value="{{ old('working_capital') }}" required>
                                         <small>Working Capital/CC Limit</small>
                                     </td>
                                 </tr>
 
                                 <!-- (44) -->
                                 <tr>
-                                    <th>(44)</th>
-                                    <th ><strong>Details of Machinery/Equipments:</strong></th>
+                                    <th>(46)</th>
+                                    <th ><strong>Details of Machinery/Equipments / मशीनरी/उपकरण का विवरण:</strong></th>
                                     <td colspan="4">
-                                        <input type="text" id="machinery_detail" name="machinery_detail" required>
+                                        <input type="text" id="machinery_detail" name="machinery_detail" value="{{ old('machinery_detail') }}" required>
                                         <small>Details of Machinery/Equipments</small>
                                     </td>
                                 </tr>
 
                                 <!-- (45) -->
                                 <tr>
-                                    <th>(45)</th>
-                                    <th ><strong>Total Project Cost (Calculated):</strong></th>
+                                    <th>(47)</th>
+                                    <th ><strong>Total Project Cost (Calculated) /कुल प्रोजेक्ट लागत (गणना की गई):</strong></th>
                                     <td colspan="4">
-                                        <input type="text" id="project_cost" name="project_cost" readonly required data-calculate="">
+                                        <input type="text" value="{{ old('project_cost') }}" id="project_cost" name="project_cost" readonly required data-calculate="">
                                         <small>Total Project Cost (Calculated)</small>
                                     </td>
                                 </tr>
@@ -570,18 +579,18 @@
                                     Means of Finance / वित्त प्राधिकृति</th>
                                 </tr>
                                 <tr>
-                                    <th>(46)</th>
-                                    <th  ><strong>Own Contribution Percentage (% of Capital Expenditure):</strong></th>
+                                    <th>(48)</th>
+                                    <th  ><strong>Own Contribution Percentage (10% of Capital Expenditure) / स्वयं सहायता प्रतिशत (पूंजी व्यय का 10%):</strong></th>
                                     <td colspan="4">
-                                        <input type="number" id="own_contribution" name="own_contribution" min="10" max="95" step="any" required autofocus>
+                                        <input type="number" id="own_contribution" name="own_contribution" value="{{ old('own_contribution') }}" min="10" max="95" step="any" required autofocus>
                                         <small>Should be at least 10%.</small>
                                     </td>
                                 </tr>
 
                                 <!-- (47) -->
                                 <tr>
-                                    <th>(47)</th>
-                                    <th ><strong>Own Contribution Amount (Readonly):</strong></th>
+                                    <th>(49)</th>
+                                    <th ><strong>Own Contribution Amount (Readonly) / स्वयं सहायता राशि (केवल पठनीय):</strong></th>
                                     <td colspan="4">
                                         <input type="number" id="own_contribution_amount" name="own_contribution_amount" min="0" required readonly>
                                         <small>Own Contribution Amount</small>
@@ -590,8 +599,8 @@
 
                                 <!-- (48) -->
                                 <tr>
-                                    <th>(48)</th>
-                                    <th ><strong>Term Loan (Readonly):</strong></th>
+                                    <th>(50)</th>
+                                    <th ><strong>Term Loan (Readonly) / क़र्ज़ अवधि (केवल पठनीय):</strong></th>
                                     <td colspan="4">
                                         <input type="number" id="term_loan" name="term_loan" min="0" required readonly>
                                         <small>Term Loan</small>
@@ -600,16 +609,16 @@
 
                                 <!-- (49) -->
                                 <tr>
-                                    <th width="50">(49)</th>
-                                    <th ><strong>CC Limit (Disabled):</strong></th>
+                                    <th width="50">(51)</th>
+                                    <th ><strong>CC Limit (Disabled) / सीसी सीमा (अक्षम):</strong></th>
                                     <td colspan="4">
                                         <input type="number" id="cc_limit" name="cc_limit" min="0" disabled required>
                                         <small>CC Limit</small>
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>(50)</th>
-                                    <th ><strong>Name of the Loan Financing Bank:</strong></th>
+                                    <th>(52)</th>
+                                    <th ><strong>Name of the Loan Financing Bank / ऋण वित्तपोषण बैंक का नाम:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="bank_id" name="bank_id" required>
                                             <option value="-1">--Select Bank--</option>
@@ -621,8 +630,8 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>(51)</th>
-                                    <th ><strong>Name of the Loan Financing Branch:</strong></th>
+                                    <th>(53)</th>
+                                    <th ><strong>Name of the Loan Financing Branch / ऋण वित्तपोषण शाखा का नाम:</strong></th>
                                     <td colspan="4">
                                         <select class="button select2" id="bank_branch_id" name="bank_branch_id" required>
                                             <option value="-1">--Select Branch--</option>
@@ -649,22 +658,37 @@
                         </tr>
                         <tr>
                         <td>(1)</td>
-                        <td><strong>Aadhaar Number/आधार  नंबर</strong> : 12 digit Aadhar number of the applicant should be filled in./आधार  नंबर: आवेदन को 12 अंकों का आधार नंबर भरना चाहिए </td>
+                        <td><strong>Name of Proposed Unit/प्रस्तावित इकाई का नाम:</strong> : Please type the name of your unit in this field./कृपया इस क्षेत्र में अपनी इकाई का नाम टाइप करें</td>
                         </tr>
                         <tr>
-                        <td >(A)</td>
-                        <td>The EID is displayed on the top of your enrolment/update acknowledgement slip and contains 14 digit enrolment number (1234/12345/12345) and the 14 digit date and time (yyyy/mm/dd hh:mm:ss) of enrolment. These 28 digits together form your Enrolment ID (EID)./
-                        <strong>    ईआईडी आपके नामांकन/अपडेट पावती पर्ची के शीर्ष पर प्रदर्शित होता है और इसमें 14 अंकों की नामांकन संख्या (1234/12345/12345) और नामांकन की 14 अंकों की तारीख और समय (yyyy/mm/dd hh:mm:ss) होता है। ये 28 अंक मिलकर आपकी नामांकन आईडी (ईआईडी) बनाते हैं।	 </strong>
-                        </td>
+                        <td >(2)</td>
+                        <td><strong>Mobile Number of the Owner/मालिक का मोबाइल नंबर::</strong> : Please type mobile number of unit's owner here./कृपया इस इकाई के मालिक का मोबाइल नंबर यहाँ टाइप करें</td>
                         </tr>
                         <tr>
-                        <td>(2)</td>
-                        <td><strong>Name of Applicant/आवेदक  का नाम : (i) </strong>Select prefix of name from the list/सूची  से नाम का सम्बोधन चुने, (ii) The applicant should fill his/her name exactly as it appears in the Aadhaar Card. In case of any mismatch in the name entered, the applicant will not be able to fill the form further/आवेदक  को अपना नाम ठीक उसी तरह भरना चाहिए जैसे आधार कार्ड मे दर्ज किया गया है | दर्ज किए गए नाम मेँ किसी भी प्रकार  से बेमेल होने के मामले में,आवेदक आगे फॉर्म नहीं भर पाएगा |. </td>
+                            <td>(3)</td>
+                            <td><strong>Type of Activity / गतिविधि का प्रकार:</strong> : Please select the type of activity for your unit from the options provided./कृपया प्रदान किए गए विकल्पों से अपनी इकाई के लिए गतिविधि का प्रकार चुनें</td>
                         </tr>
                         <tr>
-                        <td>(3) </td>
-                        <td><p><strong>Sponsoring Agency</strong>/प्रायोजक  एजेंसी :  Select Agency  (KVIC, KVIB, DIC) in which you want to submit the application form/उस एजेंसी (KVIC, KVIB, DIC) का चयन करें, जिसमें आप आवेदन पत्र जमा करना चाहते हैं |. </p></td>
+                            <td>(4)</td>
+                            <td><strong>Activity of the unit / इकाई की गतिविधि:</strong> :Please select the specific activity for your unit from the options provided. कृपया प्रदान किए गए विकल्पों से अपनी इकाई के लिए विशेष गतिविधि का चयन करें।</td>
                         </tr>
+                        <tr>
+                            <td>(5)</td>
+                            <td><strong>Description of Activity in Brief / गतिविधि का संक्षेप में विवरण:</strong>:Please provide a brief description of the activity that your unit will be engaged in. कृपया बताएं कि आपकी इकाई किस गतिविधि में लगी होगी, इसका संक्षेप में विवरण दें।</td>
+                        </tr>
+                        <tr>
+                            <td>(6)</td>
+                            <td><strong>Products to be manufactured / निर्मित किए जाने वाले उत्पाद:</strong>:Please provide a list of all the products that your unit will manufacture. कृपया बताएं कि आपकी इकाई किन-किन उत्पादों का निर्माण करेगी।</td>
+                        </tr>
+                        <tr>
+                            <td>(7)</td>
+                            <td><strong>Constitution Type / संविधान प्रकार:</strong>:Please select the type of constitution for your unit from the options provided. कृपया प्रदान किए गए विकल्पों से अपनी इकाई के लिए संविधान प्रकार का चयन करें।</td>
+                        </tr>
+                        <tr>
+                            <td>(8)</td>
+                            <td><strong>Proposed Employment Generation / प्रस्तावित रोजगार सृजन:</strong>:Please enter the number of employment opportunities that your unit is expected to generate. कृपया दर्ज करें कि आपकी इकाई से कितने रोजगार के अवसर उत्पन्न होने की उम्मीद है।</td>
+                        </tr>
+
                             </tbody>
                         </table>
                     </td>
@@ -1047,51 +1071,6 @@
             loadActivityOptions(preSelectedActivityTypeId);
         }
 
-        $('#submit-button').click(function() {
-        // Serialize the form data
-        var formData = $('#applicant-form').serialize();
-        // var inputValues = [];
-        // var selectValues = [];
-        
-        // // Iterate through input elements
-        // $('input[name^="input_name"]').each(function() {
-        //     inputValues.push($(this).val());
-        // });
-        
-        // // Iterate through select elements
-        // $('select[name^="select_name"]').each(function() {
-        //     selectValues.push($(this).val());
-        // });
-        
-        // // Create an object to hold the arrays
-        // var formData = {
-        //     'input_values': inputValues,
-        //     'select_values': selectValues,
-        // };
-        var csrfToken = $('meta[name="csrf-token"]').attr('content');
-
-        console.log('csrf', csrfToken);
-        // Make an AJAX POST request to submit the form
-        $.ajax({
-            url: '/application/save-data/', // Specify the form action URL
-            method: 'POST',
-            data: formData,
-            headers: {
-                'X-CSRF-TOKEN': csrfToken // Include the CSRF token in headers
-            },
-            contentType: 'application/x-www-form-urlencoded',
-            success: function(response) {
-                // Handle the success response here
-                // console.log('Form submitted successfully');
-                console.log('Form submitted successfully',response);
-                // You can update the UI or perform other actions as needed
-            },
-            error: function() {
-                // Handle errors here
-                console.error('Error occurred while submitting the form');
-            }
-        });
-    });
 
     });
 </script>
