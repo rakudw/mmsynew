@@ -103,54 +103,61 @@ class ApplicationController extends Controller
 
     public function saveData(Request $request)
     {   
-        
-        $filePath = public_path('validation.json');
+        $Documenttype = DocumentType::all();
+        // $filePath = public_path('validation.json');
        
-        $jsonContent = File::get($filePath);
+        // $jsonContent = File::get($filePath);
         
-        $validationRules = json_decode($jsonContent, true);
-        $validator = Validator::make($request->all(), $validationRules);
-        if ($validator->fails()) {
-            return redirect()->back()
-                ->withErrors($validator)
-                ->withInput(); 
-        }
-        dd($validator);
-        // return response()->json($validator);
+        // $validationRules = json_decode($jsonContent, true);
+        // $validator = Validator::make($request->all(), $validationRules);
+        // if ($validator->fails()) {
+        //     return redirect()->back()
+        //         ->withErrors($validator)
+        //         ->withInput(); 
+        // }
+        // // return response()->json($validator);
         // if ($validator->fails()) {
         //     // Handle validation errors as needed
         //     return response()->json(['errors' => $validator->errors()], 400);
         // }
         // else{
-        //     $jsonData = json_encode([
-        //         'cost' => [
-        //             'land_cost' => $request->input('land_cost'),
-        //             'assets_cost' => $request->input('assets_cost'),
-        //             'land_status' => $request->input('land_status'),
-        //             // Add other cost-related fields here
-        //         ],
-        //         'owner' => [
-        //             'pan' => $request->input('pan'),
-        //             'name' => $request->input('name'),
-        //             'email' => $request->input('email'),
-        //             // Add other owner-related fields here
-        //         ],
-        //         'finance' => [
-        //             'bank_branch_id' => $request->input('bank_branch_id'),
-        //             'own_contribution' => $request->input('own_contribution'),
-        //             // Add other finance-related fields here
-        //         ],
-        //         'enterprise' => [
-        //             'name' => $request->input('enterprise_name'),
-        //             'address' => $request->input('enterprise_address'),
-        //             // Add other enterprise-related fields here
-        //         ],
-        //     ]);
+            $jsonData = json_encode([
+                'cost' => [
+                    'land_cost' => $request->input('land_cost'),
+                    'assets_cost' => $request->input('assets_cost'),
+                    'land_status' => $request->input('land_status'),
+                    // Add other cost-related fields here
+                ],
+                'owner' => [
+                    'pan' => $request->input('pan'),
+                    'name' => $request->input('owner_name'),
+                    'email' => $request->input('owner_email'),
+                    // Add other owner-related fields here
+                ],
+                'finance' => [
+                    'bank_branch_id' => $request->input('bank_branch_id'),
+                    'own_contribution' => $request->input('own_contribution'),
+                    // Add other finance-related fields here
+                ],
+                'enterprise' => [
+                    'name' => $request->input('enterprise_name'),
+                    'address' => $request->input('enterprise_address'),
+                    // Add other enterprise-related fields here
+                ],
+            ]);
+            // dd($jsonData);
         // }
-        // $application = new Application();
-        // $application->data = $jsonData;
-        // $application->save();
+        $data = json_decode($jsonData);
+        $application = new Application();
+        $application->name = $request->input('name');
+        $application->form_id = 1;
+        $application->data = $data;
+        $application->region_id = 14;
+        $application->status_id = 302;
+        $application->save();
+        return view('application.newdocument', compact('application','Documenttype'));
 
+        dd($application);
         // return response()->json(request());
     }
 
