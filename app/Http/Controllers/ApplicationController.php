@@ -109,20 +109,13 @@ class ApplicationController extends Controller
         $jsonContent = File::get($filePath);
         
         $validationRules = json_decode($jsonContent, true);
-        try {
-            $validationRules = json_decode($jsonContent, true);
-            $validator = Validator::make($request->all(), $validationRules);
-            // return response()->json($validator);
-            if ($validator->fails()) {
-                return response()->json($validator->errors());
-            }
-            return response()->json(['message' => 'Data saved successfully']);
-        } catch (ValidationException $e) {
-            return response()->json(['errors' => $e->errors()], 400);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
+        $validator = Validator::make($request->all(), $validationRules);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput(); 
         }
-        // $validator = Validator::make($request->all(), $validationRules);
+        dd($validator);
         // return response()->json($validator);
         // if ($validator->fails()) {
         //     // Handle validation errors as needed
