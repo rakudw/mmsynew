@@ -19,7 +19,7 @@
 
     <div class="row " id="formHolder">
         <div class="col-12">
-            <x-forms.form />
+            <x-form :application="$application" :design="$formDesign"  :form="$form" :formDesigns="$formDesigns" />
         </div>
     </div>
 @endsection

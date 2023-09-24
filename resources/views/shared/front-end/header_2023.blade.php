@@ -54,7 +54,7 @@
                 @auth()
                     <a href="{{ route("login") }}"><button class="department_login">Account</button></a>
                 @endauth()
-                <button class="notification"><i class="fa fa-bell" aria-hidden="true"></i></button>
+                <button class="notification PdfClick" data-title="Notification" data-pdf="{{ asset('pdf/MMSY-as-on-20-04-2022.pdf') }}"><i class="fa fa-bell" aria-hidden="true"></i></button>
             </div>
             <!-- login section ends-->
 
@@ -81,7 +81,7 @@
                             <a class="nav-link" data-bs-toggle="modal" data-bs-target="#helpDeskModal" href="#">Help Desk</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">How to Apply</a>
+                            <a class="nav-link PdfClick" href="#" data-title="How to Apply" data-pdf="{{ asset('pdf/Operational-Guidelines-for-Mukhya-Mantri-Swawlamban-Yojna-2019.pdf') }}">How to Apply</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link about-us" href="#">About Us</a>
@@ -89,11 +89,11 @@
                         <li class="nav-item">
                             <a class="nav-link dlc-meet" href="#">DLC Meetings</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link notification" href="#">Objectives</a>
+                        <li class="nav-item PdfClick" >
+                            <a class="nav-link notification " href="#" data-title="Objectives" data-pdf="{{ asset('pdf/MMSY-as-on-20-04-2022.pdf') }}">Objectives</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link bank-user" href="#">Bank User Manual</a>
+                        <li class="nav-item PdfClick" data-pdf="{{ asset('pdf/Bank-Manager.pdf') }}" data-title="Bank User Manual">
+                            <a class="nav-link bank-user " href="#"  >Bank User Manual</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link tips" href="#">Useful Tips</a>
@@ -152,3 +152,22 @@
   </div>
 
     <!--- header ends -->
+
+
+    <div class="modal fade modal-xl" id="instructionModal" style="z-index: 9999999;" tabindex="-1" aria-labelledby="instructionModalLabel" aria-hidden="true">
+        <div class="modal-dialog" style="background-color: #ecf8f9" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myPdfModalLabel"></h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <iframe src="" width="100%" height="500" frameborder="0"></iframe>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
