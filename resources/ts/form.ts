@@ -233,12 +233,10 @@ import * as axios from 'axios';
             }
             if (condition) {
                 element.disabled = false;
-                element.closest('.input-group').parentElement.classList.remove('d-none');
                 isRequired && element.setAttribute('required', 'required');
             } else {
                 element.disabled = true;
                 element.removeAttribute('required');
-                element.closest('.input-group').parentElement.classList.add('d-none');
             }
         };
         checkCondition();
