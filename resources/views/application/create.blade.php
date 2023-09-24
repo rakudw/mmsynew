@@ -19,7 +19,7 @@
 
     <div class="row " id="formHolder">
         <div class="col-12">
-            <x-form :application="$application" :design="$formDesign"  :form="$form" :formDesigns="$formDesigns" />
+            <x-forms.form :activities="$activity" :cons="$con" :diss="$Diss" :cats="$CAT" :banks="$bank"/>
         </div>
     </div>
 @endsection
@@ -37,7 +37,7 @@
     /*Generated from Designmycss.com*/
     .button {  
         /* Fix to remove extra padding in IE */
-        width: auto; 
+        width: 197px;
         overflow: visible;
         /* End */
         /* Fix for disappearing labels in IE7 - Thanks to Tom Gibara */
