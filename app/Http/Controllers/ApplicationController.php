@@ -61,7 +61,7 @@ class ApplicationController extends Controller
         $formDesign4 = ($formDesigns->where('id', 4))->firstOrFail();
         $application = new Application();
         $this->setTitle($form->name . '|' . $formDesign->name);
-        $this->addJs('resources/ts/form.ts');
+        // $this->addJs('resources/ts/form.ts');
         $formDesign->assets && $this->addAssets($formDesign->assets);
         // dd($Diss);
         return view('application.create', compact('form',
@@ -510,7 +510,7 @@ class ApplicationController extends Controller
             }
         }
 
-        $this->addJs('resources/ts/form.ts');
+        // $this->addJs('resources/ts/form.ts');
         $this->addAssets($formDesign->assets);
         return view('application.create', compact('form', 'formDesign', 'application', 'formDesigns'));
     }
