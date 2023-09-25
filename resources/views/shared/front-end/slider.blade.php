@@ -78,7 +78,7 @@
                     <!-- Add a button to close the modal -->
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <!-- Add a button to continue with the application -->
-                    <a href="{{ route('application.create', 1) }}"><button type="button" class="btn btn-primary">Accept & Continue With New Application</button></a>
+                    <a href="{{ route('application.new') }}"><button type="button" class="btn btn-primary">Accept & Continue With New Application</button></a>
                 </div>
             </div>
         </div>

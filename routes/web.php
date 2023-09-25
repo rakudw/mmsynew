@@ -104,12 +104,15 @@ Route::middleware('auth')->group(function () {
         Route::get('/annexure/{application}/{type?}/{download?}', 'annexure')->name('application.annexure');
         Route::get('/documents/{application}', 'documents')->name('application.documents');
         Route::get('/create/{form}/{formDesignId?}', 'create')->name('application.create')->withoutMiddleware(['auth']);
+        Route::get('/new', 'new')->name('application.new')->withoutMiddleware(['auth']);
+        Route::get('/newedit/{application}', 'newedit')->name('application.newedit')->withoutMiddleware(['auth']);
+        Route::get('/newdocument/{application}', 'newDocument')->name('newdocument')->withoutMiddleware(['auth']);
         Route::get('/edit/{application}/{formDesignId?}', 'edit')->name('application.edit');
         Route::get('/document/remove/{application}/{document}', 'documentRemove')->name('application.document-remove');
         Route::get('/document/{document}', 'document')->name('application.document');
         Route::post('/submit/{application}', 'submit')->name('application.submit');
         Route::post('/store/{form}/{formDesign}/{application?}', 'store')->name('application.store');
-        Route::post('/upload/{application}/{documentType?}', 'upload')->name('application.upload');
+        Route::post('/upload/{application}/{documentType?}', 'upload')->name('application.upload')->withoutMiddleware(['auth']);
         Route::post('/upload-generic/{application}', 'uploadGeneric')->name('application.upload-generic');
         Route::put('/status/{application}', 'update')->name('application.status');
         Route::get('/project-report/{application}/{download?}', 'preProjectReport')->name('application.ppr');
@@ -125,7 +128,7 @@ Route::middleware('auth')->group(function () {
     Route::controller(AjaxController::class)->prefix('/ajax/')->group(function () {
         Route::get('/get/{table}/{id}', 'get')->name('ajax.get');
         Route::get('/search/{table}', 'search')->name('ajax.search');
-        Route::get('/load', 'load')->name('ajax.load');
+        Route::get('/load', 'load')->name('ajax.load')->withoutMiddleware(['auth']);
         Route::get('/count/{type?}', 'count')->name('ajax.count');
     });
 

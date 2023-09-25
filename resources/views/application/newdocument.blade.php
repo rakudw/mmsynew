@@ -17,10 +17,37 @@
 @section('content')
 @include('shared.front-end.applicant_header')
 
-    <div class="row " id="formHolder">
-        <div class="col-12">
-            <x-forms.document :application="$application" :doctype="$Documenttype" />
-        </div>
+<div class="row " id="formHolder">
+    <div class="col-12">
+        <x-forms.document :application="$application" :doctype="$Documenttype" :allApplicationDocuments="$allApplicationDocuments" />
     </div>
+</div>
+@endsection
+@section('scripts')
+<script>
+$(document).ready(function() {
+    // Function to check if all required inputs are filled
+    function checkRequiredInputs() {
+        var requiredInputs = $('input[required]');
+        console.log('requiredInputs',requiredInputs)
+        for (var i = 0; i < requiredInputs.length; i++) {
+            if (!requiredInputs[i].value) {
+                return false;
+            }
+        }
+        return true;
+    }
+    $('#finalSubmissionButton').prop('disabled', !checkRequiredInputs());
+    // Enable/disable the final submission button based on required input completion
+    $('input').on('input', function() {
+        var finalSubmissionButton = $('#finalSubmissionButton');
+        finalSubmissionButton.prop('disabled', !checkRequiredInputs());
+    });
+   
+    $('#previewButton').on('click', function() {
+    $('#applicationModal').modal('show');
+});
+});
+</script>
 @endsection
 

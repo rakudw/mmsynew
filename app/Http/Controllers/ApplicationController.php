@@ -27,7 +27,8 @@ use App\Events\IncompleteApplicationEvent;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
-
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 class ApplicationController extends Controller
 {
     /**
@@ -47,26 +48,39 @@ class ApplicationController extends Controller
      */
     public function create(Form $form, int $formDesignId = null)
     {
+      
+        $formDesigns = $form->formDesigns()->orderBy('order')->get();
+        // dd($formDesigns);
+        $formDesign = (is_null($formDesignId) ? $formDesigns : $formDesigns->where('id', $formDesignId))->firstOrFail();
+        $application = new Application();
+        $this->setTitle($form->name . '|' . $formDesign->name);
+        $this->addJs('resources/ts/form.ts');
+        $formDesign->assets && $this->addAssets($formDesign->assets);
+        return view('application.create', compact('form', 'formDesign', 'application', 'formDesigns'));
+    }
+
+    public function new(Form $form, int $formDesignId = null)
+    {
         $activity = Enum::where('type', 'ACTIVITY_TYPE')->get();
         $bank = Bank::all();
         $con = Enum::where('type', 'CONSTITUTION_TYPE')->get();
         $CAT = Enum::where('type', 'SOCIAL_CATEGORY')->get();
         $Diss = Region::where('type_id', 404)->get();
-        $formDesigns = $form->formDesigns()->orderBy('order')->get();
-        // dd($formDesigns[1]->design);
-        $formDesign = (is_null($formDesignId) ? $formDesigns : $formDesigns->where('id', $formDesignId))->firstOrFail();
-        $formDesign1 = ($formDesigns->where('id', 1))->firstOrFail();
-        $formDesign2 = ($formDesigns->where('id', 2))->firstOrFail();
-        $formDesign3 = ($formDesigns->where('id', 3))->firstOrFail();
-        $formDesign4 = ($formDesigns->where('id', 4))->firstOrFail();
         $application = new Application();
-        $this->setTitle($form->name . '|' . $formDesign->name);
-        // $this->addJs('resources/ts/form.ts');
-        $formDesign->assets && $this->addAssets($formDesign->assets);
-        // dd($Diss);
-        return view('application.create', compact('form',
-        'formDesign', 'formDesign2', 'activity',
-        'con', 'CAT', 'Diss', 'bank', 'application', 'formDesigns'));
+        return view('application.new', compact('form', 'activity',
+        'con', 'CAT', 'Diss', 'bank', 'application'));
+    }
+
+    public function newedit(Application $application, int $formDesignId = null)
+    {
+        $activity = Enum::where('type', 'ACTIVITY_TYPE')->get();
+        $bank = Bank::all();
+        $con = Enum::where('type', 'CONSTITUTION_TYPE')->get();
+        $CAT = Enum::where('type', 'SOCIAL_CATEGORY')->get();
+        $Diss = Region::where('type_id', 404)->get();
+        $form = null;
+        return view('application.new', compact('form', 'activity',
+        'con', 'CAT', 'Diss', 'bank', 'application'));
     }
 
 
@@ -103,62 +117,164 @@ class ApplicationController extends Controller
 
     public function saveData(Request $request)
     {   
-        $Documenttype = DocumentType::all();
-        // $filePath = public_path('validation.json');
+        // dd($request->all());
+        $filePath = public_path('validation.json');
        
-        // $jsonContent = File::get($filePath);
+        $jsonContent = File::get($filePath);
         
-        // $validationRules = json_decode($jsonContent, true);
-        // $validator = Validator::make($request->all(), $validationRules);
-        // if ($validator->fails()) {
-        //     return redirect()->back()
-        //         ->withErrors($validator)
-        //         ->withInput(); 
-        // }
-        // // return response()->json($validator);
-        // if ($validator->fails()) {
-        //     // Handle validation errors as needed
-        //     return response()->json(['errors' => $validator->errors()], 400);
-        // }
-        // else{
+        $validationRules = json_decode($jsonContent, true);
+        $validator = Validator::make($request->all(), $validationRules);
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput(); 
+        }
+        $partnerData = [];
+
+        // Loop through the partner details arrays and create partner objects
+        $partnerNames = $request->input('partner_name');
+        $partnerGenders = $request->input('partner_gender');
+        $partnerDOBs = $request->input('partner_birth_date');
+        $partnerSocialCategories = $request->input('partner_social_category_id');
+        $partnerSpeciallyAbled = $request->input('partner_is_specially_abled');
+        $partnerAadhaars = $request->input('partner_aadhaar');
+        $partnerMobiles = $request->input('partner_mobile');
+
+        foreach ($partnerNames as $key => $partnerName) {
+            $partnerData[] = [
+                'name' => $partnerName,
+                'gender' => $partnerGenders[$key],
+                'date_of_birth' => $partnerDOBs[$key],
+                'social_category_id' => $partnerSocialCategories[$key],
+                'specially_abled' => $partnerSpeciallyAbled[$key],
+                'aadhaar' => $partnerAadhaars[$key],
+                'mobile' => $partnerMobiles[$key],
+            ];
+        }
             $jsonData = json_encode([
                 'cost' => [
                     'land_cost' => $request->input('land_cost'),
                     'assets_cost' => $request->input('assets_cost'),
                     'land_status' => $request->input('land_status'),
-                    // Add other cost-related fields here
+                    'assets_detail' => $request->input('assets_detail'),
+                    'building_area' => $request->input('building_area'),
+                    'building_cost' => $request->input('building_cost'),
+                    'machinery_cost' => $request->input('machinery_cost'),
+                    'building_status' => $request->input('building_status'),
+                    'working_capital' => $request->input('working_capital_cc'),
+                    'machinery_detail' => $request->input('machinery_detail'),
                 ],
                 'owner' => [
-                    'pan' => $request->input('pan'),
+                    'pan' => $request->input('owner_pan'),
                     'name' => $request->input('owner_name'),
                     'email' => $request->input('owner_email'),
-                    // Add other owner-related fields here
+                    'gender' => $request->input('owner_gender'),
+                    'mobile' => $request->input('owner_mobile'),
+                    'aadhaar' => $request->input('owner_aadhaar'),
+                    'address' => $request->input('owner_address'),
+                    'pincode' => $request->input('owner_pincode'),
+                    'block_id' => $request->input('owner_block_id'),
+                    'guardian' => $request->input('owner_guardian'),
+                    'tehsil_id' => $request->input('owner_tehsil_id'),
+                    'birth_date' => $request->input('owner_birth_date'),
+                    'district_id' => $request->input('owner_district_id'),
+                    'panchayat_id' => $request->input('owner_panchayat_id'),
+                    'marital_status' => $request->input('owner_marital_status'),
+                    'spouse_aadhaar' => $request->input('spouse_aadhaar'),
+                    'constituency_id' => $request->input('owner_constituency_id'),
+                    'guardian_prefix' => $request->input('owner_guardian_prefix'),
+                    'is_specially_abled' => $request->input('owner_is_specially_abled'),
+                    'partner_name' => $partnerNames,
+                    'partner_gender' => $partnerGenders,
+                    'partner_birth_date' => $partnerDOBs,
+                    'partner_aadhaar' => $partnerAadhaars,
+                    'partner_mobile' => $partnerMobiles,
+                    'partner_is_specially_abled' => $partnerSpeciallyAbled,
+                    'partner_social_category_id' => $partnerSocialCategories,
+                    'social_category_id' => $request->input('owner_social_category_id'),
+                    'belongs_to_minority' => $request->input('owner_belongs_to_minority'),
                 ],
                 'finance' => [
                     'bank_branch_id' => $request->input('bank_branch_id'),
                     'own_contribution' => $request->input('own_contribution'),
-                    // Add other finance-related fields here
                 ],
                 'enterprise' => [
-                    'name' => $request->input('enterprise_name'),
-                    'address' => $request->input('enterprise_address'),
-                    // Add other enterprise-related fields here
+                    'name' => $request->input('name'),
+                    'address' => $request->input('address'),
+                    'pincode' => $request->input('pincode'),
+                    'block_id' => $request->input('block_id'),
+                    'area_type' => $request->input('area_type'),
+                    'tehsil_id' => $request->input('tehsil_id'),
+                    'employment' => $request->input('employment'),
+                    'activity_id' => $request->input('activity_id'),
+                    'district_id' => $request->input('district_id'),
+                    'panchayat_id' => $request->input('panchayat_id'),
+                    'constituency_id' => $request->input('constituency_id'),
+                    'activity_details' => $request->input('activity_details'),
+                    'activity_type_id' => $request->input('activity_type_id'),
+                    'constitution_type_id' => $request->input('constitution_type_id'),
                 ],
             ]);
-            // dd($jsonData);
-        // }
+           
         $data = json_decode($jsonData);
-        $application = new Application();
-        $application->name = $request->input('name');
-        $application->form_id = 1;
-        $application->data = $data;
-        $application->region_id = 14;
-        $application->status_id = 302;
-        $application->save();
-        return view('application.newdocument', compact('application','Documenttype'));
+        $phoneNumbers = [];
+        $aadharNumbers = [];
 
-        dd($application);
+        // Assuming 'partner_mobile' and 'partner_aadhaar' are fields to compare
+        foreach ($data->owner->partner_mobile as $mobile) {
+            $phoneNumbers[] = $mobile;
+        }
+
+        foreach ($data->owner->partner_aadhaar as $aadhar) {
+            $aadharNumbers[] = $aadhar;
+        }
+
+        // Check for an existing application with matching phone numbers or Aadhar numbers
+        $ownerAadhaar = $data->owner->aadhaar;
+        if(Application::whereNotIn('status_id', [
+            ApplicationStatusEnum::WITHDRAWN->id(),
+            ApplicationStatusEnum::INCOMPLETE->id(),
+            ApplicationStatusEnum::LOAN_REJECTED->id(),
+            ApplicationStatusEnum::REVERTED_BACK_TO_APPLICANT->id(),
+            ApplicationStatusEnum::REJECTED_AT_DISTRICT_INDUSTRIES_CENTER->id(),
+            ApplicationStatusEnum::REJECTED_AT_DISTRICT_LEVEL_COMMITTEE->id()
+            ])->where(fn($query) => $query->whereJsonContains('data->owner->partner_aadhaar', $ownerAadhaar)->orWhere('data->owner->spouse_aadhaar', $ownerAadhaar)->orWhere('data->owner->aadhaar', $ownerAadhaar))->count() > 0) {
+                return redirect()->back()
+                ->withErrors(['custom_error' => 'An application with the same data already exists.'])
+                ->withInput(); 
+        } else {
+              
+                $application = new Application();
+                $application->name = $request->input('name');
+                $application->form_id = 1;
+                $application->data = $data;
+                $application->region_id = $request->input('owner_district_id');
+                $application->status_id = 302;
+                $application->save();
+                $this->registerUser($application);
+              
+                return redirect()->route('newdocument', ['application' => $application]);
+               
+        }
+
         // return response()->json(request());
+    }
+    public function registerUser($application){
+        $user = [
+            'name' => $application->data->owner->name,
+            'email' => $application->data->owner->email,
+            'password' => Hash::make(mt_rand(10000000, 99999999)),
+            'remember_token' => Str::random(10),
+        ];
+        $user = User::create($user);
+        auth()->login($user, true);
+        return $user;
+    }
+    public function newDocument(Request $request, Application $application){
+        $allApplicationDocuments = $application->applicationDocuments;
+        // $Documenttype = $allApplicationDocuments->keyBy('document_type_id');
+        $Documenttype = DocumentType::all();
+        return view('application.newdocument', compact('application','Documenttype','allApplicationDocuments'));
     }
 
     /**
@@ -214,17 +330,25 @@ class ApplicationController extends Controller
         ]);
     }
 
-    public function submit(Application $application)
+    public function submit(Application $application, Request $request)
     {
         if (!$this->user()->can('update', $application)) {
             return redirect()->route('dashboard')->with('error', 'Application not found!');
         }
         // Check at least the project should be 10,000 worth
         if($application->project_cost < 10000) {
-            return redirect()->route('application.edit', [
-                'application' => $application,
-                'formDesignId' => 3,
-            ])->withErrors(['<em class="fa-solid fa-warning"></em> The project cost of the application is way too low for consideration!']);
+            $type = $request->get('type');
+            if ($type !== null) {
+                return redirect()->route('application.newedit', [
+                    'application' => $application,
+                ])->withErrors(['<em class="fa-solid fa-warning"></em> The project cost of the application is way too low for consideration!']);
+            }else{
+                return redirect()->route('application.edit', [
+                    'application' => $application,
+                    'formDesignId' => 3,
+                ])->withErrors(['<em class="fa-solid fa-warning"></em> The project cost of the application is way too low for consideration!']);
+            }
+            
         }
 
         // Check if the owners aadhaar number is already in the database!
@@ -299,7 +423,13 @@ class ApplicationController extends Controller
         if ($applicationDocument) {
             $applicationDocument->delete();
         }
-        return redirect()->route('application.documents', ['application' => $application->id])->with('success', 'Document was removed from the application!');
+        $type = $request->get('type');
+        if ($type !== null) {
+            return redirect()->route('newdocument', ['application' => $application->id])->with('success', 'Document was removed from the application!');
+        }else{
+            return redirect()->route('application.documents', ['application' => $application->id])->with('success', 'Document was removed from the application!');
+        }
+       
     }
 
     public function upload(Application $application, DocumentType $documentType, Request $request)
@@ -343,7 +473,12 @@ class ApplicationController extends Controller
             ]);
             $applicationDocument->save();
         }
-        return redirect()->route('application.documents', ['application' => $application->id])->with('success', 'Document uploaded successfully!');
+        $type = $request->get('type');
+        if ($type !== null) {
+            return redirect()->route('newdocument', ['application' => $application->id])->with('success', 'Document uploaded successfully!');
+        }else{
+            return redirect()->route('application.documents', ['application' => $application->id])->with('success', 'Document uploaded successfully!');
+        }
     }
 
     public function uploadGeneric(Application $application, Request $request)
@@ -510,7 +645,7 @@ class ApplicationController extends Controller
             }
         }
 
-        // $this->addJs('resources/ts/form.ts');
+        $this->addJs('resources/ts/form.ts');
         $this->addAssets($formDesign->assets);
         return view('application.create', compact('form', 'formDesign', 'application', 'formDesigns'));
     }

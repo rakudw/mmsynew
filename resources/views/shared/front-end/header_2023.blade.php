@@ -47,7 +47,7 @@
 
             <!-- login section starts-->
             <div class="login_buttons">
-            <a href="{{ route('application.create', 1) }}"><button class="applicant_login">Applicant Login</button></a>
+            <a href="{{ route('login') }}"><button class="applicant_login">Applicant Login</button></a>
                 @guest()
                     <a href="{{ route("login") }}"><button class="department_login">Department Login</button></a>
                 @endguest()
@@ -154,7 +154,7 @@
     <!--- header ends -->
 
 
-    <div class="modal fade modal-xl" id="instructionModal" style="z-index: 9999999;" tabindex="-1" aria-labelledby="instructionModalLabel" aria-hidden="true">
+    <div class="modal fade modal-xl" id="iFrameModal" style="z-index: 9999999;" tabindex="-1" aria-labelledby="iFrameModalLabel" aria-hidden="true">
         <div class="modal-dialog" style="background-color: #ecf8f9" role="document">
             <div class="modal-content">
                 <div class="modal-header">

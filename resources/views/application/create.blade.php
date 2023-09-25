@@ -1,4 +1,4 @@
-@extends('layouts.applicant')
+@extends('layouts.admin')
 
 @section('title', $title ?? 'Application for Approval')
 
@@ -15,20 +15,13 @@
 @endsection
 
 @section('content')
-@include('shared.front-end.applicant_header')
 
     <div class="row " id="formHolder">
         <div class="col-12">
-            <x-forms.form :activities="$activity" :cons="$con" :diss="$Diss" :cats="$CAT" :banks="$bank"/>
+            <x-form :application="$application" :design="$formDesign" :form="$form" :formDesigns="$formDesigns" />
         </div>
     </div>
 @endsection
-<style>
-    tr.sub_row th {
-        background: white !important;
-        border-right: 1px solid black !important;
-    }
-</style>
 @section('scripts')
     <script>
         window.APPLICATION = {

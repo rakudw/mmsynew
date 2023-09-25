@@ -31,30 +31,30 @@
                                     <th>(1)</th>
                                     <th ><strong>Aadhaar Number / आधार नंबर:</strong></th>
                                     <td colspan="4">
-                                        <input type="tel" id="aadhaar" name="aadhaar" required pattern="^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$">
+                                        <input type="tel" id="aadhaar" value="{{ $application->length ? $application->data->owner->aadhaar : ''  }}" name="owner_aadhaar" required pattern="^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$">
                                         <small>Enter Aadhaar Number</small>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>(2)</th>
-                                    <th ><strong>Name of Owner / मालिक का नाम:</strong></th>
+                                    <th ><strong>Name of Applicant / आवेदक का नाम:</strong></th>
                                     <td colspan="4">
                                         <input type="text" id="name" name="owner_name" required autofocus>
-                                        <small>Name of Owner.</small>
+                                        <small>Name of Applicant.</small>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th>(3)</th>
                                     <th ><strong>Father/Husband/Mother Name /प्रतिरक्षक/माता-पिता/पति-पत्नी नाम:</strong></th>
                                     <td colspan="4">
-                                        <select class="button" id="guardian_prefix" name="guardian_prefix" required>
+                                        <select class="button" id="guardian_prefix" name="owner_guardian_prefix" required>
                                             <option value="-1">--Select guardian/parent/spouse.--</option>
                                                 <option value="S/O">S/O</option>
                                                 <option value="W/O">W/O</option>
                                                 <option value="D/O">D/O</option>
                                                 <option value="C/O">C/O</option>
                                         </select>
-                                        <input  type="text" name="guardian" required="required" autofocus="autofocus" data-prefix="S/O,W/O,D/O,C/O">
+                                        <input  type="text" name="owner_guardian" required="required" autofocus="autofocus" data-prefix="S/O,W/O,D/O,C/O">
                                         <small>Name of the guardian/parent/spouse.</small>
                                     </td>
                                 </tr>
@@ -138,7 +138,7 @@
                                     <th></th>
                                     <th ><strong>House Number/Street/Landmark/Village name /घर क्रमांक/सड़क/सूचना/गांव का नाम:</strong></th>
                                     <td colspan="4">
-                                        <input type="text" id="owner_address" name="address" required>
+                                        <input type="text" id="owner_address" name="owner_address" required>
                                         <small>Enter House Number/Street/Landmark/Village name</small>
                                     </td>
                                 </tr>
@@ -166,7 +166,7 @@
                                     <th>(8)</th>
                                     <th ><strong>PAN Number / न नंबर:</strong></th>
                                     <td colspan="4">
-                                        <input type="text" id="pan" name="pan" pattern="^([a-zA-Z]([a-zA-Z]([a-zA-Z]([a-zA-Z]([a-zA-Z]([0-9]([0-9]([0-9]([0-9]([a-zA-Z])?)?)?)?)?)?)?)?)?)?$">
+                                        <input type="text" id="pan" name="owner_pan" pattern="^([a-zA-Z]([a-zA-Z]([a-zA-Z]([a-zA-Z]([a-zA-Z]([0-9]([0-9]([0-9]([0-9]([a-zA-Z])?)?)?)?)?)?)?)?)?)?$">
                                         <small>Enter PAN Number</small>
                                     </td>
                                 </tr>
@@ -176,7 +176,7 @@
                                     <th>(9)</th>
                                     <th ><strong>Gender / लिंग:</strong></th>
                                     <td colspan="4">
-                                        <select class="button" id="gender" name="gender" required data-limit-age="birth_date">
+                                        <select class="button" id="gender" name="owner_gender" required >
                                             <option value="-1">--Select Gender--</option>
                                             <option value="Female">Female</option>
                                             <option value="Male">Male</option>
@@ -191,7 +191,7 @@
                                     <th>(10)</th>
                                     <th ><strong>Marital Status / वैवाहिक स्थिति:</strong></th>
                                     <td colspan="4">
-                                        <select class="button" id="marital_status" name="marital_status" required>
+                                        <select class="button" id="marital_status" name="owner_marital_status" required>
                                             <option value="-1">--Select Marital Status--</option>
                                             <option value="Unmarried">Unmarried</option>
                                             <option value="Married">Married</option>
@@ -207,7 +207,7 @@
                                     <th>(11)</th>
                                     <th ><strong>Spouse's Aadhaar Number / पति/पत्नी का आधार नंबर:</strong></th>
                                     <td colspan="4">
-                                        <input type="tel" id="spouse_aadhaar" name="spouse_aadhaar" required data-condition="marital_status:Married" pattern="^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$">
+                                        <input type="tel" id="spouse_aadhaar" name="spouse_aadhaar" data-condition="marital_status:Married" pattern="^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$">
                                         <small>Enter Spouse's Aadhaar Number (if Married)</small>
                                     </td>
                                 </tr>
@@ -217,7 +217,7 @@
                                     <th>(12)</th>
                                     <th ><strong>Date of Birth / जन्म तिथि:</strong></th>
                                     <td colspan="4">
-                                        <input type="date" id="birth_date" name="birth_date" required pattern="\d\d\d\d-(\d)?\d-(\d)?\d" data-age="true" data-datepicker-xformat="yyyy-mm-dd" data-datepicker-xmax-date="-18">
+                                        <input type="date" name="owner_birth_date" required max="2005-12-31" min="1905-01-01">
                                         <span id="birth_date_age" class="badge badge-info bg-dark"></span>
                                         <small>Enter Date of Birth</small>
                                     </td>
@@ -228,7 +228,7 @@
                                     <th>(13)</th>
                                     <th ><strong>Specially Abled (दिव्यांग):</strong></th>
                                     <td colspan="4">
-                                        <select class="button" id="is_specially_abled" name="is_specially_abled" required>
+                                        <select class="button" id="is_specially_abled" name="owner_is_specially_abled" required>
                                             <option value="No">No</option>
                                             <option value="Yes">Yes</option>
                                         </select>
@@ -241,7 +241,7 @@
                                     <th>(14)</th>
                                     <th ><strong>Category / श्रेणी:</strong></th>
                                     <td colspan="4">
-                                        <select class="button" id="social_category_id" name="social_category_id" required>
+                                        <select class="button" id="social_category_id" name="owner_social_category_id" required>
                                             <option value="-1">--Select Category--</option>
                                         @foreach($cats as $cat)
                                                 <option value="{{ $cat->id }}">{{ $cat->name }}</option>
@@ -256,7 +256,7 @@
                                     <th></th>
                                     <th ><strong>Belongs to Minority / अल्पसंख्यक है ?:</strong></th>
                                     <td colspan="4">
-                                        <select class="button" id="belongs_to_minority" name="belongs_to_minority" required>
+                                        <select class="button" id="belongs_to_minority" name="owner_belongs_to_minority" required>
                                             <option value="No">No</option>
                                             <option value="Yes">Yes</option>
                                         </select>
@@ -343,6 +343,74 @@
                                             @endforeach
                                         </select>
                                         <small> Constitution Type</small>
+                                        <div class="modal fade modal-xl" id="ConstitutionModal" style="z-index: 9999999;" tabindex="-1" aria-labelledby="ConstitutionModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" style="background-color: #ecf8f9" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h4 class="modal-title" id="myPdfModalLabel">Partner/Shareholder Details</h4> <span>Note: All the Partners/Shareholders should be Himachali Bonafied.</span>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        
+                                                        <div id="partnerShareholderContainer" style="display: flex; flex-wrap: wrap; align-items: flex-end;">
+                                                            <button class="btn btn-primary" type="button" id="addPartnerButton">Add More</button>
+                                                            <!-- Partner Row Template -->
+                                                            <div class="partner-row" style="display: flex; align-items: flex-end;">
+                                                                <div style="margin-right: 10px;">
+                                                                    <label for="partner_name">Name:</label>
+                                                                    <input type="text" name="partner_name[]" required>
+                                                                </div>
+                                                                <div style="margin-right: 10px;">
+                                                                    <label for="partner_gender">Gender:</label>
+                                                                    <select name="partner_gender[]" required>
+                                                                        <option value="Male">Male</option>
+                                                                        <option value="Female">Female</option>
+                                                                        <option value="Other">Other</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div style="margin-right: 10px;">
+                                                                    <label for="partner_birth_date">Date Of Birth:</label>
+                                                                    <input type="date" name="partner_birth_date[]" required max="2005-12-31" min="1905-01-01">
+                                                                </div>
+                                                                <div style="margin-right: 10px;">
+                                                                    <label for="partner_social_category_id">Social Category:</label>
+                                                                    <select id="partner_social_category_id" name="partner_social_category_id[]" required>
+                                                                        <option value="-1">--Select Category--</option>
+                                                                        @foreach($cats as $cat)
+                                                                        <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </div>
+                                                                <div style="margin-right: 10px;">
+                                                                    <label for="partner_is_specially_abled">Specially Abled:</label>
+                                                                    <select name="partner_is_specially_abled[]" required>
+                                                                        <option value="Yes">Yes</option>
+                                                                        <option value="No">No</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div style="margin-right: 10px;">
+                                                                    <label for="partner_aadhaar">Aadhaar Number:</label>
+                                                                    <input type="text" name="partner_aadhaar[]" pattern="^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$" required>
+                                                                </div>
+                                                                <div style="">
+                                                                    <label for="partner_mobile">Mobile (Linked To The Aadhaar):</label>
+                                                                    <input type="tel" name="partner_mobile[]" pattern="^[6-9]{1}[0-9]{9}$" required>
+                                                                </div>
+                                                                <div style="display: flex; align-items: center;">
+                                                                    <button class="btn btn-danger remove-partner-button" type="button">Remove</button>
+                                                                </div>
+                                                            </div>
+                                                            
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Save</button>
+                                                    </div>
+                                                       
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -500,7 +568,7 @@
                                     <th ><strong>Cost of Building Construction / इमारत निर्माण की लागत:</strong></th>
                                     <td colspan="4">
                                         <input type="number" id="building_cost" name="building_cost" min="0" data-condition="building_status:To be Constructed,To be Taken on Rent" required>
-                                        <small>Cost of Building Construction</small>
+                                        <small>Cost of Building Construction</small> <span class="badge bg-danger">  Subsidized Component/अनुदानित घटक</span>
                                     </td>
                                 </tr>
 
@@ -509,7 +577,7 @@
                                     <th></th>
                                     <th ><strong>Estimated Buildup Area (in Square Feet) पूर्वानुमानित बिल्डअप क्षेत्र (वर्ग फीट में)" :</strong></th>
                                     <td colspan="4">
-                                        <input type="text" id="building_area" name="building_area" min="0" data-condition="building_status:To be Constructed,To be Taken on Rent" required>
+                                        <input type="number" id="building_area" name="building_area" min="0" data-condition="building_status:To be Constructed,To be Taken on Rent" required>
                                         <small>Estimated Buildup Area (in Square Feet)</small>
                                     </td>
                                 </tr>
@@ -520,7 +588,7 @@
                                     <th ><strong>Furniture, Fixtures, IT related items, Renovation, Interior Work and Other Fixed Assets Cost:</strong></th>
                                     <td colspan="4">
                                         <input  value="{{ old('assets_cost') }}" type="number" id="assets_cost" name="assets_cost" min="0" required>
-                                        <small>Cost of Furniture, Fixtures, IT related items, Renovation, Interior Work and Other Fixed Assets</small>
+                                        <small>Cost of Furniture, Fixtures, IT related items, Renovation, Interior Work and Other Fixed Assets</small><span class="badge bg-danger">  Subsidized Component/अनुदानित घटक</span>
                                     </td>
                                 </tr>
 
@@ -538,7 +606,7 @@
                                     <th ><strong>Machinery/Equipments Cost / मशीनरी/उपकरण की लागत:</strong></th>
                                     <td colspan="4">
                                         <input  value="{{ old('machinery_cost') }}" type="number" id="machinery_cost" name="machinery_cost" min="0" required>
-                                        <small>Machinery/Equipments Cost</small>
+                                        <small>Machinery/Equipments Cost</small><span class="badge bg-danger">   Subsidized Component/अनुदानित घटक</span>
                                     </td>
                                 </tr>
 
@@ -547,7 +615,7 @@
                                     <th>(26)</th>
                                     <th ><strong>Working Capital/CC Limit / कामकाज पूंजी/क्रेडिट लिमिट:</strong></th>
                                     <td colspan="4">
-                                        <input  type="number" id="working_capital" name="working_capital" min="0"  value="{{ old('working_capital') }}" required>
+                                        <input  type="number" id="working_capital_cc" name="working_capital_cc" min="0"  value="{{ old('working_capital_cc') }}" required>
                                         <small>Working Capital/CC Limit</small>
                                     </td>
                                 </tr>
@@ -584,11 +652,44 @@
                                     <th>(28)</th>
                                     <th  ><strong>Own Contribution Percentage (10% of Capital Expenditure) / स्वयं सहायता प्रतिशत (पूंजी व्यय का 10%):</strong></th>
                                     <td colspan="4">
-                                        <input type="number" id="own_contribution" name="own_contribution" value="{{ old('own_contribution') }}" min="10" max="95" step="any" required autofocus>
+                                        <input type="number" id="own_contribution" name="own_contribution" value="{{ old('own_contribution') }}" min="10" max="95" step="any"  >
                                         <small>Should be at least 10%.</small>
                                     </td>
                                 </tr>
-
+                                <tr>
+                                    <th></th>
+                                    <th  ><strong>Capital Expenditure/ पूंजी व्यय </strong></th>
+                                    <td colspan="4">
+                                        <input type="number" id="capital_expenditure" value="" readonly step="any" required autofocus>
+                                        <small>Land Cost / भूमि लागत + Building Cost / इमारत लागत + Assets Cost / संपत्ति लागत + Machinery Cost / मशीनरी लागत</small>
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <th></th>
+                                    <th  ><strong>Own Contribution Amount / स्वयं सहायता पूंजी </strong></th>
+                                    <td colspan="4">
+                                        <input type="number" id="own_contribution_amount" name="own_contribution_amount"  readonly step="any"  >
+                                        <small>Project Cost / परियोजना लागत * (Own Contribution / स्वयं संगठन * 10 / 100)</small>
+                                    </td>
+                                </tr>
+                            
+                                <tr>
+                                    <th></th>
+                                    <th  ><strong>Term Loan/ शब्द ऋण </strong></th>
+                                    <td colspan="4">
+                                        <input type="number" id="term_loan" name="term_loan" value="{{ old('term_loan') }}"  readonly step="any" required autofocus>
+                                        <small>Project Cost / परियोजना लागत - Own Contribution Amount /  स्वयं संगठन राशि - Working Capital / संपत्ति लागत</small>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <th  ><strong>Working Capital / संपत्ति लागत </strong></th>
+                                    <td colspan="4">
+                                        <input type="number" id="working_capital" name="working_capital" value="{{ old('working_capital') }}"  readonly step="any" required autofocus>
+                                        <small>Working Capital - (Working Capital * (Own Contribution Amount / स्वयं संगठन राशि * 10 / 100))</small>
+                                    </td>
+                                </tr>
                                 <tr>
                                     <th>(29)</th>
                                     <th ><strong>Name of the Loan Financing Bank / ऋण वित्तपोषण बैंक का नाम:</strong></th>
@@ -614,7 +715,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="6"><div align="center">&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <input  type="button" class="button" id="submit-button" value="Save Applicant Data">
+                                            <input  type="submit" class="button" id="submit-button" value="Save Applicant Data">
                                     </div></td>
                                     
                                 </tr>
@@ -635,47 +736,126 @@
                         </tr>
                         <tr>
                         <td>(2)</td>
-                        <td><strong>Name of Owner / मालिक का नाम:</strong> : Please provide the Name of Owner for accurate identification in this form./कृपया इस फॉर्म में सटीक पहचान के लिए मालिक का नाम प्रदान करें।</td>
+                        <td><strong>Name of Applicant / आवेदक का नाम:</strong> : Please provide the Name of Applicant for accurate identification in this form./कृपया इस फॉर्म में सटीक पहचान के लिए आवेदक का नाम प्रदान करें।</td>
                         </tr>
                         <tr>
                         <td>(3)</td>
                         <td><strong>Father/Husband/Mother Name /प्रतिरक्षक/माता-पिता/पति-पत्नी नाम:</strong> :Please provide the Father/Husband/Mother Name for identification in this form./कृपया इस फॉर्म में पहचान के लिए प्रतिरक्षक/माता-पिता/पति-पत्नी का नाम प्रदान करें।</td>
                         </tr>
                         <tr>
-                        <td>(5)</td>
+                        <td>(4)</td>
                         <td><strong>Pincode / पिनकोड:</strong> :Enter the 6 digit Pincode for location information in this form./कृपया इस फॉर्म में स्थान सूचना के लिए 6-अंकीय पिनकोड दर्ज करें।</td>
                         </tr>
                         <tr>
-                            <td>(4)</td>
+                            <td>(5)</td>
                             <td><strong>Address:- District / जिला:</strong> :To ensure accurate location identification and effective communication, please provide the requested details, including district, constituency, tehsil, block, panchayat/town, and specific address information./सटीक स्थान पहचान और प्रभावी संचार सुनिश्चित करने के लिए, कृपया जिला, संसदीय क्षेत्र, तहसील, ब्लॉक, पंचायत/नगर, और विशिष्ट पता जानकारी प्रदान करें।</td>
                             </tr>
                         <tr>
-                        <td >(2)</td>
-                        <td><strong>Mobile Number of the Owner/मालिक का मोबाइल नंबर::</strong> : Please type mobile number of unit's owner here./कृपया इस इकाई के मालिक का मोबाइल नंबर यहाँ टाइप करें</td>
+                        <td >(6)</td>
+                        <td><strong>Mobile Number of the Applicant/आवेदक का मोबाइल नंबर:</strong> : To facilitate communication and updates, please provide your mobile number./संचार और अपडेट्स को सुविधाजनक बनाने के लिए कृपया अपना मोबाइल नंबर प्रदान करें।</td>
                         </tr>
                         <tr>
-                            <td>(3)</td>
-                            <td><strong>Type of Activity / गतिविधि का प्रकार:</strong> : Please select the type of activity for your unit from the options provided./कृपया प्रदान किए गए विकल्पों से अपनी इकाई के लिए गतिविधि का प्रकार चुनें</td>
+                        <td >(7)</td>
+                        <td><strong>Email / ईमेल:</strong> : For electronic correspondence and notifications, please provide your email address./इलेक्ट्रॉनिक संवाद और सूचनाओं के लिए कृपया अपना ईमेल पता प्रदान करें।</td>
                         </tr>
                         <tr>
-                            <td>(4)</td>
-                            <td><strong>Activity of the unit / इकाई की गतिविधि:</strong> :Please select the specific activity for your unit from the options provided. कृपया प्रदान किए गए विकल्पों से अपनी इकाई के लिए विशेष गतिविधि का चयन करें।</td>
+                        <td >(8)</td>
+                        <td><strong>PAN Number / न नंबर:</strong> : For financial and taxation purposes, please provide your PAN (Permanent Account Number) if applicable./वित्तीय और करणीय उद्देश्यों के लिए, कृपया यदि लागू हो तो अपना PAN (स्थायी खाता संख्या) प्रदान करें।</td>
                         </tr>
                         <tr>
-                            <td>(5)</td>
-                            <td><strong>Description of Activity in Brief / गतिविधि का संक्षेप में विवरण:</strong>:Please provide a brief description of the activity that your unit will be engaged in. कृपया बताएं कि आपकी इकाई किस गतिविधि में लगी होगी, इसका संक्षेप में विवरण दें।</td>
+                        <td >(9)</td>
+                        <td><strong>Gender / लिंग:</strong> : Please specify your gender for demographic information./जनसांख्यिकी जानकारी के लिए कृपया अपना लिंग निर्दिष्ट करें।</td>
                         </tr>
                         <tr>
-                            <td>(6)</td>
-                            <td><strong>Products to be manufactured / निर्मित किए जाने वाले उत्पाद:</strong>:Please provide a list of all the products that your unit will manufacture. कृपया बताएं कि आपकी इकाई किन-किन उत्पादों का निर्माण करेगी।</td>
+                            <td>(10)</td>
+                            <td><strong>Marital Status / वैवाहिक स्थिति:</strong> : Please indicate your marital status for demographic purposes./कृपया जनसांख्यिकी उद्देश्यों के लिए अपनी वैवाहिक स्थिति दर्ज करें।</td>
                         </tr>
                         <tr>
-                            <td>(7)</td>
-                            <td><strong>Constitution Type / संविधान प्रकार:</strong>:Please select the type of constitution for your unit from the options provided. कृपया प्रदान किए गए विकल्पों से अपनी इकाई के लिए संविधान प्रकार का चयन करें।</td>
+                            <td>(11)</td>
+                            <td><strong>Spouse's Aadhaar Number / पति/पत्नी का आधार नंबर:</strong> : Enter Spouse's Aadhaar Number (if applicable)./पति/पत्नी का आधार नंबर दर्ज करें (यदि लागू हो)।</td>
                         </tr>
                         <tr>
-                            <td>(8)</td>
-                            <td><strong>Proposed Employment Generation / प्रस्तावित रोजगार सृजन:</strong>:Please enter the number of employment opportunities that your unit is expected to generate. कृपया दर्ज करें कि आपकी इकाई से कितने रोजगार के अवसर उत्पन्न होने की उम्मीद है।</td>
+                            <td>(12)</td>
+                            <td><strong>Date of Birth / जन्म तिथि:</strong> :Enter your date of birth for age verification and demographic purposes./आयु सत्यापन और जनसांख्यिकी के उद्देश्यों के लिए अपनी जन्म तिथि दर्ज करें।</td>
+                        </tr>
+                        <tr>
+                            <td>(13)</td>
+                            <td><strong>Specially Abled (दिव्यांग):</strong> :Select 'Yes' if you are specially abled; otherwise, select 'No'./यदि आप विशेष रूप से योग्य हैं, तो 'हां' चुनें; अन्यथा 'नहीं' चुनें।</td>
+                        </tr>
+                        <tr>
+                            <td>(14)</td>
+                            <td><strong>Belongs to Minority / अल्पसंख्यक है ?:</strong> :Select 'Yes' if you belong to a minority group, or 'No' if you don't./अगर आप एक अल्पसंख्यक समूह से हैं, तो 'हां' का चयन करें, या अगर आप नहीं हैं, तो 'नहीं' का चयन करें। (i) <strong>Belongs to Minority / अल्पसंख्यक है ?:</strong> :Select 'Yes' if you belong to a minority group, or 'No' if you don't./अगर आप एक अल्पसंख्यक समूह से हैं, तो 'हां' का चयन करें, या अगर आप नहीं हैं, तो 'नहीं' का चयन करें।</td>
+                        </tr>
+                        <tr>
+                            <td>(15)</td>
+                            <td><strong>Name of Proposed Unit / प्रस्तावित इकाई का नाम:</strong> :Please enter the intended name for your business or unit. Ensure it's unique, relevant, and aligns with your business goals./कृपया अपने व्यवसाय या इकाई के इंटेंडेड नाम को दर्ज करें। सुनिश्चित करें कि यह अनूठा, सांबंधित है, और आपके व्यवसाय लक्ष्यों के साथ मेल खाता है।</td>
+                        </tr>
+                        <tr>
+                            <td>(16)</td>
+                            <td><strong>Mobile Number of the Owner /इकाई के मालिक का मोबाइल नंबर:</strong> :Please provide the mobile number of the unit's owner for communication and verification purposes./संचालन और सत्यापन के लिए कृपया इकाई के मालिक का मोबाइल नंबर प्रदान करें।</td>
+                        </tr>
+                        <tr>
+                            <td>(17)</td>
+                            <td><strong>Type of Activity / गतिविधि का प्रकार:</strong> :Please select the type of activity for your unit from the options provided./कृपया प्रदान किए गए विकल्पों से अपनी इकाई के लिए गतिविधि का प्रकार चुनें।(i)<strong>Activity of the unit / इकाई की गतिविधि:</strong> :Select the specific activity or function performed by the unit / इकाई द्वारा की जाने वाली विशिष्ट गतिविधि या कार्य चुनें।(ii)<strong>Activity of the unit / इकाई की गतिविधि:</strong> Select the specific activity or function performed by the unit / इकाई द्वारा की जाने वाली विशिष्ट गतिविधि या कार्य चुनें।(iii)<strong>Products to be manufactured / उत्पाद जो निर्मित किए जाने हैं:</strong> List the products that the unit intends to manufacture / उन उत्पादों की सूची दें जो इकाई निर्मित करने का इरादा रखती है।</td>
+                        </tr>
+                        <tr>
+                            <td>(18)</td>
+                            <td><strong>Constitution Type / संविधान प्रकार:</strong> Choose the constitution type for the unit from the available options / उपलब्ध विकल्पों में से इकाई के संविधान प्रकार का चयन करें।</td>
+                        </tr>
+                        <tr>
+                            <td>(19)</td>
+                            <td><strong>Proposed Employment Generation / प्रस्तावित रोजगार उत्पन्न:</strong> Specify the expected number of jobs to be created by the proposed unit / प्रस्तावित इकाई द्वारा बनाए जाने वाले प्रत्याशित नौकरियों की संख्या की विशेष उल्लिखन करें।</td>
+                        </tr>
+                        <tr>
+                            <td>(20)</td>
+                            <td><strong>Area Type / क्षेत्र प्रकार:</strong> Select the type of area where the unit is located, whether it's rural or urban / चुनें कि इकाई किस प्रकार के क्षेत्र में स्थित है, क्या यह ग्रामीण या शहरी है। 
+                                (i)<strong>Pincode / पिनकोड:</strong> Enter the pincode of the unit's location / इकाई के स्थान का पिनकोड दर्ज करें।
+
+                                (ii)<strong>District / जिला:</strong> Select the district where the unit is located / चुनें कि इकाई किस जिले में स्थित है।
+                                
+                                (iii)<strong>Constituency / संसदीय क्षेत्र:</strong> Select the parliamentary constituency where the unit is located / चुनें कि इकाई किस संसदीय क्षेत्र में स्थित है।
+                                
+                                (iv)<strong>Tehsil / तहसील:</strong> Select the tehsil where the unit is located / चुनें कि इकाई किस तहसील में स्थित है।
+                                
+                                (v)<strong>Block / ब्लॉक:</strong> Select the block where the unit is located / चुनें कि इकाई किस ब्लॉक में स्थित है।
+                                
+                                (vi)<strong>Panchayat/Town / पंचायत/नगर:</strong> Select the panchayat or town where the unit is located / चुनें कि इकाई किस पंचायत या नगर में स्थित है।</td>
+                        </tr>
+                        <tr>
+                            <td>(21)</td>
+                            <td><strong>Land Status / भूमि की स्थिति:</strong> Specify whether information regarding land status is required or not / यह स्पष्ट करें कि भूमि की स्थिति की जानकारी की आवश्यकता है या नहीं। (i) <strong>Cost of Land / भूमि का लागत:</strong> Enter the cost of the land for the proposed unit, if applicable / यदि लागू हो, तो प्रस्तावित इकाई की भूमि की लागत दर्ज करें।</td>
+                        </tr>
+                        <tr>
+                            <td>(22)</td>
+                            <td><strong>Building Status / इमारत की स्थिति:</strong> Indicate whether the building is already constructed or not / इमारत पहले से ही निर्मित है या नहीं। (i) <strong>Cost of Building Construction / इमारत निर्माण की लागत:</strong> Enter the cost of constructing the building, if applicable / यदि लागू हो, तो इमारत निर्माण की लागत दर्ज करें।  (ii)<strong>Estimated Buildup Area (in Square Feet) / पूर्वानुमानित बिल्डअप क्षेत्र (वर्ग फीट में):</strong> Provide an estimate of the buildup area in square feet for the proposed unit / प्रस्तावित इकाई के लिए वर्ग फीट में बिल्डअप क्षेत्र का अनुमान दें।</td>
+                        </tr>
+                        <tr>
+                            <td>(23)</td>
+                            <td><strong>Furniture, Fixtures, IT related items, Renovation, Interior Work and Other Fixed Assets Cost / फर्नीचर, फिक्स्चर, आईटी संबंधित आइटम, नवाचार, आंतरिक काम और अन्य स्थिर संपत्ति लागत:</strong> Enter the cost associated with furniture, fixtures, IT-related items, renovation, interior work, and other fixed assets / फर्नीचर, फिक्स्चर, आईटी संबंधित आइटम, नवाचार, आंतरिक काम, और अन्य स्थिर संपत्ति से संबंधित लागत दर्ज करें।</td>
+                        </tr>
+                        <tr>
+                            <td>(24)</td>
+                            <td><strong>Details of Furniture, Fixtures, IT related items, Renovation, Interior Work and Other Fixed Assets / फर्नीचर, फिक्स्चर, आईटी संबंधित आइटम, नवाचार, आंतरिक काम और अन्य स्थिर संपत्ति का विवरण:</strong> Provide a detailed description of furniture, fixtures, IT-related items, renovation, interior work, and other fixed assets, if applicable / यदि लागू हो, तो फर्नीचर, फिक्स्चर, आईटी संबंधित आइटम, नवाचार, आंतरिक काम, और अन्य स्थिर संपत्ति का विस्तारपूर्ण विवरण प्रदान करें।</td>
+                        </tr>
+                        <tr>
+                            <td>(25)</td>
+                            <td><strong>Machinery/Equipments Cost / मशीनरी/उपकरण की लागत:</strong> Enter the cost of machinery and equipment for the unit / इकाई के लिए मशीनरी और उपकरण की लागत दर्ज करें।</td>
+                        </tr>
+                        <tr>
+                            <td>(26)</td>
+                            <td><strong>Working Capital/CC Limit / कामकाज पूंजी/क्रेडिट लिमिट:</strong> Specify the working capital or credit limit required for the proposed unit, if applicable / यदि लागू हो, तो प्रस्तावित इकाई के लिए आवश्यक कामकाज पूंजी या क्रेडिट सीमा को निर्दिष्ट करें।</td>
+                        </tr>
+                        <tr>
+                            <td>(27)</td>
+                            <td><strong>Details of Machinery/Equipments / मशीनरी/उपकरण का विवरण:</strong> Provide a detailed description of the machinery and equipment to be used in the unit, if applicable / यदि लागू हो, तो इकाई में उपयोग के लिए मशीनरी और उपकरण का विस्तारपूर्ण विवरण प्रदान करें। (i) <strong>Total Project Cost (Calculated) / कुल प्रोजेक्ट लागत (गणना की गई):</strong> Enter the calculated total cost of the project / परियोजना की गणना की गई कुल लागत दर्ज करें।</td>
+                        </tr>
+                        <tr>
+                            <td>(28)</td>
+                            <td><strong>Own Contribution Percentage (10% of Capital Expenditure) / स्वयं सहायता प्रतिशत (पूंजी व्यय का 10%):</strong> Ensure that your own contribution is at least 10% of the total capital expenditure / सुनिश्चित करें कि आपका स्वयं सहायता कुल पूंजी व्यय का कम से कम 10% है।</td>
+                        </tr>
+                        <tr>
+                            <td>(29)</td>
+                            <td><strong>Name of the Loan Financing Bank / ऋण वित्तपोषण बैंक का नाम:</strong> Select the name of the bank from which you wish to obtain the loan / चुनें उस बैंक का नाम जिससे आपको ऋण प्राप्त करना है। (i) <strong>Name of the Loan Financing Branch / ऋण वित्तपोषण शाखा का नाम:</strong> Specify the name of the branch of the chosen bank / चुने गए बैंक की शाखा का नाम निर्दिष्ट करें।</td>
                         </tr>
 
                             </tbody>
@@ -860,28 +1040,28 @@
                     success: function(data) {
                         // Add the retrieved options to the select element
                         data.forEach(function(option) {
-            var $option = $('<option>', {
-                value: option.id,
-                text: option.name
-            });
-            
-            // Create a hidden input element to store the IFS code
-            var $hiddenInput = $('<input>', {
-                type: 'hidden',
-                value: option.ifsc, // Assuming you have an 'ifs_code' field in your data
-                class: 'ifs-code'
-            });
-            
-            // Append the hidden input element to the option
-            $option.append($hiddenInput);
-            
-            // Append the option to the select element
-            branchSelect.append($option);
-        });
-        
-        // After adding the options, trigger the Select2 update
-        branchSelect.trigger('change');
-    },
+                        var $option = $('<option>', {
+                            value: option.id,
+                            text: option.name
+                        });
+                        
+                        // Create a hidden input element to store the IFS code
+                        var $hiddenInput = $('<input>', {
+                            type: 'hidden',
+                            value: option.ifsc, // Assuming you have an 'ifs_code' field in your data
+                            class: 'ifs-code'
+                        });
+                        
+                        // Append the hidden input element to the option
+                        $option.append($hiddenInput);
+                        
+                        // Append the option to the select element
+                        ownerpanchayatSelect.append($option);
+                    });
+                    
+                    // After adding the options, trigger the Select2 update
+                    ownerpanchayatSelect.trigger('change');
+                },
                     error: function() {
                         // Handle error
                     }
@@ -1051,6 +1231,7 @@
         });
         ownerblockTypeSelect.on('change', function() {
             const ownerselectedBlockTypeId = $(this).val();
+            console.log(ownerselectedBlockTypeId)
             loadownerPanchayatOptions(ownerselectedBlockTypeId);
         });
 
@@ -1060,7 +1241,7 @@
             loadActivityOptions(preSelectedActivityTypeId);
         }
 
-
+      
     });
 </script>
 

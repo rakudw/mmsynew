@@ -103,11 +103,11 @@
         var pdfTitle = $(this).data('title');
         
         // Set the src attribute of the iframe to load the selected PDF
-        $('#instructionModal iframe').attr('src', pdfPath);
+        $('#iFrameModal iframe').attr('src', pdfPath);
         $('#myPdfModalLabel').text(pdfTitle)
         
         // Show the modal
-        $('#instructionModal').modal('show');
+        $('#iFrameModal').modal('show');
     });
   });
 </script>
