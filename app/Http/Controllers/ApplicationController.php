@@ -271,15 +271,16 @@ class ApplicationController extends Controller
                 ->withErrors(['custom_error' => 'An application with the same data already exists.'])
                 ->withInput(); 
         } else {
-              
                 $application = new Application();
+                $this->registerUser($application);
                 $application->name = $request->input('name');
                 $application->form_id = 1;
                 $application->data = $data;
                 $application->region_id = $request->input('owner_district_id');
                 $application->status_id = 302;
+                $application->created_by = auth()->user()->id;
                 $application->save();
-                $this->registerUser($application);
+               
               
                 return redirect()->route('newdocument');
                
