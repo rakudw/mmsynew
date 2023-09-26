@@ -66,13 +66,14 @@ class ApplicationController extends Controller
         $con = Enum::where('type', 'CONSTITUTION_TYPE')->get();
         $CAT = Enum::where('type', 'SOCIAL_CATEGORY')->get();
         $Diss = Region::where('type_id', 404)->get();
-        $application = new Application();
+        $application = null;
         return view('application.new', compact('form', 'activity',
         'con', 'CAT', 'Diss', 'bank', 'application'));
     }
 
-    public function newedit(Application $application, int $formDesignId = null)
+    public function newedit( int $formDesignId = null)
     {
+        $application = Application::where('created_by',auth()->user()->id)->first();
         $activity = Enum::where('type', 'ACTIVITY_TYPE')->get();
         $bank = Bank::all();
         $con = Enum::where('type', 'CONSTITUTION_TYPE')->get();
@@ -81,6 +82,33 @@ class ApplicationController extends Controller
         $form = null;
         return view('application.new', compact('form', 'activity',
         'con', 'CAT', 'Diss', 'bank', 'application'));
+    }
+
+    public function status()
+    {
+        if(auth()->user()){
+            $applications = Application::where('created_by',auth()->user()->id)->get();
+        }else{
+            $applications = [];
+        }
+        return view('application.status', compact('applications'));
+    }
+
+    public function newlogin(Request $request)
+    {
+        $user = User::where('email',$request->get('combinedInput'))->first();
+        if($user){
+            auth()->login($user, true);
+            $applications = Application::where('created_by',auth()->user()->id)->get();
+            if($applications){
+                $applications = $applications;
+            }else{
+                $applications = [];
+            }
+        }else{
+            $applications = [];
+        }
+        return view('application.status', compact('applications'));
     }
 
 
@@ -253,7 +281,7 @@ class ApplicationController extends Controller
                 $application->save();
                 $this->registerUser($application);
               
-                return redirect()->route('newdocument', ['application' => $application]);
+                return redirect()->route('newdocument');
                
         }
 
@@ -270,7 +298,9 @@ class ApplicationController extends Controller
         auth()->login($user, true);
         return $user;
     }
-    public function newDocument(Request $request, Application $application){
+    public function newDocument(Request $request){
+        // auth()->logout();
+        $application = Application::where('created_by',auth()->user()->id)->first();
         $allApplicationDocuments = $application->applicationDocuments;
         // $Documenttype = $allApplicationDocuments->keyBy('document_type_id');
         $Documenttype = DocumentType::all();
@@ -339,9 +369,7 @@ class ApplicationController extends Controller
         if($application->project_cost < 10000) {
             $type = $request->get('type');
             if ($type !== null) {
-                return redirect()->route('application.newedit', [
-                    'application' => $application,
-                ])->withErrors(['<em class="fa-solid fa-warning"></em> The project cost of the application is way too low for consideration!']);
+                return redirect()->route('application.newedit')->withErrors(['<em class="fa-solid fa-warning"></em> The project cost of the application is way too low for consideration!']);
             }else{
                 return redirect()->route('application.edit', [
                     'application' => $application,
@@ -398,7 +426,14 @@ class ApplicationController extends Controller
             $application->status_id = $newStatusId;
             $application->update();
         }
-        return redirect()->route('applications.list');
+        $type = $request->get('type');
+        if ($type !== null) {
+
+            return redirect()->route('applications.status');
+        }else{
+
+            return redirect()->route('applications.list');
+        }
     }
 
     public function document(Document $document)
@@ -425,7 +460,7 @@ class ApplicationController extends Controller
         }
         $type = $request->get('type');
         if ($type !== null) {
-            return redirect()->route('newdocument', ['application' => $application->id])->with('success', 'Document was removed from the application!');
+            return redirect()->route('newdocument')->with('success', 'Document was removed from the application!');
         }else{
             return redirect()->route('application.documents', ['application' => $application->id])->with('success', 'Document was removed from the application!');
         }
@@ -475,7 +510,7 @@ class ApplicationController extends Controller
         }
         $type = $request->get('type');
         if ($type !== null) {
-            return redirect()->route('newdocument', ['application' => $application->id])->with('success', 'Document uploaded successfully!');
+            return redirect()->route('newdocument')->with('success', 'Document uploaded successfully!');
         }else{
             return redirect()->route('application.documents', ['application' => $application->id])->with('success', 'Document uploaded successfully!');
         }

@@ -34,16 +34,16 @@
                                 <a class="nav-link" data-bs-toggle="modal" data-bs-target="#helpDeskModal" href="#">Help Desk</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Check Status</a>
+                                <a class="nav-link" href="{{ route('application.newstatus') }}">Check Status</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Application Data</a>
+                                <a class="nav-link" href="{{ route('application.newedit') }}">Application Data</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Documents</a>
+                                <a class="nav-link" href="{{ route('newdocument') }}">Documents</a>
                             </li>
                         </ul>
-                        <a href="{{ route('login') }}"><button class="applicant_login" style="width:300px">Login To Existing Application</button></a>
+                        {{-- <a href="{{ route('login') }}"><button class="applicant_login" style="width:300px">Login To Existing Application</button></a> --}}
     
                     </div>
                 </nav>

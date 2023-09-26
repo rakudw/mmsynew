@@ -105,8 +105,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/documents/{application}', 'documents')->name('application.documents');
         Route::get('/create/{form}/{formDesignId?}', 'create')->name('application.create')->withoutMiddleware(['auth']);
         Route::get('/new', 'new')->name('application.new')->withoutMiddleware(['auth']);
-        Route::get('/newedit/{application}', 'newedit')->name('application.newedit')->withoutMiddleware(['auth']);
-        Route::get('/newdocument/{application}', 'newDocument')->name('newdocument')->withoutMiddleware(['auth']);
+        Route::get('/newedit', 'newedit')->name('application.newedit');#->withoutMiddleware(['auth']);
+        Route::get('/newdocument', 'newDocument')->name('newdocument');#->withoutMiddleware(['auth']);
+        Route::get('/status', 'status')->name('application.newstatus')->withoutMiddleware(['auth']);
+        Route::post('/newlogin', 'newlogin')->name('application.login')->withoutMiddleware(['auth']);
         Route::get('/edit/{application}/{formDesignId?}', 'edit')->name('application.edit');
         Route::get('/document/remove/{application}/{document}', 'documentRemove')->name('application.document-remove');
         Route::get('/document/{document}', 'document')->name('application.document');

@@ -14,6 +14,7 @@
                                     <td colspan="6">
                                         <div align="center" class="style1">
                                             <h6>Application For The Approval Under Mukhya Mantri Swavlamban Yojana/मुख्यमंत्री स्वावलंबन योजना के अंतर्गत मंजूरी के लिए आवेदन</h6>
+                                            @if($application)<h6>You are editing the Application MMSY-{{ $application->id }}</h6>@endif
                                         </div>
                                     </td>
                                 </tr>
@@ -31,7 +32,7 @@
                                     <th>(1)</th>
                                     <th ><strong>Aadhaar Number / आधार नंबर:</strong></th>
                                     <td colspan="4">
-                                        <input type="tel" id="aadhaar" value="{{ $application->length ? $application->data->owner->aadhaar : ''  }}" name="owner_aadhaar" required pattern="^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$">
+                                        <input type="tel" id="aadhaar" value="{{ $application ? $application->data->owner->aadhaar : ''  }}" name="owner_aadhaar" required pattern="^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$">
                                         <small>Enter Aadhaar Number</small>
                                     </td>
                                 </tr>
@@ -715,7 +716,7 @@
                                 </tr>
                                 <tr>
                                     <td colspan="6"><div align="center">&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <input  type="submit" class="button" id="submit-button" value="Save Applicant Data">
+                                            <input  type="submit" class="button" id="submit-button" value="{{ $application ? 'Update' : 'Save'}} Applicant Data">
                                     </div></td>
                                     
                                 </tr>
