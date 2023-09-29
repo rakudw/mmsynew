@@ -94,6 +94,7 @@
     </div>
 
     <!-- Application Status and Note -->
+    @if(count($applications))
     <div class="text-center">
         <h5 style="background-color: rgb(255, 138, 48); padding: 10px; color: white">{{ $application->status->name }}</h5>
         @if($application->status->id == 306)
@@ -107,6 +108,7 @@
         <button>{{ $application->status->id == 302 ? 'Complete' : 'Edit'}} Your Application</button>
         @endif
     </div>
+    @endif
 @endsection
 
 <style>
