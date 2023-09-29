@@ -155,7 +155,11 @@ class MasterReportController extends Controller
                 $title = "Rejeted Application at all level";
                 break;
             default:
-                $query->where('status_id', ApplicationStatusEnum::PENDING_FOR_LOAN_DISBURSEMENT->id());
+            $statusId = intval(request()->get('status_id')) ? [intval(request()->get('status_id'))] :  [
+                303, 304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 314, 315, 316, 317, 318, 319, 320
+            ];
+                 $query->whereIn('status_id',$statusId);
+                $title = "All Applications";
                 break;
         }
     
@@ -279,77 +283,9 @@ class MasterReportController extends Controller
         $request->session()->flash('statusCodes', $statusCodes);
         return view('numaric_reports.released',compact('districts','constituencies','tehsils','blocks','panchayatWards','title','statusId','reportData','totals','statusCodes'));
     }
-    public function numaricQueryReleased($districtIds, $selectedFY,$statusCodes)
-    {
-        
-        $selectedFiscalYears = $selectedFY && $selectedFY !== "All" ? [$selectedFY] : ['2020-21', '2021-22', '2022-23'];
-    
-        $reportData = [];
-    
-        // Initialize totals
-        $totals = [];
-    
-        // Initialize the totals array based on the status codes
-        foreach ($statusCodes as $status) {
-            $totals[$status['name']] = 0;
-        }
-    
-        // Loop through each district
-        foreach ($districtIds as $districtId) {
-            $districtData = [
-                'District' => Region::find($districtId)->name,
-                'Year' => [],
-            ];
-    
-            // Loop through each fiscal year
-            foreach ($selectedFiscalYears as $fiscalYear) {
-                list($startYear, $endYear) = explode('-', $fiscalYear);
-    
-                $startDate = "{$startYear}-04-01";
-                $endDate = "{$endYear}-03-31";
-    
-                // Initialize an array to store counts for each status
-                $statusCounts = [];
-    
-                // Loop through status codes
-                foreach ($statusCodes as $status) {
-                    // Build the query to count applications for the current status
-                    $statusCount = Application::where('region_id', $districtId)
-                        ->where('status_id', $status['id'])
-                        ->whereBetween('created_at', [$startDate, $endDate])
-                        ->count();
-    
-                    // Update the status count
-                    $statusCounts[$status['name']] = $statusCount;
-    
-                    // Update the totals
-                    $totals[$status['name']] += $statusCount;
-                }
-    
-                // Create an array for the current fiscal year's data
-                $fiscalYearData = [
-                    'Year' => $fiscalYear,
-                ];
-    
-                // Merge status counts into the fiscal year data
-                $fiscalYearData = array_merge($fiscalYearData, $statusCounts);
-    
-                // Add the fiscal year data to the 'Year' key
-                $districtData['Year'][] = $fiscalYearData;
-            }
-    
-            // Add the district data to the report data
-            $reportData[] = $districtData;
-        }
-    
-        // Add the totals to the report data
-        $reportData[] = ['Total' => $totals];
-    
-        return $reportData;
-    }
     public function numaricQueryRecieved($districtIds, $selectedFY)
     {
-        $selectedFiscalYears = $selectedFY && $selectedFY !== "All" ? [$selectedFY] : ['2020-21', '2021-22', '2022-23'];
+        $selectedFiscalYears = $selectedFY && $selectedFY !== "All" ? [$selectedFY] : ['2020-2021', '2021-2022', '2022-2023', '2023-2024'];
     
         $reportData = [];
     
@@ -367,6 +303,7 @@ class MasterReportController extends Controller
         foreach ($districtIds as $districtId) {
             $districtData = [
                 'District' => Region::find($districtId)->name, 
+                'DistrictId' => $districtId, 
                 'Year' => [],
             ];
     
@@ -443,6 +380,75 @@ class MasterReportController extends Controller
     
         return $reportData;
     }
+    public function numaricQueryReleased($districtIds, $selectedFY,$statusCodes)
+    {
+        
+        $selectedFiscalYears = $selectedFY && $selectedFY !== "All" ? [$selectedFY] : ['2020-2021', '2021-2022', '2022-2023', '2023-2024'];
+    
+        $reportData = [];
+    
+        // Initialize totals
+        $totals = [];
+    
+        // Initialize the totals array based on the status codes
+        foreach ($statusCodes as $status) {
+            $totals[$status['name']] = 0;
+        }
+    
+        // Loop through each district
+        foreach ($districtIds as $districtId) {
+            $districtData = [
+                'District' => Region::find($districtId)->name,
+                'Year' => [],
+            ];
+    
+            // Loop through each fiscal year
+            foreach ($selectedFiscalYears as $fiscalYear) {
+                list($startYear, $endYear) = explode('-', $fiscalYear);
+    
+                $startDate = "{$startYear}-04-01";
+                $endDate = "{$endYear}-03-31";
+    
+                // Initialize an array to store counts for each status
+                $statusCounts = [];
+    
+                // Loop through status codes
+                foreach ($statusCodes as $status) {
+                    // Build the query to count applications for the current status
+                    $statusCount = Application::where('region_id', $districtId)
+                        ->where('status_id', $status['id'])
+                        ->whereBetween('created_at', [$startDate, $endDate])
+                        ->count();
+    
+                    // Update the status count
+                    $statusCounts[$status['name']] = $statusCount;
+    
+                    // Update the totals
+                    $totals[$status['name']] += $statusCount;
+                }
+    
+                // Create an array for the current fiscal year's data
+                $fiscalYearData = [
+                    'Year' => $fiscalYear,
+                ];
+    
+                // Merge status counts into the fiscal year data
+                $fiscalYearData = array_merge($fiscalYearData, $statusCounts);
+    
+                // Add the fiscal year data to the 'Year' key
+                $districtData['Year'][] = $fiscalYearData;
+            }
+    
+            // Add the district data to the report data
+            $reportData[] = $districtData;
+        }
+    
+        // Add the totals to the report data
+        $reportData[] = ['Total' => $totals];
+    
+        return $reportData;
+    }
+    
     public function exportReports(Request $request)
     {
         // Retrieve the flashed data from the session

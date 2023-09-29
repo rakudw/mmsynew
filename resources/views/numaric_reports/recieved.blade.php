@@ -57,8 +57,16 @@
                                                     @endphp
                                                 @endif
                                                 <td>{{ $yearData['Year'] }}</td>
-                                                <td class="text-right">{{ $yearData['Received'] }}</td>
-                                                <td class="text-right">{{ $yearData['Approved'] }}</td>
+                                                <td class="text-right">
+                                                    <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}">
+                                                        {{ $yearData['Received'] }}
+                                                    </a>
+                                                </td>
+                                                <td class="text-right">
+                                                    <a href="master_report/applications/pending/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=308">
+                                                        {{ $yearData['Approved'] }}
+                                                    </a>
+                                                </td>
                                                 <td class="text-right">{{ $yearData['Rejected By DLC'] }}</td>
                                                 <td class="text-right">{{ $yearData['Rejected By Bank'] }}</td>
                                                 <td class="text-right">{{ $yearData['Pending For DLC'] }}</td>

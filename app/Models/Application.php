@@ -183,7 +183,13 @@ class Application extends Base implements Auditable
         $guardianPrefix = $this->getData('owner', 'guardian_prefix');
         $guardianPrefix = (!$guardianPrefix || $guardianPrefix == 'NA') ? ($this->getData('owner', 'gender') == 'Female' ? 'D/O' : 'S/O') : $guardianPrefix;
 
-        return implode(', ', array_filter([$this->getData('owner', 'name') . ' ' . $guardianPrefix . ' ' . $this->getData('owner', 'guardian'), $this->getData('owner', 'address'), $panchayat?->name, 'Block ' . $block?->name, 'Tehsil ' . $tehsil?->name, 'Distt. ' . Region::throughCache($this->getData('owner', 'district_id'))->name])) . ' - ' . $this->getData('owner', 'pincode');
+        return implode(', ', array_filter([
+            $this->getData('owner', 'name') . ' ' . $guardianPrefix . ' ' . $this->getData('owner', 'guardian'),
+            $this->getData('owner', 'address'),
+            $panchayat ? $panchayat->name : 'Unknown Panchayat', // Check if $panchayat is null
+            $block ? 'Block ' . $block->name : 'Unknown Block', // Check if $block is null
+            $tehsil ? 'Tehsil ' . $tehsil->name : 'Unknown Tehsil', // Check if $tehsil is null
+        ]));
     }
 
     public function bankBranch()

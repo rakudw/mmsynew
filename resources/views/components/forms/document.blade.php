@@ -120,89 +120,269 @@
                 <div class="modal-body">
                     <!-- Application data table -->
                     <table class="table">
+                          <!-- Owner Section -->
+                          <tr bgcolor="#E36E2C">
+                            <td colspan="2"><strong>Owner Section</strong></td>
+                        </tr>
                         <tr>
-                            <th>Category</th>
-                            <th>Data</th>
+                            <td><strong>PAN:</strong></td>
+                            <td>{{ $application->data->owner->pan }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Name:</strong></td>
+                            <td>{{ $application->data->owner->name }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Email:</strong></td>
+                            <td>{{ $application->data->owner->email }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Gender:</strong></td>
+                            <td>{{ $application->data->owner->gender }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Mobile:</strong></td>
+                            <td>{{ $application->data->owner->mobile }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Aadhaar:</strong></td>
+                            <td>{{ $application->data->owner->aadhaar }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Address:</strong></td>
+                            <td>{{ $application->data->owner->address }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pincode:</strong></td>
+                            <td>{{ $application->data->owner->pincode }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Block ID:</strong></td>
+                            <td>{{ $application->data->owner->block_id }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Guardian:</strong></td>
+                            <td>{{ $application->data->owner->guardian }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tehsil ID:</strong></td>
+                            <td>{{ $application->data->owner->tehsil_id }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Birth Date:</strong></td>
+                            <td>{{ $application->data->owner->birth_date }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>District ID:</strong></td>
+                            <td>{{ $application->data->owner->district_id }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Panchayat ID:</strong></td>
+                            <td>{{ $application->data->owner->panchayat_id }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Social Category ID:</strong></td>
+                            <td>{{ $application->data->owner->social_category_id }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Belongs to Minority:</strong></td>
+                            <td>{{ $application->data->owner->belongs_to_minority }}</td>
+                        </tr>
+                        {{-- <tr>
+                            <td><strong>Spouse Aadhaar:</strong></td>
+                            <td>{{ $application->data->owner->spouse_aadhaar }}</td>
+                        </tr> --}}
+                        <tr>
+                            <td><strong>Constituency ID:</strong></td>
+                            <td>{{ $application->data->owner->constituency_id }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Guardian Prefix:</strong></td>
+                            <td>{{ $application->data->owner->guardian_prefix }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Is Specially Abled:</strong></td>
+                            <td>{{ $application->data->owner->is_specially_abled }}</td>
+                        </tr>
+                       
+                        
+                        <!-- Enterprise Section -->
+                        <tr bgcolor="#E36E2C">
+                            <td colspan="2"><strong>Enterprise Section</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Name:</strong></td>
+                            <td>{{ $application->data->enterprise->name }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Address:</strong></td>
+                            <td>{{ $application->data->enterprise->address }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pincode:</strong></td>
+                            <td>{{ $application->data->enterprise->pincode }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Block ID:</strong></td>
+                            <td>{{ $application->data->enterprise->block_id }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Area Type:</strong></td>
+                            <td>{{ $application->data->enterprise->area_type }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tehsil ID:</strong></td>
+                            <td>{{ $application->data->enterprise->tehsil_id }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Employment:</strong></td>
+                            <td>{{ $application->data->enterprise->employment }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Activity ID:</strong></td>
+                            <td>{{ $application->data->enterprise->activity_id }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>District ID:</strong></td>
+                            <td>{{ $application->data->enterprise->district_id }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Panchayat ID:</strong></td>
+                            <td>{{ $application->data->enterprise->panchayat_id }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Constituency ID:</strong></td>
+                            <td>{{ $application->data->enterprise->constituency_id }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Activity Details:</strong></td>
+                            <td>{{ $application->data->enterprise->activity_details }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Activity Type ID:</strong></td>
+                            <td>{{ $application->data->enterprise->activity_type_id }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Constitution Type ID:</strong></td>
+                            <td>{{ $application->data->enterprise->constitution_type_id }}</td>
                         </tr>
                         <!-- Cost Section -->
-                        <tr>
-                            <td>Cost</td>
-                            <td>
-                                <strong>Land Cost:</strong> {{ $application->data->cost->land_cost }}<br>
-                                <strong>Assets Cost:</strong> {{ $application->data->cost->assets_cost }}<br>
-                                <strong>Land Status:</strong> {{ $application->data->cost->land_status }}<br>
-                                <strong>Assets Detail:</strong> {{ $application->data->cost->assets_detail }}<br>
-                                <strong>Building Area:</strong> {{ $application->data->cost->building_area }}<br>
-                                <strong>Building Cost:</strong> {{ $application->data->cost->building_cost }}<br>
-                                <strong>Machinery Cost:</strong> {{ $application->data->cost->machinery_cost }}<br>
-                                <strong>Building Status:</strong> {{ $application->data->cost->building_status }}<br>
-                                <strong>Working Capital:</strong> {{ $application->data->cost->working_capital }}<br>
-                                <strong>Machinery Detail:</strong> {{ $application->data->cost->machinery_detail }}<br>
-                            </td>
+                        <tr bgcolor="#E36E2C">
+                            <td colspan="2"><strong>Cost Section</strong></td>
                         </tr>
-                        <!-- Owner Section -->
                         <tr>
-                            <td>Owner</td>
-                            <td>
-                                <strong>PAN:</strong> {{ $application->data->owner->pan }}<br>
-                                <strong>Name:</strong> {{ $application->data->owner->name }}<br>
-                                <strong>Email:</strong> {{ $application->data->owner->email }}<br>
-                                <strong>Gender:</strong> {{ $application->data->owner->gender }}<br>
-                                <strong>Mobile:</strong> {{ $application->data->owner->mobile }}<br>
-                                <strong>Aadhaar:</strong> {{ $application->data->owner->aadhaar }}<br>
-                                <strong>Address:</strong> {{ $application->data->owner->address }}<br>
-                                <strong>Pincode:</strong> {{ $application->data->owner->pincode }}<br>
-                                <strong>Block ID:</strong> {{ $application->data->owner->block_id }}<br>
-                                <strong>Guardian:</strong> {{ $application->data->owner->guardian }}<br>
-                                <strong>Tehsil ID:</strong> {{ $application->data->owner->tehsil_id }}<br>
-                                <strong>Birth Date:</strong> {{ $application->data->owner->birth_date }}<br>
-                                <strong>District ID:</strong> {{ $application->data->owner->district_id }}<br>
-                                <strong>Panchayat ID:</strong> {{ $application->data->owner->panchayat_id }}<br>
-                                <strong>Partner Name:</strong> {{ implode(', ', $application->data->owner->partner_name) }}<br>
-                                <strong>Marital Status:</strong> {{ $application->data->owner->marital_status }}<br>
-                                <strong>Partner Gender:</strong> {{ implode(', ', $application->data->owner->partner_gender) }}<br>
-                                <strong>Partner Mobile:</strong> {{ implode(', ', $application->data->owner->partner_mobile) }}<br>
-                                <strong>Spouse Aadhaar:</strong> {{ $application->data->owner->spouse_aadhaar }}<br>
-                                <strong>Constituency ID:</strong> {{ $application->data->owner->constituency_id }}<br>
-                                <strong>Guardian Prefix:</strong> {{ $application->data->owner->guardian_prefix }}<br>
-                                <strong>Partner Aadhaar:</strong> {{ implode(', ', $application->data->owner->partner_aadhaar) }}<br>
-                                <strong>Is Specially Abled:</strong> {{ $application->data->owner->is_specially_abled }}<br>
-                                <strong>Partner Birth Date:</strong> {{ implode(', ', $application->data->owner->partner_birth_date) }}<br>
-                                <strong>Social Category ID:</strong> {{ $application->data->owner->social_category_id }}<br>
-                                <strong>Belongs to Minority:</strong> {{ $application->data->owner->belongs_to_minority }}<br>
-                                <strong>Partner Is Specially Abled:</strong> {{ implode(', ', $application->data->owner->partner_is_specially_abled) }}<br>
-                                <strong>Partner Social Category ID:</strong> {{ implode(', ', $application->data->owner->partner_social_category_id) }}<br>
-                            </td>
+                            <td><strong>Land Cost:</strong></td>
+                            <td>{{ $application->data->cost->land_cost }}</td>
                         </tr>
+                        <tr>
+                            <td><strong>Assets Cost:</strong></td>
+                            <td>{{ $application->data->cost->assets_cost }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Land Status:</strong></td>
+                            <td>{{ $application->data->cost->land_status }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Assets Detail:</strong></td>
+                            <td>{{ $application->data->cost->assets_detail }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Building Area:</strong></td>
+                            <td>{{ $application->data->cost->building_area }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Building Cost:</strong></td>
+                            <td>{{ $application->data->cost->building_cost }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Machinery Cost:</strong></td>
+                            <td>{{ $application->data->cost->machinery_cost }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Building Status:</strong></td>
+                            <td>{{ $application->data->cost->building_status }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Working Capital:</strong></td>
+                            <td>{{ $application->data->cost->working_capital }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Machinery Detail:</strong></td>
+                            <td>{{ $application->data->cost->machinery_detail }}</td>
+                        </tr>
+                      
+                        <tr bgcolor="#E36E2C">
+                            <td colspan="2"><strong>Partner Section</strong></td>
+                        </tr>
+                        <!-- Check if partner details are available before using implode -->
+                        @if(is_array($application->data->owner->partner_gender))
+                        <tr>
+                            <td><strong>Partner Gender:</strong></td>
+                            <td>{{ implode(', ', $application->data->owner->partner_gender) }}</td>
+                        </tr>
+                        @endif
+                    
+                        <!-- Check if partner mobile details are available before using implode -->
+                        @if(is_array($application->data->owner->partner_mobile) && count($application->data->owner->partner_mobile) > 1)
+                        <tr>
+                            <td><strong>Partner Mobile:</strong></td>
+                            <td>{{ implode(', ', $application->data->owner->partner_mobile) }}</td>
+                        </tr>
+                        @endif
+                    
+                        <!-- Check if partner Aadhaar details are available before using implode -->
+                        @if(is_array($application->data->owner->partner_aadhaar)&& count($application->data->owner->partner_aadhaar) > 1)
+                        <tr>
+                            <td><strong>Partner Aadhaar:</strong></td>
+                            <td>{{ implode(', ', $application->data->owner->partner_aadhaar) }}</td>
+                        </tr>
+                        @endif
+                    
+                      
+                    
+                        <!-- Check if partner birth date details are available before using implode -->
+                        @if(is_array($application->data->owner->partner_birth_date)&& count($application->data->owner->partner_birth_date) > 1)
+                        <tr>
+                            <td><strong>Partner Birth Date:</strong></td>
+                            <td>{{ implode(', ', $application->data->owner->partner_birth_date) }}</td>
+                        </tr>
+                        @endif
+                    
+                      
+                    
+                        <!-- Check if partner is specially abled details are available before using implode -->
+                        @if(is_array($application->data->owner->partner_is_specially_abled))
+                        <tr>
+                            <td><strong>Partner Is Specially Abled:</strong></td>
+                            <td>{{ implode(', ', $application->data->owner->partner_is_specially_abled) }}</td>
+                        </tr>
+                        @endif
+                    
+                        <!-- Check if partner social category ID details are available before using implode -->
+                        @if(is_array($application->data->owner->partner_social_category_id))
+                        <tr>
+                            <td><strong>Partner Social Category ID:</strong></td>
+                            <td>{{ implode(', ', $application->data->owner->partner_social_category_id) }}</td>
+                        </tr>
+                        @endif
                         <!-- Finance Section -->
-                        <tr>
-                            <td>Finance</td>
-                            <td>
-                                <strong>Bank Branch ID:</strong> {{ $application->data->finance->bank_branch_id }}<br>
-                                <strong>Own Contribution:</strong> {{ $application->data->finance->own_contribution }}<br>
-                            </td>
+                        <tr bgcolor="#E36E2C">
+                            <td colspan="2"><strong>Finance Section</strong></td>
                         </tr>
-                        <!-- Enterprise Section -->
                         <tr>
-                            <td>Enterprise</td>
-                            <td>
-                                <strong>Name:</strong> {{ $application->data->enterprise->name }}<br>
-                                <strong>Address:</strong> {{ $application->data->enterprise->address }}<br>
-                                <strong>Pincode:</strong> {{ $application->data->enterprise->pincode }}<br>
-                                <strong>Block ID:</strong> {{ $application->data->enterprise->block_id }}<br>
-                                <strong>Area Type:</strong> {{ $application->data->enterprise->area_type }}<br>
-                                <strong>Tehsil ID:</strong> {{ $application->data->enterprise->tehsil_id }}<br>
-                                <strong>Employment:</strong> {{ $application->data->enterprise->employment }}<br>
-                                <strong>Activity ID:</strong> {{ $application->data->enterprise->activity_id }}<br>
-                                <strong>District ID:</strong> {{ $application->data->enterprise->district_id }}<br>
-                                <strong>Panchayat ID:</strong> {{ $application->data->enterprise->panchayat_id }}<br>
-                                <strong>Constituency ID:</strong> {{ $application->data->enterprise->constituency_id }}<br>
-                                <strong>Activity Details:</strong> {{ $application->data->enterprise->activity_details }}<br>
-                                <strong>Activity Type ID:</strong> {{ $application->data->enterprise->activity_type_id }}<br>
-                                <strong>Constitution Type ID:</strong> {{ $application->data->enterprise->constitution_type_id }}<br>
-                            </td>
+                            <td><strong>Bank Branch ID:</strong></td>
+                            <td>{{ $application->data->finance->bank_branch_id }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Own Contribution:</strong></td>
+                            <td>{{ $application->data->finance->own_contribution }}</td>
                         </tr>
                     </table>
+                <table>
+                    <tr bgcolor="#E36E2C">
+                        <td colspan="2"><strong>Documents Section</strong></td>
+                    </tr>
+                </table>
                       <!-- Documents section -->
                       @foreach($allApplicationDocuments as $document)
                       <div class="document-container">
@@ -219,6 +399,34 @@
             </div>
         </div>
     </div>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+    
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+    
+        th {
+            background-color: #f2f2f2;
+        }
+    
+        td strong {
+            font-weight: bold;
+        }
+    
+        .title {
+            font-weight: bold;
+        }
+    
+        .value {
+            font-style: italic;
+        }
+    </style>
     
 
 

@@ -15,19 +15,19 @@
 @endsection
 
 @section('content')
-@include('shared.front-end.applicant_header')
+    @include('shared.front-end.applicant_header')
 
     <div class="row " id="formHolder">
         <div class="col-12">
             @if($applications)
             @foreach ($applications as $application)
-            <table class="table">
+            <table class="table" style="margin-top: 35px;">
                 <tbody>
                     
                     <tr bgcolor="#E36E2C">
                         <td colspan="6">
                             <div align="center" class="style1">
-                                <h5><b>{{ $application->status->name }}</b></h5>
+                                <h5><b>{{ __('Application Status') }}</b></h5>
                             </div>
                             @if($application->status->id == '302')
                             <div align="center" class="style1">
@@ -70,7 +70,7 @@
                 <div class="row justify-content-center">
                     <div class="col-md-8">
                         <div class="card">
-                            <div class="card-header">Enter Any of Your Email, Number, or Application ID</div>
+                            <div class="card-header">{{ __('Enter Any of Your Email, Number, or Application ID') }}</div>
             
                             <div class="card-body">
                                 <form method="POST" action="{{ route('application.login') }}">
@@ -78,11 +78,11 @@
             
                                     {{-- Single Input Field with Combined Placeholder and Title --}}
                                     <div class="form-group">
-                                        <label for="combinedInput">Email, Number, and Application ID</label>
-                                        <input type="text" class="form-control" id="combinedInput" name="combinedInput" placeholder="Email, Number, or Application ID" title="Email, Number, and Application ID" required>
+                                        <label for="combinedInput">{{ __('Email, Number, and Application ID') }}</label>
+                                        <input type="text" class="form-control" id="combinedInput" name="combinedInput" placeholder="{{ __('Email, Number, or Application ID') }}" title="{{ __('Email, Number, and Application ID') }}" required>
                                     </div>
             
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
                                 </form>
                             </div>
                         </div>
@@ -92,11 +92,26 @@
             @endif
         </div>
     </div>
+
+    <!-- Application Status and Note -->
+    <div class="text-center">
+        <h5 style="background-color: rgb(255, 138, 48); padding: 10px; color: white">{{ $application->status->name }}</h5>
+        @if($application->status->id == 306)
+            <p>Your application is submitted and pending at DIC. You will get notifications for further actions.</br> आपका आवेदन सबमिट किया गया है और DIC में लंबित है। आपको आगे की कार्रवाई के लिए सूचनाएं मिलेंगी।</p>
+        @endif
+        @if($application->status->id == 302)
+            <p>Your application is not completed yet please click on below button to complete it.</br> आपका आवेदन अभी पूरा नहीं हुआ है, कृपया नीचे दिए गए बटन पर क्लिक करके इसे पूरा करें।</p>
+        @endif
+        <hr style="background-color: rgb(255, 138, 48);">
+        @if($application->status->id == 302 || $application->status->id == 305)
+        <button>{{ $application->status->id == 302 ? 'Complete' : 'Edit'}} Your Application</button>
+        @endif
+    </div>
 @endsection
+
 <style>
     tr.sub_row th {
         background: white !important;
         border-right: 1px solid black !important;
     }
-    
 </style>
