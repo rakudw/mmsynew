@@ -10,6 +10,7 @@
 
 .wrapper{
     background-image: url('../../public/images/bg.png');
+    /* background-image: url('../../public/images/SHIMLA.png'); */
     background-position: center;
     background-size: cover;
     position: relative;

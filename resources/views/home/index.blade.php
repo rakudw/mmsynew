@@ -28,13 +28,15 @@
                 <div class="mmsy_Portal">
                 <h5>MMSY PORTAL</h5>
                 </div>
-              <button class="nav-link active" id="v-pills-hn-tab" data-bs-toggle="pill" data-bs-target="#v-pills-hn" type="button" role="tab" aria-controls="v-pills-hn" aria-selected="true"><i class="fa-solid fa-bell"></i>Helpdesk Number</button>
-              <button class="nav-link" id="v-pills-n-tab" data-bs-toggle="pill" data-bs-target="#v-pills-n" type="button" role="tab" aria-controls="v-pilla-n=" aria-selected="false"><i class="fa-solid fa-bell"></i>Notification</button>
-              <button class="nav-link" id="v-pills-nol-tab" data-bs-toggle="pill" data-bs-target="#v-pills-nol" type="button" role="tab" aria-controls="v-pills-nol" aria-selected="false"><i class="fa-solid fa-bell"></i>Nodal Officer List</button>
-              <button class="nav-link" id="v-pills-ff-tab" data-bs-toggle="pill" data-bs-target="#v-pills-ff" type="button" role="tab" aria-controls="v-pills-ff" aria-selected="false"><i class="fa-solid fa-bell"></i>Feedback Form</button>
-              <button class="nav-link" id="v-pills-fr-tab" data-bs-toggle="pill" data-bs-target="#v-pills-fr" type="button" role="tab" aria-controls="v-pills-fr" aria-selected="false"><i class="fa-solid fa-bell"></i>Feedback Report</button>
-              <button class="nav-link" id="v-pills-faq-tab" data-bs-toggle="pill" data-bs-target="#v-pills-faq" type="button" role="tab" aria-controls="v-pills-faq" aria-selected="false"><i class="fa-solid fa-bell"></i>FAQ</button>
-              <button class="nav-link" id="v-pills-g-tab" data-bs-toggle="pill" data-bs-target="#v-pills-g" type="button" role="tab" aria-controls="v-pills-g" aria-selected="false"><i class="fa-solid fa-bell"></i>Grievances</button>
+              <button class="nav-link active" id="v-pills-hn-tab" data-bs-toggle="pill" data-bs-target="#v-pills-hn" type="button" role="tab" aria-controls="v-pills-hn" aria-selected="true"><i class="fa-solid fa-bell"></i>HOME</button>
+              <button class="nav-link" id="v-pills-n-tab" data-bs-toggle="pill" data-bs-target="#v-pills-n" type="button" role="tab" aria-controls="v-pilla-n=" aria-selected="false"><i class="fa-solid fa-bell"></i>HELPDESK NO </button>
+              <button class="nav-link" id="v-pills-nol-tab" data-bs-toggle="pill" data-bs-target="#v-pills-nol" type="button" role="tab" aria-controls="v-pills-nol" aria-selected="false"><i class="fa-solid fa-bell"></i>SUCCESS STORIES</button>
+              <button class="nav-link" id="v-pills-ff-tab" data-bs-toggle="pill" data-bs-target="#v-pills-ff" type="button" role="tab" aria-controls="v-pills-ff" aria-selected="false"><i class="fa-solid fa-bell"></i>MMSY DASHBOARD</button>
+              <button class="nav-link" id="v-pills-fr-tab" data-bs-toggle="pill" data-bs-target="#v-pills-fr" type="button" role="tab" aria-controls="v-pills-fr" aria-selected="false"><i class="fa-solid fa-bell"></i>VIDEO TUTORIAL</button>
+              <button class="nav-link" id="v-pills-faq-tab" data-bs-toggle="pill" data-bs-target="#v-pills-faq" type="button" role="tab" aria-controls="v-pills-faq" aria-selected="false"><i class="fa-solid fa-bell"></i>NOTIFICATIONS</button>
+              <button class="nav-link" id="v-pills-faq-tab" data-bs-toggle="pill" data-bs-target="#v-pills-faq" type="button" role="tab" aria-controls="v-pills-faq" aria-selected="false"><i class="fa-solid fa-bell"></i>GRIEVANCES</button>
+              <button class="nav-link" id="v-pills-g-tab" data-bs-toggle="pill" data-bs-target="#v-pills-g" type="button" role="tab" aria-controls="v-pills-g" aria-selected="false"><i class="fa-solid fa-bell"></i>FEEDBACK FORM</button>
+              <button class="nav-link" id="v-pills-g-tab" data-bs-toggle="pill" data-bs-target="#v-pills-g" type="button" role="tab" aria-controls="v-pills-g" aria-selected="false"><i class="fa-solid fa-bell"></i>FREQUENTLY ASK QUESTIONS</button>
               </div>
             </div>
             <div class="tab-content col-md-9" id="v-pills-tabContent">
@@ -46,7 +48,8 @@
                         <div class="card-dark">
                           <div class="card-body">
                             <img src="{{ asset("images/Rectangle4.png") }}">
-                            <p class="card-text">Application</p>
+                            <p class="card-text">Application For New Unit</p>
+                            <p class="card-text"><button class="btn btn-success">Apply</button></p>
                           </div>
                         </div>
                       </div>
@@ -54,7 +57,8 @@
                         <div class="card-light">
                           <div class="card-body">
                             <img src="{{ asset("images/Rectangle4.png") }}">
-                            <p class="card-text">Guidelines</p> 
+                            <p class="card-text">Registered Applicant</p> 
+                            <p class="card-text"><button class="btn btn-success">Login</button></p>
                           </div>
                         </div>
                       </div>
@@ -62,25 +66,19 @@
                         <div class="card-dark">
                           <div class="card-body">
                             <img src="{{ asset("images/Rectangle4.png") }}">
-                            <p class="card-text">Notification</p>
+                            <p class="card-text">Check Status</p>
+                            <p class="card-text"><button class="btn btn-success">Login</button></p>
                           </div>
                         </div>
                       </div>
                     </div>
                     <div class="row main_mmsy">
                       <div class="col-md-4 col-12">
-                        <div class="card-dark">
-                          <div class="card-body">
-                            <img src="{{ asset("images/Rectangle4.png") }}">
-                            <p class="card-text">Application</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-4 col-12">
                         <div class="card-light">
                           <div class="card-body">
                             <img src="{{ asset("images/Rectangle4.png") }}">
-                            <p class="card-text">Guidelines</p> 
+                            <p class="card-text">Bank Login</p>
+                            <p class="card-text"><button class="btn btn-success">Login</button></p>
                           </div>
                         </div>
                       </div>
@@ -88,7 +86,8 @@
                         <div class="card-dark">
                           <div class="card-body">
                             <img src="{{ asset("images/Rectangle4.png") }}">
-                            <p class="card-text">Notification</p>
+                            <p class="card-text">Department Login</p> 
+                            <p class="card-text"><button class="btn btn-success">Login</button></p>
                           </div>
                         </div>
                       </div>
@@ -99,9 +98,9 @@
                         <div class="col-md-4 ">
                             <div class="card-body">
                                 <div class="hover01">
-                              <figure><a href="../../pmegpeportal/pmegpaward">	<img src="{{ asset("images/cheifminister.png") }}" alt="cheifminister" class="img-fluid"></a></figure>
+                              <figure><a href="#">	<img src="{{ asset("images/cheifminister.png") }}" alt="cheifminister" class="img-fluid"></a></figure>
                                 </div>   
-                                <a href="../pmegpaward/"><button type="button" class="buttonaward">Donate to CM Relif Fund</button></a>                
+                                <a href="https://cmhimachal.hp.gov.in/index.php/" target="_blank"><button type="button" class="buttonaward">Donate to CM Relif Fund</button></a>                
                              </div>
                         </div>
                         <div class="col-md-8 ">
@@ -114,6 +113,7 @@
                         </div>
                     </div>
                 </div>
+                
                 
               </div>
               <div class="tab-pane fade" id="v-pills-g" role="tabpanel" aria-labelledby="v-pills-g-tab">
@@ -169,6 +169,23 @@
                       </form>
                 </div>
               </div>
+          </div>
+        </div>
+        <div class="container-fluid">
+          <div class="caution">
+      
+            <div class="caution-main">
+              <div class="caution-head">
+                <h5>CAUTION NOTICE</h5>
+              </div>
+              <div class="caution-notice">
+                <p>KVIC /KVIB /DIC /COIR have not engaged any private Party/Agency/ Middlemen/ Franchise etc.
+                  for promoting or sanctioning of MMSY Projects or any financial assistance under MMSY
+                  Programme and any potential enterpreneurs / beneficiaries dealing with such agency
+                  shall be doing it at their risk and consequences.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
     
