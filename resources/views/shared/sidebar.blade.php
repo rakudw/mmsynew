@@ -289,6 +289,13 @@
                                 </x-sidebar.sub-menu>
 
                                 <x-sidebar.nav-item>
+                                    <x-sidebar.nav-link href="{{ route('master_report.applications', ['type' => 'all', 'step' => '0']) }}" :active="request()->routeIs('master_report.applications') && request()->route()->parameter('type') == 'all'">
+                                        <x-slot:icon><em class="material-icons opacity-10">check_box</em></x-slot:icon>
+                                        <x-slot:title>{{ __('All Applications') }}</x-slot:title>
+                                    </x-sidebar.nav-link>
+                                </x-sidebar.nav-item>
+
+                                <x-sidebar.nav-item>
                                     <x-sidebar.nav-link href="{{ route('master_report.applications', ['type' => 'rejected', 'step' => '0']) }}" :active="request()->routeIs('master_report.applications') && request()->route()->parameter('type') == 'rejected' && request()->route()->parameter('step') == '0'">
                                         <x-slot:icon><em class="material-icons opacity-10">block</em></x-slot:icon>
                                         <x-slot:title>{{ __('Rejected Applications') }}</x-slot:title>

@@ -167,17 +167,21 @@ class ApplicationController extends Controller
         $partnerSpeciallyAbled = $request->input('partner_is_specially_abled');
         $partnerAadhaars = $request->input('partner_aadhaar');
         $partnerMobiles = $request->input('partner_mobile');
-
-        foreach ($partnerNames as $key => $partnerName) {
-            $partnerData[] = [
-                'name' => $partnerName,
-                'gender' => $partnerGenders[$key],
-                'date_of_birth' => $partnerDOBs[$key],
-                'social_category_id' => $partnerSocialCategories[$key],
-                'specially_abled' => $partnerSpeciallyAbled[$key],
-                'aadhaar' => $partnerAadhaars[$key],
-                'mobile' => $partnerMobiles[$key],
-            ];
+        // dd($partnerNames == null);
+        if (is_array($partnerNames) && count($partnerNames) > 0) {
+            foreach ($partnerNames as $key => $partnerName) {
+                if($partnerName){
+                    $partnerData[] = [
+                        'name' => $partnerName,
+                        'gender' => $partnerGenders[$key],
+                        'date_of_birth' => $partnerDOBs[$key],
+                        'social_category_id' => $partnerSocialCategories[$key],
+                        'specially_abled' => $partnerSpeciallyAbled[$key],
+                        'aadhaar' => $partnerAadhaars[$key],
+                        'mobile' => $partnerMobiles[$key],
+                    ];
+                }
+            }
         }
             $jsonData = json_encode([
                 'cost' => [
@@ -208,7 +212,7 @@ class ApplicationController extends Controller
                     'district_id' => $request->input('owner_district_id'),
                     'panchayat_id' => $request->input('owner_panchayat_id'),
                     'marital_status' => $request->input('owner_marital_status'),
-                    'spouse_aadhaar' => $request->input('spouse_aadhaar'),
+                    'spouse_aadhaar' => null,
                     'constituency_id' => $request->input('owner_constituency_id'),
                     'guardian_prefix' => $request->input('owner_guardian_prefix'),
                     'is_specially_abled' => $request->input('owner_is_specially_abled'),
@@ -272,13 +276,13 @@ class ApplicationController extends Controller
                 ->withInput(); 
         } else {
                 $application = new Application();
-                $this->registerUser($application);
                 $application->name = $request->input('name');
                 $application->form_id = 1;
                 $application->data = $data;
                 $application->region_id = $request->input('owner_district_id');
                 $application->status_id = 302;
                 $application->created_by = auth()->user()->id;
+                $this->registerUser($application);
                 $application->save();
                
               
@@ -302,6 +306,9 @@ class ApplicationController extends Controller
     public function newDocument(Request $request){
         // auth()->logout();
         $application = Application::where('created_by',auth()->user()->id)->first();
+        if (!$this->user()->can('update', $application)) {
+            return redirect()->route('application.newstatus')->with('error', 'Application not found!');
+        }
         $allApplicationDocuments = $application->applicationDocuments;
         // $Documenttype = $allApplicationDocuments->keyBy('document_type_id');
         $Documenttype = DocumentType::all();
@@ -430,7 +437,7 @@ class ApplicationController extends Controller
         $type = $request->get('type');
         if ($type !== null) {
 
-            return redirect()->route('applications.status');
+            return redirect()->route('applications.newstatus');
         }else{
 
             return redirect()->route('applications.list');
@@ -460,6 +467,7 @@ class ApplicationController extends Controller
             $applicationDocument->delete();
         }
         $type = $request->get('type');
+      
         if ($type !== null) {
             return redirect()->route('newdocument')->with('success', 'Document was removed from the application!');
         }else{

@@ -1,6 +1,5 @@
 {
     "name": "required|max:255",
-    "mobile": "required|max:255",
     "activity_type_id": "required|numeric|exists:App\\Models\\Enum,id",
     "activity_id": "required_if:activity_type_id,202,203|exists:App\\Models\\Activity,id",
     "activity_details": "required_if:activity_type_id,202,203",
@@ -31,7 +30,6 @@
     "pan": "regex:/^([a-zA-Z]([a-zA-Z]([a-zA-Z]([a-zA-Z]([a-zA-Z]([0-9]([0-9]([0-9]([0-9]([a-zA-Z])?)?)?)?)?)?)?)?)?)?$/",
     "owner_gender": "required|in:Male,Female,Other",
     "owner_marital_status": "required|in:Unmarried,Married,Divorced,Widowed",
-    "spouse_aadhaar":"required_if:marital_status,Married",
     "owner_is_specially_abled": "required|in:No,Yes",
     "owner_social_category_id": "required|exists:App\\Models\\Enum,id",
     "owner_belongs_to_minority": "required|in:No,Yes",
