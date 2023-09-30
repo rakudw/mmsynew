@@ -63,14 +63,30 @@
                                                     </a>
                                                 </td>
                                                 <td class="text-right">
-                                                    <a href="master_report/applications/pending/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=308">
+                                                    <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=100">
                                                         {{ $yearData['Approved'] }}
                                                     </a>
                                                 </td>
-                                                <td class="text-right">{{ $yearData['Rejected By DLC'] }}</td>
-                                                <td class="text-right">{{ $yearData['Rejected By Bank'] }}</td>
-                                                <td class="text-right">{{ $yearData['Pending For DLC'] }}</td>
-                                                <td class="text-right">{{ $yearData['Pending At Bank'] }}</td>
+                                                <td class="text-right">
+                                                    <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=310">
+                                                        {{ $yearData['Rejected By DLC'] }}
+                                                    </a>
+                                                </td>
+                                                <td class="text-right">
+                                                    <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=304">
+                                                        {{ $yearData['Rejected By Bank'] }}
+                                                    </a>
+                                                </td>
+                                                <td class="text-right">
+                                                    <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=309">
+                                                        {{ $yearData['Pending For DLC'] }}
+                                                    </a>
+                                                </td>
+                                                 <td class="text-right">
+                                                    <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=308">
+                                                        {{ $yearData['Pending At Bank'] }}
+                                                    </a>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     @endif

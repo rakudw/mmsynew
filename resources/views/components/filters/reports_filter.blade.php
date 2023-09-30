@@ -8,7 +8,7 @@
         @if($statusId)
             <div class="col-md-2">
                 <label class="form-label">Select Related Status</label>
-                <select class="form-control" title="{{ request()->get('status_id') }}" name="status_id" id="status-id">
+                <select class="form-control" title="{{ is_array(request()->get('status_id')) }}" name="status_id" id="status-id">
                     <option value="">-- All --</option>
                     @foreach(\App\Enums\ApplicationStatusEnum::cases() as $status)
                         @if(in_array($status->id(), $statusId))

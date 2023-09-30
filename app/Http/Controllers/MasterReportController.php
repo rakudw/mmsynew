@@ -155,9 +155,16 @@ class MasterReportController extends Controller
                 $title = "Rejeted Application at all level";
                 break;
             default:
-            $statusId = intval(request()->get('status_id')) ? [intval(request()->get('status_id'))] :  [
-                303, 304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 314, 315, 316, 317, 318, 319, 320
-            ];
+            if(request()->get('status_id') == 100){
+                $statusId = [
+                     309, 310, 311, 312, 313, 314, 315, 316, 317, 318, 319, 320
+                ];
+            }else{
+                $statusId = intval(request()->get('status_id')) ? [intval(request()->get('status_id'))] :  [
+                    303, 304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 314, 315, 316, 317, 318, 319, 320
+                ];
+                
+            }
                  $query->whereIn('status_id',$statusId);
                 $title = "All Applications";
                 break;
@@ -399,6 +406,7 @@ class MasterReportController extends Controller
         foreach ($districtIds as $districtId) {
             $districtData = [
                 'District' => Region::find($districtId)->name,
+                'DistrictId' => $districtId, 
                 'Year' => [],
             ];
     

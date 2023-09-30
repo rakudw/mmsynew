@@ -47,7 +47,11 @@
                                                     @endif
                                                     <td>{{ $yearData['Year'] }}</td>
                                                     @foreach ($statusCodes as $status)
-                                                        <td class="text-right">{{ $yearData[$status['name']] }}</td>
+                                                    <td class="text-right">
+                                                        <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id={{ $status['id'] }}">
+                                                            {{ $yearData[$status['name']] }}
+                                                        </a>
+                                                    </td>
                                                         @php
                                                             $totals[$status['name']] += $yearData[$status['name']];
                                                         @endphp
