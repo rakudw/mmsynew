@@ -31,9 +31,9 @@
         <div class="card-1-wrapper design_card"><div id="card-1"><h5><a href="">CAPITAL <br>SUBSIDY</a></h5></div></div>
         <div class="card-2-wrapper design_card"><div id="card-2"><h5><a href="">INTEREST <br>SUBSIDY</a></a></h5></div></div>
         <div class="card-3-wrapper design_card"><div id="card-3"><h5><a href="">CGTMSE FEE <br>REIMBURSMENT</a></h5></div></div>
-        <div class="card-4-wrapper"><img id="card-4">
+        <div class="card-4-wrapper"><div id="card-4">
             <h4>New <br> Activites <br> Added</h4>
-            <img src="{{ asset('images/arrow.png') }}"></img>
+            <img src="{{ asset('images/arrow.png') }}"></div>
             <ul>
                 <li>Agriculture,</li>
                 <li>Animal Husbandry,</li>
@@ -41,7 +41,21 @@
             </ul>
         </div>
      </div>
+
+<!-- notification started -->
+<div class="container notification_custom">
+    <div class="notification-news">
+        <div class="update col-md-3"> NOTIFICATION</div>
+        <marquee width="100%" class="col-md-9" direction="left" vspace="8px">
+            Add some text | Click here to download The Notifications will keep scrolling horizontally | NOTIFICATION |
+        </marquee>
     </div>
+</div>
+
+
+
+
+ 
     <!-- card section end -->
     
     <div class="independence_and_achivement">

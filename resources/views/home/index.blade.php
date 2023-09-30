@@ -11,15 +11,15 @@
     @include('shared.front-end.details')
     @include('shared.front-end.important_lnks') --}}
     @include('shared.front-end.new_header')
-    <div class="container">
+   <!--- <div class="container">
         <div class="notification-news">
             <div class="update col-md-3"> NOTIFICATION</div>
             <marquee width="100%" class="col-md-9" direction="left" vspace="8px">
                 Add some text | Click here to download The Notifications will keep scrolling horizontally | NOTIFICATION |
             </marquee>
         </div>
-    </div>
-</div>
+    </div>--->
+</div> 
 
 <div class="container main">
         <div class="d-flex align-items-start">
