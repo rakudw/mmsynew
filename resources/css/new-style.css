@@ -1,0 +1,329 @@
+.notification-news
+{
+background-color: #fff;
+width: 100%;
+border-bottom: 2px solid #6D6D6D ;
+position: relative;
+}
+.notification-news .update {
+position: absolute;
+top: 0;
+left: 0;
+padding: 10px 49px;
+color: #fff;
+font-size: 15px;
+background-color: #B51E1E;
+font-weight: bold;
+z-index: 4;
+text-align: center;
+}
+
+marquee
+{
+color: #6D6D6D;
+font-size: 15px;
+margin-top: 3px;   
+}
+.mmsy_outer
+{
+border: 1px solid #C2C0C0;
+background-color: #EFEFEF;
+height: 840px;
+}
+.mmsy_Portal
+{
+background-color: #9D9D9D;
+text-align: center;
+padding: 20px 15px;
+}
+.mmsy_Portal h5
+{
+color: #ffff;
+font-size: 20px;
+font-weight: bold;
+
+}
+.nav-pills .nav-link.active
+{
+background-color: #727272; 
+margin-left: 10px;
+margin-right: 10px;
+padding: 10px!important;
+border-radius: 50px;
+}
+#v-pills-hn-tab
+{
+margin-top: 20px;
+}
+#v-pills-hn-tab,#v-pills-n-tab,#v-pills-nol-tab,#v-pills-ff-tab,#v-pills-fr-tab,#v-pills-faq-tab,#v-pills-g-tab
+{
+padding: 20px;
+column-gap: 15px;
+display: flex;
+color: #010101;
+font-size: 16px;
+font-weight: 500;
+}
+i.fa-solid.fa-bell
+{
+font-size: 16px;
+padding-top: 5px;
+}
+#v-pills-hn
+{
+background-color: #F8F8F8;
+width: 100%;
+}
+.card-body
+{
+width: 100%;
+height: auto;
+text-align: center;
+margin: 1rem auto;
+}
+.img-fluid
+{
+border: 1px solid transparent;
+border-radius:100%;
+}
+
+button.buttonaward
+{
+background-color: #F58D1E;
+color: #fff;
+border: 1px solid;
+font-size: 15px;
+font-weight: 500;
+padding: 10px 30px;
+}
+.aboutus_right_sections
+{
+margin-top: 75px;
+
+}
+.top_heading span 
+{
+color: #000;
+font-weight: 500;
+}
+.top_heading h3 
+{
+font-size: 22px;
+font-weight: 600;
+line-height: 36px;
+letter-spacing: 0em;
+color: #E36E2C;
+}
+.top_heading p
+{
+
+font-size: 15px;
+font-weight: 500;
+line-height: 26px;
+letter-spacing: 0em;
+text-align: left;
+color: #4B4B4B;
+max-width: 100%;
+width: 501px;
+}
+h1.heading_mmsy
+{
+text-align: center;
+color: #484848;
+font-size: 25px;
+font-weight: bold;
+}
+.card-dark
+{
+
+background-color: #FFA23D;
+margin: 10px;
+height: 150px;
+padding: 10px;
+border-radius: 10px;
+}
+.card-light
+{
+background-color: #EFEFEF;
+margin: 10px;
+height: 150px;
+padding: 10px;
+border-radius: 10px;
+}
+.main_mmsy img
+{  
+width: 145px;
+}
+p.card-text
+{
+font-size: 20px;
+font-weight: 600;
+color: #333333;
+}
+.footer-content
+{
+
+background-color: #001529;
+height: 40px;
+}
+.footer-content p
+{
+color: #fff;
+font-size: 15px;
+float: right;
+padding: 10px;
+
+}
+.footer-content span
+{
+color: #FFA23D;
+}
+.footer-content h6 
+{
+color: #698494;
+padding: 10px;
+float: right;
+}
+.social_icon 
+{
+padding: 10px;
+}
+.social_icon span
+{
+padding: 5px;
+color: #fff;
+}
+.center 
+{
+text-align: center;
+}
+a.ButtonRound
+    {
+border: 4px solid #FFFFFF;
+border-radius: 10px;
+background-color: #F58D1E;
+color: #ffffff;
+font-weight: bold;
+text-decoration: none;
+margin: 1px;
+padding: 5px 10px 5px 10px;
+display: inline-block;
+}
+.form_outer
+{
+border-spacing: 1px;
+border-style: solid;
+border-color: #2C4F85;
+font-family: Verdana, Arial, Helvetica, sans-serif;
+font-size: 12px;
+padding: 20px;
+}
+.form_heading p
+{
+color: #CC6600;
+font-size: 16px;
+font-weight: bold;
+background-color: #BDE5F8;
+text-align: center;
+}
+.form-inline 
+{
+margin: 10px;
+display: flex;
+}
+label.col-md-4 {
+
+justify-content: end;
+display: flex;
+padding: 10px 20px;
+}
+.notification_outer
+{
+text-align: center;
+text-align: center;
+}
+.notification
+{
+background-color: #CC6600;
+color: white;
+text-decoration: none;
+padding: 15px 26px;
+position: relative;
+display: inline-block;
+border-radius: 2px;
+font-size: 15px;
+}
+.notification .badge {
+position: absolute;
+top: -10px;
+right: -10px;
+padding: 5px 10px;
+border-radius: 50%;
+background-color: red;
+color: white;
+}
+.form_title
+{
+color: #CC6600;
+font-size: 16px;
+font-weight: bold;
+text-align: center;
+padding: 10px;
+}
+.title_outer
+{ 
+color: #333333;
+background-color: #EFE0D1;
+padding: 5px;
+margin: 10px;
+border-top-right-radius: 10px;
+border-top-left-radius: 10px;
+
+}
+input[type=text],input[type=password]
+{
+width: 250px;
+border: 1px solid #000;
+border-radius: 10px;
+}
+label.col-md-4
+{
+justify-content: end;
+display: flex;
+padding: 10px;
+font-size: 12px;
+font-weight: bold;
+background-color: #EFE0D1;
+margin: 5px 10px;
+border-top-right-radius: 10px;
+border-top-left-radius: 10px;
+
+}
+.btns
+{
+padding: 10px;
+background-color: #EFE0D1;
+border-top-right-radius: 10px;
+border-top-left-radius: 10px;   
+}
+button.btn.btn-primary.btn-block.mb-8
+{
+background-color: #CC6600;
+color: white;
+border: 1px solid #cc6600;
+padding: 5px 10px;
+border-radius: 5px;
+font-size: 15px;
+}
+.col a
+{
+border: 4px solid #FFFFFF;
+border-radius: 10px;
+background-color: #0000CC;
+color: #ffffff;
+font-weight: bold;
+text-decoration: none;
+padding: 5px 10px 5px 10px;
+display: inline-block;
+}
+
