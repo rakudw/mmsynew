@@ -312,7 +312,7 @@
             <x-sidebar.nav-item>
                 <x-sidebar.sub-menu :active="request()->routeIs('numaric_report.*')" :menuId="'numaric_reports'">
                     <x-slot:icon><em class="material-icons opacity-10">report</em></x-slot:icon>
-                    <x-slot:title :title="__('Numaric Reports')">{{ __('Numaric Reports') }}</x-slot:title>
+                    <x-slot:title :title="__('Numeric Reports')">{{ __('Numeric Reports') }}</x-slot:title>
                     <x-slot:collapse>
                         <x-sidebar.collapse-show :menuId="'numaric_reports'">
                             <x-sidebar.nav-item>
