@@ -10,6 +10,7 @@
     @include('shared.front-end.aboutus')
     @include('shared.front-end.details')
     @include('shared.front-end.important_lnks') --}}
+    @include('shared.front-end.new_header')
     <div class="container">
         <div class="notification-news">
             <div class="update col-md-3"> NOTIFICATION</div>
@@ -198,5 +199,22 @@
           </div>
     
 <style>
+  .nav-pills .nav-link.active
+    {
+        background-color: #727272!important; 
+        width: 100%!important;
+    }
+    .nav-link:hover
+    {
+        background-color: #727272!important; 
+        width: 100%!important;
+        margin: 5px auto;
+    }
+    .wrapper{
+      margin-bottom: 30px;
+    }
+    .mmsy_outer{
+      width: 100%
+    }
 </style>
 @endsection

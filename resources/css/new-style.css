@@ -1,3 +1,476 @@
+@font-face {
+    font-family: 'Tahta'; 
+    src: url('../../public/font/FontsFree-Net-Tahta-Demo.ttf') , 
+        
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.wrapper{
+    background-image: url('../../public/images/bg.png');
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+}
+img.cm_image {
+    position: relative;
+    top: -67px;
+    max-width: 277px;
+    width: 100%;
+    height: 273px;
+
+}
+.design_card {
+    background: #234669;
+    padding: 12px 29px;
+    border-radius: 12px;
+    transform: skewX(-16deg);
+    text-align: center;
+}
+.himachal_gov_logo img {
+    width: 132px;
+}
+.image-text img {
+    max-width: 250px;
+}
+.banner_section {
+    max-width: 1200px;
+    margin: auto;
+    position: relative;
+}
+
+img.name_banner_one {
+    position: absolute;
+    max-width: 390px;
+    left: 13px;
+    top: -85px;
+    z-index: 999;
+}
+
+img.name_banner_two {
+    position: absolute;
+    right: -139px;
+    max-width: 497px;
+    top: -169px;
+    z-index: 99999;
+}
+img.industrial_minister {
+    max-width: 231px;
+    width: 100%;
+    object-fit: cover;
+}
+.card-4-wrapper img {
+    height: 65px;
+}
+.design_card h5 a {
+    color: #FFD700 !important;
+ text-align:center !important;
+}
+.card-4-wrapper ul li {
+    line-height: 21px;
+    text-align: left;
+}
+ul.achivelist {
+    max-width: 440px;
+    margin: auto;
+}
+
+ul.achivelist li {
+    list-style-type: none;
+    border: 1px solid #ff6400;
+    padding: 9px 8px;
+    border-top: 0px;
+    color: #002657;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+}
+.independence_and_achivement h3 {
+    font-size: 40px;
+    max-width: 550px;
+    margin: auto;
+    padding-bottom: 30px;
+    font-family: 'Courgette', cursive;
+}
+ul.achivelist {
+    border-top: 1px solid #ff6400;
+}
+.achievements h2 {
+    font-size: 30px;
+    max-width: 401px;
+    color: #ff6400;
+    margin: auto;
+    padding-bottom: 10px;
+    font-family: 'Courgette', cursive;
+}
+.independence_and_achivement {
+    text-align: center;
+    padding-bottom: 40px;
+    padding-top: 40px;
+}
+.card-4-wrapper {
+    background: #FF6400;
+    max-width: 330px;
+    width: 100%;
+    text-align: center;
+    padding: 5px 0px;
+    color: white;
+    font-family: oswald;
+    margin-left: auto;
+}
+.card-4-wrapper h4 {
+    max-width: 87px;
+    width: 100%;
+    line-height: 20px;
+    text-align: right;
+}
+
+.card-4-wrapper li {
+    list-style-type: none;
+}
+
+.card-4-wrapper {
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+}
+.design_card h5  {
+ transform: skewX(16deg); 
+}
+.cm_section {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: auto;
+    margin-top: -10%;
+}
+
+.wrapper:after {
+    content: "";
+    width: 100%;
+    clip-path: polygon(100% 1%, 0% 100%, 100% 100%);
+    height: 115px;
+    position: absolute;
+    z-index: 99;
+    background: white;
+    bottom: 0px;
+}
+
+.design_card h5 a{
+    font-family: 'Oswald', sans-serif;
+    text-decoration: none;
+    line-height: 14px;
+}
+.nav.navcustommain a {
+    color: #234669;
+    text-decoration: none;
+    font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+
+}
+.wrapper-inner {
+    max-width: 1200px;
+    margin: auto;
+    padding: 10px;
+}
+
+.flex-wrapper {
+    display: flex;
+    width: 100% !important;
+    justify-content: space-between;
+}
+
+.nav.navcustommain a:hover {
+    color: #ff6400;
+}
+
+.image img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    min-width: 200px;
+}
+
+.text h1 {
+    font-size: 23px;
+}
+
+ul.nav-ul {
+    padding: 0px;
+    display: flex;
+    list-style: none;
+    padding: 10px;
+    column-gap: 24px;
+    align-items: center;
+    font-size: 16px;
+}
+button#mobile-toggle {
+    height: 40px;
+    padding: 20px 15px;
+    line-height: 5px;
+    background: #234669;
+    color: white;
+    font-size: 26px;
+    border: none;
+    border-radius: 5px;
+}
+.nav {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+.cards-container {
+    display: flex;
+    column-gap: 15px;
+    align-items: center;
+    margin-top: 2%;
+
+}
+.design_card:hover {
+    background: #ff6400;
+}
+
+.design_card:hover a {
+    color: white !important;
+}
+ 
+/* Default styles for larger screens */
+.nav-ul {
+    display: flex;
+    list-style: none;
+}
+
+.nav-ul li {
+    margin-right: 20px;
+}
+
+/* Styles for mobile */
+#mobile-toggle {
+    display: none; /* Hide the toggle button by default */
+    cursor: pointer;
+    font-size: 24px;
+}
+
+#mobile-dropdown {
+    display: none; /* Hide the mobile dropdown by default */
+    position: absolute;
+    top: 50px; /* Adjust the top position as needed */
+    right: 0;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+ul#mobile-dropdown li {
+    list-style-type: none;
+     padding: 10px;
+    top: 15%;
+    display: block;
+    text-decoration: none !important;
+}
+
+ul#mobile-dropdown {
+    position: absolute;
+    top: 103px;
+    padding: 20px;
+}
+
+ul#mobile-dropdown li a {
+    text-decoration: none !important;
+    color: #234669;
+    font-family: 'Montserrat';
+}
+
+
+
+
+
+@media only screen and (max-width: 1024px) {
+    .nav-ul {
+        display: none !important; /* Hide the navigation on smaller screens */
+    }
+
+    .nav.navcustommain {
+        order: 3;
+    }
+    #mobile-toggle {
+        display: block; /* Show the toggle button on smaller screens */
+    }
+
+    #mobile-toggle.active + #mobile-dropdown {
+        display: block; /* Show the mobile dropdown when the toggle button is active */
+    }
+    .card-4-wrapper ul li {
+        line-height: 16px;
+        text-align: left;
+        font-size: 16px;
+    }
+    .card-4-wrapper h4 {
+        max-width: 87px;
+        width: 100%;
+        line-height: 17px;
+        text-align: right;
+        font-size: 16px;
+    }
+    img.cm_image {
+        position: relative;
+        top: -67px;
+        max-width: 212px;
+        width: 100%;
+        height: auto;
+    }
+}
+
+
+
+@media only screen and (max-width: 768px) {
+    .cards-container {
+        display: flex;
+        column-gap: 15px;
+        align-items: center;
+        margin-top: 2%;
+        flex-wrap: wrap;
+        row-gap: 10px;
+        justify-content: center;
+    }
+    .card-4-wrapper {
+               margin-left: inherit;
+    }
+    .independence_and_achivement h3 {
+        font-size: 30px;
+    }
+    ul.achivelist li {
+           font-size: 17px;
+    }
+    .cm_section {
+        display: flex;
+        justify-content: space-between;
+        max-width: 1200px;
+        margin: auto;
+        margin-top: 1%;
+    }
+    img.industrial_minister {
+        max-width: 195px;
+        width: 100%;
+        object-fit: cover;
+    }
+    img.cm_image {
+        position: relative;
+        top: -67px;
+        max-width: 173px;
+        width: 100%;
+        height: auto;
+    }
+    img.name_banner_two {
+        position: absolute;
+        right: -108px;
+        max-width: 379px;
+        top: -169px;
+        z-index: 99999;
+    }
+    img.name_banner_one {
+        position: absolute;
+        max-width: 309px;
+        left: 13px;
+        top: -61px;
+        z-index: 999;
+    }
+}
+
+
+
+@media only screen and (max-width: 468px) {
+    .himachal_gov_logo img {
+        width: 102px;
+    }
+    .image img {
+        height: 100%;
+        width: 174px;
+        object-fit: contain;
+        min-width: auto;
+    }
+    .cm_section {
+              margin-top: -7%;
+    }
+    .independence_and_achivement h3 {
+        font-size: 24px;
+    }
+    .design_card {
+        background: #234669;
+        padding: 5px 18px;
+        border-radius: 12px;
+        transform: skewX(-16deg);
+        text-align: center;
+    }
+    .design_card h5 a {
+        font-family: 'Oswald', sans-serif;
+        text-decoration: none;
+        line-height: 14px;
+        font-size: 14px;
+        line-height: 4px;
+    }
+    .design_card h5 {
+        transform: skewX(16deg);
+        line-height: 16px;
+    }
+    img.cm_image {
+        position: relative;
+        top: -55px;
+        max-width: 135px;
+        width: 100%;
+        height: 146px;
+    }
+    img.name_banner_two {
+        position: absolute;
+        right: -82px;
+        max-width: 327px;
+        top: -159px;
+        z-index: 99999;
+    }
+    img.name_banner_one {
+        position: absolute;
+        max-width: 272px;
+        left: 13px;
+        top: -64px;
+        z-index: 999;
+    }
+    img.industrial_minister {
+        max-width: 181px;
+        width: 100%;
+        object-fit: cover;
+    }
+    ul.achivelist li {
+        font-size: 14px;
+    }
+    .achievements {
+        padding: 0px 10px;
+        margin-bottom: 40px;
+    }
+    .image img {
+        height: 100%;
+        width: 151px;
+        object-fit: contain;
+        min-width: auto;
+    }
+    .himachal_gov_logo img {
+        width: 88px;
+    }
+}
+
+
+
+@media only screen and (max-width:348px) {
+    
+
+
+
+}
+
+/* After Header */
 .notification-news
 {
 background-color: #fff;
