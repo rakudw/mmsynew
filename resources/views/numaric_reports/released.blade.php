@@ -30,6 +30,7 @@
                                         @foreach ($statusCodes as $status)
                                             <th scope="col" rowspan="2" class="text-right">{{ $status['name'] }}</th>
                                         @endforeach
+                                        <th scope="col" rowspan="2" class="text-right">Total</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -56,6 +57,10 @@
                                                             $totals[$status['name']] += $yearData[$status['name']];
                                                         @endphp
                                                     @endforeach
+                                                    <td class="text-right"><b>
+                                                    <!-- Calculate and display total for each row -->
+                                                    {{ $totals[$status['name']] }}
+                                                    </b></td>
                                                 </tr>
                                             @endforeach
                                         @endif
@@ -66,6 +71,7 @@
                                         @foreach ($statusCodes as $status)
                                             <td class="text-right">{{ $totals[$status['name']] }}</td>
                                         @endforeach
+                                        <td class="text-right"><b>{{ array_sum($totals) }}</b></td>
                                     </tr>
                                 </tbody>
                             </table>

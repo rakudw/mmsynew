@@ -27,6 +27,8 @@ use App\Http\Controllers\MasterReportController;
 
 Route::controller(HomeController::class)->group(function () {
     Route::get('/', 'index')->name('home');
+    Route::get('/mmsy-dashboard', 'mmsyDashboard')->name('front-dashboard');
+    Route::get('/mmsy-dashboard/view/{fy}/{status_id}/{type}', 'extractFromCounts')->name('extractcounts');
     Route::get('/login', 'login')->name('login');
     Route::get('/faqs', 'faqs')->name('faqs');
     Route::post('/login', 'loginRequest')->name('login.request');

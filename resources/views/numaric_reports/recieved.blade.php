@@ -38,6 +38,7 @@
                                     <th class="text-right">By Bank</th>
                                     <th class="text-right">For DLC</th>
                                     <th class="text-right">At Bank</th>
+                                    <th class="text-right">Total</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -87,17 +88,23 @@
                                                         {{ $yearData['Pending At Bank'] }}
                                                     </a>
                                                 </td>
+                                                <td class="text-right">
+                                                    <b>
+                                                    {{ $yearData['Received'] + $yearData['Approved'] + $yearData['Rejected By DLC'] + $yearData['Rejected By Bank'] + $yearData['Pending For DLC'] + $yearData['Pending At Bank'] }}
+                                                    </b>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     @endif
                                 @endforeach
                                     <th scope="row" colspan="3" class="text-center">Total</th>
-                                    <td class="text-right">{{ $totals['Received'] }}</td>
-                                    <td class="text-right">{{ $totals['Approved'] }}</td>
-                                    <td class="text-right">{{ $totals['RejectedByDLC'] }}</td>
-                                    <td class="text-right">{{ $totals['RejectedByBank'] }}</td>
-                                    <td class="text-right">{{ $totals['PendingForDLC'] }}</td>
-                                    <td class="text-right">{{ $totals['PendingAtBank'] }}</td>
+                                    <td class="text-right"><b>{{ $totals['Received'] }}</b></td>
+                                    <td class="text-right"><b>{{ $totals['Approved'] }}</b></td>
+                                    <td class="text-right"><b>{{ $totals['RejectedByDLC'] }}</b></td>
+                                    <td class="text-right"><b>{{ $totals['RejectedByBank'] }}</b></td>
+                                    <td class="text-right"><b>{{ $totals['PendingForDLC'] }}</b></td>
+                                    <td class="text-right"><b>{{ $totals['PendingAtBank'] }}</b></td>
+                                    <td class="text-right"><b>{{ $totals['Received'] + $totals['Approved'] + $totals['RejectedByDLC'] + $totals['RejectedByBank'] + $totals['PendingForDLC'] + $totals['PendingAtBank'] }}</b></td>
                                 </tr>
                             </tbody>
                         </table>

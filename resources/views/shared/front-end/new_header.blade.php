@@ -12,10 +12,10 @@
         <div class="nav navcustommain">
             <button id="mobile-toggle">☰</button>
             <ul class="nav-ul">
-                <li><a href="#">Home</a></li>
+                <li><a href="/">Home</a></li>
                 <li><a href="#">Notification</a></li>
                 <li><a href="#">Operational Guidelines</a></li>
-                <li><a href="#">Login</a></li>
+                <li><a href="{{ route("login") }}">Login</a></li>
             </ul>
         </div>
     
@@ -42,15 +42,15 @@
         </div>
      </div>
 
-<!-- notification started -->
-<div class="container notification_custom">
-    <div class="notification-news">
-        <div class="update col-md-3"> NOTIFICATION</div>
-        <marquee width="100%" class="col-md-9" direction="left" vspace="8px">
-            Add some text | Click here to download The Notifications will keep scrolling horizontally | NOTIFICATION |
-        </marquee>
+    <!-- notification started -->
+    <div class="container notification_custom">
+        <div class="notification-news">
+            <div class="update col-md-3"> NOTIFICATION</div>
+            <marquee width="100%" class="col-md-9" direction="left" vspace="8px">
+                Add some text | Click here to download The Notifications will keep scrolling horizontally | NOTIFICATION |
+            </marquee>
+        </div>
     </div>
-</div>
 
 
 
@@ -58,31 +58,31 @@
  
     <!-- card section end -->
     
-    <div class="independence_and_achivement">
-        {{-- <h3>On this independence day add more freedom to your lives</h3> --}}
-        <div class="achievements">
-            <h2>Achivements</h2>
-             <ul class="achivelist">
-                <li>Total 8613 projects passed</li>
-                <li>23655 employment proposed</li>
-                <li>Total 5347 Industries established</li>
-                <li>1370 emplyoment generated </li>
-                <li>INR 886.32 Cr investment Made</li>
-                <li>INR 1600.68 Cr proposed investment</li>
-             </ul>
-    
+        <div class="independence_and_achivement">
+            {{-- <h3>On this independence day add more freedom to your lives</h3> --}}
+            <div class="achievements">
+                <h2>Achivements</h2>
+                <ul class="achivelist">
+                    <li>Total 8613 projects passed</li>
+                    <li>23655 employment proposed</li>
+                    <li>Total 5347 Industries established</li>
+                    <li>1370 emplyoment generated </li>
+                    <li>INR 886.32 Cr investment Made</li>
+                    <li>INR 1600.68 Cr proposed investment</li>
+                </ul>
+        
+            </div>
         </div>
-    </div>
-    <!-- sukhu image section-->
-    <div class="cm_section">
-    
-        <img src="{{ asset('images/minister1.png') }}" class="industrial_minister"/>
-        <img src="images/cm.png" class="cm_image"/>
-    </div>
-    <div class="banner_section">
-        <img src="{{ asset('images/namebanner1.png') }}" class="name_banner_one"/>
-        <img src="{{ asset('images/namebanner2.png') }}" class="name_banner_two"/>
-    </div>
+        <!-- sukhu image section-->
+        <div class="cm_section">
+        
+            <img src="{{ asset('images/minister1.png') }}" class="industrial_minister"/>
+            <img src="images/cm.png" class="cm_image"/>
+        </div>
+        <div class="banner_section">
+            <img src="{{ asset('images/namebanner1.png') }}" class="name_banner_one"/>
+            <img src="{{ asset('images/namebanner2.png') }}" class="name_banner_two"/>
+        </div>
     
     
     </div>

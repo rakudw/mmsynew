@@ -9,6 +9,7 @@ use App\Mail\LoginOtpMail;
 use App\Models\Event;
 use App\Models\News;
 use App\Models\Otp;
+use App\Models\Region;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -20,6 +21,7 @@ use App\Models\Banner;
 use App\Models\User;
 use App\Models\Application;
 use App\Models\Usefultip;
+use App\Enums\ApplicationStatusEnum;
 
 class HomeController extends Controller
 {
@@ -187,5 +189,276 @@ class HomeController extends Controller
         }
         file_put_contents(app_path('../database/json/panchayats_formated.json'), json_encode($result));
         dd($result);
+    }
+    public function mmsyDashboard(){
+        $monthStartDate = Carbon::now()->startOfMonth();
+        $weekStartDate = Carbon::now()->startOfDay();
+        // Calculate the start date for the current month
+        for ($i = 0; $i < 12; $i++) {
+            // echo $monthStartDate;
+            // Calculate the end date for the current month
+            $monthEndDate = $monthStartDate->copy()->endOfMonth();
+            $monthName = $monthStartDate->format('M'); // Example: "Apr 2023"
+            // Count applications for the current month
+            $monthlyCount = Application::forCurrentUser()
+                ->whereBetween('created_at', [$monthStartDate, $monthEndDate])
+                ->count();
+            $senctionedMonthlyCount = Application::forCurrentUser()->where('status_id', '>=', ApplicationStatusEnum::PENDING_FOR_LOAN_DISBURSEMENT->id())
+            ->whereBetween('created_at', [$monthStartDate, $monthEndDate])
+            ->count();
+
+            // Add monthly count to the monthlyCounts array
+           
+            $monthlyLabels[]= $monthName;
+            $monthlyCounts[]= $monthlyCount;
+            $senctionedMonthlyCouns[]= $senctionedMonthlyCount;
+
+            // Move to the next month
+            $monthStartDate->subMonth();
+        }
+
+        // Weekly
+        // Calculate the start date for the current week
+        for ($i = 0; $i < 7; $i++) {
+            // Calculate the end date for the current day
+            $weekEndDate = $weekStartDate->copy()->endOfDay();
+            $dayName = $weekStartDate->format('D'); // Example: "Sun"
+            $dayNumber = $weekStartDate->format('d'); // Example: "01"
+            // Count applications for the current day
+            $dailyCount = Application::forCurrentUser()
+                ->whereBetween('created_at', [$weekStartDate, $weekEndDate])
+                ->count();
+
+            // Add daily count to the weeklyCounts array
+            // Count applications for the current day
+            $dailyCount = Application::forCurrentUser()
+            ->whereDate('created_at', $weekStartDate->format('Y-m-d'))
+            ->count();
+
+            // Add daily data to the weeklyData array
+            $weeklyLabels[]= $dayName;
+            $weeklyCounts[]= $dailyCount;
+
+            // Move to the next day
+            $weekStartDate->subDay();
+        }
+        $weeklyCounts = array_reverse($weeklyCounts);
+        $monthlyCounts = array_reverse($monthlyCounts);
+        $monthlyLabels = array_reverse($monthlyLabels);
+        $weeklyLabels = array_reverse($weeklyLabels);
+        $senctionedMonthlyCouns = array_reverse($senctionedMonthlyCouns);
+        // PichartData
+        $generalCount = Application::whereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.owner.social_category_id'))) LIKE ?", ['%' . 601 . '%'])->count();
+
+        $scCount = Application::whereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.owner.social_category_id'))) LIKE ?", ['%' . 602 . '%'])->count();
+
+        $stCount = Application::whereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.owner.social_category_id'))) LIKE ?", ['%' . 603 . '%'])->count();
+
+        $obcCount = Application::whereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.owner.social_category_id'))) LIKE ?", ['%' . 604 . '%'])->count();
+
+        $minorityCount = Application::whereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.owner.belongs_to_minority'))) LIKE ?", ['%' . 'yes' . '%'])->count();
+        $categoryCountsForPie = [$generalCount, $scCount, $stCount, $obcCount, $minorityCount];
+        // PichartData
+
+        // Get TotalFYCount 
+        $fyWiseapplicationCount = $this->getTotalFyDataWithCount()['dataPoints'];
+        $fyWiseapplicationCountTotals = $this->getTotalFyDataWithCount()['totals'];
+        // Get TotalFYCount 
+
+        $this->addJs('resources/material/js/plugins/chartjs.min.js');
+        return view('home.mmsy_dashboard',compact('monthlyCounts','monthlyLabels','senctionedMonthlyCouns','weeklyCounts','weeklyLabels','categoryCountsForPie','fyWiseapplicationCount','fyWiseapplicationCountTotals'));
+    }
+    public function getTotalFyDataWithCount(){
+        $dataPoints = [];
+        $selectedFiscalYears = ['2020-2021', '2021-2022', '2022-2023', '2023-2024'];
+        $totals = [
+            'Received Application' => 0,
+            'Forwarded To Bank' => 0,
+            '60% Subsidy Released' => 0,
+            'Total Subsidy Released' => 0,
+        ];
+        foreach ($selectedFiscalYears as $fiscalYear) {
+            list($startYear, $endYear) = explode('-', $fiscalYear);
+
+            $startDate = "{$startYear}-04-01";
+            $endDate = "{$endYear}-03-31";
+
+            // Build queries to count data points
+
+            $receivedCount = Application::where('status_id', '>', 308)
+                ->whereBetween('created_at', [$startDate, $endDate])
+                ->count();
+
+            $forwardedToBankCount = Application::whereIn('status_id', [311])
+                ->whereBetween('created_at', [$startDate, $endDate])
+                ->count();
+
+            $subsidyReleased60 = Application::whereIn('status_id', [315])
+                ->whereBetween('created_at', [$startDate, $endDate])
+                ->count();
+
+            $subsidyReleasedTotal = Application::whereIn('status_id', [315,317])
+                ->whereBetween('created_at', [$startDate, $endDate])
+                ->count();
+
+            $totals['Received Application'] += $receivedCount;
+            $totals['Forwarded To Bank'] += $forwardedToBankCount;
+            $totals['60% Subsidy Released'] += $subsidyReleased60;
+            $totals['Total Subsidy Released'] += $subsidyReleasedTotal;
+            // Create an array for the current fiscal year's data points
+            $fiscalYearData = [
+                'Year' => $fiscalYear,
+                'Received Application' => $receivedCount,
+                'Forwarded To Bank' => $forwardedToBankCount,
+                '60% Subsidy Released' => $subsidyReleased60,
+                'Total Subsidy Released' => $subsidyReleasedTotal,
+            ];
+            
+
+            // Add the fiscal year data to the array
+            $dataPoints[] = $fiscalYearData;
+        }
+        $totalsArray = [
+            'Year' => 'Total',
+            'Received Application' => $totals['Received Application'],
+            'Forwarded To Bank' => $totals['Forwarded To Bank'],
+            '60% Subsidy Released' => $totals['60% Subsidy Released'],
+            'Total Subsidy Released' => $totals['Total Subsidy Released'],
+        ];
+        return [
+            'dataPoints' => $dataPoints,
+            'totals' => $totalsArray,
+        ];
+
+    }
+    public function extractFromCounts(Request $request, $fy, $status_id, $type){
+        $title = 'District Wise Data for Application '.$type.' in FY ('.$fy.')';
+        $districts = Region::where('type_id',404)->select('name','id')->get();
+        $districtsIds = Region::where('type_id',404)->pluck('id')->values();
+        $selectedFY = $fy;
+       $reportData = $this->numaricQueryRecieved($districtsIds,$selectedFY,$status_id,$type);
+        //    dd($reportData);
+       $totals = null;
+
+        foreach ($reportData as $item) {
+            if (isset($item['Total'])) {
+                $totals = $item['Total'];
+                break;
+            }
+        }
+        return view('home.extracted_counts',compact('districts','title','reportData','totals'));
+    }
+
+    public function numaricQueryRecieved($districtIds, $selectedFY,$status_id,$type)
+    {
+        $selectedFiscalYears = $selectedFY && $selectedFY !== "All" ? [$selectedFY] : ['2020-2021', '2021-2022', '2022-2023', '2023-2024'];
+    
+        $reportData = [];
+    
+        // Initialize totals
+        $totals = [
+            'General' => 0,
+            'SC' => 0,
+            'ST' => 0,
+            'OBC' => 0,
+            'Minority' => 0
+        ];
+    
+        // Loop through each district
+        foreach ($districtIds as $districtId) {
+            $districtData = [
+                'District' => Region::find($districtId)->name, 
+                'DistrictId' => $districtId, 
+                'Year' => [],
+            ];
+    
+            // Loop through each fiscal year
+            foreach ($selectedFiscalYears as $fiscalYear) {
+                list($startYear, $endYear) = explode('-', $fiscalYear);
+    
+                $startDate = "{$startYear}-04-01";
+                $endDate = "{$endYear}-03-31";
+                $baseQuery = Application::where('region_id', $districtId);
+
+                $generalQuery = clone $baseQuery;
+                $scQuery = clone $baseQuery;
+                $stQuery = clone $baseQuery;
+                $obcQuery = clone $baseQuery;
+                $minorityQuery = clone $baseQuery;
+
+                if ($type == 'Application Recieved') {
+                    $generalQuery->where('status_id', '>', 308);
+                    $scQuery->where('status_id', '>', 308);
+                    $stQuery->where('status_id', '>', 308);
+                    $obcQuery->where('status_id', '>', 308);
+                    $minorityQuery->where('status_id', '>', 308);
+                } elseif ($type == 'Total Subsidy Released') {
+                    $generalQuery->whereIn('status_id', [315, 317]);
+                    $scQuery->whereIn('status_id', [315, 317]);
+                    $stQuery->whereIn('status_id', [315, 317]);
+                    $obcQuery->whereIn('status_id', [315, 317]);
+                    $minorityQuery->whereIn('status_id', [315, 317]);
+                } else {
+                    $generalQuery->where('status_id', $status_id);
+                    $scQuery->where('status_id', $status_id);
+                    $stQuery->where('status_id', $status_id);
+                    $obcQuery->where('status_id', $status_id);
+                    $minorityQuery->where('status_id', $status_id);
+                }
+
+                $generalCount = $generalQuery
+                    ->whereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.owner.social_category_id'))) LIKE ?", ['%' . 601 . '%'])
+                    ->whereBetween('created_at', [$startDate, $endDate])
+                    ->count();
+
+                $scCount = $scQuery
+                    ->whereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.owner.social_category_id'))) LIKE ?", ['%' . 602 . '%'])
+                    ->whereBetween('created_at', [$startDate, $endDate])
+                    ->count();
+
+                $stCount = $stQuery
+                    ->whereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.owner.social_category_id'))) LIKE ?", ['%' . 603 . '%'])
+                    ->whereBetween('created_at', [$startDate, $endDate])
+                    ->count();
+
+                $obcCount = $obcQuery
+                    ->whereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.owner.social_category_id'))) LIKE ?", ['%' . 604 . '%'])
+                    ->whereBetween('created_at', [$startDate, $endDate])
+                    ->count();
+
+                $minorityCount = $minorityQuery
+                    ->whereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.owner.belongs_to_minority'))) LIKE ?", ['%' . 'yes' . '%'])
+                    ->whereBetween('created_at', [$startDate, $endDate])
+                    ->count();
+
+                // Update the totals
+                $totals['General'] += $generalCount;
+                $totals['SC'] += $scCount;
+                $totals['ST'] += $stCount;
+                $totals['OBC'] += $obcCount;
+                $totals['Minority'] += $minorityCount;
+    
+                // Create an array for the current fiscal year's data
+                $fiscalYearData = [
+                    'Year' => $fiscalYear,
+                    'General' => $generalCount,
+                    'SC' => $scCount,
+                    'ST' => $stCount,
+                    'OBC' => $obcCount,
+                    'Minority' => $minorityCount,
+                ];
+    
+                // Add the fiscal year data to the 'Year' key
+                $districtData['Year'][] = $fiscalYearData;
+            }
+    
+            // Add the district data to the report data
+            $reportData[] = $districtData;
+        }
+    
+        // Add the totals to the report data
+        $reportData[] = ['Total' => $totals];
+    
+        return $reportData;
     }
 }
