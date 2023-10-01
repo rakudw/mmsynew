@@ -28,15 +28,15 @@
                 <div class="mmsy_Portal">
                 <h5>MMSY PORTAL</h5>
                 </div>
-              <button class="nav-link active" id="v-pills-hn-tab" data-bs-toggle="pill" data-bs-target="#v-pills-hn" type="button" role="tab" aria-controls="v-pills-hn" aria-selected="true"><i class="fa-solid fa-bell"></i>HOME</button>
-              <button class="nav-link" id="v-pills-n-tab" data-bs-toggle="pill" data-bs-target="#v-pills-n" type="button" role="tab" aria-controls="v-pilla-n=" aria-selected="false"><i class="fa-solid fa-bell"></i>HELPDESK NO </button>
-              <button class="nav-link" id="v-pills-nol-tab" data-bs-toggle="pill" data-bs-target="#v-pills-nol" type="button" role="tab" aria-controls="v-pills-nol" aria-selected="false"><i class="fa-solid fa-bell"></i>SUCCESS STORIES</button>
-              <button class="nav-link" id="v-pills-ff-tab" data-bs-toggle="pill" data-bs-target="#v-pills-ff" type="button" role="tab" aria-controls="v-pills-ff" aria-selected="false"><i class="fa-solid fa-bell"></i>MMSY DASHBOARD</button>
-              <button class="nav-link" id="v-pills-fr-tab" data-bs-toggle="pill" data-bs-target="#v-pills-fr" type="button" role="tab" aria-controls="v-pills-fr" aria-selected="false"><i class="fa-solid fa-bell"></i>VIDEO TUTORIAL</button>
+              <button class="nav-link active" id="v-pills-hn-tab" data-bs-toggle="pill" data-bs-target="#v-pills-hn" type="button" role="tab" aria-controls="v-pills-hn" aria-selected="true"><i class="fa-solid fa-house-chimney"></i>HOME</button>
+              <button class="nav-link" id="v-pills-n-tab" data-bs-toggle="pill" data-bs-target="#v-pills-n" type="button" role="tab" aria-controls="v-pilla-n=" aria-selected="false"><i class="fa-solid fa-house-chimney"></i>HELPDESK NO </button>
+              <button class="nav-link" id="v-pills-nol-tab" data-bs-toggle="pill" data-bs-target="#v-pills-nol" type="button" role="tab" aria-controls="v-pills-nol" aria-selected="false"><i class="fa-solid fa-house-chimney"></i>SUCCESS STORIES</button>
+              <button class="nav-link" id="v-pills-ff-tab" data-bs-toggle="pill" data-bs-target="#v-pills-ff" type="button" role="tab" aria-controls="v-pills-ff" aria-selected="false"><i class="fa-solid fa-wrench"></i>MMSY DASHBOARD</button>
+              <button class="nav-link" id="v-pills-fr-tab" data-bs-toggle="pill" data-bs-target="#v-pills-fr" type="button" role="tab" aria-controls="v-pills-fr" aria-selected="false"><i class="fa-solid fa-video"></i>VIDEO TUTORIAL</button>
               <button class="nav-link" id="v-pills-faq-tab" data-bs-toggle="pill" data-bs-target="#v-pills-faq" type="button" role="tab" aria-controls="v-pills-faq" aria-selected="false"><i class="fa-solid fa-bell"></i>NOTIFICATIONS</button>
-              <button class="nav-link" id="v-pills-faq-tab" data-bs-toggle="pill" data-bs-target="#v-pills-faq" type="button" role="tab" aria-controls="v-pills-faq" aria-selected="false"><i class="fa-solid fa-bell"></i>GRIEVANCES</button>
-              <button class="nav-link" id="v-pills-g-tab" data-bs-toggle="pill" data-bs-target="#v-pills-g" type="button" role="tab" aria-controls="v-pills-g" aria-selected="false"><i class="fa-solid fa-bell"></i>FEEDBACK FORM</button>
-              <button class="nav-link" id="v-pills-g-tab" data-bs-toggle="pill" data-bs-target="#v-pills-g" type="button" role="tab" aria-controls="v-pills-g" aria-selected="false"><i class="fa-solid fa-bell"></i>FREQUENTLY ASK QUESTIONS</button>
+              <button class="nav-link" id="v-pills-faq-tab" data-bs-toggle="pill" data-bs-target="#v-pills-faq" type="button" role="tab" aria-controls="v-pills-faq" aria-selected="false"><i class="fa-solid fa-envelope"></i>GRIEVANCES</button>
+              <button class="nav-link" id="v-pills-g-tab" data-bs-toggle="pill" data-bs-target="#v-pills-g" type="button" role="tab" aria-controls="v-pills-g" aria-selected="false"><i class="fa-solid fa-envelope"></i>FEEDBACK FORM</button>
+              <button class="nav-link" id="v-pills-g-tab" data-bs-toggle="pill" data-bs-target="#v-pills-g" type="button" role="tab" aria-controls="v-pills-g" aria-selected="false"><i class="fa-solid fa-envelope"></i>REQUENTLY ASK QUESTIONS</button>
               </div>
             </div>
             <div class="tab-content col-md-9" id="v-pills-tabContent">
@@ -47,7 +47,7 @@
                       <div class="col-md-4 col-12">
                         <div class="card-dark">
                           <div class="card-body">
-                            <img src="{{ asset("images/Rectangle4.png") }}">
+                            <img src="{{ asset("images/newloan.png") }}">
                             <p class="card-text">Application For New Unit</p>
                             <p class="card-text"><button class="btn btn-success">Apply</button></p>
                           </div>
@@ -56,7 +56,7 @@
                       <div class="col-md-4 col-12">
                         <div class="card-light">
                           <div class="card-body">
-                            <img src="{{ asset("images/Rectangle4.png") }}">
+                            <img src="{{ asset("images/non-individual.png") }}">
                             <p class="card-text">Registered Applicant</p> 
                             <p class="card-text"><button class="btn btn-success">Login</button></p>
                           </div>
@@ -65,7 +65,7 @@
                       <div class="col-md-4 col-12">
                         <div class="card-dark">
                           <div class="card-body">
-                            <img src="{{ asset("images/Rectangle4.png") }}">
+                            <img src="{{ asset("images/Official.png") }}">
                             <p class="card-text">Check Status</p>
                             <p class="card-text"><button class="btn btn-success">Login</button></p>
                           </div>
@@ -76,7 +76,7 @@
                       <div class="col-md-4 col-12">
                         <div class="card-light">
                           <div class="card-body">
-                            <img src="{{ asset("images/Rectangle4.png") }}">
+                            <img src="{{ asset("images/banking.png") }}">
                             <p class="card-text">Bank Login</p>
                             <p class="card-text"><button class="btn btn-success">Login</button></p>
                           </div>
@@ -85,7 +85,7 @@
                       <div class="col-md-4 col-12">
                         <div class="card-dark">
                           <div class="card-body">
-                            <img src="{{ asset("images/Rectangle4.png") }}">
+                            <img src="{{ asset("images/department.png") }}">
                             <p class="card-text">Department Login</p> 
                             <p class="card-text"><button class="btn btn-success">Login</button></p>
                           </div>
@@ -188,7 +188,7 @@
             </div>
           </div>
         </div>
-    
+              <div class="container-fluid">
               <div class="footer-content ">
                 <div class="row ">
                     <div class="col-lg-5">
@@ -212,6 +212,7 @@
                       </div>
                     </div>
                   </div>
+                </div>
             </div>
           </div>
     
@@ -220,18 +221,80 @@
     {
         background-color: #727272!important; 
         width: 100%!important;
+       
+        
     }
-    .nav-link:hover
+    #v-pills-tab .nav-link:hover
     {
         background-color: #727272!important; 
         width: 100%!important;
-        margin: 5px auto;
+       
     }
+    #v-pills-hn-tab,#v-pills-n-tab,#v-pills-nol-tab,#v-pills-ff-tab,#v-pills-fr-tab,#v-pills-faq-tab,#v-pills-g-tab
+{
+
+column-gap: 15px;
+display: flex;
+color: #010101;
+font-size: 16px;
+font-weight: 400!important;
+margin: 20px 0px !important;
+}
+
+.main_mmsy img
+ {
+    width: 50px!important;
+}
     .wrapper{
       margin-bottom: 30px;
     }
     .mmsy_outer{
       width: 100%
     }
+    .caution
+    {
+    width: 100%;
+    height: auto;
+    margin: 2rem 0 0.8rem 0;
+    position: relative;
+    border: 1px solid #198754;
+    }
+    .caution-main
+    {
+    background-color: #E36E2C;
+    width: 100%;
+    height: auto;
+    padding-bottom: 1.1rem;
+   }
+   .caution .caution-main .caution-head 
+   {
+    padding: 7px 15px 0px 15px;
+    width: auto;
+    height: 2.2rem;
+    background-color: #198754;
+    border: 1px solid #198754;
+    border-radius: 15px;
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.caution-main .caution-head h5
+ {
+    color: #fff;
+    font-size: 15px;
+}
+.caution-notice 
+{
+    padding: 0 0.5rem;
+    width: auto;
+    height: auto;
+}
+.caution-notice p 
+{
+    text-align: center;
+    padding-top: 2.2rem;
+    color: #fff
+}
 </style>
 @endsection

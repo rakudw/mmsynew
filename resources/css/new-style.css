@@ -6,6 +6,7 @@
 *{
     margin: 0;
     padding: 0;
+    font-family: 'Oswald', sans-serif;
 }
 
 .wrapper{
@@ -527,9 +528,10 @@ margin-top: 3px;
 {
 border: 1px solid #C2C0C0;
 background-color: #EFEFEF;
-height: 840px;
+height: 860px;
 }
 .mmsy_Portal
+
 {
 background-color: #9D9D9D;
 text-align: center;
@@ -542,26 +544,21 @@ font-size: 20px;
 font-weight: bold;
 
 }
-.nav-pills .nav-link.active
+.nav-pills .nav-link.active 
 {
-background-color: #727272; 
-margin-left: 10px;
-margin-right: 10px;
-padding: 10px!important;
-border-radius: 50px;
+    background-color: #727272!important;
+    width: 100%!important;
 }
-#v-pills-hn-tab
-{
-margin-top: 20px;
-}
+
 #v-pills-hn-tab,#v-pills-n-tab,#v-pills-nol-tab,#v-pills-ff-tab,#v-pills-fr-tab,#v-pills-faq-tab,#v-pills-g-tab
 {
-padding: 20px;
+
 column-gap: 15px;
 display: flex;
 color: #010101;
 font-size: 16px;
 font-weight: 500;
+margin: 20px 0px !important;
 }
 i.fa-solid.fa-bell
 {
@@ -578,7 +575,7 @@ width: 100%;
 width: 100%;
 height: auto;
 text-align: center;
-margin: 1rem auto;
+
 }
 .img-fluid
 {
@@ -637,7 +634,7 @@ font-weight: bold;
 
 background-color: #FFA23D;
 margin: 10px;
-height: 150px;
+
 padding: 10px;
 border-radius: 10px;
 }
@@ -645,14 +642,11 @@ border-radius: 10px;
 {
 background-color: #EFEFEF;
 margin: 10px;
-height: 150px;
+
 padding: 10px;
 border-radius: 10px;
 }
-.main_mmsy img
-{  
-width: 145px;
-}
+
 p.card-text
 {
 font-size: 20px;
