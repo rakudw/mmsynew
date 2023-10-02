@@ -458,4 +458,8 @@ class HomeController extends Controller
     
         return $reportData;
     }
+    // Grievances Form
+    public function grievancesForm(){
+        dd('sd');
+    }
 }
