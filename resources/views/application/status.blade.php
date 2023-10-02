@@ -16,7 +16,7 @@
 
 @section('content')
     @include('shared.front-end.applicant_header')
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <div class="row " id="formHolder">
         <div class="col-12">
             @if($applications)
@@ -73,17 +73,31 @@
                             <div class="card-header">{{ __('Enter Any of Your Email, Number, or Application ID') }}</div>
             
                             <div class="card-body">
-                                <form method="POST" action="{{ route('application.login') }}">
-                                    @csrf
-            
-                                    {{-- Single Input Field with Combined Placeholder and Title --}}
+                            <form method="POST" action="{{ route('application.login') }}">
+                                @csrf
+
+                                {{-- Single Input Field with Combined Placeholder and Title --}}
+                                <div class="text-center">
                                     <div class="form-group">
                                         <label for="combinedInput">{{ __('Email, Number, and Application ID') }}</label>
-                                        <input type="text" class="form-control" id="combinedInput" name="combinedInput" placeholder="{{ __('Email, Number, or Application ID') }}" title="{{ __('Email, Number, and Application ID') }}" required>
+                                        <input type="text" class="form-control" id="combinedInput" name="combinedInput"
+                                            placeholder="{{ __('Email, Number, or Application ID') }}"
+                                            title="{{ __('Email, Number, and Application ID') }}" required>
                                     </div>
-            
-                                    <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
-                                </form>
+
+                                    {{-- OTP Input Field (Initially Hidden) --}}
+                                    <div class="form-group otp-input" style="display: none;">
+                                        <label for="otp">{{ __('OTP') }}</label>
+                                        <input type="text" class="form-control" id="otp" name="otp" required>
+                                    </div>
+                                    
+                                    {{-- Send OTP Button --}}
+                                    <button type="button" class="btn btn-primary send-otp-btn">{{ __('Send OTP') }}</button>
+                                    
+                                    {{-- Submit Button (Initially Hidden) --}}
+                                    <button type="submit" class="btn btn-primary submit-btn" style="display: none;">{{ __('Submit') }}</button>
+                                </div>
+                            </form>
                             </div>
                         </div>
                     </div>
@@ -119,3 +133,41 @@
         border-right: 1px solid black !important;
     }
 </style>
+@section('scripts')
+<script>
+$(document).ready(function() {
+    // Function to show OTP input field and hide Send OTP button
+    function showOtpInput() {
+        $('.otp-input').show();
+        $('.send-otp-btn').hide();
+    }
+
+    // Function to show Submit button after OTP input
+    function showSubmitButton() {
+        $('.submit-btn').show();
+    }
+
+    // Event listener for Send OTP button click
+    $('.send-otp-btn').on('click', function() {
+        // Add your logic here to send OTP via email or SMS
+
+        // Once OTP is sent, show OTP input field
+        showOtpInput();
+    });
+
+    // Event listener for form submission
+    $('form').on('submit', function(e) {
+        // Prevent form submission if OTP input is not visible
+        if ($('.otp-input').is(':hidden')) {
+            e.preventDefault();
+            alert('Please enter OTP first.');
+        }
+    });
+
+    // Event listener for OTP input blur (assuming OTP validation is successful)
+    $('#otp').on('blur', function() {
+        showSubmitButton();
+    });
+});
+</script>
+@endsection

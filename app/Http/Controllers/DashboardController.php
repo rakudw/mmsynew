@@ -25,7 +25,7 @@ class DashboardController extends Controller
     public function index()
     {
         if (!$this->user()->roles()->count()) {
-            return redirect()->route('applications.list');
+            return redirect()->route('application.newstatus');
         }
         // Get Weekly and Monthly Application counts 
         $monthStartDate = Carbon::now()->startOfMonth();

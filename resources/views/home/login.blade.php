@@ -125,7 +125,7 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <hr />
-                                                <a href="{{ route('application.newstatus') }}">Applicant Login</a>
+                                                <a href="{{ route('login.applicant') }}">Applicant Login</a>
                                                 <h3>Login Using</h3>
                                             </div>
                                         </div>

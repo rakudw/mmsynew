@@ -48,7 +48,6 @@ class HomeController extends Controller
     {
         // dd(request()->query('source'));
         $source = request()->query('source');
-
         // You can use $source to determine the source and customize your logic
         if ($source === 'existing_application') {
             request()->session()->put('_key', Str::random(8));
@@ -61,6 +60,30 @@ class HomeController extends Controller
         }
         request()->session()->put('_key', Str::random(8));
         return view('home.login', [
+            'captchaUrl' => captcha_src(),
+        ]);
+    }
+public function applicant_login()
+    {
+        // dd(request()->query('source'));
+        $source = request()->query('source');
+        if(auth()->user()){
+            $applications = Application::where('created_by',auth()->user()->id)->get();
+        }else{
+            $applications = [];
+        }
+        // You can use $source to determine the source and customize your logic
+        if ($source === 'existing_application') {
+            request()->session()->put('_key', Str::random(8));
+            return view('home.otplogin', [
+                'captchaUrl' => captcha_src(),
+            ]);
+        }
+        if ($this->user()) {
+            return redirect('dashboard');
+        }
+        request()->session()->put('_key', Str::random(8));
+        return view('home.status', compact('applications'), [
             'captchaUrl' => captcha_src(),
         ]);
     }
@@ -122,7 +145,7 @@ class HomeController extends Controller
 
         // If not found in either table, return an error
         if (!$user && !$applicationUser) {
-            return response()->json(['error' => 'Identity not found in users or application table','status' => 404], 404);
+            return response()->json(['error' => 'User not found','status' => 404], 404);
         }
 
         // Rest of your OTP generation and sending logic...
@@ -145,7 +168,8 @@ class HomeController extends Controller
 
             if (!env('APP_DEBUG')) {
                 if ($currentOtp->isForEmail()) {
-                    Mail::to($identity)->send(new LoginOtpMail($currentOtp));
+                  $result = Mail::to($identity)->send(new LoginOtpMail($currentOtp));
+                //   return response()->json( $result);
                 } else {
                     OtpSmsJob::dispatch($currentOtp);
                 }
@@ -457,9 +481,5 @@ class HomeController extends Controller
         $reportData[] = ['Total' => $totals];
     
         return $reportData;
-    }
-    // Grievances Form
-    public function grievancesForm(){
-        dd('sd');
     }
 }

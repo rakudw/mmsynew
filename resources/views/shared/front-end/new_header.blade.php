@@ -14,9 +14,10 @@
             <ul class="nav-ul">
                 <li><a href="/">Home</a></li>
                 <li><a href="/application/new">Apply New</a></li>
-                <li><a href="/application/status">Application Status</a></li>
+                <!-- <li><a href="/application/status">Applicant Login</a></li> -->
+                <li><a href="{{ auth()->user() ? route("logout") : route("login.applicant") }}">{{ auth()->user() ? 'Logout' : 'Applicant Login' }}</a></li>
                 {{-- <li><a href="#">Operational Guidelines</a></li> --}}
-                <li><a href="{{ route("login") }}">Login</a></li>
+                <li><a href="{{ route("login") }}">Dipartment Login</a></li>
             </ul>
         </div>
     

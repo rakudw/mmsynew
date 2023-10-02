@@ -31,6 +31,7 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/mmsy-dashboard/view/{fy}/{status_id}/{type}', 'extractFromCounts')->name('extractcounts')->withoutMiddleware(['auth']);
     Route::get('/grievances', 'grievancesForm')->name('grievances');
     Route::get('/login', 'login')->name('login');
+    Route::get('/applicant-login', 'applicant_login')->name('login.applicant');
     Route::get('/faqs', 'faqs')->name('faqs');
     Route::post('/login', 'loginRequest')->name('login.request');
     Route::get('/recover-account', 'recover')->name('account.recover');
