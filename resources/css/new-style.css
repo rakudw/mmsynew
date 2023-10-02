@@ -11,12 +11,12 @@
 
 .wrapper{
     /*background-image: url('../../public/images/backtwo.jpg');*/
-    /* background-image: url('../../public/images/SHIMLA.png'); */
+    background: url(https://t3.ftcdn.net/jpg/05/01/28/98/360_F_501289843_4ITbthNCydFQGgJmoZe4IQKchItBubqZ.jpg);
     background-position: center;
     background-size: cover;
     position: relative;
     overflow: hidden;
-    background: #efefef;
+    /* background: #efefef; */
    
 }
 div#card-4 {
