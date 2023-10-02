@@ -86,6 +86,7 @@
     
     
     </div>
+    </div>
     <script>
         $(document).ready(function () {
             var mobileToggle = $("#mobile-toggle");

@@ -200,10 +200,9 @@ class HomeController extends Controller
             $monthEndDate = $monthStartDate->copy()->endOfMonth();
             $monthName = $monthStartDate->format('M'); // Example: "Apr 2023"
             // Count applications for the current month
-            $monthlyCount = Application::forCurrentUser()
-                ->whereBetween('created_at', [$monthStartDate, $monthEndDate])
+            $monthlyCount = Application::whereBetween('created_at', [$monthStartDate, $monthEndDate])
                 ->count();
-            $senctionedMonthlyCount = Application::forCurrentUser()->where('status_id', '>=', ApplicationStatusEnum::PENDING_FOR_LOAN_DISBURSEMENT->id())
+            $senctionedMonthlyCount = Application::where('status_id', '>=', ApplicationStatusEnum::PENDING_FOR_LOAN_DISBURSEMENT->id())
             ->whereBetween('created_at', [$monthStartDate, $monthEndDate])
             ->count();
 
@@ -225,14 +224,12 @@ class HomeController extends Controller
             $dayName = $weekStartDate->format('D'); // Example: "Sun"
             $dayNumber = $weekStartDate->format('d'); // Example: "01"
             // Count applications for the current day
-            $dailyCount = Application::forCurrentUser()
-                ->whereBetween('created_at', [$weekStartDate, $weekEndDate])
+            $dailyCount = Application::whereBetween('created_at', [$weekStartDate, $weekEndDate])
                 ->count();
 
             // Add daily count to the weeklyCounts array
             // Count applications for the current day
-            $dailyCount = Application::forCurrentUser()
-            ->whereDate('created_at', $weekStartDate->format('Y-m-d'))
+            $dailyCount = Application::whereDate('created_at', $weekStartDate->format('Y-m-d'))
             ->count();
 
             // Add daily data to the weeklyData array
