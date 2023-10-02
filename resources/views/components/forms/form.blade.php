@@ -1,8 +1,10 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
 
-    <form class="form application-form" action="/application/save-data/" method="POST" id="applicant-form">
+    <form class="form application-form" action="{{ $application ? 'Update' : 'Save'}}/application/save-data/" method="POST" id="applicant-form">
         @csrf
         <table class="table">
             <tbody>
@@ -40,7 +42,7 @@
                                     <th>(2)</th>
                                     <th ><strong>Name of Applicant / आवेदक का नाम:</strong></th>
                                     <td colspan="4">
-                                        <input type="text" id="name" name="owner_name" required autofocus>
+                                        <input type="text" id="name" value="{{ old('owner_name', $application ? $application->data->owner->name : '') }}" name="owner_name" required autofocus>
                                         <small>Name of Applicant.</small>
                                     </td>
                                 </tr>
@@ -50,12 +52,12 @@
                                     <td colspan="4">
                                         <select class="button" id="guardian_prefix" name="owner_guardian_prefix" required>
                                             <option value="-1">--Select guardian/parent/spouse.--</option>
-                                                <option value="S/O">S/O</option>
-                                                <option value="W/O">W/O</option>
-                                                <option value="D/O">D/O</option>
-                                                <option value="C/O">C/O</option>
+                                            <option value="S/O" {{ (old('owner_guardian_prefix', $application ? $application->data->owner->guardian_prefix : '') == 'S/O') ? 'selected' : '' }}>S/O</option>
+                                            <option value="W/O" {{ (old('owner_guardian_prefix', $application ? $application->data->owner->guardian_prefix : '') == 'W/O') ? 'selected' : '' }}>W/O</option>
+                                            <option value="D/O" {{ (old('owner_guardian_prefix', $application ? $application->data->owner->guardian_prefix : '') == 'D/O') ? 'selected' : '' }}>D/O</option>
+                                            <option value="C/O" {{ (old('owner_guardian_prefix', $application ? $application->data->owner->guardian_prefix : '') == 'C/O') ? 'selected' : '' }}>C/O</option>
                                         </select>
-                                        <input  type="text" name="owner_guardian" required="required" autofocus="autofocus" data-prefix="S/O,W/O,D/O,C/O">
+                                        <input  type="text" name="owner_guardian" value="{{ old('owner_guardian', $application ? $application->data->owner->guardian : '') }}" required="required" autofocus="autofocus" data-prefix="S/O,W/O,D/O,C/O">
                                         <small>Name of the guardian/parent/spouse.</small>
                                     </td>
                                 </tr>
@@ -66,7 +68,7 @@
                                     <th>(4)</th>
                                     <th ><strong>Pincode / पिनकोड:</strong></th>
                                     <td colspan="4">
-                                        <input type="number" id="owner_pincode" name="owner_pincode" min="170000" max="179999" required>
+                                        <input type="number" id="owner_pincode" name="owner_pincode"  value="{{ old('owner_pincode', $application ? $application->data->owner->pincode : '') }}" min="170000" max="179999" required>
                                         <small>Enter Pincode</small>
                                     </td>
                                 </tr>
@@ -79,7 +81,7 @@
                                         <select class="button" id="owner_district_id" name="owner_district_id" required>
                                             <option value="-1">--Select District--</option>
                                             @foreach($diss as $dis)
-                                                <option value="{{ $dis->id }}">{{ $dis->name }}</option>
+                                                <option value="{{ $dis->id }}" {{ (old('owner_district_id', $application ? $application->data->owner->district_id : '') == $dis->id) ? 'selected' : '' }}>{{ $dis->name }}</option>
                                             @endforeach
                                         </select>
                                         <small>Select District</small>
@@ -92,7 +94,7 @@
                                     <th ><strong>Constituency / संसदीय क्षेत्र:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="owner_constituency_id" name="owner_constituency_id" required>
-                                        <option value="-1">--Select Constituency--</option>
+                                            <option value="-1">--Select Constituency--</option>
                                         </select>
                                         <small>Select Constituency</small>
                                     </td>
@@ -104,7 +106,6 @@
                                     <th ><strong>Tehsil / तहसील:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="owner_tehsil_id" name="owner_tehsil_id" required>
-                                        <option value="-1">--Select Tehsil--</option>
                                         </select>
                                         <small>Select Tehsil</small>
                                     </td>
@@ -139,7 +140,7 @@
                                     <th></th>
                                     <th ><strong>House Number/Street/Landmark/Village name /घर क्रमांक/सड़क/सूचना/गांव का नाम:</strong></th>
                                     <td colspan="4">
-                                        <input type="text" id="owner_address" name="owner_address" required>
+                                        <input type="text" id="owner_address" name="owner_address" value="{{ old('owner_address', $application ? $application->data->owner->address : '') }}" required>
                                         <small>Enter House Number/Street/Landmark/Village name</small>
                                     </td>
                                 </tr>
@@ -148,7 +149,7 @@
                                     <th>(6)</th>
                                     <th ><strong>Mobile Number / मोबाइल नंबर:</strong><br><small>Mobile Number of the Owner</small></th>
                                     <td colspan="4">
-                                        <input type="tel" id="owner_mobile" name="owner_mobile" pattern="[1-9]{1}[0-9]{9}" required>
+                                        <input type="tel" id="owner_mobile" name="owner_mobile" value="{{ old('owner_mobile', $application ? $application->data->owner->mobile : '') }}" pattern="[1-9]{1}[0-9]{9}" required>
                                         <small>Enter Mobile Number</small>
                                     </td>
                                 </tr>
@@ -158,7 +159,7 @@
                                     <th>(7)</th>
                                     <th ><strong>Email / ईमेल:</strong></th>
                                     <td colspan="4">
-                                        <input type="email" id="owner_email" name="owner_email">
+                                        <input type="email" id="owner_email"  value="{{ old('owner_email', $application ? $application->data->owner->email : '') }}" name="owner_email">
                                         <small>Enter Email Address</small>
                                     </td>
                                 </tr>
@@ -167,7 +168,7 @@
                                     <th>(8)</th>
                                     <th ><strong>PAN Number / न नंबर:</strong></th>
                                     <td colspan="4">
-                                        <input type="text" id="pan" name="owner_pan" pattern="^([a-zA-Z]([a-zA-Z]([a-zA-Z]([a-zA-Z]([a-zA-Z]([0-9]([0-9]([0-9]([0-9]([a-zA-Z])?)?)?)?)?)?)?)?)?)?$">
+                                        <input type="text" id="pan" name="owner_pan" value="{{ old('owner_pan', $application ? $application->data->owner->pan : '') }}" pattern="^([a-zA-Z]([a-zA-Z]([a-zA-Z]([a-zA-Z]([a-zA-Z]([0-9]([0-9]([0-9]([0-9]([a-zA-Z])?)?)?)?)?)?)?)?)?)?$">
                                         <small>Enter PAN Number</small>
                                     </td>
                                 </tr>
@@ -179,9 +180,9 @@
                                     <td colspan="4">
                                         <select class="button" id="gender" name="owner_gender" required >
                                             <option value="-1">--Select Gender--</option>
-                                            <option value="Female">Female</option>
-                                            <option value="Male">Male</option>
-                                            <option value="Other">Other</option>
+                                            <option value="Female" {{ (old('owner_guardian_prefix', $application ? $application->data->owner->gender : '') == 'Female') ? 'selected' : '' }}>Female</option>
+                                            <option value="Male" {{ (old('owner_guardian_prefix', $application ? $application->data->owner->gender : '') == 'Male') ? 'selected' : '' }}>Male</option>
+                                            <option value="Other" {{ (old('owner_guardian_prefix', $application ? $application->data->owner->gender : '') == 'Other') ? 'selected' : '' }}>Other</option>
                                         </select>
                                         <small>Select Gender</small>
                                     </td>
@@ -194,10 +195,10 @@
                                     <td colspan="4">
                                         <select class="button" id="marital_status" name="owner_marital_status" required>
                                             <option value="-1">--Select Marital Status--</option>
-                                            <option value="Unmarried">Unmarried</option>
-                                            <option value="Married">Married</option>
-                                            <option value="Divorced">Divorced</option>
-                                            <option value="Widowed">Widowed</option>
+                                            <option value="Unmarried" {{ (old('owner_guardian_prefix', $application ? $application->data->owner->marital_status : '') == 'Unmarried') ? 'selected' : '' }}>Unmarried</option>
+                                            <option value="Married" {{ (old('owner_guardian_prefix', $application ? $application->data->owner->marital_status : '') == 'Married') ? 'selected' : '' }}>Married</option>
+                                            <option value="Divorced" {{ (old('owner_guardian_prefix', $application ? $application->data->owner->marital_status : '') == 'Divorced') ? 'selected' : '' }}>Divorced</option>
+                                            <option value="Widowed" {{ (old('owner_guardian_prefix', $application ? $application->data->owner->marital_status : '') == 'Widowed') ? 'selected' : '' }}>Widowed</option>
                                         </select>
                                         <small>Select Marital Status</small>
                                     </td>
@@ -207,7 +208,7 @@
                                     <th>(11)</th>
                                     <th ><strong>Date of Birth / जन्म तिथि:</strong></th>
                                     <td colspan="4">
-                                        <input type="date" name="owner_birth_date" required max="2005-12-31" min="1905-01-01">
+                                        <input type="date" name="owner_birth_date" value="{{ old('owner_birth_date', $application ? $application->data->owner->birth_date : '') }}" required max="2005-12-31" min="1905-01-01">
                                         <span id="birth_date_age" class="badge badge-info bg-dark"></span>
                                         <small>Enter Date of Birth</small>
                                     </td>
@@ -219,8 +220,8 @@
                                     <th ><strong>Specially Abled (दिव्यांग):</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="is_specially_abled" name="owner_is_specially_abled" required>
-                                            <option value="No">No</option>
-                                            <option value="Yes">Yes</option>
+                                            <option value="No" {{ (old('is_specially_abled', $application ? $application->data->owner->is_specially_abled : '') == 'No') ? 'selected' : '' }}>No</option>
+                                            <option value="Yes" {{ (old('is_specially_abled', $application ? $application->data->owner->is_specially_abled : '') == 'Yes') ? 'selected' : '' }}>Yes</option>
                                         </select>
                                         <small>Are you Specially Abled?</small>
                                     </td>
@@ -234,7 +235,7 @@
                                         <select class="button" id="social_category_id" name="owner_social_category_id" required>
                                             <option value="-1">--Select Category--</option>
                                         @foreach($cats as $cat)
-                                                <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                                <option value="{{ $cat->id }}" {{ (old('social_category_id', $application ? $application->data->owner->social_category_id : '') == $cat->id) ? 'selected' : '' }}>{{ $cat->name }}</option>
                                             @endforeach
                                         </select>
                                         <small>Select Category</small>
@@ -247,8 +248,8 @@
                                     <th ><strong>Belongs to Minority / अल्पसंख्यक है ?:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="belongs_to_minority" name="owner_belongs_to_minority" required>
-                                            <option value="No">No</option>
-                                            <option value="Yes">Yes</option>
+                                            <option value="No" {{ (old('owner_belongs_to_minority', $application ? $application->data->owner->belongs_to_minority : '') == 'No') ? 'selected' : '' }}>No</option>
+                                            <option value="Yes" {{ (old('is_specially_abled', $application ? $application->data->owner->belongs_to_minority : '') == 'Yes') ? 'selected' : '' }}>Yes</option>
                                         </select>
                                         <small>Do you belong to a Minority?</small>
                                     </td>
@@ -266,7 +267,7 @@
                                     <th>(14)</th>
                                     <th ><strong>Name of Proposed Unit / प्रस्तावित इकाई का नाम:</strong></th>
                                     <td colspan="4">
-                                        <input type="text" id="name" name="name" required autofocus>
+                                        <input type="text" id="name" name="name" value="{{ old('name', $application ? $application->data->enterprise->name : '') }}" required autofocus>
                                         <small>The name of the unit you want to set.</small>
                                     </td>
                                 </tr>
@@ -278,7 +279,7 @@
                                             data-options="dbase:enum(id,name)[type:ACTIVITY_TYPE]">
                                             <option value="-1">--Select Activity--</option>
                                             @foreach($activities as $activity)
-                                                <option value="{{ $activity->id }}">{{ $activity->name }}</option>
+                                                <option value="{{ $activity->id }}" {{ (old('activity_type_id', $application ? $application->data->enterprise->activity_id : '') == $activity->id) ? 'selected' : '' }}>{{ $activity->name }}</option>
                                             @endforeach
                                         </select>
                                         <small>Activity type of the unit.</small>
@@ -300,7 +301,7 @@
                                     <th></th>
                                     <th ><strong>Description of Activity in Brief /संक्षेप में गतिविधि का विवरण :</strong></th>
                                     <td colspan="4">
-                                        <input type="text" id="activity_details" name="activity_details" required
+                                        <input type="text" id="activity_details" name="activity_details" value="{{ old('activity_details', $application ? $application->data->enterprise->activity_details : '') }}" required
                                             data-condition="activity_type_id:202,203">
                                         <small>Description of the activity to be done by the unit.</small>
                                     </td>
@@ -309,7 +310,7 @@
                                     <th></th>
                                     <th ><strong>Products to be manufactured / उत्पाद जो निर्मित किए जाने हैं:</strong></th>
                                     <td colspan="4">
-                                        <input type="text" id="products" name="products" required data-condition="activity_type_id:201">
+                                        <input type="text" id="products" name="products" value="{{ old('products') }}" required data-condition="activity_type_id:201">
                                         <small>List of all the products to be manufactured by the unit.</small>
                                     </td>
                                 </tr>
@@ -321,10 +322,11 @@
                                             data-options="dbase:enum(id,name)[type:CONSTITUTION_TYPE]">
                                             <option value="-1">--Select Constitution--</option>
                                             @foreach($cons as $con)
-                                                <option value="{{ $con->id }}">{{ $con->name }}</option>
+                                                <option value="{{ $con->id }}" {{ (old('constitution_type_id', $application ? $application->data->enterprise->constitution_type_id : '') == $con->id) ? 'selected' : '' }}>{{ $con->name }}</option>
                                             @endforeach
                                         </select>
-                                        <small> Constitution Type</small>
+                                        <button type="button"  id="viewButton" class="button" data-toggle="modal" data-target="#ConstitutionModal" style="display: none;">View Partner Details</button>
+                                        <small> Constitution Type </small>
                                         <div class="modal fade modal-xl" id="ConstitutionModal" style="z-index: 9999999;" tabindex="-1" aria-labelledby="ConstitutionModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" style="background-color: #ecf8f9" role="document">
                                                 <div class="modal-content">
@@ -399,7 +401,7 @@
                                     <th>(17)</th>
                                     <th ><strong>Proposed Employment Generation / प्रस्तावित रोजगार उत्पन्न:</strong></th>
                                     <td colspan="4">
-                                        <input type="number" id="employment" name="employment" min="1" required>
+                                        <input type="number" id="employment" name="employment" value="{{ old('employment', $application ? $application->data->enterprise->employment : '') }}" min="1" required>
                                     </td>
                                 </tr>
                                 <tr>
@@ -417,8 +419,8 @@
                                     <td colspan="4">
                                         <select id="area_type" name="area_type" class="button" required>
                                             <option value="-1">--Select Area--</option>
-                                            <option value="Rural">Rural</option>
-                                            <option value="Urban">Urban</option>
+                                            <option value="Rural" {{ (old('area_type', $application ? $application->data->enterprise->area_type : '') == 'Rural') ? 'selected' : '' }}>Rural</option>
+                                            <option value="Urban" {{ (old('area_type', $application ? $application->data->enterprise->area_type : '') == 'Urban') ? 'selected' : '' }}>Urban</option>
                                         </select>
                                         <small>Area Type</small>
                                     </td>
@@ -427,7 +429,7 @@
                                     <th>&nbsp;</th>
                                     <th ><strong>Pincode / पिनकोड:</strong></th>
                                     <td colspan="4">
-                                        <input type="number" id="pincode" name="pincode" min="170000" max="179999" required>
+                                        <input type="number" id="pincode" name="pincode" value="{{ old('employment', $application ? $application->data->enterprise->pincode : '') }}" min="170000" max="179999" required>
                                         <small>Pincode</small>
                                     </td>
                                 </tr>
@@ -438,7 +440,7 @@
                                         <select id="district_id" name="district_id" class="button" required>
                                         <option value="-1">--Select District--</option>
                                             @foreach($diss as $dis)
-                                                <option value="{{ $dis->id }}">{{ $dis->name }}</option>
+                                                <option value="{{ $dis->id }}" {{ (old('constitution_type_id', $application ? $application->data->enterprise->district_id : '') == $dis->id) ? 'selected' : '' }}>{{ $dis->name }}</option>
                                             @endforeach
                                         </select>
                                         <small>District</small>
@@ -492,7 +494,7 @@
                                     <th >&nbsp;</th>
                                     <th ><strong>House Number/Street/Landmark/Village name /घर क्रमांक/सड़क/सूचना/गांव का नाम:</strong></th>
                                     <td colspan="4">
-                                        <input type="text" id="address" name="address" required>
+                                        <input type="text" id="address" name="address" value="{{ old('employment', $application ? $application->data->enterprise->address : '') }}" required>
                                         <small>House Number/Street/Landmark/Village name</small>
                                     </td>
                                 </tr>
@@ -512,10 +514,10 @@
                                     <th width="300" ><strong>Land Status / भूमि की स्थिति:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="land_status" name="land_status" required>
-                                            <option value="Not Required">Not Required</option>
-                                            <option value="Owned">Owned</option>
-                                            <option value="To be Purchased">To be Purchased</option>
-                                            <option value="To be Taken on Lease">To be Taken on Lease</option>
+                                            <option value="Not Required" {{ (old('land_status', $application ? $application->data->cost->land_status : '') == 'Not Required') ? 'selected' : '' }}>Not Required</option>
+                                            <option value="Owned" {{ (old('land_status', $application ? $application->data->cost->land_status : '') == 'Owned') ? 'selected' : '' }}>Owned</option>
+                                            <option value="To be Purchased" {{ (old('land_status', $application ? $application->data->cost->land_status : '') == 'To be Purchased') ? 'selected' : '' }}>To be Purchased</option>
+                                            <option value="To be Taken on Lease" {{ (old('land_status', $application ? $application->data->cost->land_status : '') == 'To be Taken on Lease') ? 'selected' : '' }}>To be Taken on Lease</option>
                                         </select>
                                         <small>Land Status</small>
                                     </td>
@@ -526,7 +528,7 @@
                                     <th></th>
                                     <th ><strong>Cost of Land / भूमि का लागत:</strong></th>
                                     <td colspan="4">
-                                        <input type="number" id="land_cost" name="land_cost" min="0" data-condition="land_status:To be Purchased,To be Taken on Lease" required>
+                                        <input type="number" id="land_cost" name="land_cost" value="{{ old('land_cost', $application ? $application->data->cost->land_cost : '') }}" min="0" data-condition="land_status:To be Purchased,To be Taken on Lease" required>
                                         <small>Cost of Land</small>
                                     </td>
                                 </tr>
@@ -535,10 +537,10 @@
                                     <th ><strong>Building Status / इमारत की स्थिति:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="building_status" name="building_status" required>
-                                            <option value="Already Constructed">Already Constructed</option>
-                                            <option value="Not Required">Not Required</option>
-                                            <option value="To be Constructed">To be Constructed</option>
-                                            <option value="To be Taken on Rent">To be Taken on Rent</option>
+                                            <option value="Already Constructed" {{ (old('building_status', $application ? $application->data->cost->building_status : '') == 'Already Constructed') ? 'selected' : '' }}>Already Constructed</option>
+                                            <option value="Not Required" {{ (old('building_status', $application ? $application->data->cost->building_status : '') == 'Not Required') ? 'selected' : '' }}>Not Required</option>
+                                            <option value="To be Constructed" {{ (old('building_status', $application ? $application->data->cost->building_status : '') == 'To be Constructed') ? 'selected' : '' }}>To be Constructed</option>
+                                            <option value="To be Taken on Rent" {{ (old('building_status', $application ? $application->data->cost->building_status : '') == 'To be Taken on Rent') ? 'selected' : '' }}>To be Taken on Rent</option>
                                         </select>
                                         <small>Building Status</small>
                                     </td>
@@ -549,7 +551,7 @@
                                     <th></th>
                                     <th ><strong>Cost of Building Construction / इमारत निर्माण की लागत:</strong></th>
                                     <td colspan="4">
-                                        <input type="number" id="building_cost" name="building_cost" min="0" data-condition="building_status:To be Constructed,To be Taken on Rent" required>
+                                        <input type="number" id="building_cost" name="building_cost" value="{{ old('building_cost', $application ? $application->data->cost->building_cost : '') }}" min="0" data-condition="building_status:To be Constructed,To be Taken on Rent" required>
                                         <small>Cost of Building Construction</small> <span class="badge bg-danger">  Subsidized Component/अनुदानित घटक</span>
                                     </td>
                                 </tr>
@@ -559,7 +561,7 @@
                                     <th></th>
                                     <th ><strong>Estimated Buildup Area (in Square Feet) पूर्वानुमानित बिल्डअप क्षेत्र (वर्ग फीट में)" :</strong></th>
                                     <td colspan="4">
-                                        <input type="number" id="building_area" name="building_area" min="0" data-condition="building_status:To be Constructed,To be Taken on Rent" required>
+                                        <input type="number" id="building_area" name="building_area" value="{{ old('building_area', $application ? $application->data->cost->building_area : '') }}" min="0" data-condition="building_status:To be Constructed,To be Taken on Rent" required>
                                         <small>Estimated Buildup Area (in Square Feet)</small>
                                     </td>
                                 </tr>
@@ -569,7 +571,7 @@
                                     <th>(21)</th>
                                     <th ><strong>Furniture, Fixtures, IT related items, Renovation, Interior Work and Other Fixed Assets Cost:</strong></th>
                                     <td colspan="4">
-                                        <input  value="{{ old('assets_cost') }}" type="number" id="assets_cost" name="assets_cost" min="0" required>
+                                        <input  value="{{ old('assets_cost', $application ? $application->data->cost->assets_cost : '') }}" type="number" id="assets_cost" name="assets_cost" min="0" required>
                                         <small>Cost of Furniture, Fixtures, IT related items, Renovation, Interior Work and Other Fixed Assets</small><span class="badge bg-danger">  Subsidized Component/अनुदानित घटक</span>
                                     </td>
                                 </tr>
@@ -579,7 +581,7 @@
                                     <th>(22)</th>
                                     <th ><strong>Details of Furniture, Fixtures, IT related items, Renovation, Interior Work and Other Fixed Assets:</strong></th>
                                     <td colspan="4">
-                                        <input value="{{ old('assets_detail') }}" type="text" id="assets_detail" name="assets_detail" required>
+                                        <input value="{{ old('assets_detail', $application ? $application->data->cost->assets_detail : '') }}" type="text" id="assets_detail" name="assets_detail" required>
                                         <small>Details of Furniture, Fixtures, IT related items, Renovation, Interior Work and Other Fixed Assets</small>
                                     </td>
                                 </tr>
@@ -587,7 +589,7 @@
                                     <th>(23)</th>
                                     <th ><strong>Machinery/Equipments Cost / मशीनरी/उपकरण की लागत:</strong></th>
                                     <td colspan="4">
-                                        <input  value="{{ old('machinery_cost') }}" type="number" id="machinery_cost" name="machinery_cost" min="0" required>
+                                        <input  value="{{ old('machinery_cost', $application ? $application->data->cost->machinery_cost : '') }}" type="number" id="machinery_cost" name="machinery_cost" min="0" required>
                                         <small>Machinery/Equipments Cost</small><span class="badge bg-danger">   Subsidized Component/अनुदानित घटक</span>
                                     </td>
                                 </tr>
@@ -597,7 +599,7 @@
                                     <th>(24)</th>
                                     <th ><strong>Working Capital/CC Limit / कामकाज पूंजी/क्रेडिट लिमिट:</strong></th>
                                     <td colspan="4">
-                                        <input  type="number" id="working_capital_cc" name="working_capital_cc" min="0"  value="{{ old('working_capital_cc') }}" required>
+                                        <input  type="number" id="working_capital_cc" name="working_capital_cc" min="0"  value="{{ old('working_capital_cc', $application ? $application->data->cost->working_capital : '') }}" required>
                                         <small>Working Capital/CC Limit</small>
                                     </td>
                                 </tr>
@@ -607,7 +609,7 @@
                                     <th>(25)</th>
                                     <th ><strong>Details of Machinery/Equipments / मशीनरी/उपकरण का विवरण:</strong></th>
                                     <td colspan="4">
-                                        <input type="text" id="machinery_detail" name="machinery_detail" value="{{ old('machinery_detail') }}" required>
+                                        <input type="text" id="machinery_detail" name="machinery_detail" value="{{ old('working_capital_cc', $application ? $application->data->cost->machinery_detail : '') }}" required>
                                         <small>Details of Machinery/Equipments</small>
                                     </td>
                                 </tr>
@@ -634,7 +636,7 @@
                                     <th>(26)</th>
                                     <th  ><strong>Own Contribution Percentage (10% of Capital Expenditure) / स्वयं सहायता प्रतिशत (पूंजी व्यय का 10%):</strong></th>
                                     <td colspan="4">
-                                        <input type="number" id="own_contribution" name="own_contribution" value="{{ old('own_contribution') }}" min="10" max="95" step="any"  >
+                                        <input type="number" id="own_contribution" name="own_contribution" value="{{ old('own_contribution', $application ? $application->data->finance->own_contribution : '') }}" min="10" max="95" step="any"  >
                                         <small>Should be at least 10%.</small>
                                     </td>
                                 </tr>
@@ -679,7 +681,7 @@
                                         <select class="button" id="bank_id" name="bank_id" required>
                                             <option value="-1">--Select Bank--</option>
                                             @foreach($banks as $bank)
-                                                <option value="{{ $bank->id }}">{{ $bank->name }}</option>
+                                                <option value="{{ $bank->id }}" {{ (old('constitution_type_id', $bankid ? $bankid->bank_id : '') == $bank->id) ? 'selected' : '' }}>{{ $bank->name }}</option>
                                             @endforeach
                                         </select>
                                         <small>Select name of the bank from which the applicant wants to get the loan.</small>
@@ -689,9 +691,12 @@
                                     <th></th>
                                     <th ><strong>Name of the Loan Financing Branch / ऋण वित्तपोषण शाखा का नाम:</strong></th>
                                     <td colspan="4">
-                                        <select class="button select2" id="bank_branch_id" name="bank_branch_id" required>
+                                        <!-- <select class="button select2" id="bank_branch_id" name="bank_branch_id" required>
                                             <option value="-1">--Select Branch--</option>
-                                        </select>
+                                        </select> -->
+                                        <input type="text" id="branch" name="branch"  readonly="true" size="11" required> 
+                                        <input  id="bank_branch_id" name="bank_branch_id"  type="hidden" size="11" required> 
+                                        <button type="button"  id="openModalBtn" class="button" data-toggle="modal" data-target="#myModal">Select Branch</button>
                                         <small>Name of the bank from which the applicant wants to get the loan. Select the bank by searching for IFS code, branch, or bank name.</small>
                                     </td>
                                 </tr>
@@ -839,6 +844,38 @@
             </tbody>
         </table>
         <!-- Add any submit button or additional form elements here -->
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close" id="closeModalBtn">&times;</span>
+                <h2>Select a Branch</h2>
+                <input type="text" id="ifscSearch" placeholder="Search by IFSC code & Branch Name">
+                <table id="optionsTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>IFSC Code</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- <tr>
+                            <td>Branch 1</td>
+                            <td>123 Main St</td>
+                            <td>IFSC001</td>
+                            <td><button type="button" class="select-branch">Select</button></td>
+                        </tr>
+                        <tr>
+                            <td>Branch 2</td>
+                            <td>456 Elm St</td>
+                            <td>IFSC002</td>
+                            <td><button type="button" class="select-branch">Select</button></td>
+                        </tr> -->
+                        <!-- Add more rows as needed -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </form>
 
     <script>
@@ -854,7 +891,11 @@
         const ownerdistrictTypeSelect = $('#owner_district_id');
         const ownerblockTypeSelect = $('#owner_block_id');
         const bankTypeSelect = $('#bank_id');
-
+        const constitutionTypeSelect = $('#constitution_type_id');
+        const bankid = $(bankTypeSelect).val()
+        const constitutionId = $(constitutionTypeSelect).val()
+         console.log(constitutionId)
+        
         // Get a reference to the second select element
         const activitySelect = $('#activity_id');
         const constituencySelect = $('#constituency_id');
@@ -878,8 +919,24 @@
                 text: '--Select Unit--'
             }));
 
+            if(constitutionId != 101){
+                $('#viewButton').css('display', 'inline');
+            }
+            $("#viewButton").click(function () {
+                $('#ConstitutionModal').modal('show');
+            });
+
+            constitutionTypeSelect.on('change', function() {
+                const Id = $(this).val();
+                if(Id == 101 ){
+                    $('#viewButton').css('display', 'none');
+                }else{
+                    $('#viewButton').css('display', 'inline');
+                }
+
+            });
             // Load options based on the selected activity type ID
-            console.log('dadsa',selectedActivityTypeId)
+            // console.log('dadsa',selectedActivityTypeId)
             // if (selectedActivityTypeId === '202' || selectedActivityTypeId === '203' || selectedActivityTypeId === '201') {
                 // Load options dynamically based on your logic here
                 // You can make an AJAX request to fetch data from the server and populate the options
@@ -919,7 +976,7 @@
             }));
 
             // Load options based on the selected activity type ID
-            console.log('dadsa',selectedBlockTypeId)
+            // console.log('dadsa',selectedBlockTypeId)
             // if (selectedActivityTypeId === '202' || selectedActivityTypeId === '203' || selectedActivityTypeId === '201') {
                 // Load options dynamically based on your logic here
                 // You can make an AJAX request to fetch data from the server and populate the options
@@ -957,14 +1014,14 @@
                 value: '-1',
                 text: '--Select Branch--'
             }));
-
+            let branchid = '{{ old('bank_branch_id', $application ? $application->data->finance->bank_branch_id : '') }}';
             // Load options based on the selected activity type ID
-            console.log('dadsa',selectedBankTypeId)
+            // console.log('dadsa',selectedBankTypeId)
             // if (selectedActivityTypeId === '202' || selectedActivityTypeId === '203' || selectedActivityTypeId === '201') {
                 // Load options dynamically based on your logic here
                 // You can make an AJAX request to fetch data from the server and populate the options
                 // Example:
-                
+            
                 $.ajax({
                     url: '/application/get-data/',
                     method: 'GET',
@@ -973,15 +1030,32 @@
                     },
                     success: function(data) {
                         // Add the retrieved options to the select element
-                        data.forEach(function(option) {
-                            branchSelect.append($('<option>', {
-                                value: option.id,
-                                text: option.name
-                            }));
+                        data.forEach(function (option) {
+                            // Create a new table row for each option
+                            var newRow = '<tr>' +
+                                '<td>' + option.name + '</td>' +
+                                '<td>' + option.address + '</td>' +
+                                '<td>' + option.ifsc + '</td>' +
+                                '<td><button type="button" class="select-branch" data-ifsc="' + option.ifsc + '" data-id="' + option.id + '">Select</button></td>' +
+                                '</tr>';
+
+                            // Append the new row to the table
+                            $('#optionsTable tbody').append(newRow);
+                            if(branchid == option.id){
+                                $('#branch').val(option.ifsc)
+                            }
                         });
 
+                        // Add event listeners for branch selection
+                        $('.select-branch').click(function () {
+                            var ifscCode = $(this).data('ifsc'); // Get the IFSC code from the button's data attribute
+                            var id = $(this).data('id'); // Get the IFSC code from the button's data attribute
+                            $('#bank_branch_id').val(id); // Set the IFSC code in your input field
+                            $('#branch').val(ifscCode); // Set the IFSC code in your input field
+                            $('#myModal').css('display', 'none'); // Close the modal
+                        });
                     },
-                    error: function() {
+                    error: function () {
                         // Handle error
                     }
                 });
@@ -999,7 +1073,7 @@
             }));
 
             // Load options based on the selected activity type ID
-            console.log('dadsa',ownerselectedBlockTypeId)
+            // console.log('dadsa',ownerselectedBlockTypeId)
             // if (selectedActivityTypeId === '202' || selectedActivityTypeId === '203' || selectedActivityTypeId === '201') {
                 // Load options dynamically based on your logic here
                 // You can make an AJAX request to fetch data from the server and populate the options
@@ -1064,7 +1138,7 @@
             }));
 
             // Load options based on the selected activity type ID
-            console.log('dadsa',selectedDistrictTypeId)
+            // console.log('dadsa',selectedDistrictTypeId)
             // if (selectedActivityTypeId === '202' || selectedActivityTypeId === '203' || selectedActivityTypeId === '201') {
                 // Load options dynamically based on your logic here
                 // You can make an AJAX request to fetch data from the server and populate the options
@@ -1081,7 +1155,7 @@
                         console.log('dada',data.block)
                         var block = data.block
                         var cons = data.cons
-                        var teh = data.cons
+                        var teh = data.teh
                         cons.forEach(function(option) {
                             
                             constituencySelect.append($('<option>', {
@@ -1133,7 +1207,7 @@
             }));
 
             // Load options based on the selected activity type ID
-            console.log('dadsa',ownerselectedDistrictTypeId)
+            // console.log('dadsa',ownerselectedDistrictTypeId)
             // if (selectedActivityTypeId === '202' || selectedActivityTypeId === '203' || selectedActivityTypeId === '201') {
                 // Load options dynamically based on your logic here
                 // You can make an AJAX request to fetch data from the server and populate the options
@@ -1150,7 +1224,7 @@
                         console.log('dada',data.block)
                         var block = data.block
                         var cons = data.cons
-                        var teh = data.cons
+                        var teh = data.teh
                         cons.forEach(function(option) {
                             
                             ownerconstituencySelect.append($('<option>', {
@@ -1197,6 +1271,10 @@
         });
         bankTypeSelect.on('change', function() {
             const selectedBankTypeId = $(this).val();
+            console.log('bankid',selectedBankTypeId)
+            $('#optionsTable tbody').empty();
+            $('#branch').val(null)
+            $('#bank_branch_id').val(null)
             loadBranchOptions(selectedBankTypeId);
         });
         ownerdistrictTypeSelect.on('change', function() {
@@ -1215,8 +1293,334 @@
             loadActivityOptions(preSelectedActivityTypeId);
         }
 
-      
+        $("#openModalBtn").click(function () {
+            
+        $("#myModal").css("display", "block");
+        // console.log('dadsad')
+    });
+
+    // Close modal
+    $("#closeModalBtn").click(function () {
+        $("#myModal").css("display", "none");
+    });
+
+    // Handle branch selection
+    $(".select-branch").click(function () {
+        var ifscCode = $(this).closest("tr").find("td:nth-child(3)").text();
+        $("#bank_branch_id").val(ifscCode);
+        $("#myModal").css("display", "none");
+    });
+    $("#ifscSearch").on("input", function () {
+        var searchTerm = $(this).val().toUpperCase();
+        filterTableRows(searchTerm);
+    });
+
+    // Function to filter table rows
+    function filterTableRows(searchTerm) {
+        $("#optionsTable tbody tr").each(function () {
+            var row = $(this);
+            var nameCell = row.find("td:nth-child(1)");
+            var ifscCell = row.find("td:nth-child(3)");
+            var nameText = nameCell.text().toUpperCase();
+            var ifscText = ifscCell.text().toUpperCase();
+            if (nameText.indexOf(searchTerm) > -1 || ifscText.indexOf(searchTerm) > -1) {
+                row.show();
+            } else {
+                row.hide();
+            }
+        });
+    }
+    
+    var selectedDistrictId = '{{ old('owner_district_id', $application ? $application->data->owner->district_id : '') }}';
+    $('#owner_district_id').val(selectedDistrictId);
+
+    // Function to load and populate the dependent select elements
+    function loadAndPopulateDependentSelects() {
+        var selectedDistrictId = $('#owner_district_id').val();
+        // console.log('dads')
+            ownerconstituencySelect.empty();
+            ownertehsilSelect.empty();
+            ownerblockSelect.empty();
+
+            // Add a default option
+            ownerconstituencySelect.append($('<option>', {
+                value: '-1',
+                text: '--Select Constituency--'
+            }));
+            ownertehsilSelect.append($('<option>', {
+                value: '-1',
+                text: '--Select Tehsil--'
+            }));
+            ownerblockSelect.append($('<option>', {
+                value: '-1',
+                text: '--Select Block--'
+            }));
+            var selectedConstituencyId = '{{ old('owner_constituency_id', $application ? $application->data->owner->constituency_id : '') }}';
+            var selectedBlockId = '{{ old('owner_block_id', $application ? $application->data->owner->block_id : '') }}';
+            var selectedTehId = '{{ old('owner_block_id', $application ? $application->data->owner->tehsil_id : '') }}';
+        // Make an AJAX request to load and populate the dependent select elements
+                $.ajax({
+                url: '/application/get-data/', // Adjust the URL to your endpoint
+                method: 'GET',
+                data: {
+                district_type_id: selectedDistrictId
+            },
+            success: function (data) {
+                // Populate the dependent select elements based on the data received
+                // Example:
+                // console.log('dada',data.block)
+                        var block = data.block
+                        var cons = data.cons
+                        var teh = data.teh
+                        cons.forEach(function(option) {
+                            
+                            var optionElement = $('<option>', {
+                                value: option.id,
+                                text: option.name
+                            });
+
+                        // Set the 'selected' attribute if the option's value matches the selectedConstituencyId
+                            if (option.id == selectedConstituencyId) {
+                                optionElement.attr('selected', 'selected');
+                            }
+                            ownerconstituencySelect.append(optionElement);
+                        });
+                        block.forEach(function(option) {
+                            
+                            var optionElement = $('<option>', {
+                                value: option.id,
+                                text: option.name
+                            });
+
+                        // Set the 'selected' attribute if the option's value matches the selectedConstituencyId
+                            if (option.id == selectedBlockId) {
+                                optionElement.attr('selected', 'selected');
+                                const ownerblock = option.id
+                            }
+                            ownerblockSelect.append(optionElement);
+                        });
+                        teh.forEach(function(option) {
+                           
+                            var optionElement = $('<option>', {
+                                value: option.id,
+                                text: option.name
+                            });
+                                                    // Set the 'selected' attribute if the option's value matches the selectedConstituencyId
+                            if (option.id == selectedTehId) {
+                                optionElement.attr('selected', 'selected');
+                                console.log('teh',selectedTehId)
+                            }
+                            ownertehsilSelect.append(optionElement);
+                        });
+            },
+            error: function () {
+                // Handle error
+            }
+        });
+    }
+    function loadAndPopulateDependentSelectsEnterprise() {
+        var selectedDistrictId = $('#owner_district_id').val();
+        console.log('dads',selectedDistrictId)
+            constituencySelect.empty();
+            tehsilSelect.empty();
+            blockSelect.empty();
+
+            // Add a default option
+            constituencySelect.append($('<option>', {
+                value: '-1',
+                text: '--Select Constituency--'
+            }));
+            tehsilSelect.append($('<option>', {
+                value: '-1',
+                text: '--Select Tehsil--'
+            }));
+            blockSelect.append($('<option>', {
+                value: '-1',
+                text: '--Select Block--'
+            }));
+            let selectedConstituencyId = '{{ old('owner_constituency_id', $application ? $application->data->enterprise->constituency_id : '') }}';
+            let selectedBlockId = '{{ old('owner_block_id', $application ? $application->data->enterprise->block_id : '') }}';
+            let selectedTehId = '{{ old('owner_tehsil_id', $application ? $application->data->enterprise->tehsil_id : '') }}';
+        // Make an AJAX request to load and populate the dependent select elements
+        $.ajax({
+            url: '/application/get-data/', // Adjust the URL to your endpoint
+            method: 'GET',
+            data: {
+                district_type_id: selectedDistrictId
+            },
+            success: function (data) {
+                // Populate the dependent select elements based on the data received
+                // Example:
+                // console.log('dada',data.block)
+                        var block = data.block
+                        var cons = data.cons
+                        var teh = data.teh
+                        cons.forEach(function(option) {
+                            
+                            var optionElement = $('<option>', {
+                                value: option.id,
+                                text: option.name
+                            });
+
+                        // Set the 'selected' attribute if the option's value matches the selectedConstituencyId
+                            if (option.id == selectedConstituencyId) {
+                                optionElement.attr('selected', 'selected');
+                            }
+                            constituencySelect.append(optionElement);
+                        });
+                        block.forEach(function(option) {
+                            
+                            var optionElement = $('<option>', {
+                                value: option.id,
+                                text: option.name
+                            });
+
+                        // Set the 'selected' attribute if the option's value matches the selectedConstituencyId
+                            if (option.id == selectedBlockId) {
+                                optionElement.attr('selected', 'selected');
+                                const block = option.id
+                            }
+                            blockSelect.append(optionElement);
+                        });
+                        teh.forEach(function(option) {
+                            
+                            var optionElement = $('<option>', {
+                                value: option.id,
+                                text: option.name
+                            });
+
+                        // Set the 'selected' attribute if the option's value matches the selectedConstituencyId
+                            if (option.id == selectedTehId) {
+                                optionElement.attr('selected', 'selected');
+                            }
+                            tehsilSelect.append(optionElement);
+                        });
+            },
+            error: function () {
+                // Handle error
+            }
+        });
+    }
+    function loadAndPopulateDependentSelectsPanchayat() {
+            // var selectedBlockId = $('#owner_block_id').val();
+            // console.log('dads',ownerblock)
+            var selectedBlockId = '{{ old('owner_block_id', $application ? $application->data->owner->block_id : '') }}';
+            var BlockId = '{{ old('owner_block_id', $application ? $application->data->enterprise->block_id : '') }}';
+            ownerpanchayatSelect.empty();
+            panchayatSelect.empty();
+
+            // Add a default option
+            panchayatSelect.append($('<option>', {
+                value: '-1',
+                text: '--Select Panchayat--'
+            }));
+            ownerpanchayatSelect.append($('<option>', {
+                value: '-1',
+                text: '--Select Panchayat--'
+            }));
+            let selectedPanchayatId = '{{ old('owner_panchayat_id', $application ? $application->data->owner->panchayat_id : '') }}';
+            let PanchayatId = '{{ old('owner_panchayat_id', $application ? $application->data->enterprise->panchayat_id : '') }}';
+        // Make an AJAX request to load and populate the dependent select elements
+                $.ajax({
+                    url: '/application/get-data/',
+                    method: 'GET',
+                    data: {
+                    block_type_id: selectedBlockId
+                    },
+                    success: function(data) {
+                        // Add the retrieved options to the select element
+                        data.forEach(function(option) {
+                            var optionElement = $('<option>', {
+                                value: option.id,
+                                text: option.name
+                            });
+
+                        // Set the 'selected' attribute if the option's value matches the selectedConstituencyId
+                            if (option.id == selectedPanchayatId) {
+                                optionElement.attr('selected', 'selected');
+                            }
+                        
+                        // Append the option to the select element
+                        ownerpanchayatSelect.append(optionElement);
+                    });
+                    
+                    // After adding the options, trigger the Select2 update
+                    ownerpanchayatSelect.trigger('change');
+                },
+                    error: function() {
+                        // Handle error
+                    }
+                });
+                $.ajax({
+                    url: '/application/get-data/',
+                    method: 'GET',
+                    data: {
+                    block_type_id: BlockId
+                    },
+                    success: function(data) {
+                        // Add the retrieved options to the select element
+                        data.forEach(function(option) {
+                            var optionElement = $('<option>', {
+                                value: option.id,
+                                text: option.name
+                            });
+
+                        // Set the 'selected' attribute if the option's value matches the selectedConstituencyId
+                            if (option.id == PanchayatId) {
+                                optionElement.attr('selected', 'selected');
+                            }
+                        
+                        // Append the option to the select element
+                        panchayatSelect.append(optionElement);
+                    });
+                    
+                    // After adding the options, trigger the Select2 update
+                    ownerpanchayatSelect.trigger('change');
+                },
+                    error: function() {
+                        // Handle error
+                    }
+                });
+        
+    }
+
+    // Call the function to load and populate the dependent select elements on page load
+    loadAndPopulateDependentSelects();
+    loadAndPopulateDependentSelectsEnterprise();
+    loadAndPopulateDependentSelectsPanchayat();
+    loadBranchOptions(bankid)
+
+    
+
     });
 </script>
 
+<style>
+    .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 1;
+}
 
+.modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    width: 60%;
+    position: relative;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+</style>

@@ -19,7 +19,7 @@
 
     <div class="row " id="formHolder">
         <div class="col-12">
-            <x-forms.form :activities="$activity" :cons="$con" :diss="$Diss" :cats="$CAT" :banks="$bank" :application="$application"/>
+            <x-forms.form :activities="$activity" :cons="$con" :diss="$Diss" :cats="$CAT" :banks="$bank" :application="$application" :bankid="$bankid"/>
         </div>
     </div>
 @endsection
@@ -103,10 +103,10 @@
                 }
             });
             
-            if (!isValid) {
-                e.preventDefault(); // Prevent modal from closing
-                alert('Please fill in all required fields.');
-            }
+            // if (!isValid) {
+            //     e.preventDefault(); // Prevent modal from closing
+            //     alert('Please fill in all required fields.');
+            // }
         });
 
         const activityTypeDropdown = $('#activity_type_id');
