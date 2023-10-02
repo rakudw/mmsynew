@@ -585,8 +585,10 @@ width: 100%;
 .header_residence h3 {
     padding: 5px!important;
     margin-bottom: 17px;
-    font-family: 'Montserrat';
+    font-family: Montserrat;
     font-weight: 700;
+    font-size: 24px;
+    text-transform: capitalize;
 }
 
 a.clickhere_custom {

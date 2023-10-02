@@ -26,7 +26,7 @@
                       <div class="card-body">
                         <img src="{{ asset("images/newloan.png") }}">
                         <p class="card-text">Application For New Unit</p>
-                        <p class="card-text"><button class="btn btn-success">Apply</button></p>
+                        <p class="card-text"><a href="/application/new"><button class="btn btn-success">Apply</button></a></p>
                       </div>
                     </div>
                   </div>
@@ -35,7 +35,7 @@
                       <div class="card-body">
                         <img src="{{ asset("images/non-individual.png") }}">
                         <p class="card-text">Registered Applicant</p> 
-                        <p class="card-text"><button class="btn btn-success">Login</button></p>
+                        <p class="card-text"><a href="{{ auth()->user() ? route("logout") : route("login.applicant") }}"><button class="btn btn-success">Login</button></a></p>
                       </div>
                     </div>
                   </div>
@@ -44,7 +44,7 @@
                       <div class="card-body">
                         <img src="{{ asset("images/Official.png") }}">
                         <p class="card-text">Check Status</p>
-                        <p class="card-text"><button class="btn btn-success">Login</button></p>
+                        <p class="card-text"><a href="{{ auth()->user() ? route("logout") : route("login.applicant") }}"><button class="btn btn-success">Status</button></a></p>
                       </div>
                     </div>
                   </div>
@@ -55,7 +55,7 @@
                       <div class="card-body">
                         <img src="{{ asset("images/banking.png") }}">
                         <p class="card-text">Bank Login</p>
-                        <p class="card-text"><button class="btn btn-success">Login</button></p>
+                        <p class="card-text"><a href="{{ auth()->user() ? route("logout") : route("login") }}"><button class="btn btn-success">Login</button></a></p>
                       </div>
                     </div>
                   </div>
@@ -64,7 +64,7 @@
                       <div class="card-body">
                         <img src="{{ asset("images/department.png") }}">
                         <p class="card-text">Department Login</p> 
-                        <p class="card-text"><button class="btn btn-success">Login</button></p>
+                        <p class="card-text"><a href="{{ auth()->user() ? route("logout") : route("login.applicant") }}"><button class="btn btn-success">Login</button></a></p>
                       </div>
                     </div>
                   </div>
