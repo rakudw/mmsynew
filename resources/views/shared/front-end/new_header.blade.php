@@ -73,7 +73,7 @@
     
         <div class="independence_and_achivement">
             <div class="header_residence">
-                <h3>This scheme is exclusively for HIMACHALI RESIDENTS. </h3> 
+                <h3>This scheme is exclusively for HIMACHALI RESIDENTS </h3> 
                 <a class="clickhere_custom" href="/application/new">Click here to start your application</a>
                </div>
             {{-- <h3>On this independence day add more freedom to your lives</h3> --}}
@@ -83,9 +83,9 @@
                     <li>Total 8613 projects passed</li>
                     <li>23655 employment proposed</li>
                     <li>Total 5347 Industries established</li>
-                    {{-- <li>1370 emplyoment generated </li> --}}
+                    <li>1370 emplyoment generated </li>
                     <li>INR 886.32 Cr investment Made</li>
-                    {{-- <li>INR 1600.68 Cr proposed investment</li> --}}
+                    <li>INR 1600.68 Cr proposed investment</li>
                 </ul>
         
             </div>
