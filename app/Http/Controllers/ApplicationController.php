@@ -67,21 +67,29 @@ class ApplicationController extends Controller
         $CAT = Enum::where('type', 'SOCIAL_CATEGORY')->get();
         $Diss = Region::where('type_id', 404)->get();
         $application = null;
+        $bankid = null;
         return view('application.new', compact('form', 'activity',
-        'con', 'CAT', 'Diss', 'bank', 'application'));
+        'con', 'CAT', 'Diss', 'bank', 'application', 'bankid'));
     }
 
     public function newedit( int $formDesignId = null)
     {
         $application = Application::where('created_by',auth()->user()->id)->first();
+        if (!$this->user()->can('update', $application)) {
+            return redirect()->route('application.newstatus')->withErrors(['custom_error' => 'You cannot edit your application.You will get notifications for further actions.'])
+            ->withInput();
+        }
         $activity = Enum::where('type', 'ACTIVITY_TYPE')->get();
         $bank = Bank::all();
         $con = Enum::where('type', 'CONSTITUTION_TYPE')->get();
         $CAT = Enum::where('type', 'SOCIAL_CATEGORY')->get();
         $Diss = Region::where('type_id', 404)->get();
         $form = null;
+        $branchid = $application->data->finance->bank_branch_id;
+        $bankid = BankBranch::where('id', $branchid)->get('bank_id')->first();
+        // dd($application->data->owner->partner_name);
         return view('application.new', compact('form', 'activity',
-        'con', 'CAT', 'Diss', 'bank', 'application'));
+        'con', 'CAT', 'Diss', 'bank', 'application', 'bankid'));
     }
 
     public function status()
@@ -91,6 +99,7 @@ class ApplicationController extends Controller
         }else{
             $applications = [];
         }
+        // dd($applications);
         return view('application.status', compact('applications'));
     }
 
@@ -251,7 +260,7 @@ class ApplicationController extends Controller
         $data = json_decode($jsonData);
         $phoneNumbers = [];
         $aadharNumbers = [];
-
+        // dd($data);
         // Assuming 'partner_mobile' and 'partner_aadhaar' are fields to compare
         foreach ($data->owner->partner_mobile as $mobile) {
             $phoneNumbers[] = $mobile;
@@ -275,13 +284,16 @@ class ApplicationController extends Controller
                 ->withErrors(['custom_error' => 'An application with the same data already exists.'])
                 ->withInput(); 
         } else {
+            
                 $application = new Application();
+                
                 $application->name = $request->input('name');
                 $application->form_id = 1;
                 $application->data = $data;
                 $application->region_id = $request->input('owner_district_id');
                 $application->status_id = 302;
-                $application->created_by = auth()->user()->id;
+                // $application->created_by = auth()->user()->id;
+                // dd("sas",$application);
                 $this->registerUser($application);
                 $application->save();
                
@@ -307,7 +319,8 @@ class ApplicationController extends Controller
         // auth()->logout();
         $application = Application::where('created_by',auth()->user()->id)->first();
         if (!$this->user()->can('update', $application)) {
-            return redirect()->route('application.newstatus')->with('error', 'Application not found!');
+            return redirect()->route('application.newstatus')->withErrors(['custom_error' => 'You cannot edit your application.You will get notifications for further actions.'])
+            ->withInput();
         }
         $allApplicationDocuments = $application->applicationDocuments;
         // $Documenttype = $allApplicationDocuments->keyBy('document_type_id');
