@@ -88,95 +88,111 @@
             @endforeach
             @else
             <main class="main-content  mt-0">
-                <div class="page-header align-items-start " style="min-height: 600px"
-                   >
-                    <span class="mask bg-gradient-dark opacity-6" style="background: none"></span>
-                    <div class="container my-auto">
-                        <div class="row">
-                            <div class="col-lg-6 col-md-4 col-sm-12 mx-auto">
-                                <div class="card z-index-0 fadeIn3 fadeInBottom">
-                                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
-                                        <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1" style="background: #e36e2c">
-                                            <h3 class="text-white font-weight-bolder text-center mt-2 mb-0">MUKHYA MANTRI SWAVALAMBAN YOJANA</h3>
-                                            <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">GOVT. OF HIMACHAL PRADESH</h4>
-                                            <h5 class="text-white font-weight-bolder text-center mt-2 mb-0">Applicant Sign in</h5>
+                    <div class="page-header align-items-start min-vh-100"
+                        style="background-image: url('https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80');">
+                        <span class="mask bg-gradient-dark opacity-6"></span>
+                        <div class="container my-auto">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-4 col-sm-12 mx-auto">
+                                    <div class="card z-index-0 fadeIn3 fadeInBottom">
+                                        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                                            <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
+                                                <h3 class="text-white font-weight-bolder text-center mt-2 mb-0">MUKHYA MANTRI SWAVALAMBAN YOJANA</h3>
+                                                <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">GOVT. OF HIMACHAL PRADESH</h4>
+                                                <h5 class="text-white font-weight-bolder text-center mt-2 mb-0">Sign in</h5>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="card-body">
-                                        @if ($errors->any())
-                                            <div class="alert alert-danger">
-                                                <ul class="list-unstyled text-light">
-                                                    @foreach ($errors->all() as $error)
-                                                        <li>{!! $error !!}</li>
-                                                    @endforeach
-                                                </ul>
-                                            </div>
-                                        @endif
-                                        <form data-key="{{ request()->session()->get('_key') }}" method="POST" action="{{ route('login.request') }}">
-                                            @csrf
-                                            <div class="input-group input-group-outline my-3">
-                                                <label for="identity" class="form-label">{{ __('Email Address or Mobile') }}</label>
-                                                <input id="identity" class="form-control" value="{{ old('identity') }}" required autofocus />
-                                                @error('identity')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                            <div class="d-none" id="passwordBox">
-                                                <div class="input-group input-group-outline mb-3">
-                                                    <label for="password" class="form-label">{{ __('Password') }}</label>
-                                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" autocomplete="current-password" name="password" required />
+                                        <div class="card-body">
+                                            @if ($errors->any())
+                                                <div class="alert alert-danger">
+                                                    <ul class="list-unstyled text-light">
+                                                        @foreach ($errors->all() as $error)
+                                                            <li>{!! $error !!}</li>
+                                                        @endforeach
+                                                    </ul>
                                                 </div>
-                                                <div class="form-check form-switch d-flex align-items-center mb-3 is-filled">
-                                                    <input class="form-check-input" type="checkbox" id="showPassword" />
-                                                    <label class="form-check-label mb-0 ms-3" for="showPassword">Show Password</label>
+                                            @endif
+                                            <form data-key="{{ request()->session()->get('_key') }}" method="POST" action="{{ route('login.request') }}">
+                                                @csrf
+                                                <div class="input-group input-group-outline my-3">
+                                                    <label for="identity" class="form-label">{{ __('Email Address or Mobile') }}</label>
+                                                    <input id="identity" data-mobile-otp="{{ setting('is_mobile_otp_available', null, false) ? 'true' : 'false' }}" type="text" class="form-control @error('identity') is-invalid @enderror @error('mobile') is-invalid @enderror" name="identity" autocomplete="username" value="{{ old('identity') }}" required autofocus />
+                                                    @error('identity')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
                                                 </div>
-                                                @error('password')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                            <div class="input-group input-group-outline mb-3 d-none" id="otpBox">
-                                                <label for="otpCode" class="form-label">{{ __('OTP Code') }}</label>
-                                                <input id="otpCode" type="number" min="100000" max="999999" autocomplete="nickname" class="form-control @error('otpCode') is-invalid @enderror" name="otpCode" />
-                                                @error('otpCode')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
-                                            </div>
-                                            <div class="text-center" id="optionButtonBox">
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        <hr />
-                                                        <a class="d-none" href="{{ route('application.newstatus') }}">Applicant Login</a>
+                                                <div class="d-none" id="passwordBox">
+                                                    <div class="input-group input-group-outline mb-3">
+                                                        <label for="password" class="form-label">{{ __('Password') }}</label>
+                                                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" autocomplete="current-password" name="password" required />
+                                                    </div>
+                                                    <div class="form-check form-switch d-flex align-items-center mb-3 is-filled">
+                                                        <input class="form-check-input" type="checkbox" id="showPassword" />
+                                                        <label class="form-check-label mb-0 ms-3" for="showPassword">Show Password</label>
+                                                    </div>
+                                                    @error('password')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <div class="input-group input-group-outline mb-3 d-none" id="otpBox">
+                                                    <label for="otpCode" class="form-label">{{ __('OTP Code') }}</label>
+                                                    <input id="otpCode" type="number" min="100000" max="999999" autocomplete="nickname" class="form-control @error('otpCode') is-invalid @enderror" name="otpCode" />
+                                                    @error('otpCode')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                                <div class="text-center" id="optionButtonBox">
+                                                    <div class="row">
+                                                        <div class="col-12 d-none">
+                                                            <hr />
+                                                            <a href="{{ route('login.applicant') }}">Applicant Login</a>
+                                                            <h3>Login Using</h3>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="d-none col-6">
+                                                            <button type="button" id="showPasswordButton" class="btn bg-gradient-primary w-100 my-4 mb-2"><em class="fa-solid fa-key"></em> {{ __('Password') }}</button>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <button type="button" id="showOtpButton" class="btn bg-gradient-primary w-100 my-4 mb-2" data-url="{{ route('otp.request') }}">
+                                                                <em class="fa-sharp fa-solid fa-comment-sms"></em> {{ __('OTP') }}</button>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="d-none" class="col-6">
-                                                        <button type="button" id="showPasswordButton" class="btn bg-gradient-primary w-100 my-4 mb-2"><em class="fa-solid fa-key"></em> {{ __('Password') }}</button>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <button type="button" id="showOtpButton" class="btn bg-gradient-primary w-100 my-4 mb-2" style="background: #e36e2c" data-url="{{ route('otp.request') }}">
-                                                            <em class="fa-sharp fa-solid fa-comment-sms"></em> {{ __('Generate OTP') }}</button>
-                                                    </div>
+                                                <!-- <div class="text-center d-none">
+                                                    <img alt="{{ __('Security code') }}" src="{{ $captchaUrl }}" />
+                                                    <button type="button" class="btn btn-theme-primary" id="captchaRefreshButton">
+                                                        <em class="fa fa-refresh"></em>
+                                                    </button>
                                                 </div>
-                                            </div>
-                                            <div class="text-center d-none">
-                                                <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">Sign
-                                                    in</button><br />
-                                                <a href="{{ route('login') }}" class="btn bg-gradient-secondary w-100 my-4 mb-2">Reset</a>
-                                            </div>
-                                        </form>
+                                                <div class="input-group input-group-outline mb-3 d-none">
+                                                    <label for="captcha" class="form-label">{{ __('Security Code') }}</label>
+                                                    <input id="captcha" type="text" required="required" minlength="{{ config('captcha.default.length') }}" maxlength="{{ config('captcha.default.length') }}" class="form-control mt-1 @error('captcha') is-invalid @enderror" name="captcha" required="required" />
+                                                    @error('captcha')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                    @enderror
+                                                </div> -->
+                                                <div class="text-center d-none">
+                                                    <button type="submit" class="btn bg-gradient-primary w-100 my-4 mb-2">Sign
+                                                        in</button><br />
+                                                    <a href="{{ route('login') }}" class="btn bg-gradient-secondary w-100 my-4 mb-2">Reset</a>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </main>
+                </main>
             @endif
         </div>
     </div>
@@ -199,7 +215,7 @@
         @endif
     </div>
     @endif
-    @vite(['resources/ts/admin.ts', 'resources/ts/login.ts', ...(empty($pageVars['assets']['js']) ? [] : $pageVars['assets']['js'])])
+    @vite(['resources/ts/admin.ts', 'resources/ts/otplogin.ts', ...(empty($pageVars['assets']['js']) ? [] : $pageVars['assets']['js'])])
     @yield('scripts')
 @endsection
 

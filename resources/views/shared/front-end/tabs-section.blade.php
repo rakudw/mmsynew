@@ -264,7 +264,7 @@
                           User Name
                       @endif</td></tr>
                       <tr><td class="text-center"> From<br>
-                      <input style="background-color: wheat; color: black;" type="text" readonly value="{{auth()->user()->email}}">
+                      <input style="background-color: wheat; color: black;" type="text" readonly value="">
                       <br>
                       TO <br>
                       <input style="background-color: wheat; color: black;" type="text" readonly value="mmsy2018@gmail.com">

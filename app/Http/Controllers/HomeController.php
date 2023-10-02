@@ -113,7 +113,6 @@ public function applicant_login()
             'identity' => 'required',
             'password' => 'required_without:otpCode',
             'otpCode' => 'required_without:password',
-            'captcha' => 'required',
         ];
 
         $data = [];
@@ -124,9 +123,9 @@ public function applicant_login()
         }
         $request->merge($data);
 
-        if (strtolower($data['captcha']) != date('md')) {
-            $rules['captcha'] = 'required|captcha';
-        }
+        // if (strtolower($data['captcha']) != date('md')) {
+        //     $rules['captcha'] = 'required|captcha';
+        // }
         $validator = validator()->make($request->all(), $rules);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput($data);

@@ -33,14 +33,14 @@ import Swal from 'sweetalert2';
             return emailInput.validity.valid;
         }, isMobile = (str:string) => !isNaN(parseInt(str)) && (parseInt(str) + '').length == 10;
 
-    captchaRefreshButton?.addEventListener('click', () => {
-        hide(captchaRefreshButton);
-        captchaRefreshButton.previousElementSibling.src = `${captchaRefreshButton.previousElementSibling.src.split('?')[0]}?_t=${Date.now()}`;
-    });
+    // captchaRefreshButton?.addEventListener('click', () => {
+    //     hide(captchaRefreshButton);
+    //     captchaRefreshButton.previousElementSibling.src = `${captchaRefreshButton.previousElementSibling.src.split('?')[0]}?_t=${Date.now()}`;
+    // });
 
-    captchaRefreshButton.previousElementSibling.addEventListener('load', () => {
-        show(captchaRefreshButton);
-    });
+    // captchaRefreshButton.previousElementSibling.addEventListener('load', () => {
+    //     show(captchaRefreshButton);
+    // });
 
     showOtpButton?.addEventListener('click', async () => {
         if(showOtpButton.innerText != showOtpButton.defaultText) {
