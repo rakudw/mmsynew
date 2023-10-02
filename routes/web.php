@@ -34,6 +34,8 @@ Route::controller(HomeController::class)->group(function () {
     Route::get('/applicant-login', 'applicant_login')->name('login.applicant');
     Route::get('/faqs', 'faqs')->name('faqs');
     Route::post('/login', 'loginRequest')->name('login.request');
+    Route::post('/grievance', 'grievance')->name('grievance.form');
+    Route::post('/feedback', 'feedback')->name('feedback.form');
     Route::get('/recover-account', 'recover')->name('account.recover');
     Route::post('/send-otp', 'sendOtp')->name('otp.request');
     Route::get('/otp-login/{id}/{hash}', 'otpLogin')->name('otp.login');

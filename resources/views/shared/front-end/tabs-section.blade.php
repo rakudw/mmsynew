@@ -1,3 +1,4 @@
+
 <div class="container main">
     <div class="d-flex align-items-start">
         <div class="nav flex-column nav-pills me-3 col-md-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -11,8 +12,8 @@
           <a href="/mmsy-dashboard" target="_blank"><button class="nav-link" id="v-pills-n-tab" type="button"><i class="fa-solid fa-wrench"></i>MMSY DASHBOARD</button></a>
           <a data-bs-toggle="modal" data-bs-target="#helpDeskModal" href="#"><button class="nav-link" id="v-pills-n-tab" type="button"><i class="fa-solid fa-video"></i>VIDEO TUTORIAL </button></a>
           <a href="/mmsy-dashboard" target="_blank"><button class="nav-link" id="v-pills-n-tab" type="button"><i class="fa-solid fa-bell"></i>NOTIFICATIONS</button></a>
-          <a href="/mmsy-dashboard" target="_blank"><button class="nav-link" id="v-pills-n-tab" type="button"><i class="fa-solid fa-envelope"></i>GRIEVANCES</button></a>
-          <a data-bs-toggle="modal" data-bs-target="#helpDeskModal" href="#"><button class="nav-link" id="v-pills-n-tab" type="button"><i class="fa-solid fa-envelope"></i>FEEDBACK FORM</button></a>
+          <a data-bs-toggle="modal" data-bs-target="#myModal"><button class="nav-link grievance" id="v-pills-n-tab" type="button"><i class="fa-solid fa-envelope"></i>GRIEVANCES</button></a>
+          <a data-bs-toggle="modal" data-bs-target="#feedbackModal" href="#"><button class="nav-link feedback" id="v-pills-n-tab" type="button"><i class="fa-solid fa-envelope"></i>FEEDBACK FORM</button></a>
           <a data-bs-toggle="modal" data-bs-target="#helpDeskModal" href="#"><button class="nav-link" id="v-pills-n-tab" type="button"><i class="fa-solid fa-envelope"></i>REQUENTLY ASK QUESTIONS</button></a>
           </div>
         </div>
@@ -240,3 +241,115 @@
     </div>
 </div>
   {{-- HelpDesk Modal --}}
+  <div class="modal fade" id="myModal" tabindex="-1">
+  <form action="/grievance" method="POST" onsubmit="return confirm('Thanks For your Feedback')">
+    @csrf
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class=" text-center modal-header">
+        <h5 class="modal-title">{{ auth()->user() ? 'Applicant Name: ' . auth()->user()->name : 'User Name' }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-hover">
+                
+                <tbody>
+                    <tr><td class="text-center">Applicant Grievance Form</td></tr>
+                    <tr><td class="text-center" >(Email will be sent on Submit Your Grievance and copy of grievance will also sent to your mail:)</td></tr>
+                    <tr><td class="text-center">@if (auth()->check())
+                        Applicant ID: MMSY- {{ auth()->user()->id }}<br>
+                        Applicant Name: {{ auth()->user()->name }}
+                      @else
+                          User Name
+                      @endif</td></tr>
+                      <tr><td class="text-center"> From<br>
+                      <input style="background-color: wheat; color: black;" type="text" readonly value="{{auth()->user()->email}}">
+                      <br>
+                      TO <br>
+                      <input style="background-color: wheat; color: black;" type="text" readonly value="mmsy2018@gmail.com">
+                      <br>
+                      Subjet <br>
+                      <select name="subject" id="subject" style="background-color: wheat; color: black;" required autofocus>
+                        <option value="">--select subject--</option>
+                        <option value="Issue related to Implementing Agency">Issue related to Implementing Agency</option>
+                        <option value="Issue relted to Financing Branch">Issue relted to Financing Branch</option>
+                        <option value="Technical Issues">Technical Issues</option>
+                        <option value="Other Issues">Other Issues</option>
+                      </select> <br>
+                      Discribe Your Problem/Issues <br>
+                      <input style="background-color: wheat; color: black;" name="discription" type="text" value="" required autofocus>
+                    </td></tr>
+                </tbody>
+                
+            </table>
+        </div>
+        </div>
+        <div class="modal-footer">
+        <input type="submit" class="btn btn-primary" value="Submit">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+    </div>
+    </div>
+  </form>
+</div>
+<div class="modal fade" id="feedbackModal" tabindex="-1">
+  <form action="/feedback" method="POST" onsubmit="return confirm('Thanks For your Feedback')">
+    @csrf
+    <div class="modal-dialog">
+    <div class="modal-content">
+        <div class=" text-center modal-header">
+        <h5 class="modal-title">Feedback Form</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-hover">
+                
+                <tbody>
+                    <tr><td class="text-center">Type Your Feedback Below</td></tr>
+                    <tr><td class="text-center" ><input style="background-color: wheat; color: black;" name="feedback" type="text" value="" required autofocus></td></tr>
+                    
+                </tbody>
+                
+            </table>
+        </div>
+        </div>
+        <div class="modal-footer">
+        <input type="submit" class="btn btn-primary" value="Submit">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+    </div>
+    </div>
+  </form>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+  var isAuthenticated = {{ auth()->check() ? 'true' : 'false' }};
+    $(".grievance").click(function () {
+        if(isAuthenticated){
+          console.log('true')
+          $("#myModal").css("display", "block");
+        }
+        else{
+          window.location.href = '/applicant-login';
+        }
+    });
+    $("#closeModalBtn").click(function () {
+        $("#myModal").css("display", "none");
+    });
+    $(".feedback").click(function () {
+        if(isAuthenticated){
+          console.log('true')
+          $("#feedbackModal").css("display", "block");
+        }
+        else{
+          window.location.href = '/applicant-login';
+        }
+    });
+    $("#closeModalBtn").click(function () {
+        $("#feedbackModal").css("display", "none");
+    });
+});
+</script>

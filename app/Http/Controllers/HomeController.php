@@ -63,6 +63,7 @@ class HomeController extends Controller
             'captchaUrl' => captcha_src(),
         ]);
     }
+    
 public function applicant_login()
     {
         // dd(request()->query('source'));
@@ -87,7 +88,20 @@ public function applicant_login()
             'captchaUrl' => captcha_src(),
         ]);
     }
+    public function grievance()
+    {
+        // Do nothing because of X and Y.
+        return redirect()->back();
+                 
+    }
+    public function feedback( Request $request )
+    {
+        // Do nothing because of X and Y.
 
+        // dd(auth()->user()->email);
+        return redirect()->back();
+                 
+    }
     public function profile()
     {
         return view('home.profile');

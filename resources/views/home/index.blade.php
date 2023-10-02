@@ -3,6 +3,7 @@
 @section('title', $title ?? __("Mukhya Mantri Swavalamban Yojana"))
 
 @section('contents')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     {{-- @include('shared.front-end.slider')
     @include('shared.front-end.mmsy_tips')
     @include('shared.front-end.our_schemes')
