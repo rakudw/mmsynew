@@ -4,9 +4,9 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
 
-    <form class="form application-form" action="/application/save-data/" method="POST" id="applicant-form">
+    <form class="form application-form" action="/application/save-data/" method="POST" onsubmit="return confirm('Are you sure you have filled in the correct information? Once submitted, it cannot be edited.')" id="applicant-form">
         @csrf
-        <input type="hidden" name="formCheck" value="{{ $application ? 'EditForm' : 'SaveForm' }}">
+        <input type="hidden" name="application_id" value="{{ isset($application) ? $application->id : '' }}">
         <table class="table">
             <tbody>
                 <tr>
@@ -747,7 +747,7 @@
                                             <option value="">--Select Branch--</option>
                                         </select> -->
                                         <input type="text" id="branch" name="branch"  readonly="true" size="11" required> 
-                                        <input  id="bank_branch_id" name="bank_branch_id"  type="hidden" size="11" required> 
+                                        <input  id="bank_branch_id" name="bank_branch_id" value="{{ old('bank_branch_id', $application ? $application->data->finance->bank_branch_id : '') }}"  type="hidden" size="11" required> 
                                         <button type="button"  id="openModalBtn" class="button" data-toggle="modal" data-target="#myModal">Select Branch</button>
                                         <small>Name of the bank from which the applicant wants to get the loan. Select the bank by searching for IFS code, branch, or bank name.</small>
                                     </td>

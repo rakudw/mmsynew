@@ -254,10 +254,18 @@
                             <td><strong>Constituency ID:</strong></td>
                             <td>{{ $application->data->enterprise->constituency_id }}</td>
                         </tr>
-                        <tr>
-                            <td><strong>Activity Details:</strong></td>
-                            <td>{{ $application->data->enterprise->activity_details }}</td>
-                        </tr>
+                        @if(isset($application->data->enterprise->activity_details))
+                            <tr>
+                                <td><strong>Activity Details:</strong></td>
+                                <td>{{ $application->data->enterprise->activity_details }}</td>
+                            </tr>
+                        @endif
+                        @if(isset($application->data->enterprise->products))
+                            <tr>
+                                <td><strong>Product Details:</strong></td>
+                                <td>{{ $application->data->enterprise->products }}</td>
+                            </tr>
+                        @endif
                         <tr>
                             <td><strong>Activity Type ID:</strong></td>
                             <td>{{ $application->data->enterprise->activity_type_id }}</td>

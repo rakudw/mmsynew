@@ -154,6 +154,7 @@ class ApplicationController extends Controller
 
     public function saveData(Request $request)
     {   
+        $applicationId = $request->input('application_id');
         // dd($request->all());
         $filePath = public_path('validation.json');
        
@@ -284,17 +285,28 @@ class ApplicationController extends Controller
                 ->withErrors(['custom_error' => 'An application with the same data already exists.'])
                 ->withInput(); 
         } else {
-                
-                $application = new Application();
-                
+                if($applicationId){
+                    $application =   Application::find($applicationId);
+                }else{
+                    $application = new Application();
+                }
                 $application->name = $request->input('name');
                 $application->form_id = 1;
                 $application->data = $data;
                 $application->region_id = $request->input('owner_district_id');
                 $application->status_id = 302;
-                $this->registerUser($application);
-                $application->created_by = auth()->user()->id;
-                $application->save();
+                if($applicationId){
+                    $application->update();
+                }else{
+                    $check = $this->registerUser($application);
+                    if (!$check){
+                        return redirect()->back()
+                        ->withErrors(['custom_error' => 'Email Id already exist.'])
+                        ->withInput();
+                    }
+                    $application->created_by = auth()->user()->id;
+                    $application->save();
+                }
                
               
                 return redirect()->route('newdocument');
@@ -310,6 +322,10 @@ class ApplicationController extends Controller
             'password' => Hash::make(mt_rand(10000000, 99999999)),
             'remember_token' => Str::random(10),
         ];
+        $existUser = User::where('email',$application->data->owner->email)->first();
+        if ($existUser){
+         return false; 
+        }
         $user = User::create($user);
         auth()->login($user, true);
         return $user;

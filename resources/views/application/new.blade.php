@@ -108,7 +108,10 @@
                     $('#constitution_type_id').val('101'); // Assuming the field ID is "constitution_type"
 
                     // Remove the partner details
-                    partnerRows.find('input, select').val('');
+                    const partnerInputs = partnerRows.find('input, select');
+                    partnerInputs.val('');
+                    partnerInputs.removeAttr('required');
+
                     partnerRows.find('.partner-row:not(:first) .remove-partner-button').prop('disabled', true);
                     $('#viewButton').hide();
                     
@@ -156,13 +159,20 @@
         // Initial setup based on the selected value
         activityTypeDropdown.on('change', function() {
             const selectedValue = $(this).val();
-                console.log('selectedValue',selectedValue)
+            console.log('selectedValue', selectedValue)
+
             if (selectedValue == 201) { // If "Manufactured" is selected
                 toggleFieldStatus(activityDescription, true, false);
                 toggleFieldStatus(productsField, false, true);
+
+                // Clear the value of the productsField
+                activityDescription.val('');
             } else {
                 toggleFieldStatus(activityDescription, false, true);
                 toggleFieldStatus(productsField, true, false);
+
+                // Clear the value of the activityDescription field
+                productsField.val('');
             }
         });
 
@@ -186,6 +196,7 @@
                 toggleFieldStatus(landCostInput, false, true);
             } else {
                 toggleFieldStatus(landCostInput, true, false);
+                landCostInput.val('');
             }
         });
 
@@ -211,6 +222,7 @@
             toggleFieldStatus(buildingCostInput, false, true);
         } else {
             toggleFieldStatus(buildingCostInput, true, false);
+            buildingCostInput.val('');
         }
     });
 
