@@ -105,7 +105,9 @@
         @endif
         <hr style="background-color: rgb(255, 138, 48);">
         @if($application->status->id == 302 || $application->status->id == 305)
-        <button>{{ $application->status->id == 302 ? 'Complete' : 'Edit'}} Your Application</button>
+        <a href="{{ route('application.newedit', ['application' => $application,]) }}">
+            <button class="btn btn-primary">{{ $application->status->id == 302 ? 'Complete' : 'Edit'}} Your Application</button>
+        </a>
         @endif
     </div>
     @endif

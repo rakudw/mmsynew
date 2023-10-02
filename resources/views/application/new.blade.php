@@ -92,22 +92,55 @@
             removeButton.addEventListener('click', function() {
                 row.remove();
             });
-        }
-        $('#ConstitutionModal').on('hide.bs.modal', function (e) {
-            const requiredFields = $('.partner-row [required]');
-            let isValid = true;
-            requiredFields.each(function () {
-                if (!$(this).val()) {
-                    isValid = false;
-                    return false; // Exit the loop on the first empty field
-                }
-            });
             
-            // if (!isValid) {
-            //     e.preventDefault(); // Prevent modal from closing
-            //     alert('Please fill in all required fields.');
-            // }
+        }
+        let isRemovingPartner = false;
+
+        $('.remove-partner-button').click(function () {
+            var partnerRows = $('.partner-row');
+            // Check if this is the last partner row
+            if (partnerRows.length === 1) {
+                // Display a confirmation popup before removing
+                if (confirm('Are you sure you want to delete the last partner? This will change the Constitution type to proprietorship and remove partner details.')) {
+                    isRemovingPartner = true; // Set the flag to indicate partner removal
+
+                    // Change the Constitution type to proprietorship
+                    $('#constitution_type_id').val('101'); // Assuming the field ID is "constitution_type"
+
+                    // Remove the partner details
+                    partnerRows.find('input, select').val('');
+                    partnerRows.find('.partner-row:not(:first) .remove-partner-button').prop('disabled', true);
+                    $('#viewButton').hide();
+                    
+                    // Close the popup
+                    $('#ConstitutionModal').modal('hide');
+                }
+            } else {
+                $(this).closest('.partner-row').remove();
+            }
         });
+
+        $('#ConstitutionModal').on('hide.bs.modal', function (e) {
+            if (!isRemovingPartner) {
+                const requiredFields = $('.partner-row [required]');
+                let isValid = true;
+                requiredFields.each(function () {
+                    if (!$(this).val()) {
+                        isValid = false;
+                        return false; // Exit the loop on the first empty field
+                    }
+                });
+                
+                if (!isValid) {
+                    e.preventDefault(); // Prevent modal from closing
+                    alert('Please fill in all required fields.');
+                }
+            }
+
+            // Reset the flag
+            isRemovingPartner = false;
+        });
+
 
         const activityTypeDropdown = $('#activity_type_id');
         const activityDropdown = $('#activity_id');
@@ -123,8 +156,8 @@
         // Initial setup based on the selected value
         activityTypeDropdown.on('change', function() {
             const selectedValue = $(this).val();
-            
-            if (selectedValue === '201') { // If "Manufactured" is selected
+                console.log('selectedValue',selectedValue)
+            if (selectedValue == 201) { // If "Manufactured" is selected
                 toggleFieldStatus(activityDescription, true, false);
                 toggleFieldStatus(productsField, false, true);
             } else {
@@ -156,6 +189,7 @@
             }
         });
 
+        
         // Trigger change event on page load
         landStatusDropdown.trigger('change');
 

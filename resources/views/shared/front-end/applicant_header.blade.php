@@ -13,9 +13,9 @@
             <button id="mobile-toggle">☰</button>
             <ul class="nav-ul">
                 <li><a href="/">Home</a></li>
-                <li><a href="#">Notification</a></li>
+                <li><a href="#">HelpDesk</a></li>
                 <li><a href="#">Operational Guidelines</a></li>
-                <li><a href="{{ route("login") }}">Login</a></li>
+                <li><a href="{{ auth()->user() ? route("logout") : route("login") }}">{{ auth()->user() ? 'Logout' : 'Login' }}</a></li>
             </ul>
         </div>
     

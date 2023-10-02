@@ -4,8 +4,9 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
 
-    <form class="form application-form" action="{{ $application ? 'Update' : 'Save'}}/application/save-data/" method="POST" id="applicant-form">
+    <form class="form application-form" action="/application/save-data/" method="POST" id="applicant-form">
         @csrf
+        <input type="hidden" name="formCheck" value="{{ $application ? 'EditForm' : 'SaveForm' }}">
         <table class="table">
             <tbody>
                 <tr>
@@ -51,7 +52,7 @@
                                     <th ><strong>Father/Husband/Mother Name /प्रतिरक्षक/माता-पिता/पति-पत्नी नाम:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="guardian_prefix" name="owner_guardian_prefix" required>
-                                            <option value="-1">--Select guardian/parent/spouse.--</option>
+                                            <option value="">--Select guardian/parent/spouse.--</option>
                                             <option value="S/O" {{ (old('owner_guardian_prefix', $application ? $application->data->owner->guardian_prefix : '') == 'S/O') ? 'selected' : '' }}>S/O</option>
                                             <option value="W/O" {{ (old('owner_guardian_prefix', $application ? $application->data->owner->guardian_prefix : '') == 'W/O') ? 'selected' : '' }}>W/O</option>
                                             <option value="D/O" {{ (old('owner_guardian_prefix', $application ? $application->data->owner->guardian_prefix : '') == 'D/O') ? 'selected' : '' }}>D/O</option>
@@ -79,7 +80,7 @@
                                     <th ><strong>District / जिला:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="owner_district_id" name="owner_district_id" required>
-                                            <option value="-1">--Select District--</option>
+                                            <option value="">--Select District--</option>
                                             @foreach($diss as $dis)
                                                 <option value="{{ $dis->id }}" {{ (old('owner_district_id', $application ? $application->data->owner->district_id : '') == $dis->id) ? 'selected' : '' }}>{{ $dis->name }}</option>
                                             @endforeach
@@ -94,7 +95,7 @@
                                     <th ><strong>Constituency / संसदीय क्षेत्र:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="owner_constituency_id" name="owner_constituency_id" required>
-                                            <option value="-1">--Select Constituency--</option>
+                                            <option value="">--Select Constituency--</option>
                                         </select>
                                         <small>Select Constituency</small>
                                     </td>
@@ -117,7 +118,7 @@
                                     <th ><strong>Block / ब्लॉक:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="owner_block_id" name="owner_block_id" required>
-                                        <option value="-1">--Select Block--</option>
+                                        <option value="">--Select Block--</option>
                                         </select>
                                         <small>Select Block</small>
                                     </td>
@@ -129,7 +130,7 @@
                                     <th ><strong>Panchayat/Town / पंचायत/नगर :</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="owner_panchayat_id" name="owner_panchayat_id" required>
-                                        <option value="-1">--Select Panchayat/Town--</option>
+                                        <option value="">--Select Panchayat/Town--</option>
                                         </select>
                                         <small>Select Panchayat/Town</small>
                                     </td>
@@ -179,7 +180,7 @@
                                     <th ><strong>Gender / लिंग:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="gender" name="owner_gender" required >
-                                            <option value="-1">--Select Gender--</option>
+                                            <option value="">--Select Gender--</option>
                                             <option value="Female" {{ (old('owner_guardian_prefix', $application ? $application->data->owner->gender : '') == 'Female') ? 'selected' : '' }}>Female</option>
                                             <option value="Male" {{ (old('owner_guardian_prefix', $application ? $application->data->owner->gender : '') == 'Male') ? 'selected' : '' }}>Male</option>
                                             <option value="Other" {{ (old('owner_guardian_prefix', $application ? $application->data->owner->gender : '') == 'Other') ? 'selected' : '' }}>Other</option>
@@ -194,7 +195,7 @@
                                     <th ><strong>Marital Status / वैवाहिक स्थिति:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="marital_status" name="owner_marital_status" required>
-                                            <option value="-1">--Select Marital Status--</option>
+                                            <option value="">--Select Marital Status--</option>
                                             <option value="Unmarried" {{ (old('owner_guardian_prefix', $application ? $application->data->owner->marital_status : '') == 'Unmarried') ? 'selected' : '' }}>Unmarried</option>
                                             <option value="Married" {{ (old('owner_guardian_prefix', $application ? $application->data->owner->marital_status : '') == 'Married') ? 'selected' : '' }}>Married</option>
                                             <option value="Divorced" {{ (old('owner_guardian_prefix', $application ? $application->data->owner->marital_status : '') == 'Divorced') ? 'selected' : '' }}>Divorced</option>
@@ -233,7 +234,7 @@
                                     <th ><strong>Category / श्रेणी:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="social_category_id" name="owner_social_category_id" required>
-                                            <option value="-1">--Select Category--</option>
+                                            <option value="">--Select Category--</option>
                                         @foreach($cats as $cat)
                                                 <option value="{{ $cat->id }}" {{ (old('social_category_id', $application ? $application->data->owner->social_category_id : '') == $cat->id) ? 'selected' : '' }}>{{ $cat->name }}</option>
                                             @endforeach
@@ -277,9 +278,9 @@
                                     <td colspan="4">
                                         <select id="activity_type_id" name="activity_type_id" required data-changes="activity_id" class="button"
                                             data-options="dbase:enum(id,name)[type:ACTIVITY_TYPE]">
-                                            <option value="-1">--Select Activity--</option>
+                                            <option value="">--Select Activity--</option>
                                             @foreach($activities as $activity)
-                                                <option value="{{ $activity->id }}" {{ (old('activity_type_id', $application ? $application->data->enterprise->activity_id : '') == $activity->id) ? 'selected' : '' }}>{{ $activity->name }}</option>
+                                                <option value="{{ $activity->id }} " {{ (old('activity_type_id', $application ? $application->data->enterprise->activity_type_id : '') == $activity->id) ? 'selected' : '' }}>{{ $activity->name }}</option>
                                             @endforeach
                                         </select>
                                         <small>Activity type of the unit.</small>
@@ -292,7 +293,7 @@
                                         <select id="activity_id" name="activity_id" required data-condition="activity_type_id:202,203" class="button"
                                             data-depends="activity_type_id"
                                             data-options="dbase:activity(id,name)[type_id:$activity_type_id]">
-                                            <option value="-1">--Select Unit--</option>
+                                            <option value="">--Select Unit--</option>
                                         </select>
                                         <small>Activity of the unit.</small>
                                     </td>
@@ -301,8 +302,7 @@
                                     <th></th>
                                     <th ><strong>Description of Activity in Brief /संक्षेप में गतिविधि का विवरण :</strong></th>
                                     <td colspan="4">
-                                        <input type="text" id="activity_details" name="activity_details" value="{{ old('activity_details', $application ? $application->data->enterprise->activity_details : '') }}" required
-                                            data-condition="activity_type_id:202,203">
+                                        <input type="text" id="activity_details" name="activity_details" value="{{ old('activity_details', isset($application->data->enterprise->activity_details) ? $application->data->enterprise->activity_details : '') }}" required data-condition="activity_type_id:202,203">
                                         <small>Description of the activity to be done by the unit.</small>
                                     </td>
                                 </tr>
@@ -310,7 +310,9 @@
                                     <th></th>
                                     <th ><strong>Products to be manufactured / उत्पाद जो निर्मित किए जाने हैं:</strong></th>
                                     <td colspan="4">
-                                        <input type="text" id="products" name="products" value="{{ old('products') }}" required data-condition="activity_type_id:201">
+                                        <input type="text" id="products" name="products" value="{{ old('products', isset($application->data->enterprise->products) ? $application->data->enterprise->products : '') }}" required data-condition="activity_type_id:201">
+
+
                                         <small>List of all the products to be manufactured by the unit.</small>
                                     </td>
                                 </tr>
@@ -320,14 +322,14 @@
                                     <td colspan="4">
                                         <select id="constitution_type_id" name="constitution_type_id" required class="button"
                                             data-options="dbase:enum(id,name)[type:CONSTITUTION_TYPE]">
-                                            <option value="-1">--Select Constitution--</option>
+                                            <option value="">--Select Constitution--</option>
                                             @foreach($cons as $con)
                                                 <option value="{{ $con->id }}" {{ (old('constitution_type_id', $application ? $application->data->enterprise->constitution_type_id : '') == $con->id) ? 'selected' : '' }}>{{ $con->name }}</option>
                                             @endforeach
                                         </select>
-                                        <button type="button"  id="viewButton" class="button" data-toggle="modal" data-target="#ConstitutionModal" style="display: none;">View Partner Details</button>
+                                        @if($application)<button type="button"  id="viewButton" class="button" data-toggle="modal" data-target="#ConstitutionModal" style="display: none;">View Partner Details</button>@endif
                                         <small> Constitution Type </small>
-                                        <div class="modal fade modal-xl" id="ConstitutionModal" style="z-index: 9999999;" tabindex="-1" aria-labelledby="ConstitutionModalLabel" aria-hidden="true">
+                                        <div class="modal fade modal-xl" id="ConstitutionModal" style="z-index: 9999999;" tabindex="" aria-labelledby="ConstitutionModalLabel" aria-hidden="true">
                                             <div class="modal-dialog" style="background-color: #ecf8f9" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
@@ -339,51 +341,101 @@
                                                         <div id="partnerShareholderContainer" style="display: flex; flex-wrap: wrap; align-items: flex-end;">
                                                             <button class="btn btn-primary" type="button" id="addPartnerButton">Add More</button>
                                                             <!-- Partner Row Template -->
-                                                            <div class="partner-row" style="display: flex; align-items: flex-end;">
-                                                                <div style="margin-right: 10px;">
-                                                                    <label for="partner_name">Name:</label>
-                                                                    <input type="text" name="partner_name[]" required>
+                                                            @if ($application && $application->data->owner->partner_name)
+                                                                @foreach ($application->data->owner->partner_name as $index => $partnerName)
+                                                                    <div class="partner-row" style="display: flex; align-items: flex-end;">
+                                                                        <div style="margin-right: 10px;">
+                                                                            <label for="partner_name">Name:</label>
+                                                                            <input type="text" name="partner_name[]" required value="{{ old('partner_name.' . $index, $partnerName) }}">
+                                                                        </div>
+                                                                        <div style="margin-right: 10px;">
+                                                                            <label for="partner_gender">Gender:</label>
+                                                                            <select name="partner_gender[]" required>
+                                                                                <option value="Male" {{ old('partner_gender.' . $index, optional($application->data->owner->partner_gender)[$index]) == 'Male' ? 'selected' : '' }}>Male</option>
+                                                                                <option value="Female" {{ old('partner_gender.' . $index, optional($application->data->owner->partner_gender)[$index]) == 'Female' ? 'selected' : '' }}>Female</option>
+                                                                                <option value="Other" {{ old('partner_gender.' . $index, optional($application->data->owner->partner_gender)[$index]) == 'Other' ? 'selected' : '' }}>Other</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div style="margin-right: 10px;">
+                                                                            <label for="partner_birth_date">Date Of Birth:</label>
+                                                                            <input type="date" name="partner_birth_date[]" required max="2005-12-31" min="1905-01-01" value="{{ old('partner_birth_date.' . $index, optional($application->data->owner->partner_birth_date)[$index]) }}">
+                                                                        </div>
+                                                                        <div style="margin-right: 10px;">
+                                                                            <label for="partner_social_category_id">Social Category:</label>
+                                                                            <select id="partner_social_category_id" name="partner_social_category_id[]" required>
+                                                                                <option value="">--Select Category--</option>
+                                                                                @foreach($cats as $cat)
+                                                                                <option value="{{ $cat->id }}" {{ old('partner_social_category_id.' . $index, optional($application->data->owner->partner_social_category_id)[$index]) == $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
+                                                                                @endforeach
+                                                                            </select>
+                                                                        </div>
+                                                                        <div style="margin-right: 10px;">
+                                                                            <label for="partner_is_specially_abled">Specially Abled:</label>
+                                                                            <select name="partner_is_specially_abled[]" required>
+                                                                                <option value="Yes" {{ old('partner_is_specially_abled.' . $index, optional($application->data->owner->partner_is_specially_abled)[$index]) == 'Yes' ? 'selected' : '' }}>Yes</option>
+                                                                                <option value="No" {{ old('partner_is_specially_abled.' . $index, optional($application->data->owner->partner_is_specially_abled)[$index]) == 'No' ? 'selected' : '' }}>No</option>
+                                                                            </select>
+                                                                        </div>
+                                                                        <div style="margin-right: 10px;">
+                                                                            <label for="partner_aadhaar">Aadhaar Number:</label>
+                                                                            <input type="text" name="partner_aadhaar[]" pattern="^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$" required value="{{ old('partner_aadhaar.' . $index, optional($application->data->owner->partner_aadhaar)[$index]) }}">
+                                                                        </div>
+                                                                        <div style="">
+                                                                            <label for="partner_mobile">Mobile (Linked To The Aadhaar):</label>
+                                                                            <input type="tel" name="partner_mobile[]" pattern="^[6-9]{1}[0-9]{9}$" required value="{{ old('partner_mobile.' . $index, optional($application->data->owner->partner_mobile)[$index]) }}">
+                                                                        </div>
+                                                                        <div style="display: flex; align-items: center;">
+                                                                            <button class="btn btn-danger remove-partner-button" type="button">Remove</button>
+                                                                        </div>
+                                                                    </div>
+                                                                @endforeach
+                                                            @else
+                                                                <div class="partner-row" style="display: flex; align-items: flex-end;">
+                                                                    <div style="margin-right: 10px;">
+                                                                        <label for="partner_name">Name:</label>
+                                                                        <input type="text" name="partner_name[]" required>
+                                                                    </div>
+                                                                    <div style="margin-right: 10px;">
+                                                                        <label for="partner_gender">Gender:</label>
+                                                                        <select name="partner_gender[]" required>
+                                                                            <option value="Male">Male</option>
+                                                                            <option value="Female">Female</option>
+                                                                            <option value="Other">Other</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div style="margin-right: 10px;">
+                                                                        <label for="partner_birth_date">Date Of Birth:</label>
+                                                                        <input type="date" name="partner_birth_date[]" required max="2005-12-31" min="1905-01-01">
+                                                                    </div>
+                                                                    <div style="margin-right: 10px;">
+                                                                        <label for="partner_social_category_id">Social Category:</label>
+                                                                        <select id="partner_social_category_id" name="partner_social_category_id[]" required>
+                                                                            <option value="">--Select Category--</option>
+                                                                            @foreach($cats as $cat)
+                                                                            <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </div>
+                                                                    <div style="margin-right: 10px;">
+                                                                        <label for="partner_is_specially_abled">Specially Abled:</label>
+                                                                        <select name="partner_is_specially_abled[]" required>
+                                                                            <option value="Yes">Yes</option>
+                                                                            <option value="No">No</option>
+                                                                        </select>
+                                                                    </div>
+                                                                    <div style="margin-right: 10px;">
+                                                                        <label for="partner_aadhaar">Aadhaar Number:</label>
+                                                                        <input type="text" name="partner_aadhaar[]" pattern="^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$" required>
+                                                                    </div>
+                                                                    <div style="">
+                                                                        <label for="partner_mobile">Mobile (Linked To The Aadhaar):</label>
+                                                                        <input type="tel" name="partner_mobile[]" pattern="^[6-9]{1}[0-9]{9}$" required>
+                                                                    </div>
+                                                                    <div style="display: flex; align-items: center;">
+                                                                        <button class="btn btn-danger remove-partner-button" type="button">Remove</button>
+                                                                    </div>
                                                                 </div>
-                                                                <div style="margin-right: 10px;">
-                                                                    <label for="partner_gender">Gender:</label>
-                                                                    <select name="partner_gender[]" required>
-                                                                        <option value="Male">Male</option>
-                                                                        <option value="Female">Female</option>
-                                                                        <option value="Other">Other</option>
-                                                                    </select>
-                                                                </div>
-                                                                <div style="margin-right: 10px;">
-                                                                    <label for="partner_birth_date">Date Of Birth:</label>
-                                                                    <input type="date" name="partner_birth_date[]" required max="2005-12-31" min="1905-01-01">
-                                                                </div>
-                                                                <div style="margin-right: 10px;">
-                                                                    <label for="partner_social_category_id">Social Category:</label>
-                                                                    <select id="partner_social_category_id" name="partner_social_category_id[]" required>
-                                                                        <option value="-1">--Select Category--</option>
-                                                                        @foreach($cats as $cat)
-                                                                        <option value="{{ $cat->id }}">{{ $cat->name }}</option>
-                                                                        @endforeach
-                                                                    </select>
-                                                                </div>
-                                                                <div style="margin-right: 10px;">
-                                                                    <label for="partner_is_specially_abled">Specially Abled:</label>
-                                                                    <select name="partner_is_specially_abled[]" required>
-                                                                        <option value="Yes">Yes</option>
-                                                                        <option value="No">No</option>
-                                                                    </select>
-                                                                </div>
-                                                                <div style="margin-right: 10px;">
-                                                                    <label for="partner_aadhaar">Aadhaar Number:</label>
-                                                                    <input type="text" name="partner_aadhaar[]" pattern="^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$" required>
-                                                                </div>
-                                                                <div style="">
-                                                                    <label for="partner_mobile">Mobile (Linked To The Aadhaar):</label>
-                                                                    <input type="tel" name="partner_mobile[]" pattern="^[6-9]{1}[0-9]{9}$" required>
-                                                                </div>
-                                                                <div style="display: flex; align-items: center;">
-                                                                    <button class="btn btn-danger remove-partner-button" type="button">Remove</button>
-                                                                </div>
-                                                            </div>
+                                                            @endif
                                                             
                                                         </div>
                                                     </div>
@@ -418,7 +470,7 @@
                                     <th ><strong>Area Type / क्षेत्र प्रकार:</strong></th>
                                     <td colspan="4">
                                         <select id="area_type" name="area_type" class="button" required>
-                                            <option value="-1">--Select Area--</option>
+                                            <option value="">--Select Area--</option>
                                             <option value="Rural" {{ (old('area_type', $application ? $application->data->enterprise->area_type : '') == 'Rural') ? 'selected' : '' }}>Rural</option>
                                             <option value="Urban" {{ (old('area_type', $application ? $application->data->enterprise->area_type : '') == 'Urban') ? 'selected' : '' }}>Urban</option>
                                         </select>
@@ -438,7 +490,7 @@
                                     <th ><strong>District / जिला:</strong></th>
                                     <td colspan="4">
                                         <select id="district_id" name="district_id" class="button" required>
-                                        <option value="-1">--Select District--</option>
+                                        <option value="">--Select District--</option>
                                             @foreach($diss as $dis)
                                                 <option value="{{ $dis->id }}" {{ (old('constitution_type_id', $application ? $application->data->enterprise->district_id : '') == $dis->id) ? 'selected' : '' }}>{{ $dis->name }}</option>
                                             @endforeach
@@ -451,7 +503,7 @@
                                     <th ><strong>Constituency / संसदीय क्षेत्र:</strong></th>
                                     <td colspan="4">
                                         <select id="constituency_id" name="constituency_id" class="button" required>
-                                        <option value="-1">--Select Constituency--</option>
+                                        <option value="">--Select Constituency--</option>
                                             <!-- Populate options dynamically using JavaScript or your backend -->
                                         </select>
                                         <small>Constituency</small>
@@ -462,7 +514,7 @@
                                     <th ><strong>Tehsil / तहसील:</strong></th>
                                     <td colspan="4">
                                         <select id="tehsil_id" name="tehsil_id" class="button" required>
-                                        <option value="-1">--Select Tehsil--</option>
+                                        <option value="">--Select Tehsil--</option>
                                             <!-- Populate options dynamically using JavaScript or your backend -->
                                         </select>
                                         <small>Tehsil</small>
@@ -473,7 +525,7 @@
                                     <th ><strong>Block / ब्लॉक:</strong></th>
                                     <td colspan="4">
                                         <select id="block_id" name="block_id" class="button" required>
-                                        <option value="-1">--Select Block--</option>
+                                        <option value="">--Select Block--</option>
                                             <!-- Populate options dynamically using JavaScript or your backend -->
                                         </select>
                                         <small>Block</small>
@@ -484,7 +536,7 @@
                                     <th ><strong>Panchayat/Town / पंचायत/नगर:</strong></th>
                                     <td colspan="4">
                                         <select id="panchayat_id" name="panchayat_id" class="button" required>
-                                        <option value="-1">--Select Panchayat/Town--</option>
+                                        <option value="">--Select Panchayat/Town--</option>
                                             <!-- Populate options dynamically using JavaScript or your backend -->
                                         </select>
                                         <small>Panchayat/Town</small>
@@ -679,7 +731,7 @@
                                     <th ><strong>Name of the Loan Financing Bank / ऋण वित्तपोषण बैंक का नाम:</strong></th>
                                     <td colspan="4">
                                         <select class="button" id="bank_id" name="bank_id" required>
-                                            <option value="-1">--Select Bank--</option>
+                                            <option value="">--Select Bank--</option>
                                             @foreach($banks as $bank)
                                                 <option value="{{ $bank->id }}" {{ (old('constitution_type_id', $bankid ? $bankid->bank_id : '') == $bank->id) ? 'selected' : '' }}>{{ $bank->name }}</option>
                                             @endforeach
@@ -692,7 +744,7 @@
                                     <th ><strong>Name of the Loan Financing Branch / ऋण वित्तपोषण शाखा का नाम:</strong></th>
                                     <td colspan="4">
                                         <!-- <select class="button select2" id="bank_branch_id" name="bank_branch_id" required>
-                                            <option value="-1">--Select Branch--</option>
+                                            <option value="">--Select Branch--</option>
                                         </select> -->
                                         <input type="text" id="branch" name="branch"  readonly="true" size="11" required> 
                                         <input  id="bank_branch_id" name="bank_branch_id"  type="hidden" size="11" required> 
@@ -844,7 +896,7 @@
             </tbody>
         </table>
         <!-- Add any submit button or additional form elements here -->
-        <div id="myModal" class="modal">
+        <div id="myModal" class="modal bank-modal">
             <div class="modal-content">
                 <span class="close" id="closeModalBtn">&times;</span>
                 <h2>Select a Branch</h2>
@@ -950,10 +1002,12 @@
                     },
                     success: function(data) {
                         // Add the retrieved options to the select element
+                        let selectedConstituencyId = '{{ old('activity_id', $application ? $application->data->enterprise->activity_id : '') }}';
                         data.forEach(function(option) {
                             activitySelect.append($('<option>', {
                                 value: option.id,
-                                text: option.name
+                                text: option.name,
+                                selected: option.id == selectedConstituencyId  // Set selected based on the condition
                             }));
                         });
 
@@ -1596,18 +1650,18 @@
 </script>
 
 <style>
-    .modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    z-index: 1;
-}
+    .bank-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 1;
+    }
 
-.modal-content {
+ .bank-modal .modal-content {
     background-color: #fff;
     margin: 10% auto;
     padding: 20px;
@@ -1615,7 +1669,7 @@
     position: relative;
 }
 
-.close {
+.bank-modal .close {
     position: absolute;
     top: 10px;
     right: 10px;

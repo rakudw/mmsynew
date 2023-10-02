@@ -13,7 +13,12 @@
         <h6 class="font-weight-bolder mb-0">{{ $title ?? __('Application for Approval') }}</h6>
     </nav>
 @endsection
-
+<style>
+    .alert-danger{
+        --bs-alert-bg: #e36e2c;
+        background-color: #e36e2c !important;
+    }
+</style>
 @section('content')
 @include('shared.front-end.applicant_header')
 
@@ -30,7 +35,7 @@ $(document).ready(function() {
     function checkRequiredInputs() {
         var requiredInputs = $('input[required]');
         console.log('requiredInputs',requiredInputs)
-        for (var i = 0; i < requiredInputs.length; i++) {
+        for (var i = 0; i < requiredInputs.length - 1; i++) {
             if (!requiredInputs[i].value) {
                 return false;
             }

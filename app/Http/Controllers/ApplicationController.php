@@ -251,7 +251,7 @@ class ApplicationController extends Controller
                     'district_id' => $request->input('district_id'),
                     'panchayat_id' => $request->input('panchayat_id'),
                     'constituency_id' => $request->input('constituency_id'),
-                    'activity_details' => $request->input('activity_details'),
+                    $request->input('activity_details') ? 'activity_details' : 'products' => $request->input('activity_details') ? $request->input('activity_details') : $request->input('products') ,
                     'activity_type_id' => $request->input('activity_type_id'),
                     'constitution_type_id' => $request->input('constitution_type_id'),
                 ],
@@ -284,7 +284,7 @@ class ApplicationController extends Controller
                 ->withErrors(['custom_error' => 'An application with the same data already exists.'])
                 ->withInput(); 
         } else {
-            
+                
                 $application = new Application();
                 
                 $application->name = $request->input('name');
@@ -292,9 +292,8 @@ class ApplicationController extends Controller
                 $application->data = $data;
                 $application->region_id = $request->input('owner_district_id');
                 $application->status_id = 302;
-                // $application->created_by = auth()->user()->id;
-                // dd("sas",$application);
                 $this->registerUser($application);
+                $application->created_by = auth()->user()->id;
                 $application->save();
                
               
@@ -450,7 +449,7 @@ class ApplicationController extends Controller
         $type = $request->get('type');
         if ($type !== null) {
 
-            return redirect()->route('applications.newstatus');
+            return redirect()->route('application.newstatus');
         }else{
 
             return redirect()->route('applications.list');
