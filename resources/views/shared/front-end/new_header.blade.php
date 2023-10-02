@@ -17,7 +17,7 @@
                 <!-- <li><a href="/application/status">Applicant Login</a></li> -->
                 <li><a href="{{ auth()->user() ? route("logout") : route("login.applicant") }}">{{ auth()->user() ? 'Logout' : 'Applicant Login' }}</a></li>
                 {{-- <li><a href="#">Operational Guidelines</a></li> --}}
-                <li><a href="{{ route("login") }}">Dipartment Login</a></li>
+                <li><a href="{{ route("login") }}">Department Login</a></li>
             </ul>
         </div>
     
@@ -48,8 +48,19 @@
     <div class="container notification_custom">
         <div class="notification-news">
             <div class="update col-md-3"> NOTIFICATION</div>
-            <marquee width="100%" class="col-md-9" direction="left" vspace="8px">
-                Add some text | Click here to download The Notifications will keep scrolling horizontally | NOTIFICATION |
+            <marquee class="col-md-9 align-self-center" width="100%" direction="left" vspace="8px">
+                <a href="https://mmsy.hp.gov.in/storage/files/1/User-Manual/Bank-Manager.pdf">
+                    <em class="fa-solid fa-book"></em>
+                User Manual for Bank Managers
+                </a>
+                                <a href="https://mmsy.hp.gov.in/old-portal/">
+                    <em class="fa-solid fa-info-circle"></em>
+                Old Portal will be working for clearing pendency, click here to visit
+                </a>
+                                <a href="https://mmsy.hp.gov.in/storage/files/1/Launch-of-MMSY-Portal.pdf">
+                    <em class="fa-solid fa-home"></em>
+                Welcome to the new portal of Mukhya Mantri Swavalamban Yojana
+                </a>
             </marquee>
         </div>
     </div>
@@ -62,8 +73,8 @@
     
         <div class="independence_and_achivement">
             <div class="header_residence">
-                <h3>This scheme is exclusively for Himachali residents. </h3> 
-                <a class="clickhere_custom" href="#">Click here to start your application</a>
+                <h3>This scheme is exclusively for HIMACHALI RESIDENTS. </h3> 
+                <a class="clickhere_custom" href="/application/new">Click here to start your application</a>
                </div>
             {{-- <h3>On this independence day add more freedom to your lives</h3> --}}
             <div class="achievements">
@@ -72,9 +83,9 @@
                     <li>Total 8613 projects passed</li>
                     <li>23655 employment proposed</li>
                     <li>Total 5347 Industries established</li>
-                    <li>1370 emplyoment generated </li>
+                    {{-- <li>1370 emplyoment generated </li> --}}
                     <li>INR 886.32 Cr investment Made</li>
-                    <li>INR 1600.68 Cr proposed investment</li>
+                    {{-- <li>INR 1600.68 Cr proposed investment</li> --}}
                 </ul>
         
             </div>

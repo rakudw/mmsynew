@@ -11,12 +11,12 @@
 
 .wrapper{
     /*background-image: url('../../public/images/backtwo.jpg');*/
-    /* background-image: url('../../public/images/SHIMLA.png'); */
+    background: url('https://st4.depositphotos.com/16940446/39797/v/450/depositphotos_397974052-stock-illustration-orange-white-gradient-soft-background.jpg');
     background-position: center;
     background-size: cover;
     position: relative;
     overflow: hidden;
-    background: #efefef;
+    /* background: #efefef; */
    
 }
 div#card-4 {
@@ -103,8 +103,8 @@ ul.achivelist li {
     font-size: 16px;
 }
 .main_mmsy {
-    padding-top:45px;
-    padding-bottom: 45px;
+    padding-top:36px;
+    padding-bottom: 36px;
 }
 .row.main_mmsy p {
     font-family: 'Montserrat';
@@ -585,8 +585,10 @@ width: 100%;
 .header_residence h3 {
     padding: 5px!important;
     margin-bottom: 17px;
-    font-family: 'Montserrat';
+    font-family: Montserrat;
     font-weight: 700;
+    font-size: 24px;
+    text-transform: capitalize;
 }
 
 a.clickhere_custom {
