@@ -61,6 +61,10 @@
     <!-- card section end -->
     
         <div class="independence_and_achivement">
+            <div class="header_residence">
+                <h3>This scheme is exclusively for Himachali residents. </h3> 
+                <a class="clickhere_custom" href="#">Click here to start your application</a>
+               </div>
             {{-- <h3>On this independence day add more freedom to your lives</h3> --}}
             <div class="achievements">
                 <h2>Achivements</h2>

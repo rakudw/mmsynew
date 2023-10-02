@@ -67,10 +67,9 @@
     }
     .caution .caution-main .caution-head 
     {
-      padding: 7px 15px 0px 15px;
+      padding: 7px 15px 7px 15px;
       width: auto;
-      height: 2.2rem;
-      background-color: #198754;
+           background-color: #198754;
       border: 1px solid #198754;
       border-radius: 15px;
       position: absolute;
@@ -82,6 +81,7 @@
   {
       color: #fff;
       font-size: 15px;
+      margin-bottom: 0px !important;
   }
   .caution-notice 
   {

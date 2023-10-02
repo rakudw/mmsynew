@@ -10,12 +10,13 @@
 }
 
 .wrapper{
-    background-image: url('../../public/images/bg.png');
+    /*background-image: url('../../public/images/backtwo.jpg');*/
     /* background-image: url('../../public/images/SHIMLA.png'); */
     background-position: center;
     background-size: cover;
     position: relative;
     overflow: hidden;
+    background: #efefef;
    
 }
 div#card-4 {
@@ -56,14 +57,20 @@ img.name_banner_one {
     top: -85px;
     z-index: 999;
 }
+.modal-dialog {
+    max-width: 750px !important;
+    width:100% !important;
+    z-index: 9999999;
+}
 
 img.name_banner_two {
     position: absolute;
     right: -139px;
     max-width: 497px;
     top: -169px;
-    z-index: 99999;
+    z-index: 999;
 }
+
 img.industrial_minister {
     max-width: 231px;
     width: 100%;
@@ -96,11 +103,29 @@ ul.achivelist li {
     font-size: 16px;
 }
 .main_mmsy {
-    padding-top: 30px;
+    padding-top:45px;
+    padding-bottom: 45px;
 }
+.row.main_mmsy p {
+    font-family: 'Montserrat';
+    font-size: 16px;
+    margin: 0px;
+    padding: 10px 0px;
+}
+.main_mmsy button {
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 20px;
+    padding: 8px 30px;
+}
+.main_mmsy button:hover{
+    background:#fff;
+    color:#002161;
+}
+
 .independence_and_achivement h3 {
     font-size: 40px;
-    max-width: 550px;
+    max-width: 650px;
     margin: auto;
     padding-bottom: 30px;
     font-family: 'Courgette', cursive;
@@ -121,6 +146,9 @@ ul.achivelist {
     text-align: center;
     padding-bottom: 20px;
     padding-top: 10px;
+}
+.mmsy_about {
+    padding-bottom: 20px;
 }
 .card-4-wrapper {
     background: #FF6400;
@@ -204,9 +232,21 @@ marquee.col-md-9 {
 
 }
 .wrapper-inner {
-    max-width: 1200px;
+    max-width: 1278px;
     margin: auto;
     padding: 10px;
+}
+
+button#v-pills-n-tab {
+    font-family: 'Montserrat';
+    font-size: 15px;
+    font-weight: 600 !important;
+    white-space: nowrap;
+}
+.nav-pills .nav-link.active {
+     font-family: 'Montserrat';
+      font-size: 15px !important;
+    font-weight: 600 !important;
 }
 
 .flex-wrapper {
@@ -528,15 +568,46 @@ margin-top: 3px;
 {
 border: 1px solid #C2C0C0;
 background-color: #EFEFEF;
-height: 860px;
+height: auto;
+width: 100%;
+    padding: 15px;
+}
+.mmsy_Portal h5 {
+    margin-bottom: 0px;
 }
 .mmsy_Portal
 
 {
-background-color: #9D9D9D;
-text-align: center;
-padding: 20px 15px;
+    background-color: #ffa23d;
+    text-align: center;
+    padding: 20px 15px;
 }
+.header_residence h3 {
+    padding: 5px!important;
+    margin-bottom: 17px;
+    font-family: 'Montserrat';
+    font-weight: 700;
+}
+
+a.clickhere_custom {
+    background: #ff6400;
+    color: white;
+    font-family: 'Montserrat';
+    text-decoration: none;
+    padding: 13px 21px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 31px;
+    text-transform: capitalize;
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+}
+
+.achievements {
+    display: block;
+    margin-top: 30px;
+}
+
 .mmsy_Portal h5
 {
 color: #ffff;
@@ -548,6 +619,12 @@ font-weight: bold;
 {
     background-color: #727272!important;
     width: 100%!important;
+    color:white !important;
+}
+#v-pills-tab .nav-link:hover {
+    background-color: #727272!important;
+    width: 100%!important;
+    color: white !important;
 }
 
 #v-pills-hn-tab,#v-pills-n-tab,#v-pills-nol-tab,#v-pills-ff-tab,#v-pills-fr-tab,#v-pills-faq-tab,#v-pills-g-tab
@@ -558,7 +635,7 @@ display: flex;
 color: #010101;
 font-size: 16px;
 font-weight: 500;
-margin: 20px 0px !important;
+margin: 5px 0px !important;
 }
 i.fa-solid.fa-bell
 {
@@ -634,7 +711,7 @@ font-weight: bold;
 
 background-color: #FFA23D;
 margin: 10px;
-
+padding-top: 20px !important;
 padding: 10px;
 border-radius: 10px;
 }
@@ -642,9 +719,12 @@ border-radius: 10px;
 {
 background-color: #EFEFEF;
 margin: 10px;
-
+padding-top: 20px !important;
 padding: 10px;
 border-radius: 10px;
+}
+.row.main_mmsy .card-body img {
+    filter: brightness(0.5);
 }
 
 p.card-text
@@ -657,7 +737,7 @@ color: #333333;
 {
 
 background-color: #001529;
-height: 40px;
+
 }
 .footer-content p
 {
@@ -665,6 +745,7 @@ color: #fff;
 font-size: 15px;
 float: right;
 padding: 10px;
+margin-bottom: 0px;
 
 }
 .footer-content span
@@ -676,6 +757,7 @@ color: #FFA23D;
 color: #698494;
 padding: 10px;
 float: right;
+margin-bottom: 0px !important;
 }
 .social_icon 
 {

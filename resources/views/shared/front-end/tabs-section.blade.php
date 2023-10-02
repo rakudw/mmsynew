@@ -70,26 +70,7 @@
                   </div>
                 </div>
           </div>
-            <div class="mmsy_about">
-                <div class="row main_about">
-                    <div class="col-md-4 ">
-                        <div class="card-body">
-                            <div class="hover01">
-                          <figure><a href="#">	<img src="{{ asset("images/cheifminister.png") }}" alt="cheifminister" class="img-fluid"></a></figure>
-                            </div>   
-                            <a href="https://cmhimachal.hp.gov.in/index.php/" target="_blank"><button type="button" class="buttonaward">Donate to CM Relif Fund</button></a>                
-                          </div>
-                    </div>
-                    <div class="col-md-8 ">
-                        <div class="aboutus_right_sections">
-                            <div class="top_heading">
-                                <h3><span>ABOUT </span> Mukhyamantri Swavalamban Yojana</h3>
-                                <p>There is a great need to promote self-employment, whether there is a lack of adequate empolyment in both the government sector or the private sector. The state government of Himachal Pradesh has taken the step in the direction and announced a new scheme for the youth of the state</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
             
             
           </div>
@@ -148,6 +129,29 @@
           </div>
       </div>
     </div>
+
+  <!---- about us --->
+  <div class="mmsy_about">
+    <div class="row main_about">
+        <div class="col-md-4 ">
+            <div class="card-body">
+                <div class="hover01">
+              <figure><a href="#">	<img src="{{ asset("images/cheifminister.png") }}" alt="cheifminister" class="img-fluid"></a></figure>
+                </div>   
+                <a href="https://cmhimachal.hp.gov.in/index.php/" target="_blank"><button type="button" class="buttonaward">Donate to CM Relif Fund</button></a>                
+              </div>
+        </div>
+        <div class="col-md-8 ">
+            <div class="aboutus_right_sections">
+                <div class="top_heading">
+                    <h3><span>ABOUT </span> Mukhyamantri Swavalamban Yojana</h3>
+                    <p>There is a great need to promote self-employment, whether there is a lack of adequate empolyment in both the government sector or the private sector. The state government of Himachal Pradesh has taken the step in the direction and announced a new scheme for the youth of the state</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+  <!-- about us end --> 
     <div class="container-fluid">
       <div class="caution">
   
