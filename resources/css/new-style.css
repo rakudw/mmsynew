@@ -26,9 +26,9 @@ div#card-4 {
 img.cm_image {
     position: relative;
     top: -67px;
-    max-width: 277px;
+    max-width: 227px;
     width: 100%;
-    height: 273px;
+    height: 223px;
 
 }
 .design_card {
@@ -95,16 +95,16 @@ ul.achivelist {
 ul.achivelist li {
     list-style-type: none;
     border: 1px solid #ff6400;
-    padding: 9px 8px;
+    padding: 6px 8px;
     border-top: 0px;
     color: #002657;
     font-weight: 600;
     font-family: 'Montserrat', sans-serif;
-    font-size: 16px;
+    font-size: 15px;
 }
 .main_mmsy {
-    padding-top:36px;
-    padding-bottom: 36px;
+    padding-top:20px;
+    padding-bottom: 10px;
 }
 .row.main_mmsy p {
     font-family: 'Montserrat';
@@ -130,6 +130,7 @@ ul.achivelist li {
     padding-bottom: 30px;
     font-family: 'Courgette', cursive;
 }
+
 ul.achivelist {
     border-top: 1px solid #ff6400;
     padding: 0px;
@@ -204,7 +205,7 @@ marquee.col-md-9 {
     justify-content: space-between;
     max-width: 1200px;
     margin: auto;
-    margin-top: -18% !important;
+    margin-top: -14% !important;
 }
 
 .wrapper:after {
@@ -242,6 +243,7 @@ button#v-pills-n-tab {
     font-size: 15px;
     font-weight: 600 !important;
     white-space: nowrap;
+    margin: 5px !important;
 }
 .nav-pills .nav-link.active {
      font-family: 'Montserrat';
@@ -576,18 +578,18 @@ width: 100%;
     margin-bottom: 0px;
 }
 .mmsy_Portal
-
 {
     background-color: #ffa23d;
     text-align: center;
     padding: 20px 15px;
+    margin-bottom: 20px !important  ;
 }
 .header_residence h3 {
     padding: 5px!important;
     margin-bottom: 17px;
     font-family: Montserrat;
     font-weight: 700;
-    font-size: 24px;
+    font-size: 30px !important;
     text-transform: capitalize;
 }
 
@@ -627,6 +629,9 @@ font-weight: bold;
     background-color: #727272!important;
     width: 100%!important;
     color: white !important;
+}
+.mmsy_outer button#v-pills-hn-tab {
+    margin:5px !important;
 }
 
 #v-pills-hn-tab,#v-pills-n-tab,#v-pills-nol-tab,#v-pills-ff-tab,#v-pills-fr-tab,#v-pills-faq-tab,#v-pills-g-tab
@@ -671,10 +676,11 @@ font-size: 15px;
 font-weight: 500;
 padding: 10px 30px;
 }
-.aboutus_right_sections
-{
-margin-top: 75px;
-
+.aboutus_right_sections{
+    padding-top: 0px;
+}
+.mmsy_about{
+    margin-top: 20px;
 }
 .top_heading span 
 {
@@ -699,7 +705,15 @@ letter-spacing: 0em;
 text-align: left;
 color: #4B4B4B;
 max-width: 100%;
-width: 501px;
+width: 100%;
+}
+.img-about{
+    max-width: 130px !important;
+    height: 120px !important;
+}
+.row.main_about {
+    display: flex;
+    align-items: center;
 }
 h1.heading_mmsy
 {

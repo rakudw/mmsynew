@@ -17,7 +17,7 @@
                 <!-- <li><a href="/application/status">Applicant Login</a></li> -->
                 <li><a href="{{ auth()->user() ? route("logout") : route("login.applicant") }}">{{ auth()->user() ? 'Logout' : 'Applicant Login' }}</a></li>
                 {{-- <li><a href="#">Operational Guidelines</a></li> --}}
-                <li><a href="{{ route("login") }}">Department Login</a></li>
+                <li><a href="{{ route("login") }}">{{ auth()->user() ? 'Acount' : 'Department Login'}}</a></li>
             </ul>
         </div>
     

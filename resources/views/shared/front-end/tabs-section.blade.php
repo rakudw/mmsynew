@@ -1,4 +1,5 @@
 
+<hr>
 <div class="container main">
     <div class="d-flex align-items-start">
         <div class="nav flex-column nav-pills me-3 col-md-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -8,9 +9,9 @@
             </div>
           <button class="nav-link active" id="v-pills-hn-tab" data-bs-toggle="pill" data-bs-target="#v-pills-hn" type="button" role="tab" aria-controls="v-pills-hn" aria-selected="true"><i class="fa-solid fa-house-chimney"></i>HOME</button>
           <a data-bs-toggle="modal" data-bs-target="#helpDeskModal" href="#"><button class="nav-link" id="v-pills-n-tab" type="button"><i class="fa-solid fa-house-chimney"></i>HELPDESK NO </button></a>
-          <a data-bs-toggle="modal" data-bs-target="#helpDeskModal" href="#"><button class="nav-link" id="v-pills-n-tab" type="button"><i class="fa-solid fa-house-chimney"></i>SUCCESS STORIES </button></a>
+          <a data-bs-toggle="modal" data-bs-target="#successModal" href="#"><button class="nav-link" id="v-pills-n-tab" type="button"><i class="fa-solid fa-house-chimney"></i>SUCCESS STORIES </button></a>
           <a href="/mmsy-dashboard" target="_blank"><button class="nav-link" id="v-pills-n-tab" type="button"><i class="fa-solid fa-wrench"></i>MMSY DASHBOARD</button></a>
-          <a data-bs-toggle="modal" data-bs-target="#helpDeskModal" href="#"><button class="nav-link" id="v-pills-n-tab" type="button"><i class="fa-solid fa-video"></i>VIDEO TUTORIAL </button></a>
+          <a data-bs-toggle="modal" data-bs-target="#videoModal" href="#"><button class="nav-link" id="v-pills-n-tab" type="button"><i class="fa-solid fa-video"></i>VIDEO TUTORIAL </button></a>
           <a href="/mmsy-dashboard" target="_blank"><button class="nav-link" id="v-pills-n-tab" type="button"><i class="fa-solid fa-bell"></i>NOTIFICATIONS</button></a>
           <a data-bs-toggle="modal" data-bs-target="#myModal"><button class="nav-link grievance" id="v-pills-n-tab" type="button"><i class="fa-solid fa-envelope"></i>GRIEVANCES</button></a>
           <a data-bs-toggle="modal" data-bs-target="#feedbackModal" href="#"><button class="nav-link feedback" id="v-pills-n-tab" type="button"><i class="fa-solid fa-envelope"></i>FEEDBACK FORM</button></a>
@@ -36,7 +37,7 @@
                       <div class="card-body">
                         <img src="{{ asset("images/non-individual.png") }}">
                         <p class="card-text">Registered Applicant</p> 
-                        <p class="card-text"><a href="{{ auth()->user() ? route("logout") : route("login.applicant") }}"><button class="btn btn-success">Login</button></a></p>
+                        <p class="card-text"><a href="{{ route("login.applicant") }}"><button class="btn btn-success">Login</button></a></p>
                       </div>
                     </div>
                   </div>
@@ -45,7 +46,7 @@
                       <div class="card-body">
                         <img src="{{ asset("images/Official.png") }}">
                         <p class="card-text">Check Status</p>
-                        <p class="card-text"><a href="{{ auth()->user() ? route("logout") : route("login.applicant") }}"><button class="btn btn-success">Status</button></a></p>
+                        <p class="card-text"><a href="{{ route("login.applicant") }}"><button class="btn btn-success">Status</button></a></p>
                       </div>
                     </div>
                   </div>
@@ -56,7 +57,7 @@
                       <div class="card-body">
                         <img src="{{ asset("images/banking.png") }}">
                         <p class="card-text">Bank Login</p>
-                        <p class="card-text"><a href="{{ auth()->user() ? route("logout") : route("login") }}"><button class="btn btn-success">Login</button></a></p>
+                        <p class="card-text"><a href="{{ route("login") }}"><button class="btn btn-success">Login</button></a></p>
                       </div>
                     </div>
                   </div>
@@ -65,16 +66,17 @@
                       <div class="card-body">
                         <img src="{{ asset("images/department.png") }}">
                         <p class="card-text">Department Login</p> 
-                        <p class="card-text"><a href="{{ auth()->user() ? route("logout") : route("login.applicant") }}"><button class="btn btn-success">Login</button></a></p>
+                        <p class="card-text"><a href="{{ route("login") }}"><button class="btn btn-success">Login</button></a></p>
                       </div>
                     </div>
                   </div>
                 </div>
           </div>
             
-            
+           
             
           </div>
+          
           <div class="tab-pane fade" id="v-pills-g" role="tabpanel" aria-labelledby="v-pills-g-tab">
             <div class="center">
                 <a href="" class="ButtonRound">Home Page</a>
@@ -130,14 +132,14 @@
           </div>
       </div>
     </div>
-
+    <hr>
   <!---- about us --->
   <div class="mmsy_about">
     <div class="row main_about">
         <div class="col-md-4 ">
             <div class="card-body">
                 <div class="hover01">
-              <figure><a href="#">	<img src="{{ asset("images/cheifminister.png") }}" alt="cheifminister" class="img-fluid"></a></figure>
+              <figure><a href="#">	<img src="https://mmsy.hp.gov.in/images/shimla-header-bg.jpg" alt="cheifminister" class="img-fluid img-about"></a></figure>
                 </div>   
                 <a href="https://cmhimachal.hp.gov.in/index.php/" target="_blank"><button type="button" class="buttonaward">Donate to CM Relif Fund</button></a>                
               </div>
@@ -242,56 +244,57 @@
 </div>
   {{-- HelpDesk Modal --}}
   <div class="modal fade" id="myModal" tabindex="-1">
-  <form action="/grievance" method="POST" onsubmit="return confirm('Thanks For your Feedback')">
-    @csrf
-    <div class="modal-dialog">
-    <div class="modal-content">
-        <div class=" text-center modal-header">
-        <h5 class="modal-title">{{ auth()->user() ? 'Applicant Name: ' . auth()->user()->name : 'User Name' }}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-        <div class="table-responsive">
-            <table class="table table-bordered table-striped table-hover">
-                
-                <tbody>
-                    <tr><td class="text-center">Applicant Grievance Form</td></tr>
-                    <tr><td class="text-center" >(Email will be sent on Submit Your Grievance and copy of grievance will also sent to your mail:)</td></tr>
-                    <tr><td class="text-center">@if (auth()->check())
-                        Applicant ID: MMSY- {{ auth()->user()->id }}<br>
-                        Applicant Name: {{ auth()->user()->name }}
+    <div class="modal-dialog modal-dialog-centered">
+      <form action="/grievance" method="POST" onsubmit="return confirm('Your Grievance has been submitted. We will revert back shortly!')">
+          @csrf
+          <div class="modal-content">
+              <div class="modal-header text-center">
+                  <h5 class="modal-title text-center">{{ auth()->user() ? 'Applicant Name: ' . auth()->user()->name : 'User Name' }}</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <h6 class="text-center">Applicant Grievance Form</h6>
+                  <p class="text-center">(Email will be sent on Submit Your Grievance and a copy of grievance will also be sent to your mail)</p>
+                  <div class="text-center">
+                      @if (auth()->check())
+                          <p>Applicant ID: MMSY- {{ auth()->user()->id }}</p>
+                          <p>Applicant Name: {{ auth()->user()->name }}</p>
                       @else
-                          User Name
-                      @endif</td></tr>
-                      <tr><td class="text-center"> From<br>
-                      <input style="background-color: wheat; color: black;" type="text" readonly value="{{ auth()->user() ? auth()->user()->email : ''}}">
-                      <br>
-                      TO <br>
-                      <input style="background-color: wheat; color: black;" type="text" readonly value="mmsy2018@gmail.com">
-                      <br>
-                      Subjet <br>
-                      <select name="subject" id="subject" style="background-color: wheat; color: black;" required autofocus>
-                        <option value="">--select subject--</option>
-                        <option value="Issue related to Implementing Agency">Issue related to Implementing Agency</option>
-                        <option value="Issue relted to Financing Branch">Issue relted to Financing Branch</option>
-                        <option value="Technical Issues">Technical Issues</option>
-                        <option value="Other Issues">Other Issues</option>
-                      </select> <br>
-                      Discribe Your Problem/Issues <br>
-                      <input style="background-color: wheat; color: black;" name="discription" type="text" value="" required autofocus>
-                    </td></tr>
-                </tbody>
-                
-            </table>
-        </div>
-        </div>
-        <div class="modal-footer">
-        <input type="submit" class="btn btn-primary" value="Submit">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        </div>
-    </div>
-    </div>
-  </form>
+                          <p>User Name</p>
+                      @endif
+                  </div>
+                  <div class="row">
+                    <div class="mb-6 col-sm-6">
+                        <label for="from" class="form-label">From</label>
+                        <input type="text" class="form-control" id="from" readonly value="{{ auth()->user() ? auth()->user()->email : '' }}">
+                    </div>
+                    <div class="mb-6 col-sm-6">
+                        <label for="to" class="form-label">To</label>
+                        <input type="text" class="form-control" id="to" readonly value="mmsy2018@gmail.com">
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                      <label for="subject" class="form-label">Subject</label>
+                      <select class="form-select" name="subject" id="subject" required autofocus>
+                          <option value="">-- Select Subject --</option>
+                          <option value="Issue related to Implementing Agency">Issue related to Implementing Agency</option>
+                          <option value="Issue related to Financing Branch">Issue related to Financing Branch</option>
+                          <option value="Technical Issues">Technical Issues</option>
+                          <option value="Other Issues">Other Issues</option>
+                      </select>
+                  </div>
+                  <div class="mb-3">
+                      <label for="description" class="form-label">Describe Your Problem/Issues</label>
+                      <textarea class="form-control" name="description" id="description" value="" required autofocus placeholder="Describe Your Problem/Issues"> </textarea>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                  <input type="submit" class="btn btn-primary" value="Submit">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              </div>
+          </div>
+      </form>
+  </div>
 </div>
 <div class="modal fade" id="feedbackModal" tabindex="-1">
   <form action="/feedback" method="POST" onsubmit="return confirm('Thanks For your Feedback')">
@@ -303,17 +306,10 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-        <div class="table-responsive">
-            <table class="table table-bordered table-striped table-hover">
-                
-                <tbody>
-                    <tr><td class="text-center">Type Your Feedback Below</td></tr>
-                    <tr><td class="text-center" ><input style="background-color: wheat; color: black;" name="feedback" type="text" value="" required autofocus></td></tr>
-                    
-                </tbody>
-                
-            </table>
-        </div>
+          <div class="mb-3">
+              <label for="description" class="form-label">Type Your Feedback Below</label>
+              <textarea class="form-control" name="feedback" id="description" value="" required autofocus placeholder="Describe Your Problem/Issues"> </textarea>
+          </div>
         </div>
         <div class="modal-footer">
         <input type="submit" class="btn btn-primary" value="Submit">
@@ -323,6 +319,72 @@
     </div>
   </form>
 </div>
+<div class="modal fade" id="successModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title">Our Success Stories</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+              <div id="successCarousel" class="carousel slide" data-bs-ride="carousel">
+                  <div class="carousel-inner">
+                      <div class="carousel-item active">
+                          <img src="https://via.placeholder.com/800x400?text=Success+1" class="d-block w-100" alt="Success 1">
+                      </div>
+                      <div class="carousel-item">
+                          <img src="https://via.placeholder.com/800x400?text=Success+2" class="d-block w-100" alt="Success 2">
+                      </div>
+                      <div class="carousel-item">
+                          <img src="https://via.placeholder.com/800x400?text=Success+3" class="d-block w-100" alt="Success 3">
+                      </div>
+                  </div>
+                  <button class="carousel-control-prev" type="button" data-bs-target="#successCarousel" data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button class="carousel-control-next" type="button" data-bs-target="#successCarousel" data-bs-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                  </button>
+              </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="modal fade" id="videoModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title">Video Tutorials</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-sm-6">
+                <h4 class="text-center">English</h4>
+                  <!-- Hindi Video -->
+                  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/VIDEO_ID_IN_HINDI"></iframe>
+              </div>
+              {{-- <hr> --}}
+              <div class=" col-sm-6">
+                <h4 class="text-center">Hindi</h4>
+                  <!-- English Video -->
+                  <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/VIDEO_ID_IN_ENGLISH"></iframe>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+      </div>
+  </div>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
