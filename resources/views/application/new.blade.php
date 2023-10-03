@@ -28,7 +28,11 @@
         background: white !important;
         border-right: 1px solid black !important;
     }
-    
+    .backk, .style1{
+        height: 30px;
+        background-color: #E36E2C !important;
+        border-radius: 5px;
+    }
 </style>
 @section('scripts')
 <script>
