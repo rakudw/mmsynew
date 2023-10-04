@@ -13,7 +13,7 @@
                     <td class="td-1">
                         <table class="table">
                             <tbody>
-                                <tr bgcolor="#E36E2C">
+                                <tr class="backk">
                                     <td colspan="6">
                                         <div align="center" class="style1">
                                             <h6>Application For The Approval Under Mukhya Mantri Swavlamban Yojana/मुख्यमंत्री स्वावलंबन योजना के अंतर्गत मंजूरी के लिए आवेदन</h6>
