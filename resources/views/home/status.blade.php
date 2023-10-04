@@ -29,12 +29,12 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.googleapis.com" />
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
     <!-- Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
 
     <!-- Styles -->
-    @vite(['resources/scss/fontawesome.scss', 'resources/scss/admin.scss', ...(empty($pageVars['assets']['css']) ? [] : $pageVars['assets']['css'])])
     @yield('styles')
     </head>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -113,15 +113,16 @@
                                             @endif
                                             <form data-key="{{ request()->session()->get('_key') }}" method="POST" action="{{ route('login.request') }}">
                                                 @csrf
-                                                <div class="input-group input-group-outline my-3">
-                                                    <label for="identity" class="form-label">{{ __('Email Address or Mobile') }}</label>
-                                                    <input id="identity" data-mobile-otp="{{ setting('is_mobile_otp_available', null, false) ? 'true' : 'false' }}" type="text" class="form-control @error('identity') is-invalid @enderror @error('mobile') is-invalid @enderror" name="identity" autocomplete="username" value="{{ old('identity') }}" required autofocus />
+                                                <div class="form-group">
+                                                    <label for="identity">{{ __('Enter you Email / Mobile / Application ID') }}</label>
+                                                    <input id="identity" data-mobile-otp="{{ setting('is_mobile_otp_available', null, false) ? 'true' : 'false' }}" type="text" class="form-control @error('identity') is-invalid @enderror @error('mobile') is-invalid @enderror" name="identity" placeholder="Email,Phone,Application No." autocomplete="username" value="{{ old('identity') }}" required autofocus />
                                                     @error('identity')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
                                                         </span>
                                                     @enderror
                                                 </div>
+                                                
                                                 <div class="d-none" id="passwordBox">
                                                     <div class="input-group mb-3">
                                                         <label for="password" class="form-label">{{ __('Password') }}</label>
@@ -137,7 +138,7 @@
                                                         </span>
                                                     @enderror
                                                 </div>
-                                                <div class="input-group input-group-outline mb-3 d-none" id="otpBox">
+                                                <div class="form-group d-none" id="otpBox">
                                                     <label for="otpCode" class="form-label">{{ __('OTP Code') }}</label>
                                                     <input id="otpCode" type="number" min="100000" max="999999" autocomplete="nickname" class="form-control @error('otpCode') is-invalid @enderror" name="otpCode" />
                                                     @error('otpCode')
@@ -154,11 +155,8 @@
                                                         </div>
                                                     </div>
                                                     <div class="row">
-                                                        <div class="d-none col-6">
-                                                            <button type="button" id="showPasswordButton" class="btn bg-gradient-primary1 w-100 my-4 mb-2"><em class="fa-solid fa-key"></em> {{ __('Password') }}</button>
-                                                        </div>
-                                                        <div class="col-6">
-                                                            <button type="button" style=" background: #e36e2c; color:white" id="showOtpButton" class="btn bg-gradient-primary1 w-100 my-4 mb-2" data-url="{{ route('otp.request') }}">
+                                                        <div class="col-12">
+                                                            <button type="button" style=" background: #e36e2c; color:white;width: 80%;" id="showOtpButton" class="btn bg-gradient-primary1 w-80 my-4 mb-2" data-url="{{ route('otp.request') }}">
                                                                 <em class="fa-sharp fa-solid fa-comment-sms"></em> {{ __('Generate OTP') }}</button>
                                                         </div>
                                                     </div>
@@ -179,7 +177,7 @@
                                                     @enderror
                                                 </div> -->
                                                 <div class="text-center d-none">
-                                                    <button type="submit" style=" background: #e36e2c; color:white" class="btn bg-gradient-primary1 w-100 my-4 mb-2">Sign
+                                                    <button type="submit" style=" background: #e36e2c; color:white; width: 80%;" class="btn bg-gradient-primary1  my-4 mb-2">Sign
                                                         in</button><br />
                                                     <a href="{{ route('login.applicant') }}" class="btn bg-gradient-secondary w-100 my-4 mb-2">Reset</a>
                                                 </div>
@@ -212,6 +210,7 @@
         </a>
         @endif
     </div>
+    
     @endif
     @vite(['resources/ts/admin.ts', 'resources/ts/otplogin.ts', ...(empty($pageVars['assets']['js']) ? [] : $pageVars['assets']['js'])])
     @yield('scripts')
@@ -228,6 +227,29 @@
     .form-control:focus {
         outline: none !important;
         box-shadow: none !important;
+    }
+    #identity, #otpCode{
+        /* text-align: center; */
+        margin: auto;
+        margin-top: 10px;
+        width: 80%;
+        height: 40px;
+    }
+    label {
+        display: inline-block;
+        text-align: left;
+        margin-left: auto;
+        width: 80%;
+    }
+    .swal2-container.swal2-top-right.swal2-backdrop-show{
+        position: absolute;
+        top: 50%;
+        left: 37%;
+        z-index: 999;
+        background: orange;
+        width: 28%;
+        margin: auto;
+        text-align: center;
     }
 </style>
 @section('scripts')
