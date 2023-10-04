@@ -135,13 +135,13 @@
         @endif
         @if($panchayatWards)
             <div class="col-md-2">
-            <label class="form-label">Select Panchayat/Ward</label>
-            <!-- Panchayat/Ward Dropdown -->
-            <div class="dropdown">
-                <button class="btn btn-info dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <label class="form-label">Select Panchayat/Ward</label>
+                <!-- Panchayat/Ward Dropdown -->
+                <div class="dropdown">
+                    <button class="btn btn-info dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Panchayat/Ward
-                </button>
-                <ul class="dropdown-menu" id="panchayat-ward-multiselect">
+                    </button>
+                    <ul class="dropdown-menu" id="panchayat-ward-multiselect">
                     <li>
                         <label class="dropdown-item">
                             <input type="checkbox" id="select-all-panchayat-ward-multiselect"> Select All
@@ -158,13 +158,40 @@
                     </ul>
                 </div>
             </div>
-            @endif
+        @endif
+        @if($categories)
+            <div class="col-md-2">
+                <label class="form-label">Select Social Category</label>
+                <select class="form-control" title="{{ is_array(request()->get('cat_id')) }}" name="cat_id" id="cat-id">
+                    <option value="">-- All --</option>
+                    @foreach($categories as $cat)
+                            <option value="{{ $cat->id }}" @selected(request()->get('cat_id') == $cat->id)>{{ $cat->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+        @endif
+        @if($activities)
+            <div class="col-md-2">
+                <label class="form-label">Select Activity</label>
+                <select style="width: 200px" class="form-control" title="{{ is_array(request()->get('activity_id')) }}" name="activity_id" id="activity-id">
+                    <option value="">-- All --</option>
+                    @foreach($activities as $activity)
+                            <option value="{{ $activity->id }}" @selected(request()->get('activity_id') == $activity->id)>{{ $activity->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+        @endif
         </div>
 </form>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
 <script>
     // JavaScript to handle custom multiselect
     $(document).ready(function () {
+        $('#activity-id').selectize({
+          sortField: 'text'
+      });
         // Event delegation to capture form submission
         $('form').on('submit', function (event) {
         event.preventDefault(); // Prevent the default form submission
@@ -183,11 +210,21 @@
 
         // Get the selected value from the select element
         const selectedStatusValue = $('#status-id').val();
+        const selectedCategoryValue = $('#cat-id').val();
+        const selectedActivityValue = $('#activity-id').val();
         const selectedFYValue = $('.fy').val();
 
         // Push the selectedStatusValue into the queryParams array as status_id
         if (selectedStatusValue) {
             queryParams.push(`status_id=${encodeURIComponent(selectedStatusValue)}`);
+        }
+        // Push the selectedStatusValue into the queryParams array as status_id
+        if (selectedCategoryValue) {
+            queryParams.push(`cat_id=${encodeURIComponent(selectedCategoryValue)}`);
+        }
+        // Push the selectedStatusValue into the queryParams array as status_id
+        if (selectedActivityValue) {
+            queryParams.push(`activity_id=${encodeURIComponent(selectedActivityValue)}`);
         }
         // Push the selectedFYValue into the queryParams array as fy
         if (selectedFYValue) {

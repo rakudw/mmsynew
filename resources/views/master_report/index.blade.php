@@ -14,7 +14,7 @@ $notPendingNotRejected = ($type == 'pending' || $type == 'rejected');
         <x-cards.card>
             <x-cards.header class="px-md-4 py-md-3">
                 <div class="row">
-                    <x-filters.reports_filter :statusId="$statusId" :constituencies="$constituencies" :districts="$districts" :tehsils="$tehsils" :blocks="$blocks" :panchayatWards="$panchayatWards"> 
+                    <x-filters.reports_filter :statusId="$statusId" :constituencies="$constituencies" :districts="$districts" :tehsils="$tehsils" :blocks="$blocks" :panchayatWards="$panchayatWards" :categories="$categories" :activities="$activities"> 
                     </x-filters.reports_filter> 
                 </div>
             </x-cards.header>

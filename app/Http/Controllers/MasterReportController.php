@@ -6,12 +6,14 @@ use Illuminate\Http\Request;
 use App\Models\Application;
 use App\Models\Region;
 use App\Models\Enum;
+use App\Models\Activity;
 use App\Enums\ApplicationStatusEnum;
 use App\Models\Views\ApplicationView;
 use Exception;
 use App\Exports\NumericReportExport;
 use App\Exports\NumaricAllStatusExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\DB;
 
 class MasterReportController extends Controller
 {
@@ -24,6 +26,9 @@ class MasterReportController extends Controller
             $constituency_ids = request()->get('constituency_id') ? request()->get('constituency_id') : 'All';
             $block_ids = request()->get('block_id') ? request()->get('block_id') : 'All';
             $panchayat_ids = request()->get('panchayat_id') ? request()->get('panchayat_id') : 'All';
+            $category_ids = request()->get('cat_id') ? request()->get('cat_id') : 'All';
+            $activity_ids = request()->get('activity_id') ? request()->get('activity_id') : 'All';
+            // $cat_id = request()->get('cat_id') ? request()->get('cat_id') : 'All';
         // Get Data from Filters
         $result = $this->query(Application::forCurrentUser());
         $statusId = $result['statusId'];
@@ -85,10 +90,24 @@ class MasterReportController extends Controller
                 }
             })->get();
         }
+        // categoryIds
+        if($category_ids != 'All'){
+            $query->whereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.owner.social_category_id'))) LIKE ?", ['%' . $category_ids . '%'])->get();
+        }
+        // ActivityIds
+        if($activity_ids != 'All'){
+            $query->whereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.enterprise.activity_id'))) LIKE ?", ['%' . $activity_ids . '%'])->get();
+        }
 
         $applications = $query->paginate(50);
-        // dd($applications->count());
-        return view('master_report.index', compact('applications', 'statusId','districts','constituencies','tehsils','blocks','panchayatWards','title'));
+        $categories = DB::table('enums')
+            ->where('type', 'SOCIAL_CATEGORY')
+            ->select('id', 'name')
+            ->get();
+
+        $activities = Activity::select('id','name')->get();
+        // dd($categories);
+        return view('master_report.index', compact('applications', 'statusId','districts','constituencies','tehsils','blocks','panchayatWards','title','categories','activities'));
     }
     
     public function query($query)
@@ -220,6 +239,8 @@ class MasterReportController extends Controller
         $blocks = null;
         $panchayatWards = null;
         $statusId = null;
+        $categories = null;
+        $activities = null;
         $selectedFY = request()->get('fy'); // Get the selected fiscal year from the request
         if($selectedFY && $selectedFY != 'All'){
             // dd($selectedFY);
@@ -244,7 +265,7 @@ class MasterReportController extends Controller
         }
         $request->session()->flash('exportData', $reportData);
         $request->session()->flash('totals', $totals);
-        return view('numaric_reports.recieved',compact('districts','constituencies','tehsils','blocks','panchayatWards','title','statusId','reportData','totals'));
+        return view('numaric_reports.recieved',compact('districts','constituencies','tehsils','blocks','panchayatWards','title','statusId','reportData','totals','categories','activities'));
     }
     public function releasedApplication(Request $request){
         $district_ids = $request->input('district_id', 'All');
@@ -262,6 +283,8 @@ class MasterReportController extends Controller
         $blocks = null;
         $panchayatWards = null;
         $statusId = null;
+        $categories = null;
+        $activities = null;
         $selectedFY = request()->get('fy'); // Get the selected fiscal year from the request
         if($selectedFY && $selectedFY != 'All'){
             // dd($selectedFY);
@@ -288,7 +311,7 @@ class MasterReportController extends Controller
         $request->session()->flash('exportData', $reportData);
         $request->session()->flash('totals', $totals);
         $request->session()->flash('statusCodes', $statusCodes);
-        return view('numaric_reports.released',compact('districts','constituencies','tehsils','blocks','panchayatWards','title','statusId','reportData','totals','statusCodes'));
+        return view('numaric_reports.released',compact('districts','constituencies','tehsils','blocks','panchayatWards','title','statusId','reportData','totals','statusCodes','categories','activities'));
     }
     public function numaricQueryRecieved($districtIds, $selectedFY)
     {
