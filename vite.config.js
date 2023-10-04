@@ -27,6 +27,7 @@ export default defineConfig({
                 'resources/ts/dashboard.ts',
                 'resources/ts/view.ts',
                 'resources/ts/exporter.ts',
+                'resources/ts/otplogin.ts',
             ], refresh: true,
         }),
     ]
