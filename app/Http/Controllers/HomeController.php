@@ -20,8 +20,10 @@ use Nullix\CryptoJsAes\CryptoJsAes;
 use App\Models\Banner;
 use App\Models\User;
 use App\Models\Application;
+use App\Models\Feedback;
 use App\Models\Usefultip;
 use App\Enums\ApplicationStatusEnum;
+use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
@@ -88,17 +90,68 @@ public function applicant_login()
             'captchaUrl' => captcha_src(),
         ]);
     }
-    public function grievance()
+    public function grievance(Request $request)
     {
         // Do nothing because of X and Y.
+        // dd($request);
+        $rules = [
+            'subject' => 'required|string|max:255',
+            'description' => 'required|string',
+        ];
+        // Define custom validation messages (optional)
+        $messages = [
+            'subject.required' => 'The title field is required.',
+            'description.required' => 'The description field is required.',
+        ];
+        // Validate the request data
+        $validator = Validator::make($request->all(), $rules, $messages);
+        // Check if validation fails
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator) // Pass validation errors to the view
+                ->withInput(); // Keep the old input values
+        }
+        // dd(auth()->user()->email);
+        // dd($request);
+        $Feedback = new Feedback();
+        $Feedback->subject = $request->input('subject');
+        $Feedback->description = $request->input('description');
+        $Feedback->type = "grievance" ;  // type 1 for grievance 
+        $Feedback->from = auth()->user()->email;
+        $Feedback->to = "mmsy2018@gmail.com";
+        $Feedback->created_by = auth()->user()->id;
+        $Feedback->save();
         return redirect()->back();
                  
     }
     public function feedback( Request $request )
     {
-        // Do nothing because of X and Y.
-
+        
+        $rules = [
+            'description' => 'required|string',
+        ];
+        // Define custom validation messages (optional)
+        $messages = [
+            'description.required' => 'The description field is required.',
+        ];
+        // Validate the request data
+        $validator = Validator::make($request->all(), $rules, $messages);
+        // Check if validation fails
+        if ($validator->fails()) {
+            return redirect()
+                ->back()
+                ->withErrors($validator) // Pass validation errors to the view
+                ->withInput(); // Keep the old input values
+        }
         // dd(auth()->user()->email);
+        // dd($request);
+        $Feedback = new Feedback();
+        $Feedback->description = $request->input('description');
+        $Feedback->type = "feedback" ;  // type 1 for grievance 
+        $Feedback->from = auth()->user()->email;
+        $Feedback->created_by = auth()->user()->id;
+        $Feedback->save();
         return redirect()->back();
                  
     }

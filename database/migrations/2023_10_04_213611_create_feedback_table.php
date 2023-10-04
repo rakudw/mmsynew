@@ -1,0 +1,37 @@
+<?php
+use Database\Helpers\MigrationTrait;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    use MigrationTrait;
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('feedback', function (Blueprint $table) {
+            $this->addIdColumn($table);
+            $table->text('description')->nullable();
+            $table->text('subject')->nullable();
+            $table->string('type')->nullable();
+            $table->string('from')->nullable();
+            $table->string('to')->nullable();
+            $this->addCommonColumns($table);
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('feedback');
+    }
+};

@@ -399,7 +399,7 @@
         <div class="modal-body">
           <div class="mb-3">
               <label for="description" class="form-label">Type Your Feedback Below</label>
-              <textarea class="form-control" name="feedback" id="description" value="" required autofocus placeholder="Describe Your Problem/Issues"> </textarea>
+              <textarea class="form-control" name="description" id="description" value="" required autofocus placeholder="Type Your Feedback Here"> </textarea>
           </div>
         </div>
         <div class="modal-footer">
