@@ -1,9 +1,8 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
-
     <form class="form application-form" action="/application/save-data/" method="POST" onsubmit="return confirm('Are you sure you have filled in the correct information? Once submitted, it cannot be edited.')" id="applicant-form">
         @csrf
         <input type="hidden" name="application_id" value="{{ isset($application) ? $application->id : '' }}">
@@ -35,7 +34,7 @@
                                     <th>(1)</th>
                                     <th ><strong>Aadhaar Number / आधार नंबर:</strong></th>
                                     <td colspan="4">
-                                        <input type="tel" id="aadhaar" value="{{ old('owner_aadhaar', $application ? $application->data->owner->aadhaar : '') }}" name="owner_aadhaar" required pattern="^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$">
+                                        <input type="tel" id="aadhaar" value="{{ old('owner_aadhaar', $application ? $application->data->owner->aadhaar : '') }}" name="owner_aadhaar" autofocus required pattern="^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$">
                                         <small>Enter Aadhaar Number</small>
                                     </td>
                                 </tr>
@@ -160,7 +159,7 @@
                                     <th>(7)</th>
                                     <th ><strong>Email / ईमेल:</strong></th>
                                     <td colspan="4">
-                                        <input type="email" id="owner_email"  value="{{ old('owner_email', $application ? $application->data->owner->email : '') }}" name="owner_email">
+                                        <input type="email" id="owner_email"  value="{{ old('owner_email', $application ? $application->data->owner->email : '') }}" required name="owner_email">
                                         <small>Enter Email Address</small>
                                     </td>
                                 </tr>
@@ -329,8 +328,14 @@
                                         </select>
                                         @if($application)<button type="button"  id="viewButton" class="button" data-toggle="modal" data-target="#ConstitutionModal" style="display: none;">View Partner Details</button>@endif
                                         <small> Constitution Type </small>
-                                        <div class="modal fade modal-xl" id="ConstitutionModal" style="z-index: 9999999;" tabindex="" aria-labelledby="ConstitutionModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" style="background-color: #ecf8f9" role="document">
+                                        <div class="modal top fade"
+                                            id="ConstitutionModal"
+                                            tabindex="-1"
+                                            aria-labelledby="exampleModalLabel"
+                                            aria-hidden="true"
+                                            data-mdb-backdrop="true"
+                                            data-mdb-keyboard="true" style="z-index: 9999999;" tabindex="" aria-labelledby="ConstitutionModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-xl" style="background-color: #ecf8f9" role="document">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
                                                         <h4 class="modal-title" id="myPdfModalLabel">Partner/Shareholder Details</h4> <span>Note: All the Partners/Shareholders should be Himachali Bonafied.</span>
@@ -688,7 +693,7 @@
                                     <th>(26)</th>
                                     <th  ><strong>Own Contribution Percentage (10% of Capital Expenditure) / स्वयं सहायता प्रतिशत (पूंजी व्यय का 10%):</strong></th>
                                     <td colspan="4">
-                                        <input type="number" id="own_contribution" name="own_contribution" value="{{ old('own_contribution', $application ? $application->data->finance->own_contribution : '') }}" min="10" max="95" step="any"  >
+                                        <input type="number" id="own_contribution" name="own_contribution" value="{{ old('own_contribution', $application ? $application->data->finance->own_contribution : '') }}" required min="10" max="95" step="any"  >
                                         <small>Should be at least 10%.</small>
                                     </td>
                                 </tr>
@@ -899,8 +904,8 @@
         <div id="myModal" class="modal bank-modal">
             <div class="modal-content">
                 <span class="close" id="closeModalBtn">&times;</span>
-                <h2>Select a Branch</h2>
-                <input type="text" id="ifscSearch" placeholder="Search by IFSC code & Branch Name">
+                <h2 class="mb-4">Select a Branch</h2>
+                <input type="text" class="form-control mb-4" id="ifscSearch" placeholder="Search by IFSC code & Branch Name">
                 <table id="optionsTable">
                     <thead>
                         <tr>
@@ -967,7 +972,7 @@
 
             // Add a default option
             activitySelect.append($('<option>', {
-                value: '-1',
+                value: '',
                 text: '--Select Unit--'
             }));
 
@@ -1025,7 +1030,7 @@
 
             // Add a default option
             panchayatSelect.append($('<option>', {
-                value: '-1',
+                value: '',
                 text: '--Select Panchayat--'
             }));
 
@@ -1065,7 +1070,7 @@
 
             // Add a default option
             branchSelect.append($('<option>', {
-                value: '-1',
+                value: '',
                 text: '--Select Branch--'
             }));
             let branchid = '{{ old('bank_branch_id', $application ? $application->data->finance->bank_branch_id : '') }}';
@@ -1090,7 +1095,7 @@
                                 '<td>' + option.name + '</td>' +
                                 '<td>' + option.address + '</td>' +
                                 '<td>' + option.ifsc + '</td>' +
-                                '<td><button type="button" class="select-branch" data-ifsc="' + option.ifsc + '" data-id="' + option.id + '">Select</button></td>' +
+                                '<td><button type="button" class="select-branch btn btn-success" data-ifsc="' + option.ifsc + '" data-id="' + option.id + '">Select</button></td>' +
                                 '</tr>';
 
                             // Append the new row to the table
@@ -1122,7 +1127,7 @@
 
             // Add a default option
             ownerpanchayatSelect.append($('<option>', {
-                value: '-1',
+                value: '',
                 text: '--Select Panchayat--'
             }));
 
@@ -1179,15 +1184,15 @@
 
             // Add a default option
             constituencySelect.append($('<option>', {
-                value: '-1',
+                value: '',
                 text: '--Select Constituency--'
             }));
             tehsilSelect.append($('<option>', {
-                value: '-1',
+                value: '',
                 text: '--Select Tehsil--'
             }));
             blockSelect.append($('<option>', {
-                value: '-1',
+                value: '',
                 text: '--Select Block--'
             }));
 
@@ -1248,15 +1253,15 @@
 
             // Add a default option
             ownerconstituencySelect.append($('<option>', {
-                value: '-1',
+                value: '',
                 text: '--Select Constituency--'
             }));
             ownertehsilSelect.append($('<option>', {
-                value: '-1',
+                value: '',
                 text: '--Select Tehsil--'
             }));
             ownerblockSelect.append($('<option>', {
-                value: '-1',
+                value: '',
                 text: '--Select Block--'
             }));
 
@@ -1398,15 +1403,15 @@
 
             // Add a default option
             ownerconstituencySelect.append($('<option>', {
-                value: '-1',
+                value: '',
                 text: '--Select Constituency--'
             }));
             ownertehsilSelect.append($('<option>', {
-                value: '-1',
+                value: '',
                 text: '--Select Tehsil--'
             }));
             ownerblockSelect.append($('<option>', {
-                value: '-1',
+                value: '',
                 text: '--Select Block--'
             }));
             var selectedConstituencyId = '{{ old('owner_constituency_id', $application ? $application->data->owner->constituency_id : '') }}';
@@ -1481,15 +1486,15 @@
 
             // Add a default option
             constituencySelect.append($('<option>', {
-                value: '-1',
+                value: '',
                 text: '--Select Constituency--'
             }));
             tehsilSelect.append($('<option>', {
-                value: '-1',
+                value: '',
                 text: '--Select Tehsil--'
             }));
             blockSelect.append($('<option>', {
-                value: '-1',
+                value: '',
                 text: '--Select Block--'
             }));
             let selectedConstituencyId = '{{ old('owner_constituency_id', $application ? $application->data->enterprise->constituency_id : '') }}';
@@ -1565,11 +1570,11 @@
 
             // Add a default option
             panchayatSelect.append($('<option>', {
-                value: '-1',
+                value: '',
                 text: '--Select Panchayat--'
             }));
             ownerpanchayatSelect.append($('<option>', {
-                value: '-1',
+                value: '',
                 text: '--Select Panchayat--'
             }));
             let selectedPanchayatId = '{{ old('owner_panchayat_id', $application ? $application->data->owner->panchayat_id : '') }}';

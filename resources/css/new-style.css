@@ -57,7 +57,7 @@ img.name_banner_one {
     top: -85px;
     z-index: 999;
 }
-.modal-dialog {
+#bdy .modal-dialog {
     max-width: 750px !important;
     width:100% !important;
     z-index: 9999999;
@@ -871,7 +871,7 @@ border-top-right-radius: 10px;
 border-top-left-radius: 10px;
 
 }
-input[type=text],input[type=password]
+#bdy input[type=text],input[type=password]
 {
 width: 250px;
 border: 1px solid #000;

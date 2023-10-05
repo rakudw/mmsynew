@@ -14,7 +14,7 @@
             <ul class="nav-ul">
                 <li><a href="/">Home</a></li>
                 <li><a data-bs-toggle="modal" data-bs-target="#helpDeskModal" href="#">HelpDesk</a></li>
-                <li><a href="https://emerginghimachal.hp.gov.in/themes/backend/uploads/notification/Notification/Operational-Guidelines-for-Mukhya-Mantri-Swawlamban-Yojna-2019.pdf">Operational Guidelines</a></li>
+                <li><a target="_blank" href="https://emerginghimachal.hp.gov.in/themes/backend/uploads/notification/Notification/Operational-Guidelines-for-Mukhya-Mantri-Swawlamban-Yojna-2019.pdf">Operational Guidelines</a></li>
                 <li><a href="{{ auth()->user() ? route("logout") : route("login") }}">{{ auth()->user() ? 'Logout' : 'Login' }}</a></li>
             </ul>
         </div>
