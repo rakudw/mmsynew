@@ -19,12 +19,29 @@
                     <x-slot:collapse>
                         <x-sidebar.collapse-show :menuId="'applicationPending'">
                             @if(auth()->user()->isBankManager() || auth()->user()->isNodalDIC() || auth()->user()->isGm() || auth()->user()->isNodalBank() || auth()->user()->isEO())
+                                @if(auth()->user()->isBankManager())
                                 <x-sidebar.nav-item>
-                                    <x-sidebar.nav-link href="{{ route('dashboard.pendency') }}" :active="request()->routeIs('dashboard.pendency')">
-                                        <x-slot:icon><em class="material-icons opacity-10">pending</em></x-slot:icon>
-                                        <x-slot:title>{{ __('Pendency') }}</x-slot:title>
+                                    <x-sidebar.nav-link href="{{ route('dashboard.pendency', ['id' => '308']) }}" :active="request()->routeIs('dashboard.pendency.id', ['id' => '308'])">
+                                        <x-slot:icon></x-slot:icon>
+                                        <x-slot:title>{{ __('Pending for Comments/Civil') }}</x-slot:title>
                                     </x-sidebar.nav-link>
                                 </x-sidebar.nav-item>
+                                
+                                <x-sidebar.nav-item>
+                                    <x-sidebar.nav-link href="{{ route('dashboard.pendency', ['id' => '311']) }}" :active="request()->routeIs('dashboard.pendency.id', ['id' => '311'])">
+                                        <x-slot:icon></x-slot:icon>
+                                        <x-slot:title>{{ __('Pending for Disbursement') }}</x-slot:title>
+                                    </x-sidebar.nav-link>
+                                </x-sidebar.nav-item>
+                                                                
+                                @else
+                                    <x-sidebar.nav-item>
+                                        <x-sidebar.nav-link href="{{ route('dashboard.pendency') }}" :active="request()->routeIs('dashboard.pendency')">
+                                            <x-slot:icon><em class="material-icons opacity-10">pending</em></x-slot:icon>
+                                            <x-slot:title>{{ __('Pendency') }}</x-slot:title>
+                                        </x-sidebar.nav-link>
+                                    </x-sidebar.nav-item>
+                                @endif
                                 <x-sidebar.nav-item>
                                     <x-sidebar.nav-link href="{{ route('dashboard.approved') }}" :active="request()->routeIs('dashboard.approved')">
                                         <x-slot:icon><em class="material-icons opacity-10">check_box</em></x-slot:icon>
@@ -209,7 +226,7 @@
             @endif
         @endif
 
-        @if(!auth()->user()->isApplicant())
+        @if(!auth()->user()->isApplicant() && !auth()->user()->isBankManager() && !auth()->user()->isEO())
             <x-sidebar.nav-item>
                 <x-sidebar.sub-menu :active="request()->routeIs('report.*')" :menuId="'reports'">
                     <x-slot:icon><em class="material-icons opacity-10">report</em></x-slot:icon>

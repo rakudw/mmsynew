@@ -19,7 +19,7 @@ export default defineConfig({
                 'resources/scss/app.scss',
                 'resources/scss/fontawesome.scss',
                 'resources/scss/stylesheet.scss',
-
+                'resources/scss/main.scss',
                 'resources/ts/admin.ts',
                 'resources/ts/login.ts',
                 'resources/ts/form.ts',

@@ -71,9 +71,11 @@ class ApplicationPolicy
         if($user->isApplicant() && $application->application_status == ApplicationStatusEnum::REVERTED_BACK_TO_APPLICANT) {
             return true;
         }
-        if($user->isGm() && $application->application_status == ApplicationStatusEnum::LOAN_REJECTED)
+        if($user->isGm())
         {
-            return true;
+            if($application->application_status == ApplicationStatusEnum::LOAN_REJECTED || $application->application_status == ApplicationStatusEnum::REJECTED_AT_DISTRICT_LEVEL_COMMITTEE || $application->application_status == ApplicationStatusEnum::LOAN_DISBURSED || $application->application_status == ApplicationStatusEnum::PENDING_60_SUBSIDY_REQUEST || $application->application_status == ApplicationStatusEnum::SUBSIDY_60_RELEASED){
+                return true;
+            }
         }
 
         if($user->canScheduleMeeting() && $application->application_status == ApplicationStatusEnum::PENDING_FOR_DISTRICT_LEVEL_COMMITTEE) {

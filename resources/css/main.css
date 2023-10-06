@@ -1,0 +1,1192 @@
+:root{
+    --orange:#F58D1E;
+    --bluecolor:#234669;
+    --lightorange:#2D645C;
+    --containerc:1650px;
+  
+  }
+  
+  
+  
+  @font-face {
+      font-family: 'Tahta'; 
+      src: url('./font/FontsFree-Net-Tahta-Demo.ttf') , 
+          
+  }
+  
+  
+  *{
+      margin: 0;
+      padding: 0;
+  }
+  
+  body{
+      overflow-x: hidden !important;
+  }
+  
+  .top_bar {
+      display: flex;
+      justify-content: space-between;
+      max-width: 1650px;
+      width: 90%;
+      margin: auto;
+      padding: 10px 0px;
+  }
+  .list {
+      display: flex;
+  }
+  .helpdesk_n a {
+      color: white;
+      text-decoration: none;
+      color: #FFF;
+      font-family: Segoe UI;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+  }
+  
+  .list a {
+      color: #FFF;
+      font-family: Segoe UI;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      text-decoration-line: underline;
+  }
+  
+  label.form-check-label {
+      color: #FFF;
+      font-family: Segoe UI;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+  }
+  
+  .innersection_hero {
+      max-width: var(--containerc);
+      margin: auto;
+      width: 90%;
+      display: flex;
+      flex-direction: column;
+  }
+  
+  .main_text_section {
+      display: flex;
+      align-items: center;
+      padding: 50px 0px;
+  }
+  
+  .main_text_section_wrapper a {
+      color: #ffffff;
+      text-decoration: none;
+      background-color: dimgray;
+      padding: 10px 35px;
+      border-radius: 5px;
+      font-weight: 500;
+      border-radius: 5px;
+      border: 1px solid #FFF;
+      background: #616161;
+  }
+  .list_points span {
+      color: #FC0;
+      text-align: center;
+      font-family: Poppins;
+      font-size: 31px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+  }
+  .rounded-circle h6 {
+      margin: 0px;
+  }
+  a.application:hover {
+      background: #f58d1e;
+  }
+  .nav-link:hover {
+      background-color: #fff!important;
+      font-family: 'Segoe UI';
+      font-size: 28px;
+      font-weight: 600;
+      line-height: 37px;
+      letter-spacing: 0em;
+      text-align: left;
+      width:90%;
+      border-radius:30px;
+      padding:20px;
+      color: #333333!important;
+  }
+  
+  .nav-link{
+         padding:20px;
+  }
+  .new_activity_inner_wrapper span {
+      color: #333;
+      text-align: right;
+      font-family: Poppins;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 33px; /* 165% */
+      padding-right: 10px !important;
+  }
+  div#v-pills-tabContent {
+      background: white;
+      padding-left: 40px;
+  }
+  .main_mmsy_portal {
+      display: grid;
+      grid-template-columns: 23% 77%;
+      align-items: flex-start;
+      background: #efefef;
+      justify-content: space-between;
+  }
+  .new_activity_inner_wrapper p {
+      margin: 0px;
+      padding-left: 10px;
+      color: #333;
+      font-family: Poppins;
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 33px; /* 165% */
+  }
+  .footer_started {
+      text-align: center;
+  }
+  
+  .footer_note {
+      background: #DBDBDB;
+      padding: 10px;
+      margin-top: -10px;
+      padding-top: 19px !important;
+  }
+  .copyright {background: #001529;}
+  
+  .inner_copyright {
+      max-width: 1302px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+  }
+  .follow_us span {
+      color: white;
+  }
+  .reserved {
+      color: white;
+  }
+  
+  .reserved a {
+      color: #ffcc00;
+      text-decoration: none;
+  }
+  .footer_note p {
+      margin-bottom: 0px;
+      margin-bottom: 0px;
+      color: #333;
+      text-align: center;
+      font-family: Poppins;
+      font-size: 17px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 27px;
+  }
+  .custom_col {
+      padding: 0px;
+  }
+  button.notice_caution {
+      border-radius: 60px;
+      background: #234669;
+      padding: 6px 26px;
+      margin-bottom: -19px !important;
+      color: white;
+      box-shadow: none !important;
+      /* display: flex; */
+      justify-content: center;
+  }
+  .empty-line {
+      background-color: #F58D1E;
+      padding: 4px;
+      margin: 20px 0px;
+      width: 50%;
+      border-radius: 5px;
+  }
+  .main_text_section_wrapper h1 {
+      font-weight: 700;
+     
+      color: #333;
+      font-family: Poppins;
+      font-size: 48px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 64px;
+      }
+  
+  .minister_image_name {
+      display: flex;
+      align-items: center;
+  }
+  
+  
+  .points_four {
+      display: flex;
+      align-items: center;
+      width: 100%;
+  }
+  
+  
+  
+  .list_points {
+      font-size: 20px;
+      color: yellow;
+      font-weight: 900;
+      display: flex;
+      width: 78%;
+      text-align: center;
+  }
+  .list_points .one {
+      background-color: #053777;
+      width: 34%;
+      height: 110px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+  marquee {
+      padding: 6px;
+  }
+  .list_points .two{
+      background-color: #002657;
+      width: 34%;
+      height: 110px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+  .list_points .three{
+      background-color: #052041;
+      width: 34%;
+      height: 110px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  
+  }
+  
+  .new_activity {
+      width: 22%;
+      display: flex;
+      background-color: lightgray;
+      align-items: center;
+      height: 110px;
+  }
+  
+  .new_activity_inner_wrapper {
+      display: flex;
+      padding: 20px;
+  }
+  
+  
+  
+  .three_buttons {
+      margin-left: 10px;
+  }
+  
+  .form-check.form-switch {
+      margin-left: 14px;
+  }
+  
+  .three_buttons button {
+      background: transparent;
+      border: 1px solid;
+      color: white;
+      padding: 0px 6px;
+      line-height: 23px;
+  }
+  .outer_section {
+      background: var(--orange);
+  }
+  
+  .wrapper{
+      background-image: url('./images/flag.png');
+      background-position: center;
+      background-size: cover;
+      position: relative;
+      overflow: hidden;
+  }
+  img.cm_image {
+      position: relative;
+      top: -67px;
+      max-width: 277px;
+      width: 100%;
+      height: 273px;
+  
+  }
+  .design_card {
+      background: #234669;
+      padding: 12px 29px;
+      border-radius: 12px;
+      transform: skewX(-16deg);
+      text-align: center;
+  }
+  .himachal_gov_logo img {
+      width: 102px;
+  }
+  .image-text img {
+      max-width: 188px;
+  }
+  .banner_section {
+      max-width: 1200px;
+      margin: auto;
+      position: relative;
+  }
+  
+  img.name_banner_one {
+      position: absolute;
+      max-width: 390px;
+      left: 13px;
+      top: -85px;
+      z-index: 999;
+  }
+  
+  img.name_banner_two {
+      position: absolute;
+      right: -139px;
+      max-width: 497px;
+      top: -169px;
+      z-index: 99999;
+  }
+  img.industrial_minister {
+      max-width: 231px;
+      width: 100%;
+      object-fit: cover;
+  }
+  .card-4-wrapper img {
+      height: 65px;
+  }
+  .design_card h5 a {
+      color: #FFD700 !important;
+   text-align:center !important;
+  }
+  .card-4-wrapper ul li {
+      line-height: 21px;
+      text-align: left;
+  }
+  ul.achivelist {
+      max-width: 440px;
+      margin: auto;
+  }
+  
+  ul.achivelist li {
+      list-style-type: none;
+      border: 1px solid #ff6400;
+      padding: 9px 8px;
+      border-top: 0px;
+      color: #002657;
+      font-weight: 600;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 20px;
+  }
+  .independence_and_achivement h3 {
+      font-size: 40px;
+      max-width: 550px;
+      margin: auto;
+      padding-bottom: 30px;
+      font-family: 'Courgette', cursive;
+  }
+  ul.achivelist {
+      border-top: 1px solid #ff6400;
+  }
+  .achievements h2 {
+      font-size: 30px;
+      max-width: 401px;
+      color: #ff6400;
+      margin: auto;
+      padding-bottom: 10px;
+      font-family: 'Courgette', cursive;
+  }
+  .independence_and_achivement {
+      text-align: center;
+      padding-bottom: 40px;
+      padding-top: 40px;
+  }
+  .card-4-wrapper {
+      background: #FF6400;
+      max-width: 330px;
+      width: 100%;
+      text-align: center;
+      padding: 5px 0px;
+      color: white;
+      font-family: oswald;
+      margin-left: auto;
+  }
+  .card-4-wrapper h4 {
+      max-width: 87px;
+      width: 100%;
+      line-height: 20px;
+      text-align: right;
+  }
+  
+  .card-4-wrapper li {
+      list-style-type: none;
+  }
+  
+  .card-4-wrapper {
+      display: flex;
+      align-items: center;
+      column-gap: 20px;
+  }
+  .design_card h5  {
+   transform: skewX(16deg); 
+  }
+  .cm_section {
+      display: flex;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: auto;
+      margin-top: -10%;
+  }
+  
+  
+  .design_card h5 a{
+      font-family: 'Oswald', sans-serif;
+      text-decoration: none;
+      line-height: 14px;
+  }
+  .nav.navcustommain a {
+      color: #234669;
+      text-decoration: none;
+       font-size: 18px;
+      font-family: Poppins;
+      font-size: 22px;
+      white-space: nowrap;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+  
+  }
+  .image-text {
+      display: flex;
+      align-items: center;
+      column-gap: 5%;
+  }
+  .wrapper-inner {
+      max-width: 1650px;
+      width: 90%;
+      margin: auto;
+      padding: 10px;
+      border-bottom: 2px solid gray;
+  }
+  
+  .flex-wrapper {
+      display: flex;
+      width: 100% !important;
+      justify-content: space-between;
+  }
+  
+  .nav.navcustommain a:hover {
+      color: #ff6400;
+  }
+  
+  .image img {
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+      min-width: 200px;
+  }
+  
+  .text h1 {
+      font-size: 23px;
+  }
+  
+  .nav.navcustommain ul.nav-ul {
+      padding: 0px;
+      display: flex;
+      list-style: none;
+      padding: 10px;
+      column-gap: 5%;
+      align-items: center;
+      font-size: 16px;
+      margin-bottom: 0px;
+  }
+  button#mobile-toggle {
+      height: 40px;
+      padding: 20px 15px;
+      line-height: 5px;
+      background: #234669;
+      color: white;
+      font-size: 26px;
+      border: none;
+      border-radius: 5px;
+  }
+  .nav {
+      display: flex;
+      justify-content: end;
+      align-items: baseline;
+  }
+  .cards-container {
+      display: flex;
+      column-gap: 15px;
+      align-items: center;
+      margin-top: 2%;
+  
+  }
+  .design_card:hover {
+      background: #ff6400;
+  }
+  
+  .design_card:hover a {
+      color: white !important;
+  }
+   
+  /* Default styles for larger screens */
+  .nav-ul {
+      display: flex;
+      list-style: none;
+  }
+  
+  .nav-ul li {
+      margin-right: 20px;
+  }
+  
+  /* Styles for mobile */
+  #mobile-toggle {
+      display: none; /* Hide the toggle button by default */
+      cursor: pointer;
+      font-size: 24px;
+  }
+  
+  #mobile-dropdown {
+      display: none; /* Hide the mobile dropdown by default */
+      position: absolute;
+      top: 50px; /* Adjust the top position as needed */
+      right: 0;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+  }
+  
+  ul#mobile-dropdown li {
+      list-style-type: none;
+       padding: 10px;
+      top: 15%;
+      display: block;
+      text-decoration: none !important;
+  }
+  
+  ul#mobile-dropdown {
+      position: absolute;
+      top: 103px;
+      padding: 20px;
+  }
+  
+  ul#mobile-dropdown li a {
+      text-decoration: none !important;
+      color: #234669;
+      font-family: 'Montserrat';
+  }
+  
+  
+  
+  
+  /* urmila css */
+  
+  
+  
+  marquee span
+   {
+      color: red;
+  }
+  .notifications_outer
+   {
+      background-color:#E8E8E8;
+      color: #444444;
+      margin: 0px auto;
+      width: 100%;
+      height: 40px;
+      position: relative;
+      font-family: Segoe UI;
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 29px;
+      letter-spacing: 0.088em;
+      text-align: center;
+   
+  }
+  .notifications
+   {
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 5px 10px 0 10px;
+          width: 23%;
+      height: 100%;
+      background-color: #801515;
+      color: #fff;
+      font-weight: bold;
+      z-index: 4;
+      font-family: 'Segoe UI';
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 29px;
+      letter-spacing: 0.088em;
+      text-align: center;
+   }
+  
+   .custom_left_sectionmmsy {
+      width: 100% !important;
+  }
+  
+      .mmsy_outer
+       {
+          background-color: #efefef;
+          height: auto;
+          width: 100%;
+  
+      }
+  
+  .mmsy_Portal
+   {
+      background-color: #9D9D9D;
+      text-align: center;
+      padding: 20px 15px;
+  }
+  .mmsy_Portal h5 
+  {
+      color: #fff;
+      font-family: 'Segoe UI';
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: 0em;
+      text-align: center;
+  }
+  .mmsy_outer button#v-pills-hn-tab
+   {
+     
+      padding: 20px;
+      border-radius: 100px;
+      width: 90%;
+  }
+  .nav-pills .nav-link.active
+   {
+      background-color: #fff!important;
+      font-family: 'Segoe UI';
+      font-size: 28px;
+      font-weight: 600;
+      line-height: 37px;
+      letter-spacing: 0em;
+      text-align: left;
+      color: #333333!important;;
+      
+  }
+  button#v-pills-hn-tab, button#v-pills-n-tab, button#v-pills-nol-tab, button#v-pills-ff-tab, button#v-pills-fr-tab, button#v-pills-faq-tab, button#v-pills-g-tab
+   {
+      font-family: 'Segoe UI';
+      font-size: 28px;
+      font-weight: 600;
+      line-height: 37px;
+      letter-spacing: 0em;
+      text-align: left;
+      white-space: nowrap;
+      color:#333333;
+      
+  
+  }
+  .nav a 
+  {
+      text-decoration: none!important;
+      justify-content: center!important;
+  }
+  #v-pills-hn-tab, #v-pills-n-tab, #v-pills-nol-tab, #v-pills-ff-tab, #v-pills-fr-tab, #v-pills-faq-tab, #v-pills-g-tab
+   {
+      column-gap: 15px;
+      display: flex;
+      margin: 20px !important;
+      align-items: center;
+     
+      
+  }
+  img.img-fluid.img-about {
+      max-width: 470px;
+      height: 259px;
+      object-fit: cover;
+      width: 100%;
+      border-radius: 8px;
+  }
+  button#v-pills-hn-tab, button#v-pills-n-tab, button#v-pills-nol-tab, button#v-pills-ff-tab, button#v-pills-fr-tab, button#v-pills-faq-tab, button#v-pills-g-tab {
+      font-family: 'Segoe UI';
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 28px;
+      letter-spacing: 0em;
+      text-align: left;
+      white-space: nowrap;
+      color: #333333;
+  }
+  .outer_no
+   {
+      display: flex;
+      justify-content: start;
+      margin: 20px auto;
+  }
+  .row.custom_circle {
+      column-gap: 0px;
+      row-gap: 12px;
+  }
+  .rounded-circle
+   {
+      background: #FFA23D;
+      height: 155px!important;
+      width: 170px;
+      padding: 20px;
+      }
+   
+   .rounded-circle h6 
+  {
+      font-family: 'Poppins';
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 57px;
+      letter-spacing: 0em;
+      text-align: center;
+  }
+  .rounded-circle p
+   {
+      font-family: 'Poppins';
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 21px;
+      letter-spacing: 0em;
+      text-align: center;
+      margin-bottom: 0px;
+      text-transform: capitalize;
+  }
+  .mmsy_about
+   {
+      margin-top: 20px;
+  }
+  .row.main_about 
+  {
+      display: flex;
+      align-items: center;
+      margin: 10px auto;
+  }
+  .card-body 
+  {
+      width: 100%;
+      height: auto;
+      text-align: center;
+  }
+  button.buttonaward 
+  {
+      background-color:#F58D1E;
+      color: #fff;
+      border: 1px solid;
+      font-size: 15px;
+      font-weight: 500;
+      padding: 10px 30px;
+  }
+  .aboutus_right_sections
+   {
+      padding-top: 0;
+  }
+  .top_heading span
+   {
+      color: #333333;
+      font-family: 'Poppins';
+      font-size: 32px;
+      font-weight: 400;
+      line-height: 48px;
+      letter-spacing: 0em;
+      text-align: left;  
+  }
+  .top_heading {
+      max-width: 733px;
+  }
+  .top_heading h3
+   {
+  font-family: 'poppins';
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 48px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #F58D1E;
+  }
+  .top_heading p 
+  {
+  font-family: 'poppins';
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 33px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #333333;
+  }
+  
+  .footer_started {
+      text-align: center;
+  }
+  
+  .footer_note {
+      background: #DBDBDB;
+      padding: 10px;
+  }
+  
+  .footer_note p {
+      margin-bottom: 0px;
+  }
+  
+  h1.heading_mmsy 
+  {
+      color: #484848;
+      text-align: center;
+      font-family: Segoe UI;
+      font-size: 48px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+  }
+  .main_mmsy
+   {
+      padding-top: 20px;
+      padding-bottom: 10px;
+      width: 98%;
+  }
+  .card-dark
+   {
+      background-color: #FFA23D;
+      margin: 10px;
+      padding-top: 20px!important;
+      padding: 10px;
+      border-radius: 10px;
+      height: 100%;
+  }
+  .card-light 
+  {
+      background-color:#EFEFEF;
+      margin: 10px;
+      padding-top: 20px!important;
+      padding: 10px;
+      border-radius: 10px;
+      height: 100%;
+  }
+  
+  .card-body
+   {
+      width: 100%;
+      height: auto;
+      text-align: center;
+  }
+  .main_mmsy img 
+  {
+      width: 106px!important;
+  }
+  .row.main_mmsy p 
+  {
+      font-family: 'Segoe UI';
+      font-size: 26px;
+      font-weight: 600;
+      line-height: 44px;
+      letter-spacing: 0em;
+      text-align: center;
+      margin: 0;
+      padding: 10px 0;
+      color: #333333;
+  
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  .new_activity_inner_wrapper img {
+      height: 89px;
+  }
+  
+  
+  
+  @media only screen and (max-width:1578px){
+  
+      .top_heading span {
+                font-size: 28px;
+            }
+      .top_heading h3 {
+     
+          font-size: 28px;
+        
+      }
+      .top_heading p {
+          font-family: 'poppins';
+          font-size: 18px;
+          font-weight: 400;
+          line-height: 33px;
+          letter-spacing: 0em;
+          text-align: left;
+          color: #333333;
+      }
+  
+      .new_activity_inner_wrapper p {
+          margin: 0px;
+          padding-left: 10px;
+          color: #333;
+          padding-top: 9px;
+          font-family: Poppins;
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 16px;
+      }
+      .notifications {
+          max-width: 306px;       
+      }
+      .mmsy_Portal h5 {
+          color: #fff;
+          font-family: 'Segoe UI';
+          font-size: 27px;
+          font-weight: 700;
+          letter-spacing: 0em;
+          text-align: center;
+      }
+      .list_points span {
+          color: #FC0;
+          text-align: center;
+          font-family: Poppins;
+          font-size: 25px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: normal;
+      }
+      .new_activity_inner_wrapper span {
+             line-height: 25px;
+        
+      }
+      .new_activity_inner_wrapper {
+          display: flex;
+          padding: 20px;
+          align-items: center;
+      }
+      .main_text_section_wrapper h1 {
+          font-weight: 700;
+          color: #333;
+          font-family: Poppins;
+          font-size: 48px;
+          max-width: 654px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 64px;
+          width: 100%;
+      }
+      .minister_image_name img {
+          max-width: 200px;
+      }
+      .main_text_section {
+          display: flex;
+          align-items: center;
+          padding: 50px 0px;
+          justify-content: space-between;
+      }
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  @media only screen and (max-width: 1024px) {
+      .nav-ul {
+          display: none !important; /* Hide the navigation on smaller screens */
+      }
+  
+      .nav.navcustommain {
+          order: 3;
+      }
+      #mobile-toggle {
+          display: block; /* Show the toggle button on smaller screens */
+      }
+  
+      #mobile-toggle.active + #mobile-dropdown {
+          display: block; /* Show the mobile dropdown when the toggle button is active */
+      }
+      .card-4-wrapper ul li {
+          line-height: 16px;
+          text-align: left;
+          font-size: 16px;
+      }
+      .card-4-wrapper h4 {
+          max-width: 87px;
+          width: 100%;
+          line-height: 17px;
+          text-align: right;
+          font-size: 16px;
+      }
+      img.cm_image {
+          position: relative;
+          top: -67px;
+          max-width: 212px;
+          width: 100%;
+          height: auto;
+      }
+  }
+  
+  
+  
+  @media only screen and (max-width: 768px) {
+      .cards-container {
+          display: flex;
+          column-gap: 15px;
+          align-items: center;
+          margin-top: 2%;
+          flex-wrap: wrap;
+          row-gap: 10px;
+          justify-content: center;
+      }
+      .card-4-wrapper {
+                 margin-left: inherit;
+      }
+      .independence_and_achivement h3 {
+          font-size: 30px;
+      }
+      ul.achivelist li {
+             font-size: 17px;
+      }
+      .cm_section {
+          display: flex;
+          justify-content: space-between;
+          max-width: 1200px;
+          margin: auto;
+          margin-top: 1%;
+      }
+      img.industrial_minister {
+          max-width: 195px;
+          width: 100%;
+          object-fit: cover;
+      }
+      img.cm_image {
+          position: relative;
+          top: -67px;
+          max-width: 173px;
+          width: 100%;
+          height: auto;
+      }
+      img.name_banner_two {
+          position: absolute;
+          right: -108px;
+          max-width: 379px;
+          top: -169px;
+          z-index: 99999;
+      }
+      img.name_banner_one {
+          position: absolute;
+          max-width: 309px;
+          left: 13px;
+          top: -61px;
+          z-index: 999;
+      }
+  }
+  
+  
+  
+  @media only screen and (max-width: 468px) {
+      .himachal_gov_logo img {
+          width: 102px;
+      }
+      .image img {
+          height: 100%;
+          width: 174px;
+          object-fit: contain;
+          min-width: auto;
+      }
+      .cm_section {
+                margin-top: -7%;
+      }
+      .independence_and_achivement h3 {
+          font-size: 24px;
+      }
+      .design_card {
+          background: #234669;
+          padding: 5px 18px;
+          border-radius: 12px;
+          transform: skewX(-16deg);
+          text-align: center;
+      }
+      .design_card h5 a {
+          font-family: 'Oswald', sans-serif;
+          text-decoration: none;
+          line-height: 14px;
+          font-size: 14px;
+          line-height: 4px;
+      }
+      .design_card h5 {
+          transform: skewX(16deg);
+          line-height: 16px;
+      }
+      img.cm_image {
+          position: relative;
+          top: -55px;
+          max-width: 135px;
+          width: 100%;
+          height: 146px;
+      }
+      img.name_banner_two {
+          position: absolute;
+          right: -82px;
+          max-width: 327px;
+          top: -159px;
+          z-index: 99999;
+      }
+      img.name_banner_one {
+          position: absolute;
+          max-width: 272px;
+          left: 13px;
+          top: -64px;
+          z-index: 999;
+      }
+      img.industrial_minister {
+          max-width: 181px;
+          width: 100%;
+          object-fit: cover;
+      }
+      ul.achivelist li {
+          font-size: 14px;
+      }
+      .achievements {
+          padding: 0px 10px;
+          margin-bottom: 40px;
+      }
+      .image img {
+          height: 100%;
+          width: 151px;
+          object-fit: contain;
+          min-width: auto;
+      }
+      .himachal_gov_logo img {
+          width: 88px;
+      }
+  }
+  
+  
+  
+  @media only screen and (max-width:348px) {
+      
+  
+  
+  
+  }
+  
