@@ -120,7 +120,7 @@
   }
   
   .nav-link{
-         padding:20px;
+         padding:20px !important;
   }
   .new_activity_inner_wrapper span {
       color: #333;
@@ -944,7 +944,7 @@
           line-height: 16px;
       }
       .notifications {
-          max-width: 306px;       
+          max-width: 338px;       
       }
       .mmsy_Portal h5 {
           color: #fff;

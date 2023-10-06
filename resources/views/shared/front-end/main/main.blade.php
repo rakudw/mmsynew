@@ -1,8 +1,19 @@
 <div class="container-fluid p-0">
     <div class="notifications_outer">
         <div class="notifications">NOTIFICATION </div>
-        <marquee width="100%" direction="left" vspace="8px">
-          Add some text here | The Notifications will keep scrolling horizontally | <span>NOTIFICATION</span> | Add some text here | The Notifications will keep scrolling horizontally | <span>NOTIFICATION</span> 
+        <marquee  width="100%" direction="left" vspace="8px">
+            <a href="https://mmsy.hp.gov.in/storage/files/1/User-Manual/Bank-Manager.pdf">
+                <em class="fa-solid fa-book"></em>
+            User Manual for Bank Managers
+            </a>
+                            <a href="https://mmsy.hp.gov.in/old-portal/">
+                <em class="fa-solid fa-info-circle"></em>
+            Old Portal will be working for clearing pendency, click here to visit
+            </a>
+                            <a href="https://mmsy.hp.gov.in/storage/files/1/Launch-of-MMSY-Portal.pdf">
+                <em class="fa-solid fa-home"></em>
+            Welcome to the new portal of Mukhya Mantri Swavalamban Yojana
+            </a>
         </marquee>
       </div>
       <div class="main_mmsy_portal">
