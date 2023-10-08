@@ -29,11 +29,11 @@
                 <img src="{{ asset('images/bell.png') }}"/>SUCCESS STORIES</button></a>
              <a href="/mmsy-dashboard" target="_blank"><button class="nav-link" id="v-pills-nol-tab" type="button" aria-selected="false" tabindex="-1" role="tab">
                 <img src="{{ asset('images/security-officer.png') }}"/>MMSY DASHBOARD </button></a>
-             <a data-bs-toggle="modal" data-bs-target="#videoModal" href="#"><button class="nav-link feedback" id="v-pills-ff-tab" type="button" aria-selected="false" tabindex="-1" role="tab">
+             <a data-bs-toggle="modal" data-bs-target="#videoModal" href="#"><button class="nav-link" id="v-pills-ff-tab" type="button" aria-selected="false" tabindex="-1" role="tab">
                 <img src="{{ asset('images/edit.png') }}"/>VIDEO TUTORIAL</button></a>
-             <a href="{{ asset('pdf/MMSY-as-on-20-04-2022.pdf') }}" target="_blank"><button class="nav-link feedback" id="v-pills-ff-tab" type="button" aria-selected="false" tabindex="-1" role="tab">
+             <a href="{{ asset('pdf/MMSY-as-on-20-04-2022.pdf') }}" target="_blank"><button class="nav-link" id="v-pills-ff-tab" type="button" aria-selected="false" tabindex="-1" role="tab">
                 <img src="{{ asset('images/edit.png') }}"/>NOTIFICATION</button></a>
-             <a data-bs-toggle="modal" data-bs-target="#myModal"><button class="nav-link feedback" id="v-pills-ff-tab" type="button" aria-selected="false" tabindex="-1" role="tab">
+             <a data-bs-toggle="modal" data-bs-target="#myModal"><button class="nav-link" id="v-pills-ff-tab" type="button" aria-selected="false" tabindex="-1" role="tab">
                 <img src="{{ asset('images/edit.png') }}"/>GRIEVANCES</button></a>
              <a data-bs-toggle="modal" data-bs-target="#feedbackModal" href="#"><button class="nav-link feedback" id="v-pills-ff-tab" type="button" aria-selected="false" tabindex="-1" role="tab">
                 <img src="{{ asset('images/edit.png') }}"/>Feedback Form</button></a>

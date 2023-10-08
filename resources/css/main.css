@@ -7,10 +7,66 @@
   }
   
   
+  body{
+  overflow-x: hidden;
+  
+  }
+  
+  .dark-mode .top_heading span
+  {
+      color:white !important;
+  }
+  .dark-mode .footer_note p{
+      color:white;;
+  }
+  
+  .dark-mode .top_heading p
+  {
+      color:white !important;
+  }
+  
+  /* Dark Mode Css Start */
+  .dark-mode .mmsy_outer {
+  background-color: #234669;
+  }
+  
+  .dark-mode .main_mmsy_portal {
+      background-color: #234669;
+  }
+  
+  .dark-mode div#v-pills-tabContent {
+      background-color: #234669;
+      color:white;
+  }
+  
+  .dark-mode .main_mmsy h1 {
+      color: white ;
+  }
+  
+  .top_heading span, p {
+      color: white;
+  }
+  
+  .dark-mode .footer_note {
+      background-color: #234669;
+      border: 1px solid;
+  }
+  .dark-mode .mmsy_outer a .nav-link {
+      color: white !important;
+  }
+  
+  .dark-mode .mmsy_outer a .nav-link:hover {
+      color: #000 !important;
+  }
+  
+  
+  
+  
+  /* Darkmode Css End */
   
   @font-face {
       font-family: 'Tahta'; 
-      src: url('./font/FontsFree-Net-Tahta-Demo.ttf') , 
+      src: url('../../public/front/FontsFree-Net-Tahta-Demo.ttf') , 
           
   }
   
@@ -20,9 +76,7 @@
       padding: 0;
   }
   
-  body{
-      overflow-x: hidden !important;
-  }
+  
   
   .top_bar {
       display: flex;
@@ -155,8 +209,12 @@
   }
   .footer_started {
       text-align: center;
+      width: 93%;
+      padding-left: 10px;
   }
-  
+  .tab-content > .active{
+    width: 98%;
+  }
   .footer_note {
       background: #DBDBDB;
       padding: 10px;
@@ -311,7 +369,7 @@
   }
   
   .wrapper{
-      background-image: url('./images/flag.png');
+      background-image: url('../../public/images/flag.png');
       background-position: center;
       background-size: cover;
       position: relative;
@@ -685,7 +743,7 @@
   button#v-pills-hn-tab, button#v-pills-n-tab, button#v-pills-nol-tab, button#v-pills-ff-tab, button#v-pills-fr-tab, button#v-pills-faq-tab, button#v-pills-g-tab
    {
       font-family: 'Segoe UI';
-      font-size: 28px;
+      font-size: 20px;
       font-weight: 600;
       line-height: 37px;
       letter-spacing: 0em;
@@ -718,7 +776,7 @@
   }
   button#v-pills-hn-tab, button#v-pills-n-tab, button#v-pills-nol-tab, button#v-pills-ff-tab, button#v-pills-fr-tab, button#v-pills-faq-tab, button#v-pills-g-tab {
       font-family: 'Segoe UI';
-      font-size: 24px;
+      font-size: 20px;
       font-weight: 600;
       line-height: 28px;
       letter-spacing: 0em;
@@ -740,7 +798,7 @@
    {
       background: #FFA23D;
       height: 155px!important;
-      width: 170px;
+      width: 157px;
       padding: 20px;
       }
    
@@ -845,7 +903,7 @@
       color: #484848;
       text-align: center;
       font-family: Segoe UI;
-      font-size: 48px;
+      font-size: 35px;
       font-style: normal;
       font-weight: 700;
       line-height: normal;
@@ -863,7 +921,6 @@
       padding-top: 20px!important;
       padding: 10px;
       border-radius: 10px;
-      height: 100%;
   }
   .card-light 
   {
@@ -872,7 +929,6 @@
       padding-top: 20px!important;
       padding: 10px;
       border-radius: 10px;
-      height: 100%;
   }
   
   .card-body
@@ -888,7 +944,7 @@
   .row.main_mmsy p 
   {
       font-family: 'Segoe UI';
-      font-size: 26px;
+      font-size: 20px;
       font-weight: 600;
       line-height: 44px;
       letter-spacing: 0em;
@@ -944,7 +1000,7 @@
           line-height: 16px;
       }
       .notifications {
-          max-width: 338px;       
+          max-width: 406px;       
       }
       .mmsy_Portal h5 {
           color: #fff;
@@ -1189,4 +1245,3 @@
   
   
   }
-  

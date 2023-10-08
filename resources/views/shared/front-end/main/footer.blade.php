@@ -1,5 +1,5 @@
 
-<div class="copyright">
+<div class="copyright mt-5">
     <div class="inner_copyright">
         <div class="reserved">
             2023@ ALL Rights Reserved by <a href="">Himachal Pradesh Government</a>
@@ -9,7 +9,11 @@
         </div>
     </div>
 </div>
-
+<style>
+    .skiptranslate{
+        /* display: none !important; */
+    }
+</style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
@@ -89,5 +93,42 @@
           switchLabel.style.backgroundColor = "#ccc"; // Turned off color
       }
   });
-  
-  </script>
+    // Function to load Google Translate API
+    function loadGoogleTranslateAPI(language) {
+            const script = document.createElement('script');
+            script.src = `//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit&hl=${language}`;
+            script.async = true;
+            document.head.appendChild(script);
+        }
+
+        // Function to initialize Google Translate
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                includedLanguages: 'en,hi',
+            }, 'google_translate_element');
+        }
+
+        // Function to change language
+        function changeLanguage(language) {
+            const googleTranslateElement = document.getElementById('google_translate_element');
+            googleTranslateElement.innerHTML = ''; // Clear the existing translation
+            loadGoogleTranslateAPI(language); // Load Google Translate API with the selected language
+        }
+
+        // Add a click event listener to the Translate button
+        document.getElementById('googleTranslateButton').addEventListener('click', function() {
+            var dropdownContent = document.querySelector('.custom-dropdown-content');
+            dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+        });
+
+        // Add click event listeners to language options
+        $('#translateToHindi').click(function() {
+            console.log('sad')
+            changeLanguage('hi');
+        });
+
+        document.getElementById('translateToEnglish').addEventListener('click', function() {
+            changeLanguage('en');
+        });
+    </script>
+      <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script> 
