@@ -99,6 +99,10 @@ class CrudController extends Controller
             $imagePath = $request->file('image')->store('dcl_meeting', 'public');
                 // dd($imagePath);
                 $data['image'] = $imagePath;
+        }if ($model instanceof \App\Models\Successstories){
+            $imagePath = $request->file('file')->store('success_story', 'public');
+                // dd($imagePath);
+                $data['file'] = $imagePath;
         }
     
         $model->fill($data);

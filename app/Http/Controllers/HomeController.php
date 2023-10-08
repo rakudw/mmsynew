@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use Nullix\CryptoJsAes\CryptoJsAes;
 use App\Models\Banner;
+use App\Models\Faqs;
+use App\Models\Successstories;
 use App\Models\User;
 use App\Models\Application;
 use App\Models\Feedback;
@@ -32,6 +34,9 @@ class HomeController extends Controller
     {
         $banners = Banner::where('status', 'Active')->get();
         $usefultips = Usefultip::where('status', 'Active')->get();
+        $faqs = Faqs::where('status', 'Active')->get();
+        $stories = Successstories::where('status', 'Active')->get();
+        // dd($faqs);
         return view('home.index',  [
             'newsList' => News::where('is_active', true)
                 ->where('start', '<=', now())
@@ -42,7 +47,9 @@ class HomeController extends Controller
                 ->get(),
             'events' => Event::todays()->flashable()->get(),
             'banners' => $banners, // Pass the banners data to the view
-            'usefultips' => $usefultips, // Pass the banners data to the view
+            'usefultips' => $usefultips,
+            'faqs' => $faqs,
+            'stories' => $stories,
         ]);
     }
 

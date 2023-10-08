@@ -196,6 +196,18 @@
                                 </x-sidebar.nav-link>
                             </x-sidebar.nav-item>
                             <x-sidebar.nav-item>
+                                <x-sidebar.nav-link href="{{ route('crud.list', ['class' => 'faqs']) }}" :active="request()->routeIs('crud.*') && request()->route()->parameter('class') == 'faqs'">
+                                    <x-slot:icon><em class="material-icons opacity-10">construction</em></x-slot:icon>
+                                    <x-slot:title>{{ __('Manage Faqs') }}</x-slot:title>
+                                </x-sidebar.nav-link>
+                            </x-sidebar.nav-item>
+                            <x-sidebar.nav-item>
+                                <x-sidebar.nav-link href="{{ route('crud.list', ['class' => 'successstories']) }}" :active="request()->routeIs('crud.*') && request()->route()->parameter('class') == 'successstories'">
+                                    <x-slot:icon><em class="material-icons opacity-10">construction</em></x-slot:icon>
+                                    <x-slot:title>{{ __('Manage Success Stories') }}</x-slot:title>
+                                </x-sidebar.nav-link>
+                            </x-sidebar.nav-item>
+                            <x-sidebar.nav-item>
                             <x-sidebar.nav-link href="{{ route('crud.list', ['class' => 'banner']) }}" :active="request()->routeIs('crud.*') && request()->route()->parameter('class') == 'banner'">
                                 <x-slot:icon><em class="material-icons opacity-10">construction</em></x-slot:icon>
                                 <x-slot:title>{{ __('Banner') }}</x-slot:title>

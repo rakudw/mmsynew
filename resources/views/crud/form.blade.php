@@ -14,6 +14,8 @@
                                                     {{ $model->name }}
                                                 @elseif(isset($model->title))
                                                     {{ $model->title }}
+                                                @elseif(isset($model->question))
+                                                    {{ $model->question }}
                                                 @else
                                                     {{ $model->description }}
                                                 @endif</h6>
