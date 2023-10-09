@@ -46,38 +46,39 @@
               <div class="row custom_circle">
                 <div class="col-md-2">
                   <div class="rounded-circle" >
-                    <h6>8613</h6>
-                    <p>project passed</p>
+                    {{-- <h6>8613</h6> --}}
+                    <h6>{{ $projectPassed }}</h6>
+                    <p>Total Project Passed</p>
                   </div>
                 </div>
                 <div class="col-md-2">
                   <div class="rounded-circle" >
                     <h6>23655</h6>
-                    <p>Employees</p>
+                    <p>Proposed Employement</p>
                   </div>
                 </div>
                 <div class="col-md-2">
                   <div class="rounded-circle" >
-                    <h6>5347</h6>
-                    <p>Industries</p>
+                    <h6>{{ $industriesEstablished }}</h6>
+                    <p>Industries Established</p>
                   </div>
                 </div>
                 <div class="col-md-2">
                   <div class="rounded-circle" >
-                    <h6>1370</h6>
-                    <p>Employement</p>
+                    <h6>{{ $generateEmp }}</h6>
+                    <p>Employement Generated</p>
                   </div>
                 </div>
                 <div class="col-md-2">
                   <div class="rounded-circle" >
                     <h6>886 Cr</h6>
-                    <p>Investment</p>
+                    <p>Investment Generated</p>
                   </div>
                 </div>
                 <div class="col-md-2">
                   <div class="rounded-circle" >
                     <h6>1600 Cr</h6>
-                    <p>proposed Investment</p>
+                    <p>Proposed Investment</p>
                   </div>
                 </div>
               </div>

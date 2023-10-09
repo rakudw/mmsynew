@@ -36,7 +36,22 @@ class HomeController extends Controller
         $usefultips = Usefultip::where('status', 'Active')->get();
         $faqs = Faqs::where('status', 'Active')->get();
         $stories = Successstories::where('status', 'Active')->get();
-        // dd($faqs);
+        $projectPassed = Application::where('status_id', '>', 307)->count();
+        $proposedEmp  = Application::where('status_id', '>', 311)->whereRaw("JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.enterprise.employment')) IS NOT NULL")
+        ->get()
+        ->sum(function ($application) {
+            $employment = $application->data->enterprise->employment;
+            return is_numeric($employment) ? $employment : 0;
+        });
+    
+        $generateEmp = Application::where('status_id', '>', 315)->whereRaw("JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.enterprise.employment')) IS NOT NULL")
+        ->get()
+        ->sum(function ($application) {
+            $employment = $application->data->enterprise->employment;
+            return is_numeric($employment) ? $employment : 0;
+        });
+    
+        $industriesEstablished = Application::where('status_id', '>', 311)->count();
         return view('home.index',  [
             'newsList' => News::where('is_active', true)
                 ->where('start', '<=', now())
@@ -50,6 +65,9 @@ class HomeController extends Controller
             'usefultips' => $usefultips,
             'faqs' => $faqs,
             'stories' => $stories,
+            'projectPassed' => $projectPassed,
+            'industriesEstablished' => $industriesEstablished,
+            'generateEmp' => $generateEmp,
         ]);
     }
 

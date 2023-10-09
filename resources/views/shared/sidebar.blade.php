@@ -23,7 +23,7 @@
                                 <x-sidebar.nav-item>
                                     <x-sidebar.nav-link href="{{ route('dashboard.pendency', ['id' => '308']) }}" :active="request()->routeIs('dashboard.pendency.id', ['id' => '308'])">
                                         <x-slot:icon></x-slot:icon>
-                                        <x-slot:title>{{ __('Pending for Comments/Civil') }}</x-slot:title>
+                                        <x-slot:title>{{ __('Pending for Comments/Cibil') }}</x-slot:title>
                                     </x-sidebar.nav-link>
                                 </x-sidebar.nav-item>
                                 
