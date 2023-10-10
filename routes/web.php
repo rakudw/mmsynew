@@ -149,7 +149,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/delete/{class}/{id}', 'delete')->name('crud.delete');
     });
     Route::controller(MasterReportController::class)->prefix('/master_report')->group(function () {
-        Route::get('/applications/{type}/{step}', 'index')->name('master_report.applications')  ->where(['type' => 'sponsored|pending|rejected|sanctioned|all', 'step' => '60|40|0']);
+        Route::get('/applications/{type}/{step}', 'index')->name('master_report.applications')  ->where(['type' => 'sponsored|pending|rejected|sanctioned|cgtmse|all', 'step' => '60|40|0']);
         Route::post('/get-data-from-districts', [MasterReportController::class, 'getDataFromDistricts'])->name('get-data-from-districts');
 
     });

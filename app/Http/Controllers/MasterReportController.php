@@ -28,6 +28,7 @@ class MasterReportController extends Controller
             $panchayat_ids = request()->get('panchayat_id') ? request()->get('panchayat_id') : 'All';
             $category_ids = request()->get('cat_id') ? request()->get('cat_id') : 'All';
             $activity_ids = request()->get('activity_id') ? request()->get('activity_id') : 'All';
+            $perPage = request()->get('per_page') ? request()->get('per_page') : 50;
             // $cat_id = request()->get('cat_id') ? request()->get('cat_id') : 'All';
         // Get Data from Filters
         $result = $this->query(Application::forCurrentUser());
@@ -99,7 +100,7 @@ class MasterReportController extends Controller
             $query->whereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.enterprise.activity_id'))) LIKE ?", ['%' . $activity_ids . '%'])->get();
         }
 
-        $applications = $query->paginate(50);
+        $applications = $query->paginate($perPage == "All" ? 500000 : $perPage);
         $categories = DB::table('enums')
             ->where('type', 'SOCIAL_CATEGORY')
             ->select('id', 'name')
@@ -107,7 +108,7 @@ class MasterReportController extends Controller
 
         $activities = Activity::select('id','name')->get();
         // dd($categories);
-        return view('master_report.index', compact('applications', 'statusId','districts','constituencies','tehsils','blocks','panchayatWards','title','categories','activities'));
+        return view('master_report.index', compact('applications', 'statusId','districts','constituencies','tehsils','blocks','panchayatWards','title','categories','activities','perPage'));
     }
     
     public function query($query)
@@ -172,6 +173,11 @@ class MasterReportController extends Controller
                 ];
                 $query->whereIn('status_id', $statusId)->orderBy('updated_at', 'DESC');
                 $title = "Rejeted Application at all level";
+                break;
+            case 'cgtmse':
+                $statusId = null;
+                $query->where('status_id', '>', 314)->orderBy('updated_at', 'DESC');
+                $title = "CGTMSE Fee";
                 break;
             default:
             if(request()->get('status_id') == 100){
@@ -241,6 +247,7 @@ class MasterReportController extends Controller
         $statusId = null;
         $categories = null;
         $activities = null;
+        $perPage = null;
         $selectedFY = request()->get('fy'); // Get the selected fiscal year from the request
         if($selectedFY && $selectedFY != 'All'){
             // dd($selectedFY);
@@ -265,7 +272,7 @@ class MasterReportController extends Controller
         }
         $request->session()->flash('exportData', $reportData);
         $request->session()->flash('totals', $totals);
-        return view('numaric_reports.recieved',compact('districts','constituencies','tehsils','blocks','panchayatWards','title','statusId','reportData','totals','categories','activities'));
+        return view('numaric_reports.recieved',compact('districts','constituencies','tehsils','blocks','panchayatWards','title','statusId','reportData','totals','categories','activities','perPage'));
     }
     public function releasedApplication(Request $request){
         $district_ids = $request->input('district_id', 'All');
@@ -285,6 +292,7 @@ class MasterReportController extends Controller
         $statusId = null;
         $categories = null;
         $activities = null;
+        $perPage = null;
         $selectedFY = request()->get('fy'); // Get the selected fiscal year from the request
         if($selectedFY && $selectedFY != 'All'){
             // dd($selectedFY);
@@ -311,7 +319,7 @@ class MasterReportController extends Controller
         $request->session()->flash('exportData', $reportData);
         $request->session()->flash('totals', $totals);
         $request->session()->flash('statusCodes', $statusCodes);
-        return view('numaric_reports.released',compact('districts','constituencies','tehsils','blocks','panchayatWards','title','statusId','reportData','totals','statusCodes','categories','activities'));
+        return view('numaric_reports.released',compact('districts','constituencies','tehsils','blocks','panchayatWards','title','statusId','reportData','totals','statusCodes','categories','activities','perPage'));
     }
     public function numaricQueryRecieved($districtIds, $selectedFY)
     {

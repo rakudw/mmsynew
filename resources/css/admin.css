@@ -88,10 +88,11 @@ div.dataTables_scrollHeadInner th {
   color: white;
 }
 
-#status-id,.selectize-input,#cat-id
+#status-id,.selectize-input,#cat-id,#per-page
     {
       background-color: #EC407A !important;
       border: 1px solid #EC407A !important;
+      color: white !important;
     }
     button.btn.btn-info.dropdown-toggle
     {
