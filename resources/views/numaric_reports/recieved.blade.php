@@ -9,7 +9,7 @@
             <div class="header-custom">
                 <x-cards.header class="px-md-4 py-md-3 ">
                     <div class="row">
-                        <x-filters.reports_filter :statusId="$statusId" :constituencies="$constituencies" :districts="$districts" :tehsils="$tehsils" :blocks="$blocks" :panchayatWards="$panchayatWards" :categories="$categories" :activities="$activities"> 
+                        <x-filters.reports_filter :statusId="$statusId" :constituencies="$constituencies" :districts="$districts" :tehsils="$tehsils" :blocks="$blocks" :panchayatWards="$panchayatWards" :categories="$categories" :activities="$activities" :perPage="$perPage"> 
                         </x-filters.reports_filter> 
                     </div>
                 </x-cards.header>

@@ -14,13 +14,17 @@ $notPendingNotRejected = ($type == 'pending' || $type == 'rejected');
         <x-cards.card>
             <x-cards.header class="px-md-4 py-md-3">
                 <div class="row">
-                    <x-filters.reports_filter :statusId="$statusId" :constituencies="$constituencies" :districts="$districts" :tehsils="$tehsils" :blocks="$blocks" :panchayatWards="$panchayatWards" :categories="$categories" :activities="$activities"> 
+                    <x-filters.reports_filter :statusId="$statusId" :constituencies="$constituencies" :districts="$districts" :tehsils="$tehsils" :blocks="$blocks" :panchayatWards="$panchayatWards" :categories="$categories" :activities="$activities" :perPage="$perPage"> 
                     </x-filters.reports_filter> 
                 </div>
             </x-cards.header>
             <x-cards.body>
                 <div class="col-md-12">
                     <div class="card mb-3">
+                        @if (request()->route()->parameter('type') == 'cgtmse')
+                        <x-filters.table :applications="$applications" >
+                        </x-filters.table>
+                        @else
                         <table class="table" id="table">
                             <thead>
                                 <tr>
@@ -50,7 +54,7 @@ $notPendingNotRejected = ($type == 'pending' || $type == 'rejected');
                                     @if (!$notPendingNotRejected && $step == '40')
                                         <th>100% CGTMSE</th>{{-- 14 --}}
                                     @endif
-                                    @if ($isStep60Or40 && !$isPending)
+                                    @if ($step == '40' && !$isPending)
                                         <th>Total</th>{{-- 15 --}}
                                     @endif
                                     <th>Emp</th>{{-- 16 --}}
@@ -93,7 +97,7 @@ $notPendingNotRejected = ($type == 'pending' || $type == 'rejected');
                                         @if (!$notPendingNotRejected && $step == '40')
                                             <td class="text-left">14405.44</td>{{-- 14 --}}
                                         @endif
-                                        @if ($isStep60Or40 && !$isPending)
+                                        @if ($step == '40' && !$isPending)
                                             <td class="text-left">{{ $application->getProjectCostAttribute() }}</td>{{-- 15 --}}
                                         @endif
                                         <td class="text-left">{{ $application->getData('enterprise', 'employment') }}</td>{{-- 16 --}}
@@ -106,7 +110,7 @@ $notPendingNotRejected = ($type == 'pending' || $type == 'rejected');
                                 
                             </tbody>
                         </table>
-                       
+                        @endif
                     </div>
                 </div>
             </x-cards.body>

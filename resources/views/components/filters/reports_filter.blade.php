@@ -18,6 +18,19 @@
                 </select>
             </div>
         @endif
+        @if($perPage)
+            <div class="col-md-2">
+                <label class="form-label">Records Per Page</label>
+                <select class="form-control" name="per_page" id="per-page">
+                    @foreach ([50, 100, 150, 200, 'All'] as $option)
+                        <option value="{{ $option }}" {{ $option == $perPage ? 'selected' : '' }}>
+                            {{ $option }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+        
+        @endif
         <div class="col-md-2">
             <label class="form-label">Select FY</label>
             <select class="form-control fy" title="{{ request()->get('fy') }}" name="fy" id="status-id">
@@ -174,7 +187,7 @@
             <div class="col-md-2">
                 <label class="form-label">Select Activity</label>
                 <select style="width: 200px" class="form-control" title="{{ is_array(request()->get('activity_id')) }}" name="activity_id" id="activity-id">
-                    <option value="">-- All --</option>
+                    <option value="All">-- All --</option>
                     @foreach($activities as $activity)
                             <option value="{{ $activity->id }}" @selected(request()->get('activity_id') == $activity->id)>{{ $activity->name }}</option>
                     @endforeach
@@ -213,6 +226,7 @@
         const selectedCategoryValue = $('#cat-id').val();
         const selectedActivityValue = $('#activity-id').val();
         const selectedFYValue = $('.fy').val();
+        const perPage = $('#per-page').val();
 
         // Push the selectedStatusValue into the queryParams array as status_id
         if (selectedStatusValue) {
@@ -229,6 +243,10 @@
         // Push the selectedFYValue into the queryParams array as fy
         if (selectedFYValue) {
             queryParams.push(`fy=${encodeURIComponent(selectedFYValue)}`);
+        }
+        // Push the perPage into the queryParams array as fy
+        if (perPage) {
+            queryParams.push(`per_page=${encodeURIComponent(perPage)}`);
         }
         // Construct the URL with the query parameters
         const url = `${window.location.pathname}?${queryParams.join('&')}`;
