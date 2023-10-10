@@ -103,6 +103,7 @@ div.dataTables_scrollHeadInner th {
     width: 100% !important;
     background-color: #66BB6A !important;  
     overflow-x: hidden;
+    color:white !important
     } 
 
     button.dt-button.buttons-copy.buttons-html5,.buttons-csv.buttons-html5,.buttons-excel.buttons-html5,.buttons-pdf.buttons-html5,.buttons-print

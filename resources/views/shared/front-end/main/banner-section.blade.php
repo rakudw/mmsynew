@@ -7,7 +7,7 @@
               <div class="empty-line">
                   
               </div>
-          <a class="/application/new" href="#">Click Here To Start Your Application</a> 
+          <a class="application_section" href="/application/new">Click Here To Start Your Application</a> 
   
       </div>
       <div class="minister_image_name">

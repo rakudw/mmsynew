@@ -172,7 +172,36 @@
       padding:20px;
       color: #333333!important;
   }
-  
+  a.application_section:hover {
+    background: #ffa23d;
+    color: white;
+}
+a.application_section:hover {
+    background: #ffa23d;
+    color: white;
+}
+
+.apply_now {
+    text-align: center;
+    display: block;
+    padding-bottom: 36px;
+    padding-top: 15px;
+}
+
+.apply_now a {
+    padding: 14px 87px;
+    background: #ffa23d;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    margin-left: -7% !important;
+}
+
+
+
+a.applynow_custom:hover {
+    background: #234669;
+}
   .nav-link{
          padding:20px !important;
   }
@@ -794,6 +823,19 @@
       column-gap: 0px;
       row-gap: 12px;
   }
+  .notifications_outer marquee a {
+    color: #234669;
+    text-decoration: none;
+    letter-spacing: normal;
+    margin-left: 10px;
+}
+
+.notifications_outer marquee a {
+    color: #234669;
+    text-decoration: none;
+    letter-spacing: normal;
+    margin-left: 10px;
+}
   .rounded-circle
    {
       background: #FFA23D;
@@ -811,10 +853,21 @@
       letter-spacing: 0em;
       text-align: center;
   }
+  a.applynow_custom:hover {
+    color: white;
+}
+
+button.buttonaward {
+    padding: 15px 50px;
+}
+
+button.buttonaward:hover {
+    background: #234669;
+}
   .rounded-circle p
    {
       font-family: 'Poppins';
-      font-size: 20px;
+      font-size: 18px;
       font-weight: 400;
       line-height: 21px;
       letter-spacing: 0em;
