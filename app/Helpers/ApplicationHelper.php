@@ -125,6 +125,7 @@ class ApplicationHelper extends BaseHelper
                     switch ($application->application_status) {
                         case ApplicationStatusEnum::PENDING_60_SUBSIDY_RELEASE:
                             $actions[ApplicationStatusEnum::SUBSIDY_60_RELEASED->id()] = 'Release 60% Subsidy';
+                            // $actions[ApplicationStatusEnum::PENDING_60_SUBSIDY_REQUEST->id()] = 'Revert Back To DIC';
                             break;
                         case ApplicationStatusEnum::PENDING_40_SUBSIDY_RELEASE:
                             $actions[ApplicationStatusEnum::SUBSIDY_40_RELEASED->id()] = 'Release 40% Subsidy';

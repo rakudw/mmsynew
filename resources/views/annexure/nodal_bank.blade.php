@@ -61,8 +61,20 @@
                     <td colspan="2" class="text-right">{{ $pageVars['formatter']->format($application->getData('subsidy', 'amount')) }}</td>
                 </tr>
                 <tr>
-                    <th colspan="2" scope="row">Amount of 60% Capital subsidy</th>
+                    <th colspan="2" scope="row">Amount of 60% Capital subsidy Proposed</th>
                     <td colspan="2" class="text-right">{{ $pageVars['formatter']->format($application->getData('subsidy', 'amount60')) }}</td>
+                </tr>
+                <tr>
+                    <th colspan="2" scope="row">Amount of 60% Capital subsidy Released</th>
+                    <td colspan="2" class="text-right">{{ $pageVars['formatter']->format($application->getData('subsidy', 'releasedamt60')) ? $pageVars['formatter']->format($application->getData('subsidy', 'releasedamt60')) : 'NA'  }}</td>
+                </tr>
+                <tr>
+                    <th colspan="2" scope="row">Amount of 40% Capital subsidy Proposed</th>
+                    <td colspan="2" class="text-right">{{ $pageVars['formatter']->format($application->getData('subsidy', 'amount40')) }}</td>
+                </tr>
+                <tr>
+                    <th colspan="2" scope="row">Amount of 40% Capital subsidy Released</th>
+                    <td colspan="2" class="text-right">{{ $pageVars['formatter']->format($application->getData('subsidy', 'releasedamt40')) ? $pageVars['formatter']->format($application->getData('subsidy', 'releasedamt40')) : 'NA'  }}</td>
                 </tr>
                 <tr>
                     <th colspan="2" scope="row">Proposed Employment</th>
@@ -82,11 +94,11 @@
                 </tr>
                 <tr>
                     <th colspan="2" scope="row">UTR/Transaction Number</th>
-                    <td colspan="2" class="text-right">{{ $application->data->subsidy ? $application->data->subsidy->utrno60 : '' }}</td>
+                    <td colspan="2" class="text-right">{{ isset($application->data->subsidy->utrno60) ? $application->data->subsidy->utrno60 : 'NA' }}</td>
                 </tr>
                 <tr>
                     <th colspan="2" scope="row">Transaction Date</th>
-                    <td colspan="2" class="text-right">{{ $application->data->subsidy ? $application->data->subsidy->date60 : '' }}</td>
+                    <td colspan="2" class="text-right">{{ isset($application->data->subsidy->date60) ? $application->data->subsidy->date60 : 'NA' }}</td>
                 </tr>
             </tbody>
         </table>

@@ -21,19 +21,40 @@
                             @if(auth()->user()->isBankManager() || auth()->user()->isNodalDIC() || auth()->user()->isGm() || auth()->user()->isNodalBank() || auth()->user()->isEO())
                                 @if(auth()->user()->isBankManager())
                                 <x-sidebar.nav-item>
-                                    <x-sidebar.nav-link href="{{ route('dashboard.pendency', ['id' => '308']) }}" :active="request()->routeIs('dashboard.pendency.id', ['id' => '308'])">
+                                    <x-sidebar.nav-link href="{{ route('dashboard.pendency', 308) }}" :active="request()->routeIs('dashboard.pendency.id', 308)">
                                         <x-slot:icon></x-slot:icon>
                                         <x-slot:title>{{ __('Pending for Comments/Cibil') }}</x-slot:title>
                                     </x-sidebar.nav-link>
                                 </x-sidebar.nav-item>
                                 
                                 <x-sidebar.nav-item>
-                                    <x-sidebar.nav-link href="{{ route('dashboard.pendency', ['id' => '311']) }}" :active="request()->routeIs('dashboard.pendency.id', ['id' => '311'])">
+                                    <x-sidebar.nav-link href="{{ route('dashboard.pendency', 311) }}" :active="request()->routeIs('dashboard.pendency.id', 311)">
                                         <x-slot:icon></x-slot:icon>
                                         <x-slot:title>{{ __('Pending for Disbursement') }}</x-slot:title>
                                     </x-sidebar.nav-link>
                                 </x-sidebar.nav-item>
                                                                 
+                                @elseif(auth()->user()->isNodalBank())
+                                    <x-sidebar.nav-item>
+                                        <x-sidebar.nav-link href="{{ route('dashboard.pendency', 314) }}" :active="request()->routeIs('dashboard.pendency.id', 314)">
+                                            <x-slot:icon></x-slot:icon>
+                                            <x-slot:title>{{ __('Pending for 60% Release') }}</x-slot:title>
+                                        </x-sidebar.nav-link>
+                                    </x-sidebar.nav-item>
+                                    
+                                    <x-sidebar.nav-item>
+                                        <x-sidebar.nav-link href="{{ route('dashboard.pendency', 316) }}" :active="request()->routeIs('dashboard.pendency.id', 316)">
+                                            <x-slot:icon></x-slot:icon>
+                                            <x-slot:title>{{ __('Pending for 40% Release') }}</x-slot:title>
+                                        </x-sidebar.nav-link>
+                                    </x-sidebar.nav-item>
+                                    
+                                    <x-sidebar.nav-item>
+                                        <x-sidebar.nav-link href="{{ route('dashboard.pendency', 318) }}" :active="request()->routeIs('dashboard.pendency.id',318)">
+                                            <x-slot:icon></x-slot:icon>
+                                            <x-slot:title>{{ __('Pending for Interest Release') }}</x-slot:title>
+                                        </x-sidebar.nav-link>
+                                    </x-sidebar.nav-item>
                                 @else
                                     <x-sidebar.nav-item>
                                         <x-sidebar.nav-link href="{{ route('dashboard.pendency') }}" :active="request()->routeIs('dashboard.pendency')">

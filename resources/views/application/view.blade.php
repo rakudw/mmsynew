@@ -465,7 +465,7 @@
             </div>
         </div>
     </div>
-    @php($actions = \App\Helpers\ApplicationHelper::getApplicationActions($application))
+    @php($actions = \App\Helpers\ApplicationHelper::getApplicationActions($application)) 
     @if(\App\Enums\ApplicationStatusEnum::PENDING_FOR_DISTRICT_LEVEL_COMMITTEE->id() != $application->status_id && count($actions))
         <x-forms.form-section action="{{ route('application.status', $application) }}" id="applicationStatus"
             class="my-3" method="PUT" enctype="multipart/form-data">
@@ -580,19 +580,26 @@
 
                 @if(isset($actions[\App\Enums\ApplicationStatusEnum::SUBSIDY_60_RELEASED->id()]))
                     <div class="row" data-status-vars="{{ \App\Enums\ApplicationStatusEnum::SUBSIDY_60_RELEASED->id() }}">
-                        <div class="col-12 col-sm-6 col-md-4 mb-3 mt-3 mt-sm-0">
+                        <div class="col-12 col-sm-6 col-md-3 mb-3 mt-3 mt-sm-0">
                             <x-forms.input-group :dynamic="true">
                                 <x-forms.label class="form-label">60% Subsidy Amount</x-forms.label>
                                 <x-forms.input type="number" readonly="readonly" required="required" class="form-control w-100" value="{{ $application->subsidyAmount(60) }}" />
                             </x-forms.input-group>
                         </div>
-                        <div class="col-12 col-sm-6 col-md-4 mb-3 mt-3 mt-sm-0">
+                        <div class="col-12 col-sm-6 col-md-3 mb-3 mt-3 mt-sm-0">
+                            <x-forms.input-group :dynamic="true">
+                                <x-forms.label class="form-label">Enter Actual Amount Released</x-forms.label>
+                                <x-forms.input type="number" required="required" name="applicationData[subsidy][releasedamt60]" class="form-control w-100" />
+                            </x-forms.input-group>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-3 mb-3 mt-3 mt-sm-0">
                             <x-forms.input-group :dynamic="true">
                                 <x-forms.label class="form-label">UTR No.</x-forms.label>
                                 <x-forms.input type="text" required="required" name="applicationData[subsidy][utrno60]" class="form-control w-100" />
                             </x-forms.input-group>
                         </div>
-                        <div class="col-12 col-sm-6 col-md-4 mb-3 mt-3 mt-sm-0">
+                     
+                        <div class="col-12 col-sm-6 col-md-3 mb-3 mt-3 mt-sm-0">
                             <x-forms.input-group :dynamic="true">
                                 <x-forms.label class="form-label">Release Date</x-forms.label>
                                 <x-forms.input type="date" data-datepicker-xmax-date="0" data-datepicker-xmin-date="-3" required="required" name="applicationData[subsidy][date60]" class="form-control w-100" />
@@ -603,19 +610,25 @@
 
                 @if(isset($actions[\App\Enums\ApplicationStatusEnum::SUBSIDY_40_RELEASED->id()]))
                     <div class="row" data-status-vars="{{ \App\Enums\ApplicationStatusEnum::SUBSIDY_40_RELEASED->id() }}">
-                        <div class="col-12 col-sm-6 col-md-4 mb-3 mt-3 mt-sm-0">
+                        <div class="col-12 col-sm-6 col-md-3 mb-3 mt-3 mt-sm-0">
                             <x-forms.input-group :dynamic="true">
                                 <x-forms.label class="form-label">40% Subsidy Amount</x-forms.label>
                                 <x-forms.input type="number" readonly required="required" class="form-control w-100" value="{{ $application->subsidyAmount(40) }}" />
                             </x-forms.input-group>
                         </div>
-                        <div class="col-12 col-sm-6 col-md-4 mb-3 mt-3 mt-sm-0">
+                        <div class="col-12 col-sm-6 col-md-3 mb-3 mt-3 mt-sm-0">
+                            <x-forms.input-group :dynamic="true">
+                                <x-forms.label class="form-label">Enter Actual Amount Released</x-forms.label>
+                                <x-forms.input type="number" required="required" name="applicationData[subsidy][releasedamt40]" class="form-control w-100" />
+                            </x-forms.input-group>
+                        </div>
+                        <div class="col-12 col-sm-6 col-md-3 mb-3 mt-3 mt-sm-0">
                             <x-forms.input-group :dynamic="true">
                                 <x-forms.label class="form-label">UTR No.</x-forms.label>
                                 <x-forms.input type="text" required="required" name="applicationData[subsidy][utrno40]" class="form-control w-100" />
                             </x-forms.input-group>
                         </div>
-                        <div class="col-12 col-sm-6 col-md-4 mb-3 mt-3 mt-sm-0">
+                        <div class="col-12 col-sm-6 col-md-3 mb-3 mt-3 mt-sm-0">
                             <x-forms.input-group :dynamic="true">
                                 <x-forms.label class="form-label">Release Date</x-forms.label>
                                 <x-forms.input type="date" data-datepicker-xmax-date="0" data-datepicker-xmin-date="-3" required="required" name="applicationData[subsidy][date40]" class="form-control w-100" />
@@ -638,6 +651,29 @@
                 </div>
             </x-slot>
         </x-forms.form-section>
+	@elseif(\App\Enums\ApplicationStatusEnum::SUBSIDY_60_RELEASED->id() == $application->status_id && auth()->user()->isNodalBank())
+    <?php $actions[\App\Enums\ApplicationStatusEnum::PENDING_60_SUBSIDY_REQUEST->id()] = 'Revert Back To DIC'; ?>
+    <x-forms.form-section action="{{ route('application.status', $application) }}" id="applicationStatus"
+    class="my-3" method="PUT" enctype="multipart/form-data">
+    <x-slot name="title">
+        {{ __('Take Action') }}
+    </x-slot>
+    <x-slot name="form">
+        <div class="row">
+            <div class="col-md-6 px-lg-3 px-2 pt-3">
+                <x-roles.select :application="$application" id="applicationStatus" name="status" :actions="$actions" />
+            </div>
+            <div class="col-md-6 px-lg-3 px-2 pt-3">
+                <x-forms.label for="comment">Remarks</x-forms.label>
+                <x-forms.textarea id="comment" rows="3" required="required" maxlength="511" name="comment" rows="2"
+                    placeholder="You can enter comment here">{{ old('comment') ?? '' }}</x-forms.textarea>
+            </div>
+            <div class="col-md-12 justify-content-end">
+                <x-forms.button :type="'submit'">Update</x-forms.button>
+            </div>
+        </div>
+    </x-slot>
+    </x-forms.form-section>
 	@elseif(\App\Enums\ApplicationStatusEnum::PENDING_FOR_DISTRICT_LEVEL_COMMITTEE->id() == $application->status_id)
         {{-- <div class="alert alert-info text-white text-center mt-1" role="alert">
             <strong>This application can be approved or rejected from the <a class="alert-link text-light" href="{{ route('dashboard.meetings') }}">meeting page</a>!</strong>

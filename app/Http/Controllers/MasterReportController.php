@@ -177,6 +177,17 @@ class MasterReportController extends Controller
             case 'cgtmse':
                 $statusId = null;
                 $query->where('status_id', '>', 314)->orderBy('updated_at', 'DESC');
+                $query->where(function ($query) {
+                    $query->where(function ($query) {
+                        $query->whereRaw("JSON_UNQUOTE(JSON_EXTRACT(data, '$.old_annexure_a.gaa_amount_cgtmse')) > 0");
+                    })->orWhere(function ($query) {
+                        $query->where('id', '<', 25000);
+                        $query->where(function ($query) {
+                            $query->whereRaw("JSON_UNQUOTE(JSON_EXTRACT(data, '$.subsidy.cgtmse_fee')) > 0");
+                        });
+                    });
+                });
+                
                 $title = "CGTMSE Fee";
                 break;
             default:

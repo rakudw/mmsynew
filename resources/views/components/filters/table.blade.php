@@ -20,12 +20,13 @@
         {{-- @php dd($application->data); @endphp --}}
             <tr>
                 <td class="text-left">{{ $srNo }}</td>{{-- 1 --}}
-                <td class="text-left" title="{{ $application->unique_id }}"> {{ $application->unique_id }}</td>{{-- 2 --}}
+                <td class="text-left" title="{{ $application->unique_id }}"><a href="/application/view/{{ $application->id }}"> {{ $application->unique_id }}</a></td>{{-- 2 --}}
                 <td class="text-left" title="{{ $application->application_status ? $application->application_status->value : 'NA' }}">{{ $application->application_status ? $application->application_status->value : 'NA' }}</td>{{-- 3 --}}
-                <td class="text-left">@if ($application->id < 25000)
-                    {{ isset($application->old_annexure_a->gaa_amount_cgtmse) ? $application->old_annexure_a->gaa_amount_cgtmse : 'NA' }}
+                <td class="text-left">
+                @if ($application->id < 25000)
+                    {{ isset($application->data->old_annexure_a->gaa_amount_cgtmse) ? $application->data->old_annexure_a->gaa_amount_cgtmse : 'NA' }}
                 @else
-                    {{ isset($application->subsidy->cgtmse_fee) ? $application->subsidy->cgtmse_fee : 'NA' }}
+                    {{ isset($application->data->subsidy->cgtmse_fee) ? $application->data->subsidy->cgtmse_fee : 'NA' }}
                 @endif
                 
                 </td>
