@@ -112,7 +112,7 @@
               <div class="card-body">
                 <img src="{{ asset('images/application.png') }}"/>
                 <p class="card-text">Application</p>
-               
+                 <a href="/application/new" class="apply_custom">Apply Online</a>
               </div>
             </div>
           </div>
@@ -121,7 +121,7 @@
               <div class="card-body">
                 <img src="{{ asset('images/guide.png') }}"/>
                 <p class="card-text">Guidelines</p> 
-               
+                <a href="/application/new" class="apply_custom">Apply Online</a>
               </div>
             </div>
           </div>
@@ -130,7 +130,7 @@
               <div class="card-body">
                 <img src="{{ asset('images/notification.png') }}"/>
                 <p class="card-text">Notification</p>
-                
+                <a href="/application/new" class="apply_custom">Apply Online</a>
               </div>
             </div>
           </div>
@@ -141,7 +141,7 @@
               <div class="card-body">
                 <img src="{{ asset('images/notebook.png') }}"/>
                 <p class="card-text">DLC Meetings Agenda</p>
-               
+                <a href="/application/new" class="apply_custom">Apply Online</a>
               </div>
             </div>
           </div>
@@ -150,7 +150,7 @@
               <div class="card-body">
                 <img src="{{ asset('images/calendar(1).png') }}"/>
                 <p class="card-text">DLC Meetings Proceedings</p> 
-                
+                <a href="/application/new" class="apply_custom">Apply Online</a>
               </div>
             </div>
           </div>
@@ -159,7 +159,7 @@
                 <div class="card-body">
                     <img src="{{ asset('images/government.png') }}"/>
                   <p class="card-text">Important Government Links</p>
-                 
+                  <a href="/application/new" class="apply_custom">Apply Online</a>
                 </div>
               </div>
             </div>

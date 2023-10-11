@@ -323,7 +323,29 @@ a.applynow_custom:hover {
       align-items: center;
       width: 100%;
   }
-  
+  a.apply_custom {
+    color: #0e0e0e;
+    text-decoration: none;
+    margin-bottom: 10px;
+    background: white;
+    padding: 6px 23px;
+    font-size: 16px;
+    margin-bottom: 42px;
+    width: 57%;
+    position:relative;
+    border-radius: 3px;
+    line-height: 18px !important;
+    font-family: montserrat;
+    font-weight: 600;
+    bottom: -19px;
+    box-shadow:2px 2px 12px #00000030;
+}
+
+
+a.apply_custom:hover {
+    background:#234669;
+    color:white;
+}
   
   
   .list_points {
@@ -1152,7 +1174,46 @@ button.buttonaward:hover {
           width: 100%;
           height: auto;
       }
+      .rounded-circle {
+        background: #FFA23D;
+        height: 125px!important;
+        width: 120px;
+        padding: 5px;
+    }
+    .rounded-circle h6 {
+        font-family: 'Poppins';
+        font-size: 22px;
+        font-weight: 700;
+        line-height: 57px;
+        letter-spacing: 0em;
+        text-align: center;
+    }
+    .rounded-circle p {
+        font-family: 'Poppins';
+        font-size: 15px;
+        font-weight: 400;
+        line-height: 21px;
+        letter-spacing: 0em;
+        text-align: center;
+        margin-bottom: 0;
+        text-transform: capitalize;
+    }
+    button#v-pills-n-tab, button#v-pills-nol-tab, button#v-pills-ff-tab, button#v-pills-fr-tab, button#v-pills-faq-tab, button#v-pills-g-tab {
+        
+        font-size: 15px;
+    }
+    .top_heading h3 {
+        font-size: 23px;
+    }
+    button.buttonaward {
+        
+        padding: 10px;
+    }
+    .main_text_section_wrapper a
+     {
+        padding: 10px;
   }
+}
   
   
   
