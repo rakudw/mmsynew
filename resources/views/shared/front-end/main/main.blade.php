@@ -112,36 +112,16 @@
               <div class="card-body">
                 <img src="{{ asset('images/application.png') }}"/>
                 <p class="card-text">Application</p>
-                 <a href="/application/new" class="apply_custom">Apply Online</a>
+                 <a href="/application/new" target="_blank" class="apply_custom">Apply Online</a>
               </div>
             </div>
           </div>
-          <div class="col-md-4 custom_col">
-            <div class="card-light">
-              <div class="card-body">
-                <img src="{{ asset('images/guide.png') }}"/>
-                <p class="card-text">Guidelines</p> 
-                <a href="/application/new" class="apply_custom">Apply Online</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4 custom_col">
-            <div class="card-dark">
-              <div class="card-body">
-                <img src="{{ asset('images/notification.png') }}"/>
-                <p class="card-text">Notification</p>
-                <a href="/application/new" class="apply_custom">Apply Online</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row main_mmsy">
           <div class="col-md-4 custom_col">
             <div class="card-light">
               <div class="card-body">
                 <img src="{{ asset('images/notebook.png') }}"/>
-                <p class="card-text">DLC Meetings Agenda</p>
-                <a href="/application/new" class="apply_custom">Apply Online</a>
+                <p class="card-text">Bank Login</p>
+                <a href="/login" target="_blank" class="apply_custom">Login</a>
               </div>
             </div>
           </div>
@@ -149,22 +129,43 @@
             <div class="card-dark">
               <div class="card-body">
                 <img src="{{ asset('images/calendar(1).png') }}"/>
-                <p class="card-text">DLC Meetings Proceedings</p> 
-                <a href="/application/new" class="apply_custom">Apply Online</a>
+                <p class="card-text">View Status</p> 
+                <a href="/applicant-login" target="_blank" class="apply_custom">Login</a>
               </div>
             </div>
           </div>
-            <div class="col-md-4 custom_col">
-              <div class="card-light">
-                <div class="card-body">
-                    <img src="{{ asset('images/government.png') }}"/>
-                  <p class="card-text">Important Government Links</p>
-                  <a href="/application/new" class="apply_custom">Apply Online</a>
-                </div>
+          
+        </div>
+        <div class="row main_mmsy">
+          <div class="col-md-4 custom_col">
+            <div class="card-light">
+              <div class="card-body">
+                  <img src="{{ asset('images/government.png') }}"/>
+                <p class="card-text">Department Login</p>
+                <a href="/login" target="_blank" class="apply_custom">Login</a>
               </div>
             </div>
+          </div>
+          <div class="col-md-4 custom_col">
+            <div class="card-dark">
+              <div class="card-body">
+                <img src="{{ asset('images/guide.png') }}"/>
+                <p class="card-text">Guidelines</p> 
+                <a href="https://emerginghimachal.hp.gov.in/themes/backend/uploads/notification/Notification/Operational-Guidelines-for-Mukhya-Mantri-Swawlamban-Yojna-2019.pdf" target="_blank"  class="apply_custom">View</a>
+              </div>
             </div>
+          </div>
+          <div class="col-md-4 custom_col">
+            <div class="card-light">
+              <div class="card-body">
+                <img src="{{ asset('images/notification.png') }}"/>
+                <p class="card-text">Notification</p>
+                <a href="https://emerginghimachal.hp.gov.in/themes/backend/uploads/notification/mmsy/MMSY-as-on-20-04-2022.pdf" target="_blank" class="apply_custom">View</a>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
 <!--- footer started -->
 
 <div class="footer_started">
