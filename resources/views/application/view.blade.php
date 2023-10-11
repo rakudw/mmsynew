@@ -659,6 +659,13 @@
         {{ __('Take Action') }}
     </x-slot>
     <x-slot name="form">
+        <input type="hidden" value="revrtToDic" name="revert_to_dic"/>
+        <input name="applicationData[subsidy][old_amount60]" value="{{ $application->data->subsidy->amount60 }}" type="hidden">
+        <input name="applicationData[subsidy][old_date60]" value="{{ $application->data->subsidy->date60 }}" type="hidden">
+        <input name="applicationData[subsidy][old_releasedamt60]" value="{{ isset($application->data->subsidy->releasedamt60) ? $application->data->subsidy->releasedamt60 : 0 }}" type="hidden">
+        <input name="applicationData[subsidy][amount60]" value="0" type="hidden">
+        <input name="applicationData[subsidy][date60]" value="" type="hidden">
+        <input name="applicationData[subsidy][releasedamt60]" value="0" type="hidden">
         <div class="row">
             <div class="col-md-6 px-lg-3 px-2 pt-3">
                 <x-roles.select :application="$application" id="applicationStatus" name="status" :actions="$actions" />

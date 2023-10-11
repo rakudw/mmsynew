@@ -112,7 +112,7 @@ class Region extends Base implements CrudInterface
 
     private function userDistricts() {
         $regions = array();
-        if($this->user()->isSuperAdmin()) {
+        if($this->user()->isSuperAdmin() || $this->user()->isNodalBank()) {
             $regions = Region::ofType(RegionTypeEnum::DISTRICT->id())->select('id')->get()->map(fn($d) => $d->id)->toArray();
         } else {
             $records = DB::table('user_roles')->where('user_id', Auth::id())->get();

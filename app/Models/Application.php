@@ -742,6 +742,10 @@ class Application extends Base implements Auditable
 
         return $this->region()->select('id')->where('type_id', 19)->first();
     }
+    public function getDistrict()
+    {
+        return $this->region()->select('name')->where('type_id', 404)->first();
+    }
 
     /**
      * Get the applications district wise

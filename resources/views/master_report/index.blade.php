@@ -22,10 +22,13 @@ $notPendingNotRejected = ($type == 'pending' || $type == 'rejected');
                 <div class="col-md-12">
                     <div class="card mb-3">
                         @if (request()->route()->parameter('type') == 'cgtmse')
-                        <x-filters.table :applications="$applications" >
-                        </x-filters.table>
+                            <x-filters.table :applications="$applications" >
+                            </x-filters.table>
+                        @elseif(request()->route()->parameter('type') == 'all' && request()->route()->parameter('step') == '1')
+                            <x-filters.nodal_bank_report_table :applications="$applications" >
+                            </x-filters.nodal_bank_report_table>
                         @else
-                        <table class="table" id="table">
+                        <table class="table table-striped table-center hover " id="table">
                             <thead>
                                 <tr>
                                     <th>Sr. No.</th> {{-- 1 --}}
@@ -69,7 +72,7 @@ $notPendingNotRejected = ($type == 'pending' || $type == 'rejected');
                                 @endphp
                                 {{-- @php dd($application->data); @endphp --}}
                                     <tr>
-                                        <td class="text-left">{{ $srNo }}</td>{{-- 1 --}}
+                                        <td class="text-center"><b>{{ $srNo }}<b></td>{{-- 1 --}}
                                         <td class="text-left" title="{{ $application->unique_id }}"><a href="/application/view/{{ $application->id }}"> {{ $application->unique_id }}</a></td>{{-- 2 --}}
                                         <td class="text-left" title="{{ $application->application_status ? $application->application_status->value : 'NA' }}">{{ $application->application_status ? $application->application_status->value : 'NA' }}</td>{{-- 3 --}}
                                         <td class="text-left" title="{{ $application->getOwnerAddressAttribute()  }}">{{ $application->getOwnerAddressAttribute() }}</td>{{-- 4 --}}

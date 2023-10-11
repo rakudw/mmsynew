@@ -201,7 +201,13 @@ class MasterReportController extends Controller
                 ];
                 
             }
-                 $query->whereIn('status_id',$statusId);
+            if(request()->route()->parameter('step') == 1){
+                $statusId = intval(request()->get('status_id')) ? [intval(request()->get('status_id'))] :  [314, 315, 316, 317, 318, 319, 320];
+                $query = Application::whereIn('status_id',$statusId);
+            }else{
+                $query->whereIn('status_id',$statusId);
+            }
+                 
                 $title = "All Applications";
                 break;
         }

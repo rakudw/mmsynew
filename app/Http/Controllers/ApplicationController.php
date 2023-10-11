@@ -736,9 +736,7 @@ class ApplicationController extends Controller
                 return redirect()->route('dashboard')->with('error', 'Application not found!');
             }
         }
-        // echo "<pre>";
-        // print_r($request->all());
-        // die;
+       
         $validation = $request->validate([
             'applicationData' => 'nullable',
             'applicationDocument.*' => 'nullable|file',
@@ -792,7 +790,6 @@ class ApplicationController extends Controller
                 }
             }
         }
-
         ApplicationTimeline::create([
             'application_id' => $application->id,
             'remarks' => $validation['comment'],

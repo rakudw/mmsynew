@@ -41,7 +41,7 @@
                 <option value="2020-2021" @selected(request()->get('fy') == '2020-2021')>2020-2021</option>
             </select>
         </div>
-        @if(auth()->user()->isSuperAdmin())
+        @if(auth()->user()->isSuperAdmin() || auth()->user()->isNodalBank())
             <div class="col-md-2">
                 <!-- District Dropdown -->
                 <label class="form-label">Select District</label>

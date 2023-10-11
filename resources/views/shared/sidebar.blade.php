@@ -266,7 +266,7 @@
                     <x-slot:title :title="__('Reports')">{{ __('Reports') }}</x-slot:title>
                     <x-slot:collapse>
                         <x-sidebar.collapse-show :menuId="'reports'">
-                            @if(auth()->user()->isBankManager() || auth()->user()->isBankRO() || auth()->user()->isGm() || auth()->user()->isSuperAdmin() || auth()->user()->isNodalBank())
+                            @if(auth()->user()->isBankManager() || auth()->user()->isBankRO() || auth()->user()->isGm() || auth()->user()->isSuperAdmin())
                                 @if(auth()->user()->isBankManager())
                                     <x-sidebar.nav-item>
                                         <x-sidebar.nav-link href="{{ route('report.banks') }}" :active="request()->routeIs('report.banks')">
@@ -366,11 +366,27 @@
                                     </x-sidebar.nav-link>
                                 </x-sidebar.nav-item>
                             @endif
+                            @if(auth()->user()->isNodalBank())
+                              
+                                <x-sidebar.nav-item>
+                                    <x-sidebar.nav-link href="{{ route('master_report.applications', ['type' => 'all', 'step' => '1']) }}" :active="request()->routeIs('master_report.applications') && request()->route()->parameter('type') == 'all'">
+                                        <x-slot:icon><em class="material-icons opacity-10">check_box</em></x-slot:icon>
+                                        <x-slot:title>{{ __('View Applications') }}</x-slot:title>
+                                    </x-sidebar.nav-link>
+                                </x-sidebar.nav-item>
+                                <x-sidebar.nav-item>
+                                    <x-sidebar.nav-link href="https://mmsy.hp.gov.in/old-portal/page/report" target="_blank">
+                                        <x-slot:icon><em class="material-icons opacity-10">list_alt</em></x-slot:icon>
+                                        <x-slot:title>{{ __('Old Portal Status') }}</x-slot:title>
+                                    </x-sidebar.nav-link>
+                                </x-sidebar.nav-item>
+                            @endif
                         </x-sidebar.collapse-show>
                     </x-slot:collapse>
                 </x-sidebar.sub-menu>
             </x-sidebar.nav-item>
         @endif
+      
 
         @if(auth()->user()->isSuperAdmin())
             <x-sidebar.nav-item>

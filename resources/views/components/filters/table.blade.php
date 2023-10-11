@@ -19,7 +19,7 @@
         @endphp
         {{-- @php dd($application->data); @endphp --}}
             <tr>
-                <td class="text-left">{{ $srNo }}</td>{{-- 1 --}}
+                <td class="text-center"><b>{{ $srNo }}<b></td>{{-- 1 --}}
                 <td class="text-left" title="{{ $application->unique_id }}"><a href="/application/view/{{ $application->id }}"> {{ $application->unique_id }}</a></td>{{-- 2 --}}
                 <td class="text-left" title="{{ $application->application_status ? $application->application_status->value : 'NA' }}">{{ $application->application_status ? $application->application_status->value : 'NA' }}</td>{{-- 3 --}}
                 <td class="text-left">
