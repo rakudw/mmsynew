@@ -106,6 +106,12 @@ ul.achivelist li {
     padding-top:20px;
     padding-bottom: 10px;
 }
+marquee a {
+    color: #234669;
+    text-decoration: none;
+    letter-spacing: normal;
+    margin-right: 20px;
+}
 .row.main_mmsy p {
     font-family: 'Montserrat';
     font-size: 16px;

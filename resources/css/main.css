@@ -1227,6 +1227,38 @@ button.buttonaward:hover {
           row-gap: 10px;
           justify-content: center;
       }
+      .notifications {
+        font-size: 16px;
+      
+    }
+    .notifications_outer marquee a {
+        color: #234669;
+        text-decoration: none;
+        letter-spacing: normal;
+        margin-left: 10px;
+        font-size: 16px;
+    }
+    
+    
+    .row.custom_circle {
+        grid-auto-rows: minmax(1fr, auto);
+    }
+    
+    
+    .rounded-circle h6 {
+        font-family: Poppins;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 48px;
+        letter-spacing: 0em;
+        text-align: center;
+    }
+    .points_four {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        flex-wrap: wrap;
+    }
       .card-4-wrapper {
                  margin-left: inherit;
       }
@@ -1269,6 +1301,102 @@ button.buttonaward:hover {
           top: -61px;
           z-index: 999;
       }
+   
+.top_bar {
+    flex-wrap:wrap;
+}
+.helpdesk_n a {
+     font-size: 16px;
+    margin-bottom:0px;
+ 
+}
+.list a {
+    font-size: 16px;
+   
+}
+label.form-check-label {
+    font-size: 16px; 
+}
+
+
+.himachal_gov_logo {
+    order:2;
+}
+.main_text_section {
+    display: block;  
+    margin-bottom:20px;
+}
+.main_text_section_wrapper h1 {
+    color: #333;
+    font-family: Poppins;
+    font-size: 32px;
+    max-width: 654px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 39px;
+    width: 100%;
+    text-align: center;
+}
+.main_text_section_wrapper {
+    text-align:center;
+    justify-content:center;
+}
+.empty-line {
+    background-color: #f58d1e;
+    padding: 2px;
+    margin: 20px 0;
+    width: 50%;
+    border-radius: 5px;
+    margin: auto;
+    margin-bottom: 40px;
+}
+.list_points span {
+    color: #fc0;
+    text-align: center;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    height: 68px !important;
+    line-height: normal;
+}
+.new_activity {
+    width: 100%;
+    display: flex;
+    background-color: #d3d3d3;
+    align-items: center;
+    height: 35px;
+}
+.new_activity_inner_wrapper img {
+    height: 23px;
+}
+.new_activity_inner_wrapper p {
+    margin: 0;
+    padding-left: 10px;
+    color: #333;
+    padding-top: 0px;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;
+}
+.list_points {
+    font-size: 20px;
+    color: #ff0;
+    font-weight: 900;
+    display: flex;
+    width: 100%;
+    text-align: center;
+}
+.main_mmsy_portal {
+    display: grid;
+    grid-template-columns: 100%;
+    align-items: flex-start;
+    background: #efefef;
+    justify-content: space-between;
+}
+
   }
   
   
@@ -1277,6 +1405,9 @@ button.buttonaward:hover {
       .himachal_gov_logo img {
           width: 102px;
       }
+      .row.custom_circle {
+        grid-template-columns: 1fr repeat(1, 1fr);
+  }
       .image img {
           height: 100%;
           width: 174px;
