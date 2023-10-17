@@ -88,6 +88,7 @@
   }
   .list {
       display: flex;
+      align-items: center;
   }
   .helpdesk_n a {
       color: white;
@@ -238,8 +239,9 @@ a.applynow_custom:hover {
   }
   .footer_started {
       text-align: center;
-      width: 93%;
+      width: 100%;
       padding-left: 10px;
+      padding-right: 10px;
   }
   .tab-content > .active{
     width: 98%;
@@ -265,6 +267,9 @@ a.applynow_custom:hover {
   .reserved {
       color: white;
   }
+  ul#mobile-dropdown li:hover {
+    background: #234669 !important;
+}
   
   .reserved a {
       color: #ffcc00;
@@ -685,11 +690,23 @@ a.apply_custom:hover {
       display: block;
       text-decoration: none !important;
   }
-  
+  ul#mobile-dropdown li:hover {
+    background: red;
+}
+ul#mobile-dropdown li{
+    border-bottom:1px solid #a9a9a942;
+}
+
+ul#mobile-dropdown li:last-child{
+    border-bottom:0px solid darkgrey;
+}
   ul#mobile-dropdown {
-      position: absolute;
-      top: 103px;
-      padding: 20px;
+    position: absolute;
+    top: 133px;
+    padding: 20px;
+    width: 97%;
+    border-radius: 10px;
+    right: 17px;
   }
   
   ul#mobile-dropdown li a {
@@ -709,6 +726,7 @@ a.apply_custom:hover {
    {
       color: red;
   }
+
   .notifications_outer
    {
       background-color:#E8E8E8;
@@ -864,6 +882,11 @@ a.apply_custom:hover {
       height: 155px!important;
       width: 157px;
       padding: 20px;
+      display: flex;
+    flex-direction: column;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
       }
    
    .rounded-circle h6 
@@ -1042,6 +1065,12 @@ button.buttonaward:hover {
   }
   
   
+ 
+
+
+
+
+
   
   @media only screen and (max-width:1578px){
   
@@ -1126,12 +1155,137 @@ button.buttonaward:hover {
   }
   
   
+  @media only screen and (max-width:1300px){
+    .nav.navcustommain a {
+      
+        font-size: 18px;
+      
+    }
+    .main_text_section_wrapper h1 {
+        color: #333;
+        font-family: Poppins;
+        font-size: 35px;
+        max-width: 100%;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 56px;
+        width: 100%;
+    }
+    .notifications_outer marquee a {
+            font-size: 18px;
+    }
+    .rounded-circle {
+        background: #FFA23D;
+        height: 173px!important;
+        width: 179px;
+        padding: 20px;
+    }
+    .row.custom_circle {
+        column-gap: 0px;
+        row-gap: 12px;
+        display: grid !important;
+        flex-wrap: wrap !important;
+        grid-template-columns: 1fr 1fr 1fr;
+        width: 88%;
+        margin: auto;
+    }
+    .top_heading span, .top_heading h3 {
+        font-size: 24px;
+    }
+    img.img-fluid.img-about {
+        max-width: 470px;
+        height: 140px;
+        object-fit: cover;
+        width: 100%;
+        border-radius: 8px;
+    }
+    .main_mmsy img {
+        width: 60px!important;
+    }
+    .footer_note p {
+              font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 23px;
+        margin-top: 19px;
+    }
+    .copyright.mt-5 {
+        margin-top: 10px !important;
+    }
+    .nav-link {
+        padding: 14px!important;
+        text-transform: uppercase;
+    }
+    button#v-pills-hn-tab, button#v-pills-n-tab, button#v-pills-nol-tab, button#v-pills-ff-tab, button#v-pills-fr-tab, button#v-pills-faq-tab, button#v-pills-g-tab {
+        font-family: Segoe UI;
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 23px;
+        letter-spacing: 0em;
+        text-align: left;
+        white-space: nowrap;
+        color: #333;
+    }
+    .reserved {
+        font-size: 17px;
+    }
+    #v-pills-hn-tab, #v-pills-n-tab, #v-pills-nol-tab, #v-pills-ff-tab, #v-pills-fr-tab, #v-pills-faq-tab, #v-pills-g-tab {
+        column-gap: 15px;
+        display: flex;
+        margin: 10px!important;
+        align-items: center;
+    }
+    .list_points span {
+        color: #fc0;
+        text-align: center;
+        font-family: Poppins;
+        font-size: 22px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+    }
+    .minister_image_name img:nth-child(2) {
+        max-width: 303px !important;
+    }
+    .main_text_section_wrapper a {
+        white-space: nowrap;
+           }
+ }
+
   
   
   
   
+  @media only screen and (max-width:1200px){
+    .main_text_section {
+              flex-wrap: wrap;
+              margin-bottom: 20px;
+       
+    }
+    .main_text_section_wrapper h1 {
+              text-align: center;
   
-  
+  }
+  .main_text_section_wrapper {
+    text-align: center;
+}
+.empty-line {
+    background-color: #f58d1e;
+    padding: 4px;
+    margin: 20px 0;
+    width: 50%;
+    border-radius: 5px;
+    margin: auto;
+    margin-bottom: 20px;
+}
+.minister_image_name {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: center;
+    margin-top: 30px;
+}
+  }
   
   
   
@@ -1144,10 +1298,112 @@ button.buttonaward:hover {
       .nav-ul {
           display: none !important; /* Hide the navigation on smaller screens */
       }
-  
+      .list_points .one {
+        
+        height: 50px;
+       
+    }
+
+    .custom_left_sectionmmsy {
+        width: auto !important;
+    }
+    .main_mmsy_portal {
+        display: grid;
+        grid-template-columns: 1fr;
+                background: #efefef;
+        justify-content: space-between;
+    }
+    .mmsy_outer {
+        background-color: #efefef;
+        height: auto;
+        width: 100%;
+        display: grid;
+        flex-wrap: wrap;
+        grid-template-columns:25% 25% 25% 25%;
+    }
+    .mmsy_Portal {grid-column-start: 1;grid-column-end: 5;}
+    .new_activity {
+        width: 100%;
+        display: flex;
+        background-color: #d3d3d3;
+        align-items: center;
+        height: 45px;
+        justify-content: center;
+    }
+    .list_points {
+        font-size: 20px;
+        color: #ff0;
+        font-weight: 900;
+        display: flex;
+        width: 100%;
+        text-align: center;
+    }
+    .new_activity_inner_wrapper p {
+               padding-top: 0px;
+        
+    }
+    .points_four {
+        display: block;
+        align-items: center;
+        width: 100%;
+        flex-wrap: wrap;
+    }
+    .notifications {      
+        font-size: 17px;        
+    }
+    .new_activity_inner_wrapper img {
+        height: 37px;
+    }
+    .list_points .two{
+        height: 50px;
+    }
+    .list_points .three{
+        height: 50px;
+    }
+    .mmsy_Portal h5 {
+        color: #fff;
+        font-family: Segoe UI;
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: 0em;
+        text-align: center;
+        margin-bottom: 0px;
+    }
+      .image-text {
+        display: flex;
+        align-items: center;
+        column-gap: 5%;
+        width: 100%;
+        justify-content: space-between;
+    }
+    button#mobile-toggle {
+      
+        line-height: 0px;
+       
+    }
+    .empty-line {
+        background-color: #f58d1e;
+        padding: 2px;
+        width: 28%;
+        border-radius: 5px;
+        margin: auto auto 20px;
+        position: relative;
+        top: -9px;
+    }
+    .himachal_gov_logo {
+        display: none;
+    }
+    .wrapper {
+       
+        background-position: left;
+    }
       .nav.navcustommain {
           order: 3;
       }
+      .main_text_section {
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
       #mobile-toggle {
           display: block; /* Show the toggle button on smaller screens */
       }
@@ -1176,8 +1432,8 @@ button.buttonaward:hover {
       }
       .rounded-circle {
         background: #FFA23D;
-        height: 125px!important;
-        width: 120px;
+        height: 150px!important;
+        width: 150px;
         padding: 5px;
     }
     .rounded-circle h6 {
@@ -1203,8 +1459,21 @@ button.buttonaward:hover {
         font-size: 15px;
     }
     .top_heading h3 {
-        font-size: 23px;
-    }
+    font-size: 21px;
+    margin-bottom: 0px;
+}
+div#v-pills-tab {
+    margin-right: 0px !important;
+}
+.top_heading p {
+    font-family: poppins;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #333;
+}
     button.buttonaward {
         
         padding: 10px;
@@ -1227,6 +1496,80 @@ button.buttonaward:hover {
           row-gap: 10px;
           justify-content: center;
       }
+      .top_heading h3{
+        text-align: center !important;
+      }
+      .inner_copyright {
+        max-width: 1302px;
+        margin: auto;
+        display: flex;
+        text-align: center;
+        justify-content: space-between;
+        padding: 10px;
+        flex-direction: column-reverse;
+    }
+      .row.main_mmsy p {
+        font-family: Segoe UI;
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 27px;
+        letter-spacing: 0em;
+        text-align: center;
+        margin: 0;
+        padding: 10px 0;
+        color: #333;
+    }
+    .custom_col {
+        padding: 0 !important;
+    }
+    .row.main_mmsy {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+    .main_mmsy {
+        padding-top: 20px;
+        padding-bottom: 10px;
+        width: 100%;
+        padding-left: 15px;
+    }
+    div#v-pills-tabContent {
+        background: white;
+        padding-left: 0px;
+    }
+    .top_heading p {
+        font-family: poppins;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+        letter-spacing: 0em;
+        text-align: justify;
+        color: #333;
+        margin-bottom: 0px;
+    }
+    .row.main_mmsy {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+    }
+    .mmsy_outer {
+        background-color: #efefef;
+        height: auto;
+        width: 100%;
+        display: grid;
+        flex-wrap: wrap;
+        grid-template-columns: 50% 50%;
+    }
+    .mmsy_Portal {
+        grid-column-start: 1;
+        grid-column-end: 3;
+    }
+    #v-pills-hn-tab, #v-pills-n-tab, #v-pills-nol-tab, #v-pills-ff-tab, #v-pills-fr-tab, #v-pills-faq-tab, #v-pills-g-tab {
+        column-gap: 5px;
+        display: flex;
+        margin: 5px!important;
+        align-items: center;
+        padding: 10px 13px !important;
+    }
       .notifications {
         font-size: 16px;
       
@@ -1343,12 +1686,23 @@ label.form-check-label {
 }
 .empty-line {
     background-color: #f58d1e;
-    padding: 2px;
-    margin: 20px 0;
-    width: 50%;
+    padding: 1px;
+    width: 30%;
     border-radius: 5px;
-    margin: auto;
-    margin-bottom: 40px;
+    margin: auto auto 30px;
+    margin-top: 20px;
+}
+.minister_image_name img:nth-child(2) {
+    max-width: 303px!important;
+    display: none;
+}
+.main_text_section {
+    margin-bottom: -40px;
+    padding-bottom: 0px;
+}
+.minister_image_name {
+      justify-content: space-between !important;
+    
 }
 .list_points span {
     color: #fc0;
@@ -1403,11 +1757,101 @@ label.form-check-label {
   
   @media only screen and (max-width: 468px) {
       .himachal_gov_logo img {
-          width: 102px;
+          width: 103px;
       }
       .row.custom_circle {
         grid-template-columns: 1fr repeat(1, 1fr);
   }
+  a.apply_custom {
+    white-space: nowrap !important;
+}
+  .new_activity_inner_wrapper span {
+    color: #333;
+    text-align: right;
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    line-height:15px;
+    padding-right: 10px!important;
+}
+
+.main_text_section_wrapper h1 {
+    color: #333;
+    font-family: Poppins;
+    font-size: 26px;
+    max-width: 654px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 30px;
+    width: 100%;
+    text-align: center;
+}
+  .row.main_mmsy {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .minister_image_name img {
+    max-width: 160px;
+}
+.helpdesk_n {
+    display: none;
+}
+.new_activity_inner_wrapper {
+    display: flex;
+    padding: 0px;
+    align-items: center;
+}
+.new_activity {
+    width: 100%;
+    display: flex;
+    background-color: #d3d3d3;
+    align-items: center;
+    height: 54px;
+}
+.list_points span {
+    color: #fc0;
+    text-align: center;
+    font-family: Poppins;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    height: 56px!important;
+    line-height: normal;
+}
+ul#mobile-dropdown {
+    position: absolute;
+    top: 133px;
+    padding: 20px;
+    width: 97%;
+    border-radius: 10px;
+    right: 7px;
+}
+.notifications {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 5px 10px 0;
+    width: 34%;
+    height: 100%;
+    background-color: #801515;
+    color: #fff;
+    z-index: 4;
+    font-family: Segoe UI;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 29px;
+    letter-spacing: .088em;
+    text-align: center;
+}
+.top_heading h3 {
+    font-size: 21px;
+    margin-bottom: 0;
+    line-height: 4px;
+    text-align: center;
+    margin-bottom: 20px;
+}
       .image img {
           height: 100%;
           width: 174px;
@@ -1481,12 +1925,140 @@ label.form-check-label {
           width: 88px;
       }
   }
+
+
+  @media screen and (max-width: 560px) {
+    .rounded-circle {
+        height: 120px !important;
+        width: 120px !important;
+    }
+        .points_four .list_points span {
+            font-size: 12px !important;
+        }
+        
+        .main_text_section_wrapper a {
+            white-space: nowrap;
+            font-size: 14px;
+        }
+        
+        .rounded-circle p{
+        font-size:13px;
+        }
+        
+        .new_activity_inner_wrapper span {
+        font-size:15px;
+        }
+        
+        .new_activity_inner_wrapper p{
+        font-size:15px; 	
+        }
+          .points_four .list_points span {
+        font-size: 12px !important;
+    }
+      
+    
+    
+    .rounded-circle p{
+    font-size:13px;
+    }
+    
+    .new_activity_inner_wrapper span {
+    font-size:15px;
+    }
+    
+    .new_activity_inner_wrapper p{
+    font-size:15px; 	
+    }
+    
+    .three_buttons {
+     
+        display: inline-flex;
+        column-gap: 5px;
+    }
+    
+    }
+    
+
+
+  @media only screen and (max-width:425px){
+
+    div#v-pills-hn {
+        margin: auto;
+    }
+      .new_activity{
+    height: 50px;
+}
+.tab-content .main_mmsy h1.heading_mmsy {
+    font-size: 30px !important;
+}
+.nav-link img, svg {
+    width: 20px !important;
+}
+.notifications{
+font-size: 12px;
+}
+.row.main_mmsy p{
+    font-size:13px !important;
+    }
+    
+    .row.main_mmsy p {
+        font-size: 13px !important;
+    }
+    
+    a.apply_custom {
+        font-size: 13px !important;
+        padding: 5px 15px !important;
+    }
+    
+    button#v-pills-hn-tab, button#v-pills-n-tab, button#v-pills-nol-tab, button#v-pills-ff-tab, button#v-pills-fr-tab, button#v-pills-faq-tab, button#v-pills-g-tab{
+    font-size: 13px !important;
+    }
+    
+    .main_mmsy img {
+        width: 35px !important;
+    }
+.new_activity{
+    height: 50px;
+}
+.notifications{
+font-size: 12px;
+}
+}
+
+
+
   
   
+  @media only screen and (max-width:375px) {
+    .notifications {
+        font-size:13px !important;
+        }
+        a.apply_custom {
+            font-size: 12px !important;
+            padding: 4px 12px !important;
+        }
+        .new_activity_inner_wrapper span, .new_activity_inner_wrapper p {
+            font-size: 14px !important;
+        }
+        .row.main_mmsy p {
+            font-size: 12px !important;
+        }
+        
+        button#v-pills-n-tab, button#v-pills-nol-tab, button#v-pills-ff-tab, button#v-pills-fr-tab, button#v-pills-faq-tab, button#v-pills-g-tab {
+            font-size: 11px !important;
+        }
+        
+        .notifications {
+            font-size: 11px !important;
+        }
+        
+  }
+
   
   @media only screen and (max-width:348px) {
       
   
-  
+    
+    
   
   }

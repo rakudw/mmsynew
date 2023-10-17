@@ -20,7 +20,7 @@
                 <div class="three_buttons">
                   <button id="decreaseFontSize">a</button>
                   <button id="increaseFontSize">A</button>
-                  <button onclick="window.location.reload()">A</button>
+                  <button onclick="window.location.reload()">I</button>
                 </div>
     
             </div>

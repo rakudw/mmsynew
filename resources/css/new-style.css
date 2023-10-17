@@ -233,11 +233,14 @@ marquee.col-md-9 {
 .nav.navcustommain a {
     color: #234669;
     text-decoration: none;
-    font-weight: 600;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 18px;
+     font-size: 18px;
+    font-family: Poppins;
+    font-size: 22px;
+    white-space: nowrap;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;}
 
-}
 .wrapper-inner {
     max-width: 1278px;
     margin: auto;
@@ -382,6 +385,7 @@ ul#mobile-dropdown li a {
         text-align: left;
         font-size: 16px;
     }
+    
     .card-4-wrapper h4 {
         max-width: 87px;
         width: 100%;

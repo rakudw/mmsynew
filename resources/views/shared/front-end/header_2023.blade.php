@@ -14,7 +14,7 @@
                     </div>
                     <div class="triple_a">
                         <button class="a-minus"  id="decrease-font-size">A-</button>
-                        <button class="a-normal" id="toggle-italic">A</button>
+                        <button class="a-normal" id="toggle-italic">I</button>
                         <button class="a-plus"  id="increase-font-size">A+</button>
                     </div>
 

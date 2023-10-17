@@ -13,9 +13,11 @@
             <button id="mobile-toggle">☰</button>
             <ul class="nav-ul">
                 <li><a href="/">Home</a></li>
-                <li><a data-bs-toggle="modal" data-bs-target="#helpDeskModal" href="#">HelpDesk</a></li>
-                <li><a target="_blank" href="https://emerginghimachal.hp.gov.in/themes/backend/uploads/notification/Notification/Operational-Guidelines-for-Mukhya-Mantri-Swawlamban-Yojna-2019.pdf">Operational Guidelines</a></li>
-                <li><a href="{{ auth()->user() ? route("logout") : route("login") }}">{{ auth()->user() ? 'Logout' : 'Login' }}</a></li>
+                <li><a href="/application/new">Apply New</a></li>
+                <!-- <li><a href="/application/status">Applicant Login</a></li> -->
+                <li><a href="{{ auth()->user() ? route("logout") : route("login.applicant") }}">{{ auth()->user() ? 'Logout' : 'Applicant Login' }}</a></li>
+                {{-- <li><a href="#">Operational Guidelines</a></li> --}}
+                <li><a href="{{ route("login") }}">{{ auth()->user() ? 'Acount' : 'Department Login'}}</a></li>
             </ul>
         </div>
     
@@ -26,7 +28,7 @@
     </div>
 </div>
 </div>
-
+{{-- 
 <div class="modal fade" id="helpDeskModal" tabindex="-1">
     <div class="modal-dialog">
     <div class="modal-content">
@@ -66,4 +68,4 @@
         </div>
     </div>
     </div>
-</div>
+</div> --}}

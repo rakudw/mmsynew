@@ -135,8 +135,7 @@
             </div>
           </div>
           
-        </div>
-        <div class="row main_mmsy">
+        
           <div class="col-md-4 custom_col">
             <div class="card-light">
               <div class="card-body">
