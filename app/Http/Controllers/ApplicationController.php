@@ -8,6 +8,7 @@ use App\Models\Region;
 use App\Models\Bank;
 use App\Models\BankBranch;
 use App\Models\Form;
+use App\Helpers\SMSHelper;
 use App\Models\User;
 use App\Enums\TypeEnum;
 use App\Models\Document;
@@ -306,6 +307,8 @@ class ApplicationController extends Controller
                     }
                     $application->created_by = auth()->user()->id;
                     $application->save();
+                    $template_name = 'SAVE_DATA';
+                    $this->sendSms($application,$template_name);
                 }
                
               
@@ -314,6 +317,11 @@ class ApplicationController extends Controller
         }
 
         // return response()->json(request());
+    }
+    public function sendSms($application,$template_name){
+        if(!SMSHelper::sendSMS($application->data->owner->mobile, $template_name, [$application->id])) {
+            throw new Exception('SMS was not sent! ' . SMSHelper::getResponse());
+        }
     }
     public function registerUser($application){
         $user = [
@@ -447,6 +455,8 @@ class ApplicationController extends Controller
             ]);
             $application->status_id = $newStatusId;
             $application->update();
+            $template_name = 'FINAL_SUBMIT';
+            $this->sendSms($application,$template_name);
         } else if ($application->application_status == ApplicationStatusEnum::LOAN_REJECTED) {
             $newStatusId = Enum::where([
                 'type' => TypeEnum::APPLICATION_STATUS->name,
@@ -797,6 +807,16 @@ class ApplicationController extends Controller
             'new_status_id' => $validation['status'],
         ]);
         $application->status_id = $validation['status'];
+        if($validation['status'] == 314){
+            $template_name = 'DLC_TO_BANK';
+            $this->sendSms($application,$template_name);
+        }elseif($validation['status'] == 315){
+            $template_name = 'RELEASE_60';
+            $this->sendSms($application,$template_name);
+        }elseif($validation['status'] == 317){
+            $template_name = 'RELEASE_40';
+            $this->sendSms($application,$template_name);
+        }
         $application->save();
 
         ApplicationStatusEvent::dispatch($application);

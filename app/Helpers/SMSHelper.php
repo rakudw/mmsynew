@@ -16,7 +16,14 @@ class SMSHelper
         'SUBSIDY_APPROVED' => ['1007031147850578288', "[MMSY-%s]\nHi %s, your subsidy has been approved against a loan from MMSY.\n- Department of Industries"],
         'FORWARDED_TO_BANK' => ['1107162490345589311', "[MMSY-%s] \nHi %s, your application has been forwarded to the nodal bank for disbursement of the loan.\n- Department of Industries"],
         'LOAN_DISBURSED' => ['1107162488004720295', "[MMSY-%s]\nHi %s, your loan has been disbursed from the nodal bank.\n- Department of Industries"],
-        'OTP_SMS' => ['1107162488004720295', "[MMSY]\nHi, %s is OTP for MMSY login or %s can used as one click login.\n- Department of Industries"]
+        'OTP_SMS' => ['1107162488004720295', "[MMSY]\nHi, %s is OTP for MMSY login or %s can used as one click login.\n- Department of Industries"],
+        // New Messages Here
+        'SAVE_DATA' => ['1107162488004720295', "[MMSY]\n Your MMSY application (No: MMSY-%s) has been submitted successfully. Please log in with your email or mobile number to complete it.\n- Department of Industries"],
+        'FINAL_SUBMIT' => ['1107162488004720295', "[MMSY]\n Your MMSY Application (No: MMSY-%s) has been successfully submitted and is pending at the DLC. Please keep checking for further updates. Thank you\n- Department of Industries"],
+        'DLC_TO_BANK' => ['1107162488004720295', "[MMSY]\n We are pleased to inform you that your MMSY Application (No: MMSY-%s) has been approved by the DLC and has now been forwarded to the bank for further processing. Please stay tuned for updates from the bank regarding the status of your application.\n- Department of Industries"],
+        'RELEASE_60' => ['1107162488004720295', "[MMSY]\n We are excited to inform you that 60 Percent of your subsidy amount has been released by the nodal bank to your chosen financial bank. Please continue to stay in touch with your financial bank for further details regarding the disbursement of your subsidy.\n- Department of Industries"],
+        'RELEASE_40' => ['1107162488004720295', "[MMSY]\n We are pleased to inform you that the remaining 40 Percent of your subsidy amount has been released by the nodal bank to your chosen financial bank. This marks the completion of the subsidy disbursement process for your MMSY application.\n- Department of Industries"],
+        'NEW_OTP_MSG' => ['1107162488004720295', "[MMSY]\n Dear Applicant, please use the One-Time Password '%s' to log in to your application. The OTP will be valid for 5 minutes.\n- Department of Industries"],
     ];
 
     public static function sendSMS(string $mobile, string $templateId, array $params): bool
