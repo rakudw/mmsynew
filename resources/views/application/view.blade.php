@@ -90,7 +90,7 @@
                                     href="{{ $annexure == 'nodal_bank' ? 'javascript:;' : route('application.view', ['application' => $application->id, 'annexure' => 'nodal_bank']) }}">Nodal Bank Information</a>
                             </li>
                         @endif
-                        @if($application->status_id > \App\Enums\ApplicationStatusEnum::REJECTED_AT_DISTRICT_LEVEL_COMMITTEE->id() && auth()->user()->isGm())
+                        @if($application->status_id >=\App\Enums\ApplicationStatusEnum::PENDING_AT_DISTRICT_INDUSTRIES_CENTER->id() && auth()->user()->isGm())
                             <li class="nav-item">
                                 <a class="nav-link {{ $cgtmseToken == '1' ? 'active' : '' }}"
                                     aria-current="{{ $cgtmseToken == '1' ? 'page' : '' }}"
@@ -122,13 +122,14 @@
                         <div class="col-12 mb-md-0 mb-4">
                             <div class="card card-plain">
                                 <div class="card-body">
-                                    <form>
+                                    <form action="{{ route('application.updateCgtmse', $application) }}" method="POST">
+                                        @csrf
                                         <div class="row">
                                             
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="Select Type" class="form-label">Select Amount Type</label>
-                                                    <select class="form-control" name="type" id="type">
+                                                    <select class="form-control" required name="type" id="type">
                                                         <option value="">-- Select Here --</option>
                                                         <option value="cgtmse">CGTMSE</option>
                                                         <option value="interest">INTEREST</option>
@@ -138,7 +139,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="Select Type" class="form-label">Select Year</label>
-                                                    <select class="form-control" name="year">
+                                                    <select class="form-control" required id="year" name="year">
                                                         <option value="">-- Select Here --</option>
                                                         <option value="1">1st</option>
                                                         <option value="2">2nd</option>
@@ -153,7 +154,7 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label for="Select Type" class="form-label">Enter Amount</label>
-                                                    <input type="text" placeholder="Enter Amount here" class="form-control" name="amount"/>
+                                                    <input required type="text" id="amount" placeholder="Enter Amount here" class="form-control" name="amount"/>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
@@ -172,52 +173,72 @@
                         <div class="col-12 mb-md-0 mb-4">
                             <div class="card card-plain">
                                 <div class="card-body">
-                                    <form>
-                                        <div class="row">
-                                            
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="Select Type" class="form-label">Select Amount Type</label>
-                                                    <select class="form-control" name="type" id="type">
-                                                        <option value="">-- Select Here --</option>
-                                                        <option value="cgtmse">CGTMSE</option>
-                                                        <option value="interest">INTEREST</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="Select Type" class="form-label">Select Year</label>
-                                                    <select class="form-control" name="year">
-                                                        <option value="">-- Select Here --</option>
-                                                        <option value="1">1st</option>
-                                                        <option value="2">2nd</option>
-                                                        <option value="3">3rd</option>
-                                                        <option value="4">4th</option>
-                                                        <option value="5">5th</option>
-                                                        <option value="6">6th</option>
-                                                        <option value="7">7th</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="Select Type" class="form-label">Enter Amount</label>
-                                                    <input type="text" placeholder="Enter Amount here" class="form-control" name="amount"/>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label for="Select Type" class="form-label"></label>
-                                                <button type="submit" class="form-control btn btn-success">Submit</button>
-                                                </div>
-                                            </div>
+                                    <!-- Card for CGTMSE data -->
+                                    <div class="card mb-3">
+                                        <div class="card-header">
+                                            CGTMSE Data
                                         </div>
-                                    </form>
+                                        <div class="card-body">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center">Year</th>
+                                                        <th class="text-center">Amount</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @if (isset($application) && isset($application->data) && isset($application->data->cgtmse) && isset($application->data->cgtmse->years))
+                                                        @foreach ($application->data->cgtmse->years as $year => $amount)
+                                                            <tr>
+                                                                <td class="text-center">{{ $year }}</td>
+                                                                <td class="text-center">{{ $amount }}</td>
+                                                            </tr>
+                                                        @endforeach
+                                                    @else
+                                                        <tr>
+                                                            <td colspan="2" class="text-center">No CGTMSE data available.</td>
+                                                        </tr>
+                                                    @endif
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                    
+                                    <!-- Card for Interest data -->
+                                    <div class="card">
+                                        <div class="card-header">
+                                            Interest Data
+                                        </div>
+                                        <div class="card-body">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center">Year</th>
+                                                        <th class="text-center">Amount</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @if (isset($application) && isset($application->data) && isset($application->data->interest) && isset($application->data->interest->years))
+                                                        @foreach ($application->data->interest->years as $year => $amount)
+                                                            <tr>
+                                                                <td class="text-center">{{ $year }}</td>
+                                                                <td class="text-center">{{ $amount }}</td>
+                                                            </tr>
+                                                        @endforeach
+                                                    @else
+                                                        <tr>
+                                                            <td colspan="2" class="text-center">No Interest data available.</td>
+                                                        </tr>
+                                                    @endif
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    
                     @else
                         <div class="row gx-4 mb-2 mt-2 px-3">
                             <div class="col-12 mb-md-0 mb-4">
@@ -836,13 +857,25 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
-        const $yearOptions = $("select[name='year'] option[value='4'], select[name='year'] option[value='5'], select[name='year'] option[value='6'], select[name='year'] option[value='7']").prop('disabled', true);
+        const $yearOptions = $("select[id='year'] option[value='4'], select[id='year'] option[value='5'], select[id='year'] option[value='6'], select[id='year'] option[value='7']").prop('disabled', true);
 
         $('#type').change(function() {
             if ($(this).val() === 'interest') {
                 $yearOptions.prop('disabled', true);
             } else {
                 $yearOptions.prop('disabled', false);
+            }
+        });
+        $('#type, #year').on('change', function() {
+            // Get the selected type and year
+            const type = $('#type').val();
+            const year = $('#year').val();
+            let application = @json($application);
+            console.log(application);
+            if (application && application.data && application.data[type] && application.data[type].years[year]) {
+                $('#amount').val(application.data[type].years[year]);
+            } else {
+                $('#amount').val('');
             }
         });
     });

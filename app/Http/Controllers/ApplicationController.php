@@ -741,6 +741,59 @@ class ApplicationController extends Controller
      * @param  \App\Models\Application  $application
      * @return \Illuminate\Http\Response
      */
+    public function updateCgtmse(Request $request, Application $application)
+    {
+        if ($request->type == "cgtmse") {
+            $year = $request->year;
+            $amount = $request->amount;
+    
+            $data = json_decode(json_encode($application->data), true);
+    
+            if (!array_key_exists('cgtmse', $data)) {
+                $data['cgtmse'] = [];
+            }
+    
+            if (!array_key_exists('years', $data['cgtmse'])) {
+                $data['cgtmse']['years'] = [];
+            }
+    
+            if ($year >= 1 && $year <= 7) {
+                $data['cgtmse']['years'][$year] = $amount;
+    
+                $application->data = json_decode(json_encode($data));
+    
+                $application->save();
+    
+            }
+        } else if ($request->type == "interest") {
+            $year = $request->year;
+            $amount = $request->amount;
+    
+            $data = json_decode(json_encode($application->data), true);
+    
+            if (!array_key_exists('interest', $data)) {
+                $data['interest'] = [];
+            }
+    
+            if (!array_key_exists('years', $data['interest'])) {
+                $data['interest']['years'] = [];
+            }
+    
+            if ($year >= 1 && $year <= 3) {
+                $data['interest']['years'][$year] = $amount;
+    
+                $application->data = json_decode(json_encode($data));
+    
+                $application->save();
+    
+            }
+        } else {
+            // Handle other cases if needed
+        }
+        return back(); 
+    }
+    
+
     public function update(Request $request, Application $application)
     {
         if ($application->status_id < ApplicationStatusEnum::PENDING_60_SUBSIDY_REQUEST->id()) {
