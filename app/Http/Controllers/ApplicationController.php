@@ -660,7 +660,8 @@ class ApplicationController extends Controller
             //         ->get();
             // }
         }
-
+        $cgtmseToken = request()->query('cgtmseToken');
+        // dd($cgtmseToken);
         $form = $application->form;
         $this->addJs('resources/ts/view.ts');
         return view('application.view', [
@@ -673,6 +674,7 @@ class ApplicationController extends Controller
             'file' => $applicationDocument ? $applicationDocument->name : null,
             'actions' => $actions,
             'annexure' => strtolower($annexure) == 'none' ? null : strtolower($annexure),
+            'cgtmseToken' => $cgtmseToken,
         ]);
     }
 
