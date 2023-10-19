@@ -137,10 +137,32 @@
                         return false; // Exit the loop on the first empty field
                     }
                 });
+                var aadhaarPattern = /^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$/;
+                var mobilePattern = /^[6-9]{1}[0-9]{9}$/;
+
+                // Validate Aadhaar and mobile numbers
+                var $aadhaarInputs = $('input[name^="partner_aadhaar"]');
+                var $mobileInputs = $('input[name^="partner_mobile"]');
+                
+                $aadhaarInputs.each(function () {
+                    if (!aadhaarPattern.test($(this).val())) {
+                        console.log('Invalid Aadhaar Input');
+                        isValid = false;
+                        // Optionally, you can display an error message or style the input fields here.
+                    }
+                });
+
+                $mobileInputs.each(function () {
+                    if (!mobilePattern.test($(this).val())) {
+                        console.log('Invalid Mobile Input');
+                        isValid = false;
+                        // Optionally, you can display an error message or style the input fields here.
+                    }
+                });
                 
                 if (!isValid) {
                     e.preventDefault(); // Prevent modal from closing
-                    alert('Please fill in all required fields.');
+                    alert('Please fill in all required fields correctly.');
                 }
             }
 

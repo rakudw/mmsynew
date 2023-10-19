@@ -31,7 +31,7 @@
                 <img src="{{ asset('images/security-officer.png') }}"/>MMSY DASHBOARD </button></a>
              <a data-bs-toggle="modal" data-bs-target="#videoModal" href="#"><button class="nav-link" id="v-pills-ff-tab" type="button" aria-selected="false" tabindex="-1" role="tab">
                 <img src="{{ asset('images/edit.png') }}"/>VIDEO TUTORIAL</button></a>
-             <a href="{{ asset('pdf/MMSY-as-on-20-04-2022.pdf') }}" target="_blank"><button class="nav-link" id="v-pills-ff-tab" type="button" aria-selected="false" tabindex="-1" role="tab">
+             <a data-bs-toggle="modal" data-bs-target="#NotificationModal" href="#"><button class="nav-link" id="v-pills-ff-tab" type="button" aria-selected="false" tabindex="-1" role="tab">
                 <img src="{{ asset('images/edit.png') }}"/>NOTIFICATION</button></a>
              <a data-bs-toggle="modal" data-bs-target="#myModal"><button class="nav-link" id="v-pills-ff-tab" type="button" aria-selected="false" tabindex="-1" role="tab">
                 <img src="{{ asset('images/edit.png') }}"/>GRIEVANCES</button></a>
@@ -225,6 +225,43 @@
     </div>
     </div>
 </div>
+{{-- Notification Modal --}}
+<div class="modal fade" id="NotificationModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Notifications</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive overflow-auto">
+                    <table class="table table-bordered table-striped table-hover">
+                        <tbody>
+                        @foreach($notifications as $index => $noti)
+                            <tr>
+                                <td>
+                                    {{ $noti->description }}
+                                    @if ($noti->file)
+                                        <a  href="{{ asset('storage/' . $noti->file) }}" target="_blank">Download</a>
+                                    @endif
+
+                                    @if ($noti->link)
+                                        <a href="{{ $noti->link }}" target="_blank">Click here</a>
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
   {{-- FAQ Modal --}}
   <div class="modal fade" id="faqModal" tabindex="-1">
     <div class="modal-dialog">
@@ -407,6 +444,7 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
+        
   var isAuthenticated = {{ auth()->check() ? 'true' : 'false' }};
     $(".grievance").click(function () {
         if(isAuthenticated){
@@ -432,6 +470,15 @@ $(document).ready(function() {
     $("#closeModalBtn").click(function () {
         $("#feedbackModal").css("display", "none");
     });
+    $('.view-button').on('click', function () {
+      console.log("moye more")
+            var $textElement = $(this).siblings('.text-truncate');
+            if ($textElement.hasClass('expanded-text')) {
+                $textElement.removeClass('expanded-text');
+            } else {
+                $textElement.addClass('expanded-text');
+            }
+        });
 });
 </script>
 <style>
@@ -439,4 +486,19 @@ $(document).ready(function() {
     background-color: #007bff; /* Change this to your desired highlight color */
     color: #fff; /* Change this to the text color you prefer */
 }
+    .text-truncate {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .expanded-text {
+        white-space: normal;
+        overflow: visible;
+        text-overflow: unset;
+    }
+    .text-wrapper {
+        white-space: normal;
+        word-wrap: break-word;
+    }
+
 </style>

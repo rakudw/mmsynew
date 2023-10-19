@@ -229,6 +229,12 @@
                                 </x-sidebar.nav-link>
                             </x-sidebar.nav-item>
                             <x-sidebar.nav-item>
+                                <x-sidebar.nav-link href="{{ route('crud.list', ['class' => 'homenotifications']) }}" :active="request()->routeIs('crud.*') && request()->route()->parameter('class') == 'nomenotifications'">
+                                    <x-slot:icon><em class="material-icons opacity-10">construction</em></x-slot:icon>
+                                    <x-slot:title>{{ __('Home Notification') }}</x-slot:title>
+                                </x-sidebar.nav-link>
+                            </x-sidebar.nav-item>
+                            <x-sidebar.nav-item>
                             <x-sidebar.nav-link href="{{ route('crud.list', ['class' => 'banner']) }}" :active="request()->routeIs('crud.*') && request()->route()->parameter('class') == 'banner'">
                                 <x-slot:icon><em class="material-icons opacity-10">construction</em></x-slot:icon>
                                 <x-slot:title>{{ __('Banner') }}</x-slot:title>

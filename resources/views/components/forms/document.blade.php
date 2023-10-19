@@ -268,7 +268,7 @@
                         @endif
                         <tr>
                             <td><strong>Activity Type ID:</strong></td>
-                            <td>{{ $application->data->enterprise->activity_type_id }}</td>
+                            <td class="activity">{{ $application->data->enterprise->activity_type_id }}</td>
                         </tr>
                         <tr>
                             <td><strong>Constitution Type ID:</strong></td>
@@ -407,6 +407,47 @@
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+
+
+            function loadActivityOptions() {
+            
+                var selectedActivityTypeId = {{ $application->data->enterprise->activity_id }}
+                $.ajax({
+                    url: '/application/get-data/',
+                    method: 'GET',
+                    data: {
+                    activity_type_id: selectedActivityTypeId
+                    },
+                    success: function(data) {
+                        // Add the retrieved options to the select element
+                        
+                        data.forEach(function(option) {
+                            let activityTd = $('td.activity');
+
+                            // Create the HTML content you want to append (e.g., a list)
+                            let htmlContent = '<ul>';
+                            data.forEach(function(option) {
+                                htmlContent += '<li>' + option.name + '</li>';
+                            });
+                            htmlContent += '</ul';
+
+                            // Set the HTML content of the <td>
+                            activityTd.html(htmlContent);
+                        });
+
+                    },
+                    error: function() {
+                        // Handle error
+                    }
+                });
+                
+            // }
+        }
+        loadActivityOptions()
+        });
+    </script>
     <style>
         table {
             border-collapse: collapse;

@@ -20,6 +20,7 @@ use Nullix\CryptoJsAes\CryptoJsAes;
 use App\Models\Banner;
 use App\Models\Faqs;
 use App\Models\Successstories;
+use App\Models\Homenotifications;
 use App\Models\User;
 use App\Models\Application;
 use App\Models\Feedback;
@@ -36,6 +37,7 @@ class HomeController extends Controller
         $usefultips = Usefultip::where('status', 'Active')->get();
         $faqs = Faqs::where('status', 'Active')->get();
         $stories = Successstories::where('status', 'Active')->get();
+        $notifications = Homenotifications::where('status', 'Active')->get();
         $projectPassed = Application::where('status_id', '>', 307)->count();
         $proposedEmp  = Application::where('status_id', '>', 311)->whereRaw("JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.enterprise.employment')) IS NOT NULL")
         ->get()
@@ -65,6 +67,7 @@ class HomeController extends Controller
             'usefultips' => $usefultips,
             'faqs' => $faqs,
             'stories' => $stories,
+            'notifications' => $notifications,
             'projectPassed' => $projectPassed,
             'industriesEstablished' => $industriesEstablished,
             'generateEmp' => $generateEmp,

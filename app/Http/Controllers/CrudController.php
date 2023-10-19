@@ -99,10 +99,16 @@ class CrudController extends Controller
             $imagePath = $request->file('image')->store('dcl_meeting', 'public');
                 // dd($imagePath);
                 $data['image'] = $imagePath;
-        }if ($model instanceof \App\Models\Successstories){
+        }
+        if ($model instanceof \App\Models\Successstories){
             $imagePath = $request->file('file')->store('success_story', 'public');
                 // dd($imagePath);
                 $data['file'] = $imagePath;
+        }
+        if ($model instanceof \App\Models\Homenotifications){
+            $pdfPath = $request->file('file')->store('noti_pdf', 'public');
+                // dd($imagePath);
+                $data['file'] = $pdfPath;
         }
     
         $model->fill($data);
