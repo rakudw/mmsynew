@@ -123,6 +123,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/upload/{application}/{documentType?}', 'upload')->name('application.upload')->withoutMiddleware(['auth']);
         Route::post('/upload-generic/{application}', 'uploadGeneric')->name('application.upload-generic');
         Route::put('/status/{application}', 'update')->name('application.status');
+        Route::post('/updatecgtmse/{application}', 'updateCgtmse')->name('application.updateCgtmse');
         Route::get('/project-report/{application}/{download?}', 'preProjectReport')->name('application.ppr');
         Route::get('/details/{application}/{download?}', 'applicationDetails')->name('application.details');
         Route::post('/profile', 'saveProfile')->name('save.profile');
