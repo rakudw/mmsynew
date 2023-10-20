@@ -743,55 +743,39 @@ class ApplicationController extends Controller
      */
     public function updateCgtmse(Request $request, Application $application)
     {
-        if ($request->type == "cgtmse") {
+        if ($request->type == "cgtmse" || $request->type == "interest") {
             $year = $request->year;
             $amount = $request->amount;
+            $date = $request->date;
     
             $data = json_decode(json_encode($application->data), true);
     
-            if (!array_key_exists('cgtmse', $data)) {
-                $data['cgtmse'] = [];
+            $typeKey = $request->type;
+    
+            if (!array_key_exists($typeKey, $data)) {
+                $data[$typeKey] = [];
             }
     
-            if (!array_key_exists('years', $data['cgtmse'])) {
-                $data['cgtmse']['years'] = [];
+            if (!array_key_exists('years', $data[$typeKey])) {
+                $data[$typeKey]['years'] = [];
             }
     
             if ($year >= 1 && $year <= 7) {
-                $data['cgtmse']['years'][$year] = $amount;
+                $data[$typeKey]['years'][$year] = [
+                    'date' => $date,
+                    'amount' => $amount,
+                ];
     
                 $application->data = json_decode(json_encode($data));
     
                 $application->save();
-    
-            }
-        } else if ($request->type == "interest") {
-            $year = $request->year;
-            $amount = $request->amount;
-    
-            $data = json_decode(json_encode($application->data), true);
-    
-            if (!array_key_exists('interest', $data)) {
-                $data['interest'] = [];
-            }
-    
-            if (!array_key_exists('years', $data['interest'])) {
-                $data['interest']['years'] = [];
-            }
-    
-            if ($year >= 1 && $year <= 3) {
-                $data['interest']['years'][$year] = $amount;
-    
-                $application->data = json_decode(json_encode($data));
-    
-                $application->save();
-    
             }
         } else {
             // Handle other cases if needed
         }
-        return back(); 
+        return back();
     }
+    
     
 
     public function update(Request $request, Application $application)

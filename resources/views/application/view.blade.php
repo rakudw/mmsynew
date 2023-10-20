@@ -151,13 +151,19 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label for="Select Type" class="form-label">Enter Amount</label>
                                                     <input required type="text" id="amount" placeholder="Enter Amount here" class="form-control" name="amount"/>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label for="Select Type" class="form-label">Select Date</label>
+                                                    <input required type="date" placeholder="Choose here" id="date"  class="form-control" name="date"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label for="Select Type" class="form-label"></label>
                                                 <button type="submit" class="form-control btn btn-success">Submit</button>
@@ -184,26 +190,28 @@
                                                     <tr>
                                                         <th class="text-center">Year</th>
                                                         <th class="text-center">Amount</th>
+                                                        <th class="text-center">Date</th> <!-- Add a Date column -->
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @if (isset($application) && isset($application->data) && isset($application->data->cgtmse) && isset($application->data->cgtmse->years))
-                                                        @foreach ($application->data->cgtmse->years as $year => $amount)
+                                                        @foreach ($application->data->cgtmse->years as $year => $data)
                                                             <tr>
                                                                 <td class="text-center">{{ $year }}</td>
-                                                                <td class="text-center">{{ $amount }}</td>
+                                                                <td class="text-center">{{ $data->amount }}</td>
+                                                                <td class="text-center">{{ $data->date }}</td> <!-- Display the date -->
                                                             </tr>
                                                         @endforeach
                                                     @else
                                                         <tr>
-                                                            <td colspan="2" class="text-center">No CGTMSE data available.</td>
+                                                            <td colspan="3" class="text-center">No CGTMSE data available.</td>
                                                         </tr>
                                                     @endif
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
-                    
+                                
                                     <!-- Card for Interest data -->
                                     <div class="card">
                                         <div class="card-header">
@@ -215,19 +223,21 @@
                                                     <tr>
                                                         <th class="text-center">Year</th>
                                                         <th class="text-center">Amount</th>
+                                                        <th class="text-center">Date</th> <!-- Add a Date column -->
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @if (isset($application) && isset($application->data) && isset($application->data->interest) && isset($application->data->interest->years))
-                                                        @foreach ($application->data->interest->years as $year => $amount)
+                                                        @foreach ($application->data->interest->years as $year => $data)
                                                             <tr>
                                                                 <td class="text-center">{{ $year }}</td>
-                                                                <td class="text-center">{{ $amount }}</td>
+                                                                <td class="text-center">{{ $data->amount }}</td>
+                                                                <td class="text-center">{{ $data->date }}</td> <!-- Display the date -->
                                                             </tr>
                                                         @endforeach
                                                     @else
                                                         <tr>
-                                                            <td colspan="2" class="text-center">No Interest data available.</td>
+                                                            <td colspan="3" class="text-center">No Interest data available.</td>
                                                         </tr>
                                                     @endif
                                                 </tbody>
@@ -235,6 +245,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -872,11 +883,23 @@
             const year = $('#year').val();
             let application = @json($application);
             console.log(application);
+
             if (application && application.data && application.data[type] && application.data[type].years[year]) {
-                $('#amount').val(application.data[type].years[year]);
+                const data = application.data[type].years[year];
+                $('#amount').val(data.amount);
+                
+                if (data.date) {
+                    // Display the date if it exists
+                    $('#date').val(data.date);
+                } else {
+                    // Clear the date field if no date is available
+                    $('#date').val('');
+                }
             } else {
                 $('#amount').val('');
+                $('#date').val(''); // Clear the date field
             }
         });
+
     });
 </script>
