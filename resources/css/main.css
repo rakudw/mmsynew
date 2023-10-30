@@ -5,6 +5,12 @@
     --containerc:1650px;
   
   }
+
+  .tab-content>.active{
+    width: 100 !important;
+  }
+
+
   .dark-mode .mmsy_outer .nav-link img, svg {
     filter: invert(1);
 }
@@ -1233,6 +1239,12 @@ button.buttonaward:hover {
         font-size: 18px;
       
     }
+    .col-md-2 {
+        width: 100% !important;
+        display: flex;
+        justify-content: center;
+    }
+
     .main_text_section_wrapper h1 {
         color: #333;
         font-family: Poppins;
@@ -1562,7 +1574,23 @@ div#v-pills-tab {
   
   
   @media only screen and (max-width: 768px) {
-      .cards-container {
+    .mmsy_about .top_heading a {
+        display: flex;
+        justify-content: center;
+        text-decoration:none;
+    } 
+
+    .mmsy_about .row.main_about .col-md-4 {
+        width:100%;
+    } 
+     .mmsy_about .row.main_about .col-md-8 {
+         width:100%;
+     }
+
+    .col-md-4.custom_col{
+        width: 100%;
+    }
+    .cards-container {
           display: flex;
           column-gap: 15px;
           align-items: center;
@@ -2056,6 +2084,10 @@ ul#mobile-dropdown {
 
 
   @media only screen and (max-width:425px){
+
+    .mmsy_outer .nav-link img, svg {
+        height: 21px;
+    }
 
     div#v-pills-hn {
         margin: auto;
