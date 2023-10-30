@@ -5,13 +5,82 @@
     --containerc:1650px;
   
   }
-  
+  .dark-mode .mmsy_outer .nav-link img, svg {
+    filter: invert(1);
+}
+.dark-mode .nav-pills .nav-link.active img, svg {
+    filter: invert(0);
+}
+
+  .row.custom_circle {
+    justify-content: space-around;
+    width: 92%;
+}
+.mmsy_outer .nav-link img, svg {
+    height: 28px;
+}
+
+
+.modal-content p.text-center {
+    color: black;
+}
+.form-control {
+    font-size: 17px !important;
+}
+
+.form-select {
+    font-size: 17px !important;
+}
+.modal-title  {
+    color: white !important;
+    font-family: poppins !important;
+}
+
+.nav-pills .nav-link{
+    border-radius: 120px !important;
+}
+
+.mmsy_outer button.nav-link:hover {
+    border-radius: 120px
+}
+
+.modal-header{background-color: #FFA23D;}
   
   body{
   overflow-x: hidden;
-  
-  }
-  
+    }
+    .dark-mode .mmsy_outer .nav-link:hover img, svg {
+        filter: invert(0);
+    }
+
+    input.btn.btn-primary {
+        font-size: 13px;
+        padding: 4px 16px;
+    }
+    .modal-dialog {
+        max-width: 580px !important;
+    }
+    .modal-footer .btn {background-color: #234669 !important;}
+    
+    button.btn.btn-secondary {
+        padding: 4px 16px;
+        font-size: 13px;
+    }
+
+    button.btn-close {
+        background-color: white !important;
+        text-align: center;
+        opacity: 1.5;
+        line-height: 24px;
+        font-size: 20px;
+        font-weight: 700;
+        padding: 7px 13px 15px 13px !important;
+    }
+
+.modal-body{
+    font-family: poppins;
+}
+
   .dark-mode .top_heading span
   {
       color:white !important;
@@ -37,6 +106,7 @@
   .dark-mode div#v-pills-tabContent {
       background-color: #234669;
       color:white;
+      border-left: 1px solid white;
   }
   
   .dark-mode .main_mmsy h1 {
@@ -842,7 +912,7 @@ ul#mobile-dropdown li:last-child{
       object-fit: cover;
       width: 100%;
       border-radius: 8px;
-  }
+      }
   button#v-pills-hn-tab, button#v-pills-n-tab, button#v-pills-nol-tab, button#v-pills-ff-tab, button#v-pills-fr-tab, button#v-pills-faq-tab, button#v-pills-g-tab {
       font-family: 'Segoe UI';
       font-size: 20px;
@@ -922,12 +992,12 @@ button.buttonaward:hover {
   }
   .mmsy_about
    {
-      margin-top: 20px;
+      margin-top: 50px;
   }
   .row.main_about 
   {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       margin: 10px auto;
   }
   .card-body 
@@ -944,6 +1014,7 @@ button.buttonaward:hover {
       font-size: 15px;
       font-weight: 500;
       padding: 10px 30px;
+      border-radius: 10px;
   }
   .aboutus_right_sections
    {
@@ -975,12 +1046,13 @@ button.buttonaward:hover {
   .top_heading p 
   {
   font-family: 'poppins';
-  font-size: 22px;
+  font-size: 19px;
   font-weight: 400;
   line-height: 33px;
   letter-spacing: 0em;
   text-align: left;
   color: #333333;
+  margin-bottom: 10px !important;
   }
   
   .footer_started {
@@ -1209,8 +1281,11 @@ button.buttonaward:hover {
         line-height: 23px;
         margin-top: 19px;
     }
+    .mt-5{
+        margin-top: 0rem!important;
+    }
     .copyright.mt-5 {
-        margin-top: 10px !important;
+        margin-top: 0px !important;
     }
     .nav-link {
         padding: 14px!important;

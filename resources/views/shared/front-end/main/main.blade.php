@@ -23,20 +23,20 @@
                 <h5>MMSY PORTAL</h5>
              </div>
              <button class="nav-link active" id="v-pills-hn-tab" data-bs-toggle="modal" data-bs-target="#helpDeskModal" type="button" aria-selected="true">
-               <img src="{{ asset('images/customer-support.png') }}"/>Helpdesk No</button>
+               <img src="{{ asset('images/customer-support.png') }}"/>HELPDESK NO</button>
 
              <a data-bs-toggle="modal" data-bs-target="#successModal" href="#"><button class="nav-link" id="v-pills-n-tab" type="button" aria-selected="false" tabindex="-1" role="tab">
-                <img src="{{ asset('images/bell.png') }}"/>SUCCESS STORIES</button></a>
+                <img src="{{ asset('images/sucessstoreyicon.png') }}"/>SUCCESS STORIES</button></a>
              <a href="/mmsy-dashboard" target="_blank"><button class="nav-link" id="v-pills-nol-tab" type="button" aria-selected="false" tabindex="-1" role="tab">
                 <img src="{{ asset('images/security-officer.png') }}"/>MMSY DASHBOARD </button></a>
              <a data-bs-toggle="modal" data-bs-target="#videoModal" href="#"><button class="nav-link" id="v-pills-ff-tab" type="button" aria-selected="false" tabindex="-1" role="tab">
-                <img src="{{ asset('images/edit.png') }}"/>VIDEO TUTORIAL</button></a>
+                <img src="{{ asset('images/vediotootor.png') }}"/>VIDEO TUTORIAL</button></a>
              <a data-bs-toggle="modal" data-bs-target="#NotificationModal" href="#"><button class="nav-link" id="v-pills-ff-tab" type="button" aria-selected="false" tabindex="-1" role="tab">
-                <img src="{{ asset('images/edit.png') }}"/>NOTIFICATION</button></a>
+                <img src="{{ asset('images/bell.png') }}"/>NOTIFICATION</button></a>
              <a data-bs-toggle="modal" data-bs-target="#myModal"><button class="nav-link" id="v-pills-ff-tab" type="button" aria-selected="false" tabindex="-1" role="tab">
-                <img src="{{ asset('images/edit.png') }}"/>GRIEVANCES</button></a>
+                <img src="{{ asset('images/gravvv.png') }}"/>GRIEVANCES</button></a>
              <a data-bs-toggle="modal" data-bs-target="#feedbackModal" href="#"><button class="nav-link feedback" id="v-pills-ff-tab" type="button" aria-selected="false" tabindex="-1" role="tab">
-                <img src="{{ asset('images/edit.png') }}"/>Feedback Form</button></a>
+                <img src="{{ asset('images/edit.png') }}"/>FEEDBACK FORM</button></a>
              <a data-bs-toggle="modal" data-bs-target="#faqModal" href="#"><button class="nav-link" id="v-pills-faq-tab" type="button" aria-selected="false" tabindex="-1" role="tab"><img src="{{ asset('images/help.png') }}"/>FAQ</button></a>
           </div>
          </div>
@@ -89,9 +89,9 @@
             <div class="col-md-4 ">
                 <div class="card-body">
                     <div class="hover01">
-                  <figure><a href="#">	<img src="{{ asset('images/shimla-header-bg.png') }}" alt="cheifminister" class="img-fluid img-about"></a></figure>
+                  <figure><a href="#">	<img src="{{ asset('images/mmsyhomepphoto.avif') }}" alt="cheifminister" class="img-fluid img-about"></a></figure>
                     </div>   
-                    <a href="https://cmhimachal.hp.gov.in/index.php/" target="_blank"><button type="button" class="buttonaward">Donate to CM Relif Fund</button></a>                
+                                    
                   </div>
             </div>
             <div class="col-md-8 ">
@@ -99,7 +99,8 @@
                     <div class="top_heading">
                         <h3><span>ABOUT </span> Mukhyamantri Swavalamban Yojana</h3>
                         <p>There is a great need to promote self-employment, whether there is a lack of adequate empolyment in both the government sector or the private sector. The state government of Himachal Pradesh has taken the step in the direction and announced a new scheme for the youth of the state</p>
-                    </div>
+                        <a href="https://cmhimachal.hp.gov.in/index.php/" target="_blank"><button type="button" class="buttonaward">Donate to CM Relief Fund</button></a>
+                      </div>
                 </div>
             </div>
         </div>
@@ -190,7 +191,7 @@
     <div class="modal-content">
         <div class="modal-header">
         <h5 class="modal-title">Helpdesk Numbers</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
         </div>
         <div class="modal-body">
         <div class="table-responsive">
@@ -231,7 +232,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Notifications</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
             </div>
             <div class="modal-body">
                 <div class="table-responsive overflow-auto">
@@ -268,7 +269,7 @@
     <div class="modal-content">
         <div class="modal-header">
         <h5 class="modal-title">Frequently Ask Questions</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
         </div>
         <div class="modal-body">
       
@@ -305,8 +306,8 @@
           @csrf
           <div class="modal-content">
               <div class="modal-header text-center">
-                  <h5 class="modal-title text-center">{{ auth()->user() ? 'Applicant Name: ' . auth()->user()->name : 'User Name' }}</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <h5 class="modal-title text-center">{{ auth()->user() ? 'Applicant Name: ' . auth()->user()->name : 'Grievance Form' }}</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
               </div>
               <div class="modal-body">
                   <h6 class="text-center">Applicant Grievance Form</h6>
@@ -359,7 +360,7 @@
     <div class="modal-content">
         <div class=" text-center modal-header">
         <h5 class="modal-title">Feedback Form</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
         </div>
         <div class="modal-body">
           <div class="mb-3">
@@ -380,7 +381,7 @@
       <div class="modal-content">
           <div class="modal-header">
               <h5 class="modal-title">Our Success Stories</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
           </div>
           <div class="modal-body">
               <div id="successCarousel" class="carousel slide" data-bs-ride="carousel">
@@ -417,7 +418,7 @@
       <div class="modal-content">
           <div class="modal-header">
               <h5 class="modal-title">Video Tutorials</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">x</button>
           </div>
           <div class="modal-body">
             <div class="row">

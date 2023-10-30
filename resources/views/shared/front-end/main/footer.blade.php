@@ -1,5 +1,5 @@
 
-<div class="copyright mt-5">
+<div class="copyright">
     <div class="inner_copyright">
         <div class="reserved">
             2023@ ALL Rights Reserved by <a href="">Himachal Pradesh Government</a>
