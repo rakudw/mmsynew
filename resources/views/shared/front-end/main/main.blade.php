@@ -160,7 +160,7 @@
               <div class="card-body">
                 <img src="{{ asset('images/notification.png') }}"/>
                 <p class="card-text">Notification</p>
-                <a href="https://emerginghimachal.hp.gov.in/themes/backend/uploads/notification/mmsy/MMSY-as-on-20-04-2022.pdf" target="_blank" class="apply_custom">View</a>
+                <a data-bs-toggle="modal" data-bs-target="#NotificationModal" href="#" class="apply_custom">View</a>
               </div>
             </div>
           </div>
