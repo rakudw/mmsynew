@@ -5,6 +5,53 @@
     --containerc:1650px;
   
   }
+  h3.designation-in-middle-slide {
+    font-size: 21px !important;
+}
+
+h3.name-in-middle-slide {
+    font-weight:600 !important;
+}
+  .minister-name-in-slider {
+    background-color: #FFA23D;
+    padding: 10px 20px;
+    margin: 20px;
+    border-radius: 25px 25px 25px 0px;
+    max-width: 444px;
+    width: 100%;
+    text-align: center;
+}
+.minister-name-in-slider h3{
+    color:white;
+    font-size:25px;
+}
+
+
+
+  
+  .minister_image_name img {
+    background-color: white !important;
+    border-radius: 50%;
+    width: 260px;
+}
+
+
+
+div#carouselExample button.carousel-control-prev {
+    z-index: -9999999999999999 !important;
+}
+div#carouselExample button.carousel-control-next {
+    z-index: -9999999999999999 !important;
+}
+
+.carousel-inner .sliderimg img {
+    height: 670px;
+    width: 100%;
+    object-fit: cover;
+    position: absolute;
+    z-index: -1;
+}
+
 
   .tab-content>.active{
     width: 100 !important;
@@ -214,7 +261,7 @@
       color: #ffffff;
       text-decoration: none;
       background-color: dimgray;
-      padding: 10px 35px;
+      padding: 10px 35px 12px 35px;
       border-radius: 5px;
       font-weight: 500;
       border-radius: 5px;
@@ -377,25 +424,27 @@ a.applynow_custom:hover {
   }
   .empty-line {
       background-color: #F58D1E;
-      padding: 4px;
-      margin: 20px 0px;
-      width: 50%;
+      padding: 3px;
+      margin-bottom: 35px;
+      width: 87%;
       border-radius: 5px;
   }
   .main_text_section_wrapper h1 {
       font-weight: 700;
      
-      color: #333;
+      color: White;
       font-family: Poppins;
       font-size: 48px;
       font-style: normal;
       font-weight: 700;
       line-height: 64px;
+      margin-bottom: 0px;
       }
   
   .minister_image_name {
       display: flex;
       align-items: center;
+      height: 250px;
   }
   
   
@@ -501,7 +550,7 @@ a.apply_custom:hover {
   }
   
   .wrapper{
-      background-image: url('../../public/images/flag.png');
+      /* background-image: url('../../public/images/flag.png'); */
       background-position: center;
       background-size: cover;
       position: relative;
@@ -523,7 +572,7 @@ a.apply_custom:hover {
       text-align: center;
   }
   .himachal_gov_logo img {
-      width: 102px;
+      width: 135px;
   }
   .image-text img {
       max-width: 188px;
@@ -668,7 +717,7 @@ a.apply_custom:hover {
       width: 90%;
       margin: auto;
       padding: 10px;
-      border-bottom: 2px solid gray;
+     
   }
   
   .flex-wrapper {
@@ -1212,7 +1261,7 @@ button.buttonaward:hover {
       }
       .main_text_section_wrapper h1 {
           font-weight: 700;
-          color: #333;
+          color: white;
           font-family: Poppins;
           font-size: 48px;
           max-width: 654px;
@@ -1220,6 +1269,7 @@ button.buttonaward:hover {
           font-weight: 700;
           line-height: 64px;
           width: 100%;
+          margin-bottom: 0px;
       }
       .minister_image_name img {
           max-width: 200px;
@@ -1246,7 +1296,7 @@ button.buttonaward:hover {
     }
 
     .main_text_section_wrapper h1 {
-        color: #333;
+        color:white;
         font-family: Poppins;
         font-size: 35px;
         max-width: 100%;
@@ -1368,9 +1418,10 @@ button.buttonaward:hover {
 .minister_image_name {
     display: flex;
     align-items: center;
+    max-width: 210px;
     width: 100%;
     justify-content: center;
-    margin-top: 30px;
+    
 }
   }
   
@@ -1579,7 +1630,15 @@ div#v-pills-tab {
         justify-content: center;
         text-decoration:none;
     } 
-
+    .minister-name-in-slider {
+        display: none;
+    }
+    .minister_image_name{
+        max-width: 100% !important;
+    }
+   
+    
+   
     .mmsy_about .row.main_about .col-md-4 {
         width:100%;
     } 
@@ -1773,7 +1832,7 @@ label.form-check-label {
     margin-bottom:20px;
 }
 .main_text_section_wrapper h1 {
-    color: #333;
+    color: white;
     font-family: Poppins;
     font-size: 32px;
     max-width: 654px;
@@ -1800,13 +1859,10 @@ label.form-check-label {
     display: none;
 }
 .main_text_section {
-    margin-bottom: -40px;
+    margin-bottom: -10px;
     padding-bottom: 0px;
 }
-.minister_image_name {
-      justify-content: space-between !important;
-    
-}
+
 .list_points span {
     color: #fc0;
     text-align: center;
@@ -1880,7 +1936,7 @@ label.form-check-label {
 }
 
 .main_text_section_wrapper h1 {
-    color: #333;
+    color: white;
     font-family: Poppins;
     font-size: 26px;
     max-width: 654px;

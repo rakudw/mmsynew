@@ -23,3 +23,14 @@
         Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
 })(document.querySelector.bind(document), document.querySelectorAll.bind(document));
+
+// js for slider
+document.addEventListener("DOMContentLoaded", function () {
+    var carouselElement = document.getElementById("carouselExample");
+    var carousel = new bootstrap.Carousel(carouselElement, {
+        interval: 4000 // 4 seconds
+    });
+});
+
+
+    
