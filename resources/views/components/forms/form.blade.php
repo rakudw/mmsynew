@@ -3,7 +3,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
-    <form class="form application-form" action="/application/save-data/" method="POST" onsubmit="return confirm('Are you sure you have filled in the correct information? Once submitted, it cannot be edited.')" id="applicant-form">
+    <form class="form application-form" action="/application/save-data/" method="POST" onsubmit="return customValidation() && confirmSubmission()" id="applicant-form">
         @csrf
         <input type="hidden" name="application_id" value="{{ isset($application) ? $application->id : '' }}">
         <table class="table">
@@ -168,7 +168,7 @@
                                     <th>(8)</th>
                                     <th ><strong>PAN Number / न नंबर:</strong></th>
                                     <td colspan="4">
-                                        <input type="text" id="pan" name="owner_pan" value="{{ old('owner_pan', $application ? $application->data->owner->pan : '') }}" pattern="^([a-zA-Z]([a-zA-Z]([a-zA-Z]([a-zA-Z]([a-zA-Z]([0-9]([0-9]([0-9]([0-9]([a-zA-Z])?)?)?)?)?)?)?)?)?)?$">
+                                        <input type="text" id="pan" name="owner_pan" value="{{ old('owner_pan', $application ? $application->data->owner->pan : '') }}" >
                                         <small>Enter PAN Number</small>
                                     </td>
                                 </tr>
@@ -676,7 +676,8 @@
                                     <th></th>
                                     <th ><strong>Total Project Cost (Calculated) /कुल प्रोजेक्ट लागत (गणना की गई):</strong></th>
                                     <td colspan="4">
-                                        <input type="text" value="{{ old('project_cost') }}" id="project_cost" name="project_cost" readonly required data-calculate="">
+                                        <input type="text" value="{{ old('project_cost') }}" id="project_cost" name="project_cost" readonly required data-calculate=""
+                                    min="0" max="10000000" title="Admissible Project cost under this scheme is up to 1 crore">
                                         <small>Total Project Cost (Calculated)</small>
                                     </td>
                                 </tr>
@@ -938,6 +939,26 @@
     <script>
     // When the page is ready
     $(document).ready(function() {
+        function customValidation() {
+            const projectCostField = document.getElementById("project_cost");
+            const projectCostValue = projectCostField.value;
+            const activityTypeField = document.getElementById("activity_type_id");
+            const selectedActivityType = activityTypeField.value;
+            const projectCostError = document.getElementById("project_cost_error");
+
+            // Your custom validation logic
+            if (selectedActivityType === "84" && parseFloat(projectCostValue) > 1000000) {
+                projectCostError.textContent = "Admissible Project cost under this scheme is up to 1 crore.";
+                return false; // Prevent form submission
+            } else {
+                projectCostError.textContent = ""; // Clear custom error message
+                return true; // Allow form submission
+            }
+        }
+
+        function confirmSubmission() {
+            return confirm('Are you sure you have filled in the correct information? Once submitted, it cannot be edited.');
+        }
         // Get a reference to the first select element
         $('.select2').select2({
         // Add any additional options you need here

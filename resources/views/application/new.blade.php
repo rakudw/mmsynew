@@ -267,6 +267,18 @@
         // Sum the values of subsidized components
         totalAmount = buildingCost + assetsCost + machineryCost + working_capital;
         // Update the total amount field
+        // const activityTypeSelect = document.getElementById('activity_type_id');
+
+        // activityTypeSelect.addEventListener('change', () => {
+        //     const selectedActivityType = activityTypeSelect.value;
+        //     if (selectedActivityType === '84') {
+        //         projectCostInput.setAttribute('max', '100000'); // 10 lakhs
+        //         projectCostInput.setCustomValidity('Admissible Project cost under this scheme is up to 10 lakhs.');
+        //     } else {
+        //         projectCostInput.setAttribute('max', '1000000'); // 1 crore
+        //         projectCostInput.setCustomValidity('Admissible Project cost under this scheme is up to 1 crore.');
+        //     }
+        // });
         $('#project_cost').val(totalAmount.toFixed(2));
     }
 
