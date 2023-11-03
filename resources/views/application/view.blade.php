@@ -785,7 +785,7 @@
                             <x-roles.select :application="$application" id="applicationStatus" name="status" :actions="$actions" />
                         </div>
                         <div class="col-md-6 px-lg-3 px-2 pt-3">
-                            <x-forms.label for="comment">Remarks</x-forms.label>
+                            <x-forms.label for="comment">Remssdarks</x-forms.label>
                             <x-forms.textarea id="comment" rows="3" required="required" maxlength="511" name="comment" rows="2"
                                 placeholder="You can enter comment here">{{ old('comment') ?? '' }}</x-forms.textarea>
                         </div>
@@ -793,6 +793,7 @@
                             <x-forms.button :type="'submit'">Update</x-forms.button>
                         </div>
                     </div>
+                    
                 </x-slot>
             </x-forms.form-section>
         @elseif(\App\Enums\ApplicationStatusEnum::SUBSIDY_60_RELEASED->id() == $application->status_id && auth()->user()->isNodalBank())
@@ -864,10 +865,35 @@
             </div>
         @endif
     @endif
+                    <div class="modal fade" id="otpModal" tabindex="-1" role="dialog" aria-labelledby="otpModalLabel" aria-hidden="true">
+                        <form >
+                        <meta name="csrf-token" content="{{ csrf_token() }}">
+                            @csrf
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="otpModalLabel">Enter OTP</h5>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="otpInput">Enter OTP send to your registered Email/mobile number:</label>
+                                        <input type="number" maxlength="6" class="form-control border border-info" id="otpInput" >
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" id="verifyOtp">Verify OTP</button>
+                                </div>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
 @endsection
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
+        console.log('dasdugauds')
         const $yearOptions = $("select[id='year'] option[value='4'], select[id='year'] option[value='5'], select[id='year'] option[value='6'], select[id='year'] option[value='7']").prop('disabled', true);
 
         $('#type').change(function() {
@@ -899,7 +925,138 @@
                 $('#amount').val('');
                 $('#date').val(''); // Clear the date field
             }
-        });
+        })
+        @if(isset($actions[\App\Enums\ApplicationStatusEnum::PENDING_60_SUBSIDY_RELEASE->id()]))
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            const submitButton = $("#submitButton");
+            const otpModal = $("#otpModal");
+            const otpInput = $("#otpInput");
+            const verifyOtpButton = $("#verifyOtp");
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                }
+            });
+            // Show the OTP modal when the Submit button is clicked
+            submitButton.on("click", function(e) {
+                e.preventDefault();
+                
+                $.ajax({
+                        type: "POST",
+                        url: "{{ route('send-otp') }}", // Replace with your server-side validation endpoint
+                        success: function(response) {
+                            if (response.success) {
+                                // OTP sent successfully, you can show the OTP input field in the modal
+                                otpModal.modal("show");
+                            } else {
+                                // Handle error, show an error message, etc.
+                                // You may need to add error handling logic in your controller as well
+                            }
+                        },
+                        error: function() {
+                            alert("An error occurred during OTP validation.");
+                        }
+                    });
+            });
 
+            // Verify OTP and submit the form
+            verifyOtpButton.on("click", function() {
+                // Get the entered OTP from the input field
+                const enteredOtp = otpInput.val();
+                const isOtpCorrect = false;
+                $.ajax({
+                        type: "POST",
+                        url: "{{ route('verify-otp') }}",
+                        data: { otp: $("#otpInput").val() } ,// Replace with your server-side validation endpoint
+                        success: function(response) {
+                            // Change to true if the OTP is correct
+                            const isOtpCorrect = false;
+                            if (response.status === 505) {
+                                // OTP expired, show alert and refresh the window
+                                alert("OTP has expired. Please request a new OTP.");
+                                location.reload(); // Refresh the window
+                            }
+                            if (response.status === 503){
+                                alert("Invalid OTP. Please try again.");
+                            }if (response.status === 200){
+                                otpModal.modal("hide");
+                                $("#applicationStatus").submit();
+                            }
+                        },
+                        error: function() {
+                            alert("An error occurred during OTP validation.");
+                            location.reload();
+                        }
+                    });
+                // Replace the following line with your OTP validation logic
+                
+            });
+        @endif
+        @if(isset($actions[\App\Enums\ApplicationStatusEnum::SUBSIDY_40_RELEASED->id()]))
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+            const submitButton = $("#submitButton");
+            const otpModal = $("#otpModal");
+            const otpInput = $("#otpInput");
+            const verifyOtpButton = $("#verifyOtp");
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                }
+            });
+            // Show the OTP modal when the Submit button is clicked
+            submitButton.on("click", function(e) {
+                e.preventDefault();
+                
+                $.ajax({
+                        type: "POST",
+                        url: "{{ route('send-otp') }}", // Replace with your server-side validation endpoint
+                        success: function(response) {
+                            if (response.success) {
+                                // OTP sent successfully, you can show the OTP input field in the modal
+                                otpModal.modal("show");
+                            } else {
+                                // Handle error, show an error message, etc.
+                                // You may need to add error handling logic in your controller as well
+                            }
+                        },
+                        error: function() {
+                            alert("An error occurred during OTP validation.");
+                        }
+                    });
+            });
+
+            // Verify OTP and submit the form
+            verifyOtpButton.on("click", function() {
+                // Get the entered OTP from the input field
+                const enteredOtp = otpInput.val();
+                const isOtpCorrect = false;
+                $.ajax({
+                        type: "POST",
+                        url: "{{ route('verify-otp') }}",
+                        data: { otp: $("#otpInput").val() } ,// Replace with your server-side validation endpoint
+                        success: function(response) {
+                            // Change to true if the OTP is correct
+                            const isOtpCorrect = false;
+                            if (response.status === 505) {
+                                // OTP expired, show alert and refresh the window
+                                alert("OTP has expired. Please request a new OTP.");
+                                location.reload(); // Refresh the window
+                            }
+                            if (response.status === 503){
+                                alert("Invalid OTP. Please try again.");
+                            }if (response.status === 200){
+                                otpModal.modal("hide");
+                                $("#applicationStatus").submit();
+                            }
+                        },
+                        error: function() {
+                            alert("An error occurred during OTP validation.");
+                            location.reload();
+                        }
+                    });
+                // Replace the following line with your OTP validation logic
+                
+            });
+        @endif
     });
 </script>

@@ -10,12 +10,15 @@ use App\Models\BankBranch;
 use App\Models\Form;
 use App\Helpers\SMSHelper;
 use App\Models\User;
+use App\Jobs\OtpSmsJob;
+use App\Models\Otp;
 use App\Enums\TypeEnum;
 use App\Models\Document;
 use App\Models\FormDesign;
 use App\Helpers\EnumHelper;
 use App\Models\Application;
 use App\Models\DocumentType;
+use App\Mail\OtpMail;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Helpers\ApplicationHelper;
@@ -27,6 +30,8 @@ use App\Events\ApplicationStatusEvent;
 use App\Events\IncompleteApplicationEvent;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -779,7 +784,8 @@ class ApplicationController extends Controller
     
 
     public function update(Request $request, Application $application)
-    {
+    {   
+        // dd('yaha adsaya');
         if ($application->status_id < ApplicationStatusEnum::PENDING_60_SUBSIDY_REQUEST->id()) {
             if (!$this->user()->can('update', $application)) {
                 return redirect()->route('dashboard')->with('error', 'Application not found!');
@@ -794,6 +800,7 @@ class ApplicationController extends Controller
         ]);
 
         if (isset($validation['applicationData'])) {
+            
             foreach ($validation['applicationData'] as $key => $newData) {
                 $data = $application->data;
                 $existingData = property_exists($application->data, $key) ? (array) $application->data->$key : [];
@@ -803,7 +810,9 @@ class ApplicationController extends Controller
         }
 
         if (isset($validation['applicationDocument'])) {
+            dd('yaha aaya applicationDocument');
             foreach ($validation['applicationDocument'] as $key => $file) {
+                dd('yaha aaya foreach');
                 $fileHash = md5_file($file->getRealPath());
                 $document = Document::where([
                     'hash' => $fileHash,
@@ -977,5 +986,78 @@ class ApplicationController extends Controller
         $user->save();
 
         return back()->with('success', 'Password has been updated.');
+    }
+
+    public function sendOTP(Request $request)
+    {
+        
+        $User = User::where('id',auth()->user()->id)->first();
+        $identity = $User->mobile;
+        if ($identity == null){
+            $identity = $User->email;
+        }
+        // return response()->json(['success' => false, 'data' => $identity]);
+        $otps = Otp::where('identity', $identity)->get();
+        $currentOtp = null;
+        $template_name = 'OTP_MSG';
+        foreach ($otps as $otp) {
+            if ($otp->expires_at < now()) {
+                $otp->forceDelete();
+            } else {
+                $currentOtp = $otp;
+            }
+        }
+
+        if (!$currentOtp) {
+            $currentOtp = Otp::create([
+                'identity' => $identity,
+            ]);
+
+            if (!env('APP_DEBUG')) {
+                if ($currentOtp->isForEmail()) {
+                  $result = Mail::to($identity)->send(new OtpMail($currentOtp));
+                //   return response()->json( $result);
+                } else {
+                    $this->otp($identity,$template_name);
+                }
+            }
+        }
+
+        return response()->json(['hash' => md5($currentOtp->code), 'resendAfter' => Carbon::parse($currentOtp->expires_at)->diffInMilliseconds(now()),'status' => 202, 'success' => true], 202);
+    }
+    public function verifyOTP(Request $request){
+        
+        
+        $otp = request('otp');
+        $User = User::where('id',auth()->user()->id)->first();
+        $identity = $User->mobile;
+        if ($identity == null){
+            $identity = $User->email;
+        }
+        $hhh =Otp::where('expires_at', '<', now())->get();
+        $dbOtp = Otp::where([
+            'code' => $otp,
+            'identity' => $identity,
+        ])->orderByDesc('created_at')->first();
+        if (!$dbOtp) {
+            return response()->json(['success' => false, 'status' => 503]);
+            // return self::otpLogin($dbOtp);
+        }
+        if ($dbOtp->expires_at < now()) {
+            Otp::where('expires_at', '<', now())->forceDelete();
+            return response()->json(['success' => false, 'status' => 505]);
+            // return self::otpLogin($dbOtp);
+        }
+        if ($dbOtp->expires_at > now()) {
+            Otp::where('expires_at', '>', now())->forceDelete();
+            return response()->json(['success' => false, 'status' => 200]);
+            // return self::otpLogin($dbOtp);
+        }
+        return response()->json(['success' => false, 'status' => 404]);
+    }
+    public function otp($identity,$template_name){
+        if(!SMSHelper::sendSMS($identity, $template_name, [auth()->user()->id])) {
+            throw new Exception('SMS was not sent! ' . SMSHelper::getResponse());
+        }
     }
 }
