@@ -105,6 +105,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/view/{application}/{annexure?}/{applicationDocument?}', 'view')->name('application.view');
         Route::get('/withdraw/{application}', 'withdraw')->name('application.withdraw');
         Route::get('/get-data', 'get')->name('application.get')->withoutMiddleware(['auth']);
+        Route::post('/send-otp', 'sendOTP')->name('send-otp')->withoutMiddleware(['auth']);
+        Route::post('/verify-otp', 'verifyOTP')->name('verify-otp')->withoutMiddleware(['auth']);
         Route::post('/save-data', 'saveData')->name('application.saveData')->withoutMiddleware(['auth']);
         Route::get('/dp/{application}', 'dp')->name('application.dp');
         Route::get('/annexure/{application}/{type?}/{download?}', 'annexure')->name('application.annexure');
