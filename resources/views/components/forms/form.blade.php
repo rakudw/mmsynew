@@ -1700,5 +1700,8 @@
     font-size: 24px;
     cursor: pointer;
 }
+.alert.alert-danger.alert-dismissible.text-white {
+    background: orange !important;
+}
 
 </style>

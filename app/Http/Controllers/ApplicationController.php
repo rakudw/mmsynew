@@ -174,7 +174,19 @@ class ApplicationController extends Controller
                 ->withInput(); 
         }
         $partnerData = [];
+        $estimatedProjectCost = 10000000;
+        if($request->input('activity_id') == 83){
+            $estimatedProjectCost = 1000000;
+        }else{
+            $estimatedProjectCost = 10000000;
 
+        }
+
+        if($request->input('project_cost') > $estimatedProjectCost ){
+            return redirect()->back()
+            ->withErrors(['<em class="fa-solid fa-warning"></em> Admissible Project cost under this scheme is up to ' . $estimatedProjectCost . '.'])
+            ->withInput(); 
+        }
         // Loop through the partner details arrays and create partner objects
         $partnerNames = $request->input('partner_name');
         $partnerGenders = $request->input('partner_gender');
@@ -313,7 +325,8 @@ class ApplicationController extends Controller
                     $application->created_by = auth()->user()->id;
                     $application->save();
                     $template_name = 'SAVE_DATA';
-                    $this->sendSms($application,$template_name);
+                    // Please Uncomment this for otp
+                    // $this->sendSms($application,$template_name);
                 }
                
               
@@ -415,6 +428,20 @@ class ApplicationController extends Controller
             return redirect()->route('dashboard')->with('error', 'Application not found!');
         }
         // Check at least the project should be 10,000 worth
+        if($application->project_cost < 10000) {
+            $type = $request->get('type');
+            if ($type !== null) {
+                return redirect()->route('application.newedit')->withErrors(['<em class="fa-solid fa-warning"></em> The project cost of the application is way too low for consideration!']);
+            }else{
+                return redirect()->route('application.edit', [
+                    'application' => $application,
+                    'formDesignId' => 3,
+                ])->withErrors(['<em class="fa-solid fa-warning"></em> The project cost of the application is way too low for consideration!']);
+            }
+            
+        }
+        // echo "<pre>";
+        // print_r($application);
         if($application->project_cost < 10000) {
             $type = $request->get('type');
             if ($type !== null) {
