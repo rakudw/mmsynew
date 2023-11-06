@@ -7,7 +7,7 @@
                 <div class="innersection_hero">
                     <div class="main_text_section">
                         <div class="main_text_section_wrapper">
-                            <h1>This scheme is exclusively for Himachali Bonafide Candidates </h1>
+                            <h1>This scheme is exclusively for Bonafide Himachali Candidates </h1>
                             <div class="empty-line"></div>
                             <a class="application_section" href="/application/new">Click Here To Start Your Application</a>
                         </div>
@@ -30,7 +30,7 @@
                 <div class="innersection_hero">
                     <div class="main_text_section">
                         <div class ="main_text_section_wrapper">
-                            <h1>This scheme is exclusively for Himachali Bonafide Candidates </h1>
+                            <h1>This scheme is exclusively for Bonafide Himachali Candidates </h1>
                             <div class="empty-line"></div>
                             <a class="application_section" href="/application/new">Click Here To Start Your Application</a>
                         </div>
