@@ -17,7 +17,7 @@
                         </div>
 
                         <div class="minister_image_name">
-                            <img src="{{ asset('images/cmnew.png') }}" />
+                            <img src="{{ asset('images/cmimagemainslider.jpg') }}" />
                         </div>
                     </div>
                 </div>
@@ -40,7 +40,7 @@
                             <h3 class="designation-in-middle-slide">Industries Minister	</h3>
                         </div>
                         <div class="minister_image_name">
-                            <img src="{{ asset('images/minister_new.png') }}" />
+                            <img src="{{ asset('images/hwimagemainslider.jpg') }}" />
                         </div>
                     </div>
                 </div>

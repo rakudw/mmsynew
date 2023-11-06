@@ -6,7 +6,7 @@
   
   }
   h3.designation-in-middle-slide {
-    font-size: 21px !important;
+    font-size: 15px !important;
 }
 
 h3.name-in-middle-slide {
@@ -17,13 +17,13 @@ h3.name-in-middle-slide {
     padding: 10px 20px;
     margin: 20px;
     border-radius: 25px 25px 25px 0px;
-    max-width: 444px;
+    max-width: 350px;
     width: 100%;
     text-align: center;
 }
 .minister-name-in-slider h3{
     color:white;
-    font-size:25px;
+    font-size:20px;
 }
 
 
@@ -31,8 +31,10 @@ h3.name-in-middle-slide {
   
   .minister_image_name img {
     background-color: white !important;
-    border-radius: 50%;
-    width: 260px;
+    border-radius: 10px;
+    width: 250px;
+    height: 240px;
+    object-fit: cover;
 }
 
 
@@ -426,12 +428,12 @@ a.applynow_custom:hover {
       background-color: #F58D1E;
       padding: 3px;
       margin-bottom: 35px;
-      width: 87%;
+      width: 50%;
       border-radius: 5px;
   }
   .main_text_section_wrapper h1 {
       font-weight: 700;
-     
+     width: 90%;
       color: White;
       font-family: Poppins;
       font-size: 48px;
@@ -874,7 +876,7 @@ ul#mobile-dropdown li:last-child{
       top: 0;
       left: 0;
       padding: 5px 10px 0 10px;
-          width: 23%;
+      width: 23%;
       height: 100%;
       background-color: #801515;
       color: #fff;
@@ -1636,7 +1638,9 @@ div#v-pills-tab {
     .minister_image_name{
         max-width: 100% !important;
     }
-   
+    .new_activity_inner_wrapper span{
+        line-height: 15px !important;
+    }
     
    
     .mmsy_about .row.main_about .col-md-4 {
@@ -1734,7 +1738,7 @@ div#v-pills-tab {
     }
       .notifications {
         font-size: 16px;
-      
+        width: 150px !important;
     }
     .notifications_outer marquee a {
         color: #234669;
@@ -1858,6 +1862,10 @@ label.form-check-label {
     max-width: 303px!important;
     display: none;
 }
+.minister_image_name img{
+    height: 160px !important;
+    width: 160px !important;
+}
 .main_text_section {
     margin-bottom: -10px;
     padding-bottom: 0px;
@@ -1951,9 +1959,7 @@ label.form-check-label {
     grid-template-columns: 1fr 1fr;
   }
 
-  .minister_image_name img {
-    max-width: 160px;
-}
+ 
 .helpdesk_n {
     display: none;
 }
