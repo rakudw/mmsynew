@@ -618,7 +618,17 @@
                 </x-slot>
                 <x-slot name="form">
                     @if(isset($actions[\App\Enums\ApplicationStatusEnum::PENDING_40_SUBSIDY_RELEASE->id()]))
-                        <div class="row" data-status-vars="{{ \App\Enums\ApplicationStatusEnum::PENDING_40_SUBSIDY_RELEASE->id() }}">
+                        <div class="col-12 col-sm-6 mt-sm-0" data-status-vars="{{ \App\Enums\ApplicationStatusEnum::PENDING_40_SUBSIDY_RELEASE->id() }}">
+                          
+                                <x-forms.label class="form-label">&nbsp;</x-forms.label>
+                                <x-forms.input-group :dynamic="true">
+                                    <x-forms.label class="form-label">Second Subsidy Installment (40%)</x-forms.label>
+                                    <x-forms.input type="number" required="required" name="applicationData[subsidy][amount40]" class="form-control w-100" value="{{ old('applicationData[subsidy][amount40]', $application->getData('subsidy', 'amount40', null, $application->subsidyAmount(40))) }}" />
+                                </x-forms.input-group>
+                        </div>
+                    @endif
+                    @if(isset($actions[\App\Enums\ApplicationStatusEnum::PENDING_40_SUBSIDY_REQUEST->id()]))
+                        <div class="row" data-status-vars="{{ \App\Enums\ApplicationStatusEnum::PENDING_40_SUBSIDY_REQUEST->id() }}">
                             <div class="col-12 col-sm-6 mt-sm-0">
                                 <label>Physical Inspection Report<br /><br />
                                 <x-forms.input-group :dynamic="true">
@@ -629,13 +639,13 @@
                                     <a href="http://mmsy.hp.gov.in/documents/annexure_b/annexure_z.pdf" download="Annexure-Z.pdf">Download</a>, fill and upload verified <a href="http://mmsy.hp.gov.in/documents/annexure_b/annexure_z.pdf" download="Annexure-Z.pdf">Annexure-Z</a> along with the verified bills.
                                 </div>
                             </div>
-                            <div class="col-12 col-sm-6 mt-sm-0">
+                            {{-- <div class="col-12 col-sm-6 mt-sm-0">
                                 <x-forms.label class="form-label">&nbsp;</x-forms.label>
                                 <x-forms.input-group :dynamic="true">
                                     <x-forms.label class="form-label">Second Subsidy Installment (40%)</x-forms.label>
                                     <x-forms.input type="number" required="required" name="applicationData[subsidy][amount40]" class="form-control w-100" value="{{ old('applicationData[subsidy][amount40]', $application->getData('subsidy', 'amount40', null, $application->subsidyAmount(40))) }}" />
                                 </x-forms.input-group>
-                            </div>
+                            </div> --}}
                         </div>
                     @endif
                     @if(isset($actions[\App\Enums\ApplicationStatusEnum::PENDING_60_SUBSIDY_REQUEST->id()]))
@@ -785,7 +795,7 @@
                             <x-roles.select :application="$application" id="applicationStatus" name="status" :actions="$actions" />
                         </div>
                         <div class="col-md-6 px-lg-3 px-2 pt-3">
-                            <x-forms.label for="comment">Remssdarks</x-forms.label>
+                            <x-forms.label for="comment">Remarks</x-forms.label>
                             <x-forms.textarea id="comment" rows="3" required="required" maxlength="511" name="comment" rows="2"
                                 placeholder="You can enter comment here">{{ old('comment') ?? '' }}</x-forms.textarea>
                         </div>

@@ -97,6 +97,9 @@ class ApplicationHelper extends BaseHelper
                             $actions[ApplicationStatusEnum::PENDING_60_SUBSIDY_RELEASE->id()] = 'Send to Nodal Bank for 60% Subsidy Release';
                             $actions[ApplicationStatusEnum::PENDING_FOR_LOAN_DISBURSEMENT->id()] = 'Revert Back to the Bank';
                             break;
+                        case ApplicationStatusEnum::PENDING_40_SUBSIDY_REQUEST:
+                            $actions[ApplicationStatusEnum::PENDING_40_SUBSIDY_RELEASE->id()] = 'Send to Nodal Bank for 40% Subsidy Release';
+                            break;
                         case ApplicationStatusEnum::PENDING_FOR_DISTRICT_LEVEL_COMMITTEE:
                             $actions[ApplicationStatusEnum::PENDING_FOR_LOAN_DISBURSEMENT->id()] = 'Send to Bank for Loan Disbursement';
                             $actions[ApplicationStatusEnum::REJECTED_AT_DISTRICT_LEVEL_COMMITTEE->id()] = 'Reject the Application';
@@ -106,7 +109,7 @@ class ApplicationHelper extends BaseHelper
                 case RoleEnum::EO_DIC->name:
                     switch ($application->application_status) {
                         case ApplicationStatusEnum::SUBSIDY_60_RELEASED:
-                            $actions[ApplicationStatusEnum::PENDING_40_SUBSIDY_RELEASE->id()] = 'Send to Nodal Bank for 40% Subsidy Release';
+                            $actions[ApplicationStatusEnum::PENDING_40_SUBSIDY_REQUEST->id()] = 'Send to DIC for 40% Subsidy Request';
                             break;
                     }
                     break;

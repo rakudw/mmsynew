@@ -837,9 +837,7 @@ class ApplicationController extends Controller
         }
 
         if (isset($validation['applicationDocument'])) {
-            dd('yaha aaya applicationDocument');
             foreach ($validation['applicationDocument'] as $key => $file) {
-                dd('yaha aaya foreach');
                 $fileHash = md5_file($file->getRealPath());
                 $document = Document::where([
                     'hash' => $fileHash,

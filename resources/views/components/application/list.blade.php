@@ -6,13 +6,14 @@
             @if(auth()->user()->canScheduleMeeting() && $page == 'schedule')
                 <x-table.th>
                     <label>
+                        <strong class="text-left">Sr. No.</strong>
                         <div class="form-check d-inline">
                             <input class="form-check-input" type="checkbox" id="customCheckMulti" />
-                        </div> <strong>ID</strong>
+                        </div> 
                     </label>
                 </x-table.th>
             @else
-                <x-table.th>ID</x-table.th>
+                <x-table.th>Sr. No.</x-table.th>
             @endif
             <x-table.th>Enterprise</x-table.th>
             <x-table.th>Applicant</x-table.th>
@@ -27,11 +28,14 @@
         </x-table.tr>
     </x-table.head>
     <x-table.body>
-        @forelse($applications as $application)
+        @forelse($applications as $index => $application)
             <x-table.tr>
                 @if(auth()->user()->canScheduleMeeting() && $page == 'schedule')
                     @php($applicationMeeting = $meeting ? $application->meetingApplications()->where('meeting_id', $meeting->id)->orderBy('created_at', 'desc')->first() : null)
                     @if(!$applicationMeeting || ($applicationMeeting->status == \App\Enums\MeetingApplicationStatusEnum::PENDING->value))
+                        <x-table.td>
+                            {{ $index + 1 }}
+                        </x-table.td>
                         <x-table.td>
                             <div class="d-flex align-items-center">
                                 <label>
@@ -43,7 +47,7 @@
                             </div>
                         </x-table.td>
                     @else
-                        <x-table.td>
+                        <x-table.td colspan="2">
                             {{ $application->unique_id }}
                         </x-table.td>
                     @endif

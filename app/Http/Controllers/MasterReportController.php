@@ -107,7 +107,6 @@ class MasterReportController extends Controller
             ->get();
 
         $activities = Activity::select('id','name')->get();
-        // dd($categories);
         return view('master_report.index', compact('applications', 'statusId','districts','constituencies','tehsils','blocks','panchayatWards','title','categories','activities','perPage'));
     }
     
@@ -135,7 +134,11 @@ class MasterReportController extends Controller
                 $statusId =  [
                     ApplicationStatusEnum::PENDING_AT_DISTRICT_INDUSTRIES_CENTER->id(),
                     ApplicationStatusEnum::PENDING_FOR_BANK_CIBIL_COMMENTS->id(),
-                    ApplicationStatusEnum::PENDING_FOR_DISTRICT_LEVEL_COMMITTEE->id()
+                    ApplicationStatusEnum::PENDING_FOR_DISTRICT_LEVEL_COMMITTEE->id(),
+                    ApplicationStatusEnum::PENDING_60_SUBSIDY_REQUEST->id(),
+                    ApplicationStatusEnum::PENDING_60_SUBSIDY_RELEASE->id(),
+                    ApplicationStatusEnum::PENDING_40_SUBSIDY_REQUEST->id(),
+                    ApplicationStatusEnum::PENDING_40_SUBSIDY_RELEASE->id(),
                 ];
                 $query->whereIn('status_id', request()->get('status_id') ? [request()->get('status_id')] : $statusId)->orderBy('updated_at', 'DESC');
                 $title = "Pending Applications at DIC or Before";
@@ -145,24 +148,26 @@ class MasterReportController extends Controller
                     ApplicationStatusEnum::PENDING_FOR_LOAN_DISBURSEMENT->id(),
                     ApplicationStatusEnum::LOAN_DISBURSED->id()
                 ];
-                $query->whereIn('status_id', $statusId)->orderBy('updated_at', 'DESC');
+                $query->whereIn('status_id', request()->get('status_id') ? [request()->get('status_id')] : $statusId)->orderBy('updated_at', 'DESC');
                 $title = "Sponsored Applications to Bank";
                 break;
             case 'sanctioned':
                 if (request()->route()->parameter('step') == '60') {
                     $statusId = [
+                        ApplicationStatusEnum::PENDING_60_SUBSIDY_REQUEST->id(),
                         ApplicationStatusEnum::PENDING_60_SUBSIDY_RELEASE->id(),
                         ApplicationStatusEnum::SUBSIDY_60_RELEASED->id()
                     ];
                     $title = "Senctioned Applications for 60% subsidy";
                 } else {
                     $statusId = [
+                        ApplicationStatusEnum::PENDING_40_SUBSIDY_REQUEST->id(),
                         ApplicationStatusEnum::PENDING_40_SUBSIDY_RELEASE->id(),
                         ApplicationStatusEnum::SUBSIDY_40_RELEASED->id()
                     ];
                     $title = "Senctioned Applications for 40% subsidy";
                 }
-                $query->whereIn('status_id', $statusId)->orderBy('updated_at', 'DESC');
+                $query->whereIn('status_id', request()->get('status_id') ? [request()->get('status_id')] : $statusId)->orderBy('updated_at', 'DESC');
                 break;
             case 'rejected':
                 // dd(intval(request()->get('status_id')));
@@ -171,7 +176,7 @@ class MasterReportController extends Controller
                     ApplicationStatusEnum::REJECTED_AT_DISTRICT_INDUSTRIES_CENTER->id(),
                     ApplicationStatusEnum::REJECTED_AT_DISTRICT_LEVEL_COMMITTEE->id()
                 ];
-                $query->whereIn('status_id', $statusId)->orderBy('updated_at', 'DESC');
+                $query->whereIn('status_id', request()->get('status_id') ? [request()->get('status_id')] : $statusId)->orderBy('updated_at', 'DESC');
                 $title = "Rejeted Application at all level";
                 break;
             case 'cgtmse':
@@ -193,16 +198,16 @@ class MasterReportController extends Controller
             default:
             if(request()->get('status_id') == 100){
                 $statusId = [
-                     309, 310, 311, 312, 313, 314, 315, 316, 317, 318, 319, 320
+                     309, 310, 311, 312, 313, 314, 315, 316, 317, 318, 319, 320,321
                 ];
             }else{
                 $statusId = intval(request()->get('status_id')) ? [intval(request()->get('status_id'))] :  [
-                    303, 304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 314, 315, 316, 317, 318, 319, 320
+                    303, 304, 305, 306, 307, 308, 309, 310, 311, 312, 313, 314, 315, 316, 317, 318, 319, 320, 321
                 ];
                 
             }
             if(request()->route()->parameter('step') == 1){
-                $statusId = intval(request()->get('status_id')) ? [intval(request()->get('status_id'))] :  [314, 315, 316, 317, 318, 319, 320];
+                $statusId = intval(request()->get('status_id')) ? [intval(request()->get('status_id'))] :  [314, 315, 316, 317, 318, 319, 320,321];
                 $query = Application::whereIn('status_id',$statusId);
             }else{
                 $query->whereIn('status_id',$statusId);
@@ -211,7 +216,6 @@ class MasterReportController extends Controller
                 $title = "All Applications";
                 break;
         }
-    
         return ['query' => $query, 'statusId' => $statusId, 'title' => $title];
     }
     public function getDataFromDistricts(Request $request){

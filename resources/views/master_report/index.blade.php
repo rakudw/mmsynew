@@ -49,14 +49,19 @@ $notPendingNotRejected = ($type == 'pending' || $type == 'rejected');
                                     @if (!$notPendingNotRejected && $isStep60Or40)
                                         <th>60% CIS</th>{{-- 12 --}}
                                     @endif
-                                    
+                                    @if (!$notPendingNotRejected && $isStep60Or40)
+                                        <th>60% DATE</th>{{-- 12 --}}
+                                    @endif
                                     @if ($step == '40' && !$notPendingNotRejected)
                                         <th>40% CIS</th>{{-- 13 --}}
                                     @endif
-                                    
-                                    @if (!$notPendingNotRejected && $step == '40')
-                                        <th>100% CGTMSE</th>{{-- 14 --}}
+                                    @if ($step == '40' && !$notPendingNotRejected)
+                                        <th>40% DATE</th>{{-- 13 --}}
                                     @endif
+                                    
+                                    {{-- @if (!$notPendingNotRejected && $step == '40')
+                                        <th>100% CGTMSE</th>
+                                    @endif --}}
                                     @if ($step == '40' && !$isPending)
                                         <th>Total</th>{{-- 15 --}}
                                     @endif
@@ -93,13 +98,21 @@ $notPendingNotRejected = ($type == 'pending' || $type == 'rejected');
                                             <td class="text-left">{{ optional($application->data->subsidy)->amount60 ?? 'NA' }} </td>{{-- 12 --}}
                                         @endif
                                         
+                                        @if (!$notPendingNotRejected && $isStep60Or40)
+                                            <td class="text-left">{{ optional($application->data->subsidy)->date60 ?? 'NA' }} </td>{{-- 12 --}}
+                                        @endif
+                                        
                                         @if ($step == '40' && !$notPendingNotRejected)
                                             <td class="text-left">{{ optional($application->data->subsidy)->amount40 ?? 'NA' }}</td>{{-- 13 --}}
                                         @endif
                                         
-                                        @if (!$notPendingNotRejected && $step == '40')
-                                            <td class="text-left">14405.44</td>{{-- 14 --}}
+                                        @if ($step == '40' && !$notPendingNotRejected)
+                                            <td class="text-left">{{ optional($application->data->subsidy)->date40 ?? 'NA' }}</td>{{-- 13 --}}
                                         @endif
+                                        
+                                        {{-- @if (!$notPendingNotRejected && $step == '40')
+                                            <td class="text-left">14405.44</td>
+                                        @endif --}}
                                         @if ($step == '40' && !$isPending)
                                             <td class="text-left">{{ $application->getProjectCostAttribute() }}</td>{{-- 15 --}}
                                         @endif

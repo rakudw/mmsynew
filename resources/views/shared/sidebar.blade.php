@@ -55,6 +55,20 @@
                                             <x-slot:title>{{ __('Pending for Interest Release') }}</x-slot:title>
                                         </x-sidebar.nav-link>
                                     </x-sidebar.nav-item>
+                                @elseif(auth()->user()->isGm())
+                                    <x-sidebar.nav-item>
+                                        <x-sidebar.nav-link href="{{ route('dashboard.pendency', 313) }}" :active="request()->routeIs('dashboard.pendency.id', 313)">
+                                            <x-slot:icon></x-slot:icon>
+                                            <x-slot:title>{{ __('Pending for 60% Request') }}</x-slot:title>
+                                        </x-sidebar.nav-link>
+                                    </x-sidebar.nav-item>
+                                    
+                                    <x-sidebar.nav-item>
+                                        <x-sidebar.nav-link href="{{ route('dashboard.pendency', 321) }}" :active="request()->routeIs('dashboard.pendency.id', 321)">
+                                            <x-slot:icon></x-slot:icon>
+                                            <x-slot:title>{{ __('Pending for 40% Request') }}</x-slot:title>
+                                        </x-sidebar.nav-link>
+                                    </x-sidebar.nav-item>
                                 @else
                                     <x-sidebar.nav-item>
                                         <x-sidebar.nav-link href="{{ route('dashboard.pendency') }}" :active="request()->routeIs('dashboard.pendency')">

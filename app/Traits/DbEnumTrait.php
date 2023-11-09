@@ -16,12 +16,13 @@ trait DbEnumTrait
      */
     public function id():int {
         $first = collect(CacheHelper::cached(CacheKeyEnum::ALL_ENUMS))->where(function($e) {
+            
             return $e['name'] == $this->value;
         })->first();
         if($first) {
             return $first['id'];
         }
-        return null;
+        return 0;
     }
 
     /**

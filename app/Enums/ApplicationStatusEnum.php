@@ -23,6 +23,7 @@ enum ApplicationStatusEnum:string
     case PENDING_60_SUBSIDY_REQUEST = 'Pending at DIC for 60% Subsidy Request';
     case PENDING_60_SUBSIDY_RELEASE = 'Pending at Nodal Bank for 60% Subsidy Release';
     case SUBSIDY_60_RELEASED = '60% Subsidy Released';
+    case PENDING_40_SUBSIDY_REQUEST = 'Pending at DIC for 40% Subsidy Request';
     case PENDING_40_SUBSIDY_RELEASE = 'Pending at Nodal Bank for 40% Subsidy Release';
     case SUBSIDY_40_RELEASED = '40% Subsidy Released';
     case PENDING_INTEREST_SUBSIDY_RELEASE = 'Pending at Nodal Bank for Interest Subsidy Release';
