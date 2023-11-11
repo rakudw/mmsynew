@@ -1,5 +1,4 @@
 @props(['applications' => [], 'meeting' => null, 'status' => true, 'selectedApplications' => [], 'page' => 'pendency'])
-
 <x-table.table class="table table-flush align-items-center text-sm">
     <x-table.head>
         <x-table.tr>
@@ -47,11 +46,17 @@
                             </div>
                         </x-table.td>
                     @else
+                        <x-table.td>
+                            {{ $index + 1 }}
+                        </x-table.td>
                         <x-table.td colspan="2">
                             {{ $application->unique_id }}
                         </x-table.td>
                     @endif
                 @else
+                    <x-table.td>
+                        {{ $index + 1 }}
+                    </x-table.td>
                     <x-table.td>
                         {{ $application->unique_id }}
                     </x-table.td>

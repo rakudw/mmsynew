@@ -338,9 +338,22 @@ class DashboardController extends Controller
      */
     public function meetingApplication(Meeting $meeting)
     {
+
+        $query = trim(request()->get('search'));
+        $applications = $meeting->applications();
+        if ($query) {
+            $applications->whereRaw("LOWER(`name`) LIKE ?", ['%' . strtolower($query) . '%'])
+                ->orWhereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.enterprise.name'))) LIKE ?", ['%' . strtolower($query) . '%'])
+                ->orWhereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.enterprise.address'))) LIKE ?", ['%' . strtolower($query) . '%'])
+                ->orWhereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.enterprise.pincode'))) LIKE ?", ['%' . strtolower($query) . '%'])
+                ->orWhereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.owner.pan'))) LIKE ?", ['%' . strtolower($query) . '%'])
+                ->orWhereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.owner.email'))) LIKE ?", ['%' . strtolower($query) . '%'])
+                ->orWhereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.owner.name'))) LIKE ?", ['%' . strtolower($query) . '%']);
+        }
+        $applications = $applications->get();
         $title = "Applications listed for Meeting";
         $this->addJs('resources/ts/pendency.ts');
-        return view('dashboard.meeting', compact('title', 'meeting'));
+        return view('dashboard.meeting', compact('title', 'meeting','applications'));
     }
 
     public function agenda(Meeting $meeting, $download = 1)

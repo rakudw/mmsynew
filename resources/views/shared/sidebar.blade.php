@@ -379,12 +379,12 @@
                                     </x-sidebar.nav-link>
                                 </x-sidebar.nav-item>
 
-                                <x-sidebar.nav-item>
+                                {{-- <x-sidebar.nav-item>
                                     <x-sidebar.nav-link href="https://mmsy.hp.gov.in/old-portal/page/report" target="_blank">
                                         <x-slot:icon><em class="material-icons opacity-10">list_alt</em></x-slot:icon>
                                         <x-slot:title>{{ __('Old Portal Status') }}</x-slot:title>
                                     </x-sidebar.nav-link>
-                                </x-sidebar.nav-item>
+                                </x-sidebar.nav-item> --}}
                             @endif
                             @if(auth()->user()->isNodalBank())
                               

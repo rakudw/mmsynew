@@ -13,6 +13,21 @@
 @endsection
 
 @section('content')
+    <x-cards.header class="px-md-4 py-md-3">
+        <form class="row">
+            <div class="col-12">
+                <h6>Filters</h6>
+            </div>
+            <div class="col-md-4">
+                <input placeholder="Search" type="search" class="form-control" name="search" value="{{ request()->get('search') }}" />
+            </div>
+            <div class="col-md-4 text-center">
+                <button class="btn btn-primary" type="submit">Apply</button>
+            </div>
+        </form>
+        <hr />
+        <h5 class="mb-0">{{ __("Application Details") }}</h5>
+    </x-cards.header>
     <x-forms.form-section action="{{ route('dashboard.applications.status', $meeting) }}" id="applicationStatus" class="my-3" method="PUT">
         <div class="col-12 my-3">
             <x-slot name="title">
@@ -23,7 +38,7 @@
             </x-slot>
             <x-slot name="form">
                 <div class="col-md-12 mb-3">
-                    <x-application.list :meeting="$meeting" page="schedule" :applications="$meeting->applications" :status="false" />
+                    <x-application.list :meeting="$meeting" page="schedule" :applications="$applications" :status="false" />
                 </div>
                 @if(auth()->user()->isGm() && ($meeting->applications->count() > 0) && !$meeting->was_conducted && ($meeting->datetime < date('Y-m-d H:i:s')))
                     <div class="col-md-6 px-lg-3 px-2 pt-3">
