@@ -24,7 +24,7 @@ class SMSHelper
         'RELEASE_60' => ['1107162488004720295', "[MMSY]\n We are excited to inform you that 60 Percent of your subsidy amount has been released by the nodal bank to your chosen financial bank. Please continue to stay in touch with your financial bank for further details regarding the disbursement of your subsidy.\n- Department of Industries"],
         'RELEASE_40' => ['1107162488004720295', "[MMSY]\n We are pleased to inform you that the remaining 40 Percent of your subsidy amount has been released by the nodal bank to your chosen financial bank. This marks the completion of the subsidy disbursement process for your MMSY application.\n- Department of Industries"],
         'NEW_OTP_MSG' => ['1107162488004720295', "[MMSY]\n Dear Applicant, please use the One-Time Password '%s' to log in to your application. The OTP will be valid for 5 minutes.\n- Department of Industries"],
-        'OTP_MSG' => ['1107162488004720295', "[MMSY]\n Dear User, please use the One-Time Password '%s' to further proceed. The OTP will be valid for 10 minutes.\n- Department of Industries"],
+        'OTP_MSG' => ['1107162488004720295', "[MMSY]\n Your One-Time Password (OTP) for verification is: '%s'. This OTP is valid for the next 10 minutes."],
     ];
 
     public static function sendSMS(string $mobile, string $templateId, array $params): bool

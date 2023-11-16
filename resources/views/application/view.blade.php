@@ -1002,7 +1002,7 @@
                 
             });
         @endif
-        @if(isset($actions[\App\Enums\ApplicationStatusEnum::SUBSIDY_40_RELEASED->id()]))
+        @if(isset($actions[\App\Enums\ApplicationStatusEnum::PENDING_40_SUBSIDY_REQUEST->id()]))
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
             const submitButton = $("#submitButton");
             const otpModal = $("#otpModal");
