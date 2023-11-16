@@ -77,6 +77,10 @@
           mobileDropdown.slideToggle(); // Show/hide the mobile dropdown
           $(".nav-ul").toggleClass("active"); // Add/remove extra class to the menu
       });
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
   });
   
   

@@ -37,6 +37,12 @@
 @section('scripts')
 <script>
     $(document).ready(function() {
+        @if($errors->any())
+            $('#myModalError').show();
+            @endif
+            $('.closeMe').click(function(){
+                $('#myModalError').hide();
+            })
         // When the page is loaded, check the initial value of marital status
         checkMaritalStatus();
     
@@ -60,6 +66,7 @@
             }
         }
 
+       
         $("#constitution_type_id").change(function() {
             // Check if the selected value is "101" (Proprietorship)
             if ($(this).val() === "101") {
@@ -80,7 +87,7 @@
                 $('#ConstitutionModal input, #ConstitutionModal select').prop('required', true);
             }
         });
-
+        $("#constitution_type_id").trigger('change');
         document.getElementById('addPartnerButton').addEventListener('click', function() {
             const partnerRowTemplate = document.querySelector('.partner-row');
             const newPartnerRow = partnerRowTemplate.cloneNode(true);

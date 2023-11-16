@@ -42,14 +42,29 @@
             @if(session()->has('success'))
                 <x-alert type="success" :message="session()->get('success')" class="mt-4"/>
             @endif
-            @if(session()->has('danger'))
-                <x-alert type="danger" :message="session()->get('danger')" class="mt-4"/>
-            @endif
-            @if ($errors->any())
+            <div id="myModalError"  class="modal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="btn-close closeMe" data-bs-dismiss="modal" aria-label="Close">x</button>
+                        </div>
+                        <div class="modal-body">
+                            @if ($errors->any())
+                                @foreach ($errors->all() as $error)
+                                    <div class="alert alert-danger alert-dismissible text-white" role="alert">
+                                        <span class="text-sm">{!! $error !!}</span>
+                                    </div>
+                                @endforeach
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{-- @if ($errors->any())
                 @foreach ($errors->all() as $error)
                     <x-alert :message="$error" :type="'danger'"/>
                 @endforeach
-            @endif
+            @endif --}}
             @yield('content')
         </div>
     </main>
@@ -57,5 +72,6 @@
     @vite(['resources/ts/admin.ts', ...(empty($pageVars['assets']['js']) ? [] : $pageVars['assets']['js'])])
     @yield('scripts')
 </body>
+   
 
 </html>
