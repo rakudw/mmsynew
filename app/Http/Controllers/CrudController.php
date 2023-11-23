@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Interfaces\CrudInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Models\Bank;
+use App\Models\BankBranch;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CrudController extends Controller
 {
@@ -137,6 +140,100 @@ class CrudController extends Controller
         return view('crud.form', ['model' => $model]);
     }
 
+    public function bulkUpload()
+    {
+        return view('crud.bulk-upload');
+    }
+    public function processUpload(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls',
+        ]);
+        $file = $request->file('file');
+
+        $data = Excel::toArray([], $file)[0];
+
+        // Uncomment this to find the missing bank in new excel
+        // foreach ($data as $index => $row) {
+        //     // Skip the header row
+        //     if ($index === 0) {
+        //         continue;
+        //     }
+        //     // Check if the 'BANK NAME' key exists in the row
+        //     if (isset($row[3])) {
+        //         $bankNameInExcel = $row[3];
+
+        //         $matchingBank = $this->fuzzySearchBank($bankNameInExcel);
+        //     } else {
+        //         echo "BANK NAME key not found in row $index.";
+        //     }
+        // }
+        foreach ($data as $index => $row) {
+            if ($index === 0) {
+                continue;
+            }
+            // Extracting data from the Excel row
+            $ifscCode = $row[0];
+            $bankName = $row[3];
+            $branchName = $row[4];
+            $districtName = $row[7];
+            $address = $row[6];
+            $cityName = $row[5];
+            $micrCode = $row[2];
+            $stdCode = $row[9];
+            $phoneNumber = $row[10];
+            $neftEnabled = $row[11];
+            $rtgsEnabled = $row[12];
+            $lcsEnabled = $row[13];
+            $bgsEnabled = $row[14];
+    
+            // Search or create the bank
+            $bank = $this->fuzzySearchBank($bankName);
+    
+            if (!$bank) {
+                continue;
+            }
+    
+            // Search or create the district
+            $district = District::where('name', $districtName)->first();
+    
+            if (!$district) {
+                continue;
+            }
+    
+            // Create or update the bank branch
+            // $bankBranch = BankBranch::updateOrCreate(
+            //     ['ifsc' => $ifscCode],
+            //     [
+            //         'address' => $address,
+            //         'bank_id' => $bank->id,
+            //         'bgs_enabled' => $bgsEnabled,
+            //         'city_name' => $cityName,
+            //         'created_by' => 0,
+            //         'district_id' => $district->id,
+            //         'lcs_enabled' => $lcsEnabled,
+            //         'micr_code' => $micrCode,
+            //         'name' => $branchName,
+            //         'neft_enabled' => $neftEnabled,
+            //         'phone_number' => $phoneNumber,
+            //         'rtgs_enabled' => $rtgsEnabled,
+            //         'std_code' => $stdCode,
+            //     ]
+            // );
+        }
+dd('sd');
+        return redirect()->route('upload.form')->with('success', 'Data uploaded and updated successfully.');
+    }
+    private function fuzzySearchBank($bankNameInExcel)
+    {
+        $matchingBank = Bank::whereRaw('LOWER(name) = ?', [strtolower($bankNameInExcel)])->first();
+        if($matchingBank){
+            return $matchingBank;
+        }else{
+            echo $bankNameInExcel . "Not found in DB please correct the name in DB or Add" ."<br>";
+            return null;
+        }
+    }
     /**
      * Update the specified resource in storage.
      *

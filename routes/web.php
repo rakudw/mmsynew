@@ -144,6 +144,8 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::controller(CrudController::class)->prefix('/crud/')->group(function () {
+        Route::get('/bulk', 'bulkUpload')->name('crud.bulk');
+        Route::post('/process-upload', 'processUpload')->name('crud.upload');
         Route::get('/{class}', 'index')->name('crud.list');
         Route::get('/create/{class}', 'create')->name('crud.create');
         Route::post('/store/{class}', 'store')->name('crud.store');

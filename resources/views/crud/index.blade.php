@@ -13,6 +13,12 @@
                 <em class="fa fa-plus-circle"></em>
                 Create New
             </a>
+            @if($pageVars['class'] == 'bank-branch')
+                <a class="btn btn-secondary" href="{{ route('crud.bulk') }}">
+                    <em class="fa fa-plus-circle"></em>
+                    Bulk Upload
+                </a>
+            @endif
         </p>
     </nav>
 @endsection
