@@ -18,10 +18,10 @@ return new class extends Migration
             $table->string('city_name')->nullable();
             $table->string('std_code')->nullable();
             $table->string('phone_number')->nullable();
-            $table->boolean('neft_enabled')->nullable();
-            $table->boolean('rtgs_enabled')->nullable();
-            $table->boolean('lcs_enabled')->nullable();
-            $table->boolean('bgs_enabled')->nullable();
+            $table->string('neft_enabled')->nullable();
+            $table->string('rtgs_enabled')->nullable();
+            $table->string('lcs_enabled')->nullable();
+            $table->string('bgs_enabled')->nullable();
         });
     }
 

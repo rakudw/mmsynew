@@ -32,6 +32,15 @@ class BankBranch extends Base implements CrudInterface
         'bank_id',
         'ifsc',
         'prefix',
+        'bgs_enabled',
+        'city_name',
+        'created_by',
+        'lcs_enabled',
+        'micr_code',
+        'neft_enabled',
+        'phone_number',
+        'rtgs_enabled',
+        'std_code',
     ];
 
     public function getDetailsAttribute()

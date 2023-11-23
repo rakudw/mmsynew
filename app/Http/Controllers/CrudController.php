@@ -6,6 +6,7 @@ use App\Interfaces\CrudInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Bank;
+use App\Models\Region;
 use App\Models\BankBranch;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -195,34 +196,35 @@ class CrudController extends Controller
             }
     
             // Search or create the district
-            $district = District::where('name', $districtName)->first();
-    
+            $district = Region::where('name', $districtName)->where('type_id', 404)->first();
             if (!$district) {
+                dd('District Name Not Fount' . $districtName . "Please correct in Excel and try again!");
                 continue;
+            }else{
+
             }
     
             // Create or update the bank branch
-            // $bankBranch = BankBranch::updateOrCreate(
-            //     ['ifsc' => $ifscCode],
-            //     [
-            //         'address' => $address,
-            //         'bank_id' => $bank->id,
-            //         'bgs_enabled' => $bgsEnabled,
-            //         'city_name' => $cityName,
-            //         'created_by' => 0,
-            //         'district_id' => $district->id,
-            //         'lcs_enabled' => $lcsEnabled,
-            //         'micr_code' => $micrCode,
-            //         'name' => $branchName,
-            //         'neft_enabled' => $neftEnabled,
-            //         'phone_number' => $phoneNumber,
-            //         'rtgs_enabled' => $rtgsEnabled,
-            //         'std_code' => $stdCode,
-            //     ]
-            // );
+            $bankBranch = BankBranch::updateOrCreate(
+                ['ifsc' => $ifscCode],
+                [
+                    'address' => $address,
+                    'bank_id' => $bank->id,
+                    'bgs_enabled' => $bgsEnabled,
+                    'city_name' => $cityName,
+                    'created_by' => 0,
+                    'district_id' => $district->id,
+                    'lcs_enabled' => $lcsEnabled,
+                    'micr_code' => $micrCode,
+                    'name' => $branchName,
+                    'neft_enabled' => $neftEnabled,
+                    'phone_number' => $phoneNumber,
+                    'rtgs_enabled' => $rtgsEnabled,
+                    'std_code' => 0,
+                ]
+            );
         }
-dd('sd');
-        return redirect()->route('upload.form')->with('success', 'Data uploaded and updated successfully.');
+        return redirect()->back()->with('success', 'Data uploaded and updated successfully.');
     }
     private function fuzzySearchBank($bankNameInExcel)
     {
