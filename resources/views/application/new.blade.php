@@ -69,7 +69,7 @@
        
         $("#constitution_type_id").change(function() {
             // Check if the selected value is "101" (Proprietorship)
-            if ($(this).val() === "101") {
+            if ($(this).val() === "101" || $(this).val() === "") {
                 // Remove the "required" attribute from all input fields and selects in the modal
                 $('#ConstitutionModal input, #ConstitutionModal select').prop('required', false);
                 
