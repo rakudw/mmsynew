@@ -174,19 +174,12 @@ class CrudController extends Controller
                 continue;
             }
             // Extracting data from the Excel row
-            $ifscCode = $row[0];
-            $bankName = $row[3];
-            $branchName = $row[4];
-            $districtName = $row[7];
-            $address = $row[6];
+            $ifscCode = $row[3];
+            $bankName = $row[1];
+            $branchName = $row[2];
+            $districtName = $row[5];
+            $address = $row[4];
             $cityName = $row[5];
-            $micrCode = $row[2];
-            $stdCode = $row[9];
-            $phoneNumber = $row[10];
-            $neftEnabled = $row[11];
-            $rtgsEnabled = $row[12];
-            $lcsEnabled = $row[13];
-            $bgsEnabled = $row[14];
     
             // Search or create the bank
             $bank = $this->fuzzySearchBank($bankName);
@@ -198,7 +191,7 @@ class CrudController extends Controller
             // Search or create the district
             $district = Region::where('name', $districtName)->where('type_id', 404)->first();
             if (!$district) {
-                dd('District Name Not Fount' . $districtName . "Please correct in Excel and try again!");
+                dd('District Name Not Found' . $districtName . "Please correct in Excel and try again!");
                 continue;
             }else{
 
@@ -210,17 +203,9 @@ class CrudController extends Controller
                 [
                     'address' => $address,
                     'bank_id' => $bank->id,
-                    'bgs_enabled' => $bgsEnabled,
-                    'city_name' => $cityName,
                     'created_by' => 0,
                     'district_id' => $district->id,
-                    'lcs_enabled' => $lcsEnabled,
-                    'micr_code' => $micrCode,
                     'name' => $branchName,
-                    'neft_enabled' => $neftEnabled,
-                    'phone_number' => $phoneNumber,
-                    'rtgs_enabled' => $rtgsEnabled,
-                    'std_code' => 0,
                 ]
             );
         }
