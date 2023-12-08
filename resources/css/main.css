@@ -27,7 +27,10 @@ h3.name-in-middle-slide {
 }
 
 
-
+.nav.navcustommain {margin: 0 auto;}
+.image-text {
+    width: 100%;
+}
   
   .minister_image_name img {
     background-color: white !important;
