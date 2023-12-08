@@ -255,7 +255,7 @@
                             </x-sidebar.nav-link>
                             </x-sidebar.nav-item>
                             <x-sidebar.nav-item>
-                            <x-sidebar.nav-link href="{{ route('crud.list', ['class' => 'usefultip']) }}" :active="request()->routeIs('crud.*') && request()->route()->parameter('class') == 'usefultip'">
+                            <!-- <x-sidebar.nav-link href="{{ route('crud.list', ['class' => 'usefultip']) }}" :active="request()->routeIs('crud.*') && request()->route()->parameter('class') == 'usefultip'">
                                 <x-slot:icon><em class="material-icons opacity-10">construction</em></x-slot:icon>
                                 <x-slot:title>{{ __('Useful Tips') }}</x-slot:title>
                             </x-sidebar.nav-link>
@@ -264,7 +264,7 @@
                             <x-sidebar.nav-link href="{{ route('crud.list', ['class' => 'dlcmeeting']) }}" :active="request()->routeIs('crud.*') && request()->route()->parameter('class') == 'dlcmeeting'">
                                 <x-slot:icon><em class="material-icons opacity-10">construction</em></x-slot:icon>
                                 <x-slot:title>{{ __('DLC Meeting') }}</x-slot:title>
-                            </x-sidebar.nav-link>
+                            </x-sidebar.nav-link> -->
                             </x-sidebar.nav-item>
                             <x-sidebar.nav-item>
                                 <x-sidebar.nav-link href="{{ route('crud.list', ['class' => 'bank-branch']) }}" :active="request()->routeIs('crud.*') && request()->route()->parameter('class') == 'bank-branch'">
