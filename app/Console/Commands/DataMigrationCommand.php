@@ -148,7 +148,18 @@ class DataMigrationCommand extends Command
 
                     $applicationStatus = ApplicationStatusEnum::PENDING_60_SUBSIDY_RELEASE;
 
-                    $this->addApplicationTimeline($application, ApplicationStatusEnum::PENDING_FOR_LOAN_DISBURSEMENT, ApplicationStatusEnum::PENDING_60_SUBSIDY_REQUEST, $this->tryParseDateTime($oldAnnexureA->gaa_approved_by), 'Loan Approved', RoleEnum::BANK_MANAGER, $application->bank_branch_manager_ids[0]);
+                    $managerIds = $application->bank_branch_manager_ids ?? [];
+                    $managerId = !empty($managerIds) ? $managerIds[0] : null;
+
+                    $this->addApplicationTimeline(
+                        $application,
+                        ApplicationStatusEnum::PENDING_FOR_LOAN_DISBURSEMENT,
+                        ApplicationStatusEnum::PENDING_60_SUBSIDY_REQUEST,
+                        $this->tryParseDateTime($oldAnnexureA->gaa_approved_by),
+                        'Loan Approved',
+                        RoleEnum::BANK_MANAGER,
+                        $managerId
+                    );
 
                     $applicationData = $application->data;
                     $applicationData->loan = [
@@ -194,14 +205,24 @@ class DataMigrationCommand extends Command
                             }
                         }
                     }
-
                     $application->update([
                         'data' => $applicationData,
                         'status_id' => $applicationStatus->id(),
                     ]);
 
                 } else if($oldAnnexureA->gaa_status == 3 || $oldAnnexureA->gaa_status == 4) { // rejected
-                    $this->addApplicationTimeline($application, ApplicationStatusEnum::PENDING_FOR_LOAN_DISBURSEMENT, ApplicationStatusEnum::LOAN_REJECTED, $this->tryParseDateTime($oldAnnexureA->gaa_created), $oldAnnexureA->gaa_remarks ? $oldAnnexureA->gaa_remarks : 'Loan Rejected', RoleEnum::BANK_MANAGER, $application->bank_branch_manager_ids[0]);
+                    $bankBranchManagerIds = $application->bank_branch_manager_ids ?? [];
+                    $managerId = !empty($bankBranchManagerIds) ? $bankBranchManagerIds[0] : null;
+
+                    $this->addApplicationTimeline(
+                        $application,
+                        ApplicationStatusEnum::PENDING_FOR_LOAN_DISBURSEMENT,
+                        ApplicationStatusEnum::LOAN_REJECTED,
+                        $this->tryParseDateTime($oldAnnexureA->gaa_created),
+                        $oldAnnexureA->gaa_remarks ? $oldAnnexureA->gaa_remarks : 'Loan Rejected',
+                        RoleEnum::BANK_MANAGER,
+                        $managerId
+                    );
 
                     $application->update([
                         'status_id' => ApplicationStatusEnum::LOAN_REJECTED->id(),
