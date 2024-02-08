@@ -439,6 +439,7 @@ class DataMigrationCommand extends Command
                     'creator_role_id' => $creatorRole?->value,
                     'remarks' => $remarks,
                     'created_at' => $datetime,
+                    'created_by' => $userId ? $userId : 1,
                 ]);
         } else {
             DB::table('application_timelines')
@@ -449,7 +450,7 @@ class DataMigrationCommand extends Command
                     'creator_role_id' => $creatorRole?->value,
                     'remarks' => $remarks,
                     'created_at' => $datetime,
-                    'created_by' => $userId,
+                    'created_by' => $userId ? $userId : 1 ,
                 ]);
         }
     }
