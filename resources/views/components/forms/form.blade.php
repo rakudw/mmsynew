@@ -952,7 +952,7 @@
                 return false; // Prevent form submission
             } else {
                 projectCostError.textContent = ""; // Clear custom error message
-                return true; // Allow form submission
+                return confirm("Are you sure you want to submit the form?");
             }
         }
 

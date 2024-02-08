@@ -350,12 +350,12 @@
                                                     </ul>
                                                     <p class="lead text-center">{{ $application->bank_branch_details }}</p>
                                                     @if(\App\Helpers\ApplicationHelper::getBranchEmail($application->data->finance->bank_branch_id))
-                                                        <p class="lead text-center">
+                                                        <div class="lead text-center">
                                                             <span>Branch Emails: </span>
                                                             @foreach (\App\Helpers\ApplicationHelper::getBranchEmail($application->data->finance->bank_branch_id) as $data) 
                                                         [ <b> {{ $data['email'] }} </b> ]
                                                             @endforeach
-                                                        </p>
+                                                        </div>
                                                     @endif
                                                 </div>
                                                 <div class="col-md-4">

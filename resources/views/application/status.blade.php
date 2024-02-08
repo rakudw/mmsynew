@@ -110,7 +110,26 @@
     <!-- Application Status and Note -->
     @if(count($applications))
     <div class="text-center">
+        
+    @php
+        $printedRemarks = []; 
+    @endphp
+
+    @if(isset($application->timelines) && count($application->timelines) > 0)
+        @foreach($application->timelines as $timeline)
+            @if(isset($timeline->remarks) && !in_array($timeline->remarks, $printedRemarks))
+                @php
+                    $printedRemarks[] = $timeline->remarks; 
+                @endphp
+                <h5 style="background-color: rgb(255, 138, 48); padding: 10px; color: white">{{ $timeline->remarks }}</h5>
+            @endif
+        @endforeach
+    @else
+        <p>No timelines available.</p>
+    @endif
+
         <h5 style="background-color: rgb(255, 138, 48); padding: 10px; color: white">{{ $application->status->name }}</h5>
+
         @if($application->status->id == 306)
             <p>Your application is submitted and pending at DIC. You will get notifications for further actions.</br> आपका आवेदन सबमिट किया गया है और DIC में लंबित है। आपको आगे की कार्रवाई के लिए सूचनाएं मिलेंगी।</p>
         @endif
