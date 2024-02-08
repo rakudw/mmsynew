@@ -132,9 +132,6 @@
         <p>No status updates available.</p>
     @endif
 
-        <p>No timelines available.</p>
-    @endif
-
         <h5 style="background-color: rgb(255, 138, 48); padding: 10px; color: white">{{ $application->status->name }}</h5>
 
         @if($application->status->id == 306)
