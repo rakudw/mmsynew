@@ -287,17 +287,34 @@
         //     }
         // });
         $('#project_cost').val(totalAmount.toFixed(2));
+        return totalAmount.toFixed(2)
     }
 
     // Attach input event handlers to the subsidized fields
     $('#building_cost, #assets_cost, #machinery_cost, #working_capital_cc').on('input', function() {
         console.log("Input field value changed.");
         calculateTotal();
+        var total = calculateTotal();
+        // console.log(total);
+        if (total > 10000000) {
+            // Show popup
+            alert("Admissible Project cost under this scheme is up to 1cr!");
+        }
     });
 
     // Calculate the initial total amount
     calculateTotal();
-
+    function onClickFunction() {
+            // Your onclick logic here
+            // calculateTotal();
+        var total = calculateTotal();
+        console.log("total",total);
+        if (total > 10000000) {
+            // Show popup
+            alert("Admissible Project cost under this scheme is up to 1cr!");
+        }
+        }
+        $('#submit-button').on('click', onClickFunction);
     // Function to calculate Own Contribution Amount
     function calculateOwnContributionAmount() {
         const projectCost = parseFloat($('#project_cost').val()) || 0;

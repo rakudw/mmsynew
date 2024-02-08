@@ -947,7 +947,9 @@
             const projectCostError = document.getElementById("project_cost_error");
 
             // Your custom validation logic
-            if (selectedActivityType === "84" && parseFloat(projectCostValue) > 1000000) {
+            // console.log('yahayuaya'selectedActivityType, activityTypeField)
+            if ((selectedActivityType === "83" || selectedActivityType === "84") && parseFloat(projectCostValue) > 1000000) {
+                console.log('andr')
                 projectCostError.textContent = "Admissible Project cost under this scheme is up to 1 crore.";
                 return false; // Prevent form submission
             } else {
