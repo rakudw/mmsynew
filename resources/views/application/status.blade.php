@@ -116,16 +116,16 @@
     @endphp
 
     @if(isset($application->timelines) && count($application->timelines) > 0)
-        @foreach($application->timelines as $timeline)
-            @if(isset($timeline->remarks) && !in_array($timeline->remarks, $printedRemarks))
-                @php
-                    $printedRemarks[] = $timeline->remarks; 
-                @endphp
-                <h5 style="background-color: rgb(255, 138, 48); padding: 10px; color: white">{{ $timeline->remarks }}</h5>
-            @endif
-        @endforeach
+            @foreach($application->timelines as $timeline)
+                @if(isset($timeline->remarks) && !in_array($timeline->remarks, $printedRemarks))
+                    @php
+                        $printedRemarks[] = $timeline->remarks; 
+                    @endphp
+                        <span style="background-color: rgb(255, 138, 48); padding: 5px 10px; color: white; border-radius: 5px;">{{ $timeline->remarks }}</span> &nbsp; &nbsp;
+                @endif
+            @endforeach
     @else
-        <p>No timelines available.</p>
+        <p>No status updates available.</p>
     @endif
 
         <h5 style="background-color: rgb(255, 138, 48); padding: 10px; color: white">{{ $application->status->name }}</h5>
