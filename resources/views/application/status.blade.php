@@ -117,6 +117,8 @@
 
     @if(isset($application->timelines) && count($application->timelines) > 0)
         <div style="margin-bottom: 20px">
+        <h5 style="background-color: rgb(255, 138, 48); padding: 10px; color: white">REMARKS</h5>
+
             @foreach($application->timelines as $key => $timeline)
                 @if(isset($timeline->remarks) && !in_array($timeline->remarks, $printedRemarks))
                     @php
