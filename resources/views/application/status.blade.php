@@ -116,14 +116,16 @@
     @endphp
 
     @if(isset($application->timelines) && count($application->timelines) > 0)
-            @foreach($application->timelines as $timeline)
+        <div style="margin-bottom: 20px">
+            @foreach($application->timelines as $key => $timeline)
                 @if(isset($timeline->remarks) && !in_array($timeline->remarks, $printedRemarks))
                     @php
                         $printedRemarks[] = $timeline->remarks; 
                     @endphp
-                        <span style="background-color: rgb(255, 138, 48); padding: 5px 10px; color: white; border-radius: 5px;">{{ $timeline->remarks }}</span> &nbsp; &nbsp;
+                        <span style="background-color: rgb(255, 138, 48); padding: 5px 10px; color: white; border-radius: 5px; display:inline-block; margin:10px ">{{ $timeline->remarks }} </span> &nbsp; &nbsp; @if($key < count($application->timelines) - 1) => @endif
                 @endif
             @endforeach
+        </div>
     @else
         <p>No status updates available.</p>
     @endif
