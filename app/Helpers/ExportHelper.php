@@ -21,7 +21,7 @@ class ExportHelper
 
         // $spreadsheet->writeSheetRow('Sheet1', ['#', 'ID', 'Enterprise', 'Activity', 'Applicant', 'Category', 'Land', 'Building', 'Furniture, Fixtures & Other Fixed Assets', 'Machinery', 'Working Capital', 'Own Contribution', 'Term Loan', 'Working Capital', 'Project Cost', 'Subsidy', 'Bank', 'Bank Comments']);
 
-        foreach (['#', 'ID', 'Enterprise', 'Activity', 'Applicant', 'Category', 'Land', 'Building', 'Furniture, Fixtures & Other Fixed Assets', 'Machinery', 'Working Capital', 'Own Contribution', 'Term Loan', 'Working Capital', 'Project Cost', 'Subsidy', 'Bank',  'Bank Email', 'Bank Comments'] as $i => $header) {
+        foreach (['#', 'Name', 'Mobile', 'Email', 'ID', 'Enterprise', 'Activity', 'Category', 'Employment Generation', 'Land', 'Building', 'Furniture, Fixtures & Other Fixed Assets', 'Machinery', 'Working Capital', 'Own Contribution', 'Term Loan', 'Working Capital', 'Project Cost', 'Subsidy', 'Bank',  'Bank Email', 'Bank Comments'] as $i => $header) {
             $spreadsheet->getActiveSheet()->setCellValue(self::getExcelColumnName($i) . '1', $header);
         }
 
@@ -44,12 +44,15 @@ class ExportHelper
             }
             $dataArray[] = [
                 $i + 1,
+                ($application->getData('owner', 'gender') == 'Male' ? 'Mr.' : ($application->getData('owner', 'gender') == 'Female' ? 'Ms.' : '')) . ' ' . $application->getData('owner', 'name'),
+                $application->getData('owner', 'mobile'),
+                ($application->getData('owner', 'email') ? "\n" . $application->getData('owner', 'email') : ''),
                 $application->unique_id,
                 "M/s {$application->getData('enterprise', 'name')}\n{$application->address}",
-                "{$application->activity_type->value} - {$application->activity}", ($application->getData('owner', 'gender') == 'Male' ? 'Mr.' : ($application->getData('owner', 'gender') == 'Female' ? 'Ms.' : '')) . ' ' . $application->getData('owner', 'name') . "\n{$application->getData('owner', 'mobile')}" . ($application->getData('owner', 'email') ? "\n" . $application->getData('owner', 'email') : ''),
+                "{$application->activity_type->value} - {$application->activity}",
 
                 $applicantCategory,
-
+                $application->getData('enterprise', 'employment'),
                 $formatter->format($application->getData('cost', 'land_cost', null, 0) / 100000),
                 $formatter->format($application->getData('cost', 'building_cost') / 100000),
                 $formatter->format($application->getData('cost', 'assets_cost') / 100000),
