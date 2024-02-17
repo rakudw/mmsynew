@@ -154,13 +154,14 @@
                                             <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label for="Select Type" class="form-label">Enter Amount</label>
-                                                    <input required type="text" id="amount" placeholder="Enter Amount here" class="form-control" name="amount"/>
+                                                    <input style="border: 1px solid #bb004c !important;" required type="text" id="amount" placeholder="Enter Amount here" class="form-control" name="amount"/>
                                                 </div>
                                             </div>
-                                            <div class="col-md-2">
-                                                <div class="form-group">
-                                                    <label for="Select Type" class="form-label">Select Date</label>
-                                                    <input required type="date" placeholder="Choose here" id="date"  class="form-control" name="date"/>
+                                            <div class="col-md-4">
+                                                <label class="form-label">Select Date Range</label>
+                                                <div id="dateRangePicker" style="display: flex; justify-content: space-between; width: 300px;">
+                                                    <input type="text" style="padding: 8px; width: 140px; border: 1px solid #ccc; border-radius: 4px;" class="form-control" id="startDate" value="{{ request()->get('startDate') }}" name="startDate" placeholder="Start Date">
+                                                    <input type="text" style="padding: 8px; width: 140px; border: 1px solid #ccc; border-radius: 4px;" class="form-control" id="endDate" name="endDate" value="{{ request()->get('endDate') }}" placeholder="End Date">
                                                 </div>
                                             </div>
                                             <div class="col-md-2">
@@ -190,7 +191,8 @@
                                                     <tr>
                                                         <th class="text-center">Year</th>
                                                         <th class="text-center">Amount</th>
-                                                        <th class="text-center">Date</th> <!-- Add a Date column -->
+                                                        <th class="text-center">Start Date</th>
+                                                        <th class="text-center">End Date</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -199,19 +201,20 @@
                                                             <tr>
                                                                 <td class="text-center">{{ $year }}</td>
                                                                 <td class="text-center">{{ $data->amount }}</td>
-                                                                <td class="text-center">{{ $data->date }}</td> <!-- Display the date -->
+                                                                <td class="text-center">{{ $data->startDate }}</td>
+                                                                <td class="text-center">{{ $data->endDate }}</td>
                                                             </tr>
                                                         @endforeach
                                                     @else
                                                         <tr>
-                                                            <td colspan="3" class="text-center">No CGTMSE data available.</td>
+                                                            <td colspan="4" class="text-center">No CGTMSE data available.</td>
                                                         </tr>
                                                     @endif
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
-                                
+
                                     <!-- Card for Interest data -->
                                     <div class="card">
                                         <div class="card-header">
@@ -223,7 +226,8 @@
                                                     <tr>
                                                         <th class="text-center">Year</th>
                                                         <th class="text-center">Amount</th>
-                                                        <th class="text-center">Date</th> <!-- Add a Date column -->
+                                                        <th class="text-center">Start Date</th>
+                                                        <th class="text-center">End Date</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -232,12 +236,13 @@
                                                             <tr>
                                                                 <td class="text-center">{{ $year }}</td>
                                                                 <td class="text-center">{{ $data->amount }}</td>
-                                                                <td class="text-center">{{ $data->date }}</td> <!-- Display the date -->
+                                                                <td class="text-center">{{ $data->startDate }}</td>
+                                                                <td class="text-center">{{ $data->endDate }}</td>
                                                             </tr>
                                                         @endforeach
                                                     @else
                                                         <tr>
-                                                            <td colspan="3" class="text-center">No Interest data available.</td>
+                                                            <td colspan="4" class="text-center">No Interest data available.</td>
                                                         </tr>
                                                     @endif
                                                 </tbody>
@@ -245,10 +250,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                
                             </div>
                         </div>
                     </div>
+
                     
                     @else
                         <div class="row gx-4 mb-2 mt-2 px-3">
@@ -679,7 +684,7 @@
                                     <x-forms.label class="form-label">Disbursed Amount</x-forms.label>
                                     <x-forms.input type="number" required="required" value="{{ old('applicationData[loan][disbursed_amount]', $application->getData('loan', 'disbursed_amount', null, round($application->term_loan * 0.3))) }}" min="{{ round($application->term_loan * 0.3) }}" max="{{ $application->term_loan + $application->finance_working_capital }}" name="applicationData[loan][disbursed_amount]" class="form-control w-100" />
                                 </x-forms.input-group>
-                                <small class="mt-1">* Should be atleast 30% of the term loan amount!</small>
+                                <small class="mt-1">* Should be atleast 30% of the project cost!</small>
                             </div>
                             <div class="col-12 col-sm-6 col-md-4 mb-3 mt-3 mt-sm-0">
                                 <x-forms.input-group :dynamic="true">
@@ -900,7 +905,9 @@
 @endsection
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
 <script>
     $(document).ready(function() {
         console.log('dasdugauds')
@@ -936,7 +943,7 @@
                 $('#date').val(''); // Clear the date field
             }
         })
-        @if(isset($actions[\App\Enums\ApplicationStatusEnum::PENDING_60_SUBSIDY_RELEASE->id()]))
+        @if(isset($actions[\App\Enums\ApplicationStatusEnum::PENDING_60_SUBSIDY_RELEASE->id()]) && auth()->user()->isGm())
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
             const submitButton = $("#submitButton");
             const otpModal = $("#otpModal");
@@ -1002,7 +1009,8 @@
                 
             });
         @endif
-        @if(isset($actions[\App\Enums\ApplicationStatusEnum::PENDING_40_SUBSIDY_REQUEST->id()]))
+        @if(isset($actions[\App\Enums\ApplicationStatusEnum::PENDING_40_SUBSIDY_REQUEST->id()])
+        && auth()->user()->isGm())
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
             const submitButton = $("#submitButton");
             const otpModal = $("#otpModal");
@@ -1068,5 +1076,69 @@
                 
             });
         @endif
+        
     });
+    $(document).ready(function() {
+    function initDatepicker() {
+        const datePickerOptions = {
+            changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+            dateFormat: 'yy/mm/dd',
+            onSelect: function(dateText, inst) {
+                const selectedDate = new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay);
+                const id = inst.input[0].id;
+                if (id === 'startDate') {
+                    endDateInput.datepicker('option', 'minDate', selectedDate);
+                } else {
+                    startDateInput.datepicker('option', 'maxDate', selectedDate);
+                }
+            },
+            onChangeMonthYear: function(year, month, inst) {
+                // Update the year selection
+                var yearSelect = $('.ui-datepicker-year');
+                if (!yearSelect.length) {
+                    $('<div class="ui-datepicker-row-break"></div>').insertAfter($('.ui-datepicker-month'));
+                    $('<label class="ui-datepicker-year-label">Year:</label>').insertBefore($('.ui-datepicker-month'));
+                    yearSelect = $('<select class="ui-datepicker-year"></select>').insertBefore($('.ui-datepicker-month'));
+                    yearSelect.on('change', function() {
+                        inst.selectedYear = $(this).val();
+                        inst.dpDiv.find('.ui-datepicker-year').val(inst.selectedYear);
+                        inst.dpDiv.find('.ui-datepicker-close').click();
+                    });
+                }
+                yearSelect.empty();
+                var currentYear = new Date().getFullYear();
+                for (var i = currentYear; i >= 2019; i--) {
+                    yearSelect.append($('<option></option>').attr('value', i).text(i));
+                }
+            }
+        };
+
+        const selectedStartDate = '{{ request()->get('startDate') }}';
+        const selectedEndDate = '{{ request()->get('endDate') }}';
+
+        const defaultStartDate = new Date(2019, 3, 1);
+        const defaultEndDate = new Date();
+
+        const startDateInput = $('#startDate');
+        const endDateInput = $('#endDate');
+
+        // Check if the selected start date is empty, if so, use the default start date
+        const startDate = selectedStartDate ? selectedStartDate : defaultStartDate.toLocaleDateString('en-GB');
+
+        // Check if the selected end date is empty, if so, use the default end date
+        const endDate = selectedEndDate ? selectedEndDate : defaultEndDate.toLocaleDateString('en-GB');
+
+        // Set the selected start date and end date values to the date inputs
+        $('#startDate').val(startDate);
+        $('#endDate').val(endDate);
+
+        startDateInput.datepicker(datePickerOptions);
+        endDateInput.datepicker(datePickerOptions);
+    }
+
+    initDatepicker();
+});
+
 </script>

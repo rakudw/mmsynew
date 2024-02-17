@@ -31,9 +31,19 @@
             </div>
         
         @endif
-        <div class="col-md-2">
-            <label class="form-label">Select FY</label>
+        <div class="col-md-4">
+            <label class="form-label">Select Date Range</label>
+            <div id="dateRangePicker" style="display: flex; justify-content: space-between; width: 300px;">
+                <input type="text" style="padding: 8px; width: 140px; border: 1px solid #ccc; border-radius: 4px;" class="form-control" id="startDate" value="{{ request()->get('startDate') }}" name="startDate" placeholder="Start Date">
+                <input type="text" style="padding: 8px; width: 140px; border: 1px solid #ccc; border-radius: 4px;" class="form-control" id="endDate" name="endDate" value="{{ request()->get('endDate') }}" placeholder="End Date">
+            </div>
+        </div>
+
+     
+        <div class="col-md-4">
+            <label class="form-label">Select FY (Leave Blank if Selecting DateRange)</label>
             <select class="form-control fy" title="{{ request()->get('fy') }}" name="fy" id="status-id">
+                <option value="">Select FY</option>
                 <option value="All">-- All --</option>
                 <option value="2023-2024" @selected(request()->get('fy') == '2023-2024')>2023-2024</option>
                 <option value="2022-2023" @selected(request()->get('fy') == '2022-2023')>2022-2023</option>
@@ -186,7 +196,7 @@
         @if($activities)
             <div class="col-md-2">
                 <label class="form-label">Select Activity</label>
-                <select style="width: 200px" class="form-control" title="{{ is_array(request()->get('activity_id')) }}" name="activity_id" id="activity-id">
+                <select style="width: 200px" class="form-control activities" title="{{ is_array(request()->get('activity_id')) }}" name="activity_id" id="activity-id">
                     <option value="All">-- All --</option>
                     @foreach($activities as $activity)
                             <option value="{{ $activity->id }}" @selected(request()->get('activity_id') == $activity->id)>{{ $activity->name }}</option>
@@ -197,8 +207,9 @@
         </div>
 </form>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+
 <script>
     // JavaScript to handle custom multiselect
     $(document).ready(function () {
@@ -248,6 +259,19 @@
         if (perPage) {
             queryParams.push(`per_page=${encodeURIComponent(perPage)}`);
         }
+                // Get default start and end dates
+        const defaultStartDate = $('#startDate').datepicker('getDate');
+        const defaultEndDate = $('#endDate').datepicker('getDate');
+
+        // Format default dates
+        const formattedStartDate = $.datepicker.formatDate('yy/mm/dd', defaultStartDate);
+        const formattedEndDate = $.datepicker.formatDate('yy/mm/dd', defaultEndDate);
+
+        // Add default dates to queryParams
+        queryParams.push(`start_date=${encodeURIComponent(formattedStartDate)}`);
+        queryParams.push(`end_date=${encodeURIComponent(formattedEndDate)}`);
+
+        console.log('queryParams',queryParams)
         // Construct the URL with the query parameters
         const url = `${window.location.pathname}?${queryParams.join('&')}`;
 
@@ -394,5 +418,68 @@
             });
         }
     });
+
+    $(document).ready(function() {
+    function initDatepicker() {
+        const datePickerOptions = {
+            changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+            dateFormat: 'yy/mm/dd',
+            onSelect: function(dateText, inst) {
+                const selectedDate = new Date(inst.selectedYear, inst.selectedMonth, inst.selectedDay);
+                const id = inst.input[0].id;
+                if (id === 'startDate') {
+                    endDateInput.datepicker('option', 'minDate', selectedDate);
+                } else {
+                    startDateInput.datepicker('option', 'maxDate', selectedDate);
+                }
+            },
+            onChangeMonthYear: function(year, month, inst) {
+                // Update the year selection
+                var yearSelect = $('.ui-datepicker-year');
+                if (!yearSelect.length) {
+                    $('<div class="ui-datepicker-row-break"></div>').insertAfter($('.ui-datepicker-month'));
+                    $('<label class="ui-datepicker-year-label">Year:</label>').insertBefore($('.ui-datepicker-month'));
+                    yearSelect = $('<select class="ui-datepicker-year"></select>').insertBefore($('.ui-datepicker-month'));
+                    yearSelect.on('change', function() {
+                        inst.selectedYear = $(this).val();
+                        inst.dpDiv.find('.ui-datepicker-year').val(inst.selectedYear);
+                        inst.dpDiv.find('.ui-datepicker-close').click();
+                    });
+                }
+                yearSelect.empty();
+                var currentYear = new Date().getFullYear();
+                for (var i = currentYear; i >= 2019; i--) {
+                    yearSelect.append($('<option></option>').attr('value', i).text(i));
+                }
+            }
+        };
+
+        const selectedStartDate = '{{ request()->get('startDate') }}';
+        const selectedEndDate = '{{ request()->get('endDate') }}';
+
+        const defaultStartDate = new Date(2019, 3, 1);
+        const defaultEndDate = new Date();
+
+        const startDateInput = $('#startDate');
+        const endDateInput = $('#endDate');
+
+        // Check if the selected start date is empty, if so, use the default start date
+        const startDate = selectedStartDate ? selectedStartDate : defaultStartDate.toLocaleDateString('en-GB');
+
+        // Check if the selected end date is empty, if so, use the default end date
+        const endDate = selectedEndDate ? selectedEndDate : defaultEndDate.toLocaleDateString('en-GB');
+
+        // Set the selected start date and end date values to the date inputs
+        $('#startDate').val(startDate);
+        $('#endDate').val(endDate);
+
+        startDateInput.datepicker(datePickerOptions);
+        endDateInput.datepicker(datePickerOptions);
+    }
+
+    initDatepicker();
+});
 
 </script>

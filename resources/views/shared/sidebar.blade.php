@@ -408,7 +408,7 @@
         @endif
       
 
-        @if(auth()->user()->isSuperAdmin())
+        @if(auth()->user()->isSuperAdmin() || auth()->user()->isGm())
             <x-sidebar.nav-item>
                 <x-sidebar.sub-menu :active="request()->routeIs('numaric_report.*')" :menuId="'numaric_reports'">
                     <x-slot:icon><em class="material-icons opacity-10">report</em></x-slot:icon>

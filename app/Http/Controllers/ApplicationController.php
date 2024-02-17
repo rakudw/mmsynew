@@ -778,28 +778,30 @@ class ApplicationController extends Controller
         if ($request->type == "cgtmse" || $request->type == "interest") {
             $year = $request->year;
             $amount = $request->amount;
-            $date = $request->date;
-    
+            $startDate = $request->startDate;
+            $endDate = $request->endDate;
+
             $data = json_decode(json_encode($application->data), true);
-    
+
             $typeKey = $request->type;
-    
+
             if (!array_key_exists($typeKey, $data)) {
                 $data[$typeKey] = [];
             }
-    
+
             if (!array_key_exists('years', $data[$typeKey])) {
                 $data[$typeKey]['years'] = [];
             }
-    
+
             if ($year >= 1 && $year <= 7) {
                 $data[$typeKey]['years'][$year] = [
-                    'date' => $date,
+                    'startDate' => $startDate,
+                    'endDate' => $endDate,
                     'amount' => $amount,
                 ];
-    
+
                 $application->data = json_decode(json_encode($data));
-    
+
                 $application->save();
             }
         } else {

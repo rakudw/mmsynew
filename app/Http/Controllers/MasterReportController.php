@@ -127,7 +127,14 @@ class MasterReportController extends Controller
             // Add a condition to filter by fiscal year
             $query->whereBetween('created_at', [$startDate, $endDate]);
             
+        }else{
+            if(request()->get('startDate')){
+                $startDate = request()->get('startDate');
+                $endDate = request()->get('endDate');
+                $query->whereBetween('created_at', [$startDate, $endDate]);
+            }
         }
+       
         switch (request()->route()->parameter('type')) {
             case 'pending':
                 // dd(request()->get('status_id'));
@@ -367,77 +374,86 @@ class MasterReportController extends Controller
             ];
     
             // Loop through each fiscal year
-            foreach ($selectedFiscalYears as $fiscalYear) {
-                list($startYear, $endYear) = explode('-', $fiscalYear);
-    
-                $startDate = "{$startYear}-04-01";
-                $endDate = "{$endYear}-03-31";
-    
-                $receivedCount = Application::where('region_id', $districtId)
-                    ->whereNot('status_id', 302)
-                    ->whereBetween('created_at', [$startDate, $endDate])
-                    ->count();
-                // Build the query to count approved applications
-                $approvedCount = Application::where('region_id', $districtId)
-                    ->where('status_id', '>', 308) 
-                    ->whereBetween('created_at', [$startDate, $endDate])
-                    ->count();
-    
-                // Build the query to count rejected applications by DLC
-                $rejectedByDlcCount = Application::where('region_id', $districtId)
-                    ->whereIn('status_id', [310]) 
-                    ->whereBetween('created_at', [$startDate, $endDate])
-                    ->count();
-    
-                // Build the query to count rejected applications by bank
-                $rejectedByBankCount = Application::where('region_id', $districtId)
-                    ->whereIn('status_id', [304]) 
-                    ->whereBetween('created_at', [$startDate, $endDate])
-                    ->count();
-    
-                // Build the query to count pending applications for DLC
-                $pendingForDlcCount = Application::where('region_id', $districtId)
-                    ->whereIn('status_id', [309])
-                    ->whereBetween('created_at', [$startDate, $endDate])
-                    ->count();
-    
-                // Build the query to count pending applications at the bank
-                $pendingAtBankCount = Application::where('region_id', $districtId)
-                    ->whereIn('status_id', [308])
-                    ->whereBetween('created_at', [$startDate, $endDate])
-                    ->count();
-    
-                // Update the totals
-                $totals['Received'] += $receivedCount;
-                $totals['Approved'] += $approvedCount;
-                $totals['RejectedByDLC'] += $rejectedByDlcCount;
-                $totals['RejectedByBank'] += $rejectedByBankCount;
-                $totals['PendingForDLC'] += $pendingForDlcCount;
-                $totals['PendingAtBank'] += $pendingAtBankCount;
-    
-                // Create an array for the current fiscal year's data
-                $fiscalYearData = [
-                    'Year' => $fiscalYear,
-                    'Received' => $receivedCount,
-                    'Approved' => $approvedCount,
-                    'Rejected By DLC' => $rejectedByDlcCount,
-                    'Rejected By Bank' => $rejectedByBankCount,
-                    'Pending For DLC' => $pendingForDlcCount,
-                    'Pending At Bank' => $pendingAtBankCount,
-                ];
-    
-                // Add the fiscal year data to the 'Year' key
-                $districtData['Year'][] = $fiscalYearData;
+            $fronFun = [];
+            if(!$selectedFY){
+                $startDate = request()->get('startDate') ?: '2019/04/01';
+                $endDate = request()->get('endDate') ?: date('Y/m/d');
+                $fronFun[] = $this->iterateBetweenDates($startDate, $endDate, null, $districtId, $totals, $districtData);
+            }else{
+                foreach ($selectedFiscalYears as $fiscalYear) {
+                    list($startYear, $endYear) = explode('-', $fiscalYear);
+                    $startDate = "{$startYear}-04-01";
+                    $endDate = "{$endYear}-03-31";
+                   $fronFun[] = $this->iterateBetweenDates($startDate, $endDate, $fiscalYear, $districtId, $totals, $districtData);
+                  
+                }
             }
-    
             // Add the district data to the report data
-            $reportData[] = $districtData;
+            $reportData = $fronFun;
         }
-    
         // Add the totals to the report data
         $reportData[] = ['Total' => $totals];
     
         return $reportData;
+    }
+    public function iterateBetweenDates($startDate, $endDate, $fiscalYear, $districtId, $totals, $districtData)
+    {
+
+        $receivedCount = Application::where('region_id', $districtId)
+            ->whereNot('status_id', 302)
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->count();
+        // Build the query to count approved applications
+        $approvedCount = Application::where('region_id', $districtId)
+            ->where('status_id', '>', 308) 
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->count();
+
+        // Build the query to count rejected applications by DLC
+        $rejectedByDlcCount = Application::where('region_id', $districtId)
+            ->whereIn('status_id', [310]) 
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->count();
+
+        // Build the query to count rejected applications by bank
+        $rejectedByBankCount = Application::where('region_id', $districtId)
+            ->whereIn('status_id', [304]) 
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->count();
+
+        // Build the query to count pending applications for DLC
+        $pendingForDlcCount = Application::where('region_id', $districtId)
+            ->whereIn('status_id', [309])
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->count();
+
+        // Build the query to count pending applications at the bank
+        $pendingAtBankCount = Application::where('region_id', $districtId)
+            ->whereIn('status_id', [308])
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->count();
+
+        // Update the totals
+        $totals['Received'] += $receivedCount;
+        $totals['Approved'] += $approvedCount;
+        $totals['RejectedByDLC'] += $rejectedByDlcCount;
+        $totals['RejectedByBank'] += $rejectedByBankCount;
+        $totals['PendingForDLC'] += $pendingForDlcCount;
+        $totals['PendingAtBank'] += $pendingAtBankCount;
+
+        // Create an array for the current fiscal year's data
+        $fiscalYearData = [
+            'Year' => $fiscalYear ? $fiscalYear : null ,
+            'Received' => $receivedCount,
+            'Approved' => $approvedCount,
+            'Rejected By DLC' => $rejectedByDlcCount,
+            'Rejected By Bank' => $rejectedByBankCount,
+            'Pending For DLC' => $pendingForDlcCount,
+            'Pending At Bank' => $pendingAtBankCount,
+        ];
+        // Add the fiscal year data to the 'Year' key
+        $districtData['Year'][] = $fiscalYearData;
+        return $districtData;
     }
     public function numaricQueryReleased($districtIds, $selectedFY,$statusCodes)
     {
@@ -462,45 +478,26 @@ class MasterReportController extends Controller
                 'Year' => [],
             ];
     
-            // Loop through each fiscal year
-            foreach ($selectedFiscalYears as $fiscalYear) {
-                list($startYear, $endYear) = explode('-', $fiscalYear);
-    
-                $startDate = "{$startYear}-04-01";
-                $endDate = "{$endYear}-03-31";
-    
-                // Initialize an array to store counts for each status
-                $statusCounts = [];
-    
-                // Loop through status codes
-                foreach ($statusCodes as $status) {
-                    // Build the query to count applications for the current status
-                    $statusCount = Application::where('region_id', $districtId)
-                        ->where('status_id', $status['id'])
-                        ->whereBetween('created_at', [$startDate, $endDate])
-                        ->count();
-    
-                    // Update the status count
-                    $statusCounts[$status['name']] = $statusCount;
-    
-                    // Update the totals
-                    $totals[$status['name']] += $statusCount;
+            $fronFun = [];
+            if(!$selectedFY){
+                $startDate = request()->get('startDate') ?: '2019/04/01';
+                $endDate = request()->get('endDate') ?: date('Y/m/d');
+                $fronFun[] = $this->iterateBetweenDatesAllStatus($statusCodes, $startDate, $endDate, null, $districtId, $totals, $districtData);
+            }else{
+               // Loop through each fiscal year
+                foreach ($selectedFiscalYears as $fiscalYear) {
+                    list($startYear, $endYear) = explode('-', $fiscalYear);
+        
+                    $startDate = "{$startYear}-04-01";
+                    $endDate = "{$endYear}-03-31";
+                    $fronFun[] = $this->iterateBetweenDatesAllStatus($statusCodes, $startDate, $endDate, $fiscalYear, $districtId, $totals, $districtData);
+                   
                 }
-    
-                // Create an array for the current fiscal year's data
-                $fiscalYearData = [
-                    'Year' => $fiscalYear,
-                ];
-    
-                // Merge status counts into the fiscal year data
-                $fiscalYearData = array_merge($fiscalYearData, $statusCounts);
-    
-                // Add the fiscal year data to the 'Year' key
-                $districtData['Year'][] = $fiscalYearData;
             }
+            
     
             // Add the district data to the report data
-            $reportData[] = $districtData;
+            $reportData = $fronFun;
         }
     
         // Add the totals to the report data
@@ -509,6 +506,37 @@ class MasterReportController extends Controller
         return $reportData;
     }
     
+    public function iterateBetweenDatesAllStatus($statusCodes, $startDate, $endDate, $fiscalYear, $districtId, $totals, $districtData)
+    {
+         // Initialize an array to store counts for each status
+         $statusCounts = [];
+        
+         // Loop through status codes
+         foreach ($statusCodes as $status) {
+             // Build the query to count applications for the current status
+             $statusCount = Application::where('region_id', $districtId)
+                 ->where('status_id', $status['id'])
+                 ->whereBetween('created_at', [$startDate, $endDate])
+                 ->count();
+
+             // Update the status count
+             $statusCounts[$status['name']] = $statusCount;
+
+             // Update the totals
+             $totals[$status['name']] += $statusCount;
+         }
+
+         // Create an array for the current fiscal year's data
+         $fiscalYearData = [
+             'Year' => $fiscalYear,
+         ];
+
+         // Merge status counts into the fiscal year data
+         $fiscalYearData = array_merge($fiscalYearData, $statusCounts);
+         // Add the fiscal year data to the 'Year' key
+         $districtData['Year'][] = $fiscalYearData;
+         return $districtData;
+    }
     public function exportReports(Request $request)
     {
         // Retrieve the flashed data from the session
