@@ -445,8 +445,8 @@ class Application extends Base implements Auditable
     {
         if ($this->getData('enterprise', 'activity_type_id') == ActivityTypeEnum::MANUFACTURING->id()) {
             return collect(CacheHelper::cached(CacheKeyEnum
-            ::ALL_ACTIVITIES))->where('id', $this->getData('enterprise', 'activity_id'));
-            // ->firstOrFail()['name'] . ', ' . $this->getData('enterprise', 'products');
+            ::ALL_ACTIVITIES))->where('id', $this->getData('enterprise', 'activity_id'))
+            ->firstOrFail()['name'] . ', ' . $this->getData('enterprise', 'products');
         } else {
             return collect(CacheHelper::cached(CacheKeyEnum
             ::ALL_ACTIVITIES))->where('id', $this->getData('enterprise', 'activity_id'))

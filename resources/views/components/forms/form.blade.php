@@ -138,6 +138,14 @@
                                 <!-- (25) -->
                                 <tr class="sub_row">
                                     <th></th>
+                                    <th ><strong>Post Office/पोस्ट ऑफ़िस:</strong></th>
+                                    <td colspan="4">
+                                        <input type="text" id="owner_po" name="owner_po" value="{{ old('owner_address', $application ? $application->data->owner->post_office : '') }}" required>
+                                        <small>Enter Post Office Name</small>
+                                    </td>
+                                </tr>
+                                <tr class="sub_row">
+                                    <th></th>
                                     <th ><strong>House Number/Street/Landmark/Village name /घर क्रमांक/सड़क/सूचना/गांव का नाम:</strong></th>
                                     <td colspan="4">
                                         <input type="text" id="owner_address" name="owner_address" value="{{ old('owner_address', $application ? $application->data->owner->address : '') }}" required>
@@ -267,6 +275,7 @@
                                     <th>(14)</th>
                                     <th ><strong>Name of Proposed Unit / प्रस्तावित इकाई का नाम:</strong></th>
                                     <td colspan="4">
+                                        <small>M/S :</small>
                                         <input type="text" id="name" name="name" value="{{ old('name', $application ? $application->data->enterprise->name : '') }}" required autofocus>
                                         <small>The name of the unit you want to set.</small>
                                     </td>
@@ -545,6 +554,14 @@
                                             <!-- Populate options dynamically using JavaScript or your backend -->
                                         </select>
                                         <small>Panchayat/Town</small>
+                                    </td>
+                                </tr>
+                                <tr class="sub_row">
+                                    <th></th>
+                                    <th ><strong>Post Office/पोस्ट ऑफ़िस:</strong></th>
+                                    <td colspan="4">
+                                        <input type="text" id="enterprise_po" name="enterprise_po" value="{{ old('employment', $application ? $application->data->enterprise->post_office : '') }}"  required>
+                                        <small>Enter Post Office Name</small>
                                     </td>
                                 </tr>
                                 <tr class="sub_row">

@@ -58,7 +58,7 @@
                                 @foreach($doctype as $doc)
                                 <tr>
                                     <th>{{$doc->id}}</th>
-                                    <th><strong>{{$doc->name}}</strong></th>
+                                    <th><strong id="{{$doc->id}}">{{$doc->name}}</strong></th>
                                         <td colspan="6" style="display: flex;
                                         justify-content: end;">
                                             <form action="{{ route('application.upload', ['application' => $application ,'documentType' => $doc->id]) }}" method="post" enctype="multipart/form-data">
@@ -80,7 +80,7 @@
                                                 @if($doc->id == 7)
                                                     <input type="file" name="file" @if ($application->data->owner->social_category_id == '602' || $application->data->owner->social_category_id == '603') {{'required'}} @endif>
                                                 @else
-                                                    <input type="file" name="file" required>
+                                                    <input type="file" name="file" id="{{$doc->id}}" required>
                                                 @endif
                                                     <button class="btn btn-sm btn-primary" type="submit">Upload</button>
                                                     <span id="upload-message"></span>
@@ -99,6 +99,9 @@
                                                     <input type="hidden" name="type" value="newDoc"/>
                                                     <button class="btn btn-primary" type="button" id="previewButton" >Preview</button>
                                                     <button class="btn btn-success" type="submit" id="finalSubmissionButton" disabled>Final Submission</button>
+                                                    <!-- <a class="btn btn-primary "style="margin-left: 5px;" 
+                                                    href="{{ route('application.details', ['application' => $application->id]) }}"
+                                                    download="Application-Details-{{ $application->id }}.pdf"><em class="fa fa-download"></em> Print / Download</a> -->
                                                 </form>
                                             </div>
                                         </td>
@@ -115,6 +118,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="applicationModalLabel">Application Data</h5>
+                    <!-- <a class="btn btn-primary text-white btn-sm"style="margin-left: 30px;" 
+                                href="{{ route('application.details', ['application' => $application->id]) }}"
+                                download="Application-Details-{{ $application->id }}.pdf"><em class="fa fa-download"></em> Print / Download</a> -->
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -393,11 +399,12 @@
                 </table>
                       <!-- Documents section -->
                       @foreach($allApplicationDocuments as $document)
-                      <div class="document-container">
-                          <h6>{{ $document->document_name }}</h6>
-                          <iframe src="{{ route('application.document', ['document' => $document->document_id]) }}" sandbox="allow-downloads" frameborder="0" style="width: 100%; height: 200px;"></iframe>
-                      </div>
-                  @endforeach
+                        <div class="document-container">
+                            <h6>{{ $document->document_name }}</h6>
+                            <iframe src="{{ route('application.document', ['document' => $document->document_id]) }}" sandbox="allow-downloads" frameborder="0" style="width: 100%; height: 20%;"></iframe>
+                        </div>
+                      @endforeach
+
                 </div>
                 <div class="modal-footer">
                     <!-- Download button -->
@@ -409,6 +416,32 @@
     </div>
     <script>
         $(document).ready(function() {
+            
+            
+            var docId = 3; // ID of the <strong> element you want to update
+            var newValue = "Age Proof :- 10th /Passport/Birth Certificate"; // Change this to the desired value
+
+        // Find the <strong> element by its ID and update its content
+            $('#' + docId).text(newValue);
+
+
+            $('input.document-upload').change(function() {
+            // Check if all document upload inputs have files attached
+            var allFilesUploaded = true;
+            $('input.document-upload').each(function() {
+                if ($(this).get(0).files.length === 0) {
+                    allFilesUploaded = false;
+                    return false; // Exit loop if any input has no file attached
+                }
+            });
+
+            // Enable/disable final submission button based on document upload status
+            if (allFilesUploaded) {
+                $('#finalSubmissionButton').prop('disabled', false);
+            } else {
+                $('#finalSubmissionButton').prop('disabled', true);
+            }
+        });
 
 
             function loadActivityOptions() {

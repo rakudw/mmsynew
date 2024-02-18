@@ -24,7 +24,7 @@
 
 <div class="row " id="formHolder">
     <div class="col-12">
-        <x-forms.document :application="$application" :doctype="$Documenttype" :allApplicationDocuments="$allApplicationDocuments" />
+        <x-forms.document :application="$application" :doctype="$Documenttype" :allApplicationDocuments="$allApplicationDocuments" :annexure="$annexure" />
     </div>
 </div>
 @endsection

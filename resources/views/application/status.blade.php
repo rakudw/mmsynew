@@ -124,6 +124,9 @@
                     @php
                         $printedRemarks[] = $timeline->remarks; 
                     @endphp
+                        <a class="btn btn-primary text-white btn-sm"style="margin-left: 30px;" 
+                                href="{{ route('application.details', ['application' => $application->id]) }}"
+                                download="Application-Details-{{ $application->id }}.pdf"><em class="fa fa-download"></em> Print / Download</a>
                         <span style="background-color: rgb(255, 138, 48); padding: 5px 10px; color: white; border-radius: 5px; display:inline-block; margin:10px ">{{ $timeline->remarks }} </span> &nbsp; &nbsp; @if($key < count($application->timelines) - 1) => @endif
                 @endif
             @endforeach

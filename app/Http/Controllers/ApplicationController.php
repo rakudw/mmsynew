@@ -232,6 +232,7 @@ class ApplicationController extends Controller
                     'mobile' => $request->input('owner_mobile'),
                     'aadhaar' => $request->input('owner_aadhaar'),
                     'address' => $request->input('owner_address'),
+                    'post_office' => $request->input('owner_po'),
                     'pincode' => $request->input('owner_pincode'),
                     'block_id' => $request->input('owner_block_id'),
                     'guardian' => $request->input('owner_guardian'),
@@ -261,6 +262,7 @@ class ApplicationController extends Controller
                 'enterprise' => [
                     'name' => $request->input('name'),
                     'address' => $request->input('address'),
+                    'post_office' => $request->input('enterprise_po'),
                     'pincode' => $request->input('pincode'),
                     'block_id' => $request->input('block_id'),
                     'area_type' => $request->input('area_type'),
@@ -356,18 +358,38 @@ class ApplicationController extends Controller
         auth()->login($user, true);
         return $user;
     }
-    public function newDocument(Request $request){
-        // auth()->logout();
-        $application = Application::where('created_by',auth()->user()->id)->first();
+    public function newDocument(Request $request,string $annexure = 'none') {
+        $application = Application::where('created_by', auth()->user()->id)->first();
+    
         if (!$this->user()->can('update', $application)) {
-            return redirect()->route('application.newstatus')->withErrors(['custom_error' => 'You cannot edit your application.You will get notifications for further actions.'])
-            ->withInput();
+            return redirect()->route('application.newstatus')
+                ->withErrors(['custom_error' => 'You cannot edit your application. You will get notifications for further actions.'])
+                ->withInput();
         }
+    
         $allApplicationDocuments = $application->applicationDocuments;
-        // $Documenttype = $allApplicationDocuments->keyBy('document_type_id');
+    
+        // Fetching all DocumentTypes
         $Documenttype = DocumentType::all();
-        return view('application.newdocument', compact('application','Documenttype','allApplicationDocuments'));
+        // dd($application->data->enterprise->activity_id);
+        // Check if conditions are met to include DocumentType IDs 7 and 8
+        $Documenttype = $Documenttype->reject(function ($documentType) {
+            return $documentType->id == 7 || $documentType->id == 8;
+        });
+        
+        // Include DocumentType ID 7 if the user's category is 602 or 603
+        if ($application->data->owner->social_category_id == 602 || $application->data->owner->social_category_id == 603) {
+            $Documenttype->push(DocumentType::find(7));
+        }
+        
+        // Include DocumentType ID 8 if the activity ID is 120
+        if ($application->data->enterprise->activity_id == 84) {
+            $Documenttype->push(DocumentType::find(8));
+        }
+        $annexure = strtolower($annexure) == 'none' ? null : strtolower($annexure);
+        return view('application.newdocument', compact('application', 'Documenttype', 'allApplicationDocuments','annexure'));
     }
+    
 
     /**
      * Store a newly created resource in storage.
