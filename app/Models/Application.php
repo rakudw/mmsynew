@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\DB;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
  * @property string $name
@@ -441,18 +442,37 @@ class Application extends Base implements Auditable
         return ConstitutionTypeEnum::fromId($this->getData('enterprise', 'constitution_type_id'));
     }
 
+
+
     public function getActivityAttribute(): string
-    {
-        if ($this->getData('enterprise', 'activity_type_id') == ActivityTypeEnum::MANUFACTURING->id()) {
-            return collect(CacheHelper::cached(CacheKeyEnum
-            ::ALL_ACTIVITIES))->where('id', $this->getData('enterprise', 'activity_id'))
-            ->firstOrFail()['name'] . ', ' . $this->getData('enterprise', 'products');
-        } else {
-            return collect(CacheHelper::cached(CacheKeyEnum
-            ::ALL_ACTIVITIES))->where('id', $this->getData('enterprise', 'activity_id'))
-            ->firstOrFail()['name'] . ', ' . $this->getData('enterprise', 'activity_details');
+{
+    try {
+        $activities = CacheHelper::cached(CacheKeyEnum::ALL_ACTIVITIES);
+        
+        if (!$activities) {
+            throw new ModelNotFoundException('Activities cache is empty');
         }
+        
+        $activity = collect($activities)
+            ->where('id', $this->getData('enterprise', 'activity_id'))
+            ->first();
+        
+        if (!$activity) {
+            throw new ModelNotFoundException('Activity not found');
+        }
+
+        if ($this->getData('enterprise', 'activity_type_id') == ActivityTypeEnum::MANUFACTURING->id()) {
+            return $activity['name'] . ', ' . $this->getData('enterprise', 'products');
+        } else {
+            return $activity['name'] . ', ' . $this->getData('enterprise', 'activity_details');
+        }
+    } catch (ModelNotFoundException $exception) {
+        // Handle the exception here, e.g., log it, return a default value, or throw a custom exception
+        return 'Activity not found';
     }
+}
+
+    
 
     public function getApplicantAgeAttribute(): int
     {

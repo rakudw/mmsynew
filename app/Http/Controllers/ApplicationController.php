@@ -1039,16 +1039,17 @@ class ApplicationController extends Controller
 
     public function sendOTP(Request $request)
     {
+        $user = User::findOrFail(auth()->id());
+        $identity = $user->mobile ?? $user->email;
         
-        $User = User::where('id',auth()->user()->id)->first();
-        $identity = $User->mobile;
-        if ($identity == null){
-            $identity = $User->email;
+        if (!$identity) {
+            return response()->json(['success' => false, 'message' => 'User does not have a valid mobile number or email']);
         }
-        // return response()->json(['success' => false, 'data' => $identity]);
+        
         $otps = Otp::where('identity', $identity)->get();
         $currentOtp = null;
-        $template_name = 'OTP_MSG';
+        $template_name = 'OTP_MSG_GM';
+        
         foreach ($otps as $otp) {
             if ($otp->expires_at < now()) {
                 $otp->forceDelete();
@@ -1063,16 +1064,24 @@ class ApplicationController extends Controller
             ]);
 
             if (!env('APP_DEBUG')) {
-                if ($currentOtp->isForEmail()) {
-                  $result = Mail::to($identity)->send(new OtpMail($currentOtp));
-                //   return response()->json( $result);
-                } else {
-                    $this->otp($identity,$template_name);
+                if ($user->mobile) {
+                    // Send OTP to mobile
+                    $this->otp($identity, $template_name);
+                }
+
+                if ($user->email) {
+                    // Send OTP to email
+                    Mail::to($user->email)->send(new OtpMail($currentOtp));
                 }
             }
         }
 
-        return response()->json(['hash' => md5($currentOtp->code), 'resendAfter' => Carbon::parse($currentOtp->expires_at)->diffInMilliseconds(now()),'status' => 202, 'success' => true], 202);
+        return response()->json([
+            'hash' => md5($currentOtp->code),
+            'resendAfter' => Carbon::parse($currentOtp->expires_at)->diffInMilliseconds(now()),
+            'status' => 202,
+            'success' => true
+        ], 202);
     }
     public function verifyOTP(Request $request){
         
