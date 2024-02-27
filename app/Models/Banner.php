@@ -24,8 +24,9 @@ class Banner extends Base implements CrudInterface
         'title',
         'description',
         'image',
-        'cm_image',
         'minister_image',
+        'minister_name',
+        'minister_designation',
         'status',
         'year',
         'type',
@@ -118,7 +119,6 @@ class Banner extends Base implements CrudInterface
                 'helpText' => 'Link associated with the banner.',
                 'attributes' => (object)[
                     'name' => 'link',
-                    'required' => 'required',
                 ],
             ],(object)[
                 'type' => 'input',
@@ -131,17 +131,8 @@ class Banner extends Base implements CrudInterface
                     'required' => 'required',
                     'placeholder' => 'Banner image',
                 ],
-            ],(object)[
-                'type' => 'input',
-                'label' => 'CM Image',
-                'width' => '12',
-                'helpText' => 'Image associated with the CM.',
-                'attributes' => (object)[
-                    'name' => 'cm_image',
-                    'type' => 'file', // This indicates it's a file input
-                    'placeholder' => 'CM image',
-                ],
-            ],(object)[
+            ],
+            (object)[
                 'type' => 'input',
                 'label' => 'Minister Image',
                 'width' => '12',
@@ -151,7 +142,29 @@ class Banner extends Base implements CrudInterface
                     'type' => 'file', // This indicates it's a file input
                     'placeholder' => 'Minister image',
                 ],
-            ],
+            ],(object)[
+                'type' => 'textarea',
+                'label' => 'Minister Name',
+                'width' => '12',
+                'noLabel' => true,
+                'helpText' => 'The name of the Minister.',
+                'attributes' => (object)[
+                    'name' => 'minister_name',
+                    'required' => 'required',
+                    'placeholder' => 'Minister name',
+                ],
+            ],(object)[
+                'type' => 'textarea',
+                'label' => 'Minister Designation',
+                'width' => '12',
+                'noLabel' => true,
+                'helpText' => 'Name of the Minister Designation.',
+                'attributes' => (object)[
+                    'name' => 'minister_designation',
+                    'required' => 'required',
+                    'placeholder' => 'Minister Designation',
+                ],
+            ]
             // Add more form fields as needed
         ];
     }
@@ -162,12 +175,12 @@ class Banner extends Base implements CrudInterface
             'title' => 'required|max:511',
             'description' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'cm_image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             'minister_image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'minister_name' => 'required',
+            'minister_designation' => 'required',
             'status' => 'required',
             'year' => 'required|numeric|min:2000|max:' . date('Y'),
             'type' => 'required',
-            'link' => 'required',
         ];
     }
 

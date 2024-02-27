@@ -21,7 +21,8 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('image')->nullable();
             $table->string('minister_image')->nullable();
-            $table->string('cm_image')->nullable();
+            $table->string('minister_name')->nullable();
+            $table->string('minister_designation')->nullable();
             $table->string('status', 100)->nullable();
             $table->string('type', 100)->nullable();
             $table->integer('year')->nullable();
