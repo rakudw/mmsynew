@@ -82,7 +82,7 @@ class CrudController extends Controller
         // Handle image upload for the Banner model
         if ($model instanceof \App\Models\Banner) {
             if ($request->hasFile('image')) {
-                $imagePath = $request->file('image')->store('banner_images', 'public');
+                $imagePath = $request->file('image')->storePublicly('banner_images', 'public');
                 // dd($imagePath);
                 $data['image'] = $imagePath;
                 
@@ -90,27 +90,27 @@ class CrudController extends Controller
                 $request->validate([
                     'cm_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust validation rules as needed
                 ]);
-                $cm_imagePath = $request->file('cm_image')->store('banner_images', 'public');
+                $cm_imagePath = $request->file('cm_image')->storePublicly('banner_images', 'public');
                 $data['cm_image'] = $cm_imagePath;
             }if($request->hasFile('minister_image')){
                 $request->validate([
                     'minister_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust validation rules as needed
                 ]);
-                $minister_imagePath = $request->file('minister_image')->store('banner_images', 'public');
+                $minister_imagePath = $request->file('minister_image')->storePublicly('banner_images', 'public');
                 $data['minister_image'] = $minister_imagePath;
             }
         }if ($model instanceof \App\Models\Dlcmeeting){
-            $imagePath = $request->file('image')->store('dcl_meeting', 'public');
+            $imagePath = $request->file('image')->storePublicly('dcl_meeting', 'public');
                 // dd($imagePath);
                 $data['image'] = $imagePath;
         }
         if ($model instanceof \App\Models\Successstories){
-            $imagePath = $request->file('file')->store('success_story', 'public');
+            $imagePath = $request->file('file')->storePublicly('success_story', 'public');
                 // dd($imagePath);
                 $data['file'] = $imagePath;
         }
         if ($model instanceof \App\Models\Homenotifications){
-            $pdfPath = $request->file('file')->store('noti_pdf', 'public');
+            $pdfPath = $request->file('file')->storePublicly('noti_pdf', 'public');
                 // dd($imagePath);
                 $data['file'] = $pdfPath;
         }

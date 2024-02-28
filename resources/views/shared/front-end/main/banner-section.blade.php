@@ -3,7 +3,7 @@
     @foreach($banners as $index => $banner)
         <div class="carousel-item active">
             <div class="sliderimg">
-            <img src="{{ asset('images/shimlabg.jpg') }}" alt="img"></div>
+            <img src="{{ asset('storage/' . $banner->image) }}" alt="img">
             <div class="herosection_schemes">
                 <div class="innersection_hero">
                     <div class="main_text_section">
@@ -18,7 +18,7 @@
                         </div>
 
                         <div class="minister_image_name">
-                            <img src="{{ asset('images/cmimagemainslider.jpg') }}" />
+                        <img src="{{ asset('storage/' . $banner->minister_image) }}" alt="img">
                         </div>
                     </div>
                 </div>
