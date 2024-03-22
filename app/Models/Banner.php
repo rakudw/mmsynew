@@ -150,7 +150,6 @@ class Banner extends Base implements CrudInterface
                 'helpText' => 'The name of the Minister.',
                 'attributes' => (object)[
                     'name' => 'minister_name',
-                    'required' => 'required',
                     'placeholder' => 'Minister name',
                 ],
             ],(object)[
@@ -161,7 +160,6 @@ class Banner extends Base implements CrudInterface
                 'helpText' => 'Name of the Minister Designation.',
                 'attributes' => (object)[
                     'name' => 'minister_designation',
-                    'required' => 'required',
                     'placeholder' => 'Minister Designation',
                 ],
             ]
@@ -176,8 +174,6 @@ class Banner extends Base implements CrudInterface
             'description' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'minister_image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-            'minister_name' => 'required',
-            'minister_designation' => 'required',
             'status' => 'required',
             'year' => 'required|numeric|min:2000|max:' . date('Y'),
             'type' => 'required',

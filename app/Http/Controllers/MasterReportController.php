@@ -19,7 +19,6 @@ class MasterReportController extends Controller
 {
     public function index(Request $request)
     {
-        // dd(request()->get('tehsil_id'),request()->get('constituency_id'));
         // Get Data from Filters
             $district_ids = request()->get('district_id') ? request()->get('district_id') : 'All';
             $tehsil_ids = request()->get('tehsil_id') ? request()->get('tehsil_id') : 'All';
@@ -57,7 +56,6 @@ class MasterReportController extends Controller
                 }
             })->get();
         }
-        // dd($tehsilsIds);
         // constituenciesIds
         if($constituency_ids != 'All'){
             $query->where(function ($query) use ($constituenciesIds) {
@@ -99,7 +97,6 @@ class MasterReportController extends Controller
         if($activity_ids != 'All'){
             $query->whereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.enterprise.activity_id'))) LIKE ?", ['%' . $activity_ids . '%'])->get();
         }
-
         $applications = $query->paginate($perPage == "All" ? 500000 : $perPage);
         $categories = DB::table('enums')
             ->where('type', 'SOCIAL_CATEGORY')
@@ -116,7 +113,6 @@ class MasterReportController extends Controller
         $title = '';
         $selectedFY = request()->get('fy'); // Get the selected fiscal year from the request
         if($selectedFY && $selectedFY != 'All'){
-            // dd($selectedFY);
             // Split the fiscal year into two years
             list($startYear, $endYear) = explode('-', $selectedFY);
     
@@ -129,15 +125,16 @@ class MasterReportController extends Controller
             
         }else{
             if(request()->get('startDate')){
-                $startDate = request()->get('startDate');
-                $endDate = request()->get('endDate');
-                $query->whereBetween('created_at', [$startDate, $endDate]);
+                $endDate = \DateTime::createFromFormat('d/m/Y', request()->get('endDate'));
+                $formattedEndDate = $endDate->format('Y-m-d');
+                $startDate = \DateTime::createFromFormat('d/m/Y', request()->get('startDate'));
+                $formattedstartDate = $startDate->format('Y-m-d');
+                $query->whereBetween('created_at', [$formattedstartDate, $formattedEndDate]);
             }
         }
        
         switch (request()->route()->parameter('type')) {
             case 'pending':
-                // dd(request()->get('status_id'));
                 $statusId =  [
                     ApplicationStatusEnum::PENDING_AT_DISTRICT_INDUSTRIES_CENTER->id(),
                     ApplicationStatusEnum::PENDING_FOR_BANK_CIBIL_COMMENTS->id(),
