@@ -1,7 +1,32 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/js/select2.min.js"></script>
+<?php
+function getRegionNameFromId($typeId, $id) {
+    $name = DB::table('regions')
+        ->where('type_id', $typeId)
+        ->where('id', $id)
+        ->value('name');
 
+    if ($name === null) {
+        Log::error("No region found with type_id: $typeId and id: $id");
+    }
+
+    return $name;
+}
+
+function getNameFromId($table, $id, $nameColumn = 'name') {
+    $name = DB::table($table)
+        ->where('id', $id)
+        ->value($nameColumn);
+
+    if ($name === null) {
+        Log::error("No record found in $table with id: $id");
+    }
+
+    return $name;
+}
+?>
     @csrf
     <table class="table">
             <tbody>
@@ -24,7 +49,7 @@
                                     <th>Applicant ID:</th>
                                     <td>MMSY-{{ $application->id }}</td>
                                     <th>Applicant Name:</th>
-                                    <td>{{ $application->name }}</td>
+                                    <td>{{ $application->data->owner->name }}</td>
                                     <th>Pan No:</th>
                                     <td>{{ $application->data->owner->pan }}</td>
                                 </tr>
@@ -55,42 +80,55 @@
                                         </div>
                                     </td>
                                 </tr>
-                                @foreach($doctype as $doc)
-                                <tr>
-                                    <th>{{$doc->id}}</th>
-                                    <th><strong id="{{$doc->id}}">{{$doc->name}}</strong></th>
-                                        <td colspan="6" style="display: flex;
-                                        justify-content: end;">
+                                @php
+                                    $order = [1,2,3,9,5,4,6,7,8,10,11,12];
+                                    $doctype = collect($doctype)->sortBy(function($doc) use ($order) {
+                                    return array_search($doc->id, $order);
+                                });
+                            @endphp
+                            @foreach($doctype as $doc)
+                                    <tr>
+                                        <th>{{$doc->id}}</th>
+                                        <th>
+                                            <strong id="{{$doc->id}}">
+                                            {{$doc->name}} @if($doc->isRequired) <span style="color:red;">* (Required)</span> @endif
+                                            </strong></br>
+                                            @if($doc->id == 4)
+                                                <p style="padding-top:5px; color: red; font-size: 15px !important">Please <a href="/application/project-report/{{$application->id}}"> Download the linked file here</a>, sign and upload the scanned PDF.</p>
+                                            @endif
+                                        </th>
+                                        <td colspan="6" style="display: flex; justify-content: end;">
                                             <form action="{{ route('application.upload', ['application' => $application ,'documentType' => $doc->id]) }}" method="post" enctype="multipart/form-data">
                                                 @csrf
                                                 <input type="hidden" name="type" value="newDoc">
                                                 <input type="hidden" name="doc_id" value="{{ $doc->id }}">
-                                                {{-- <small>{{$doc->name}}</small> --}}
                                                 @php
                                                     $uploadedDocument = $application->applicationDocuments()->where('document_type_id', $doc->id)->first();
-                                                    @endphp
+                                                @endphp
                                                 @if ($uploadedDocument)
-                                                {{-- @php dd($uploadedDocument); @endphp --}}
                                                     <span class="text-success">Document already uploaded</span>
                                                     <a class="btn btn-sm btn-success" target="_blank"
                                                     href="{{ route('application.document', ['document' => $uploadedDocument->document_id]) }}">View</a>
                                                     <a class="btn btn-sm btn-danger" data-confirm="true" data-confirm-title="Are you sure you want to delete the document?"
                                                     href="{{ route('application.document-remove', ['application' => $application->id, 'document' => $uploadedDocument->document_id]) }}?type='newDoc'">Remove Document</a>
-                                                @else
-                                                @if($doc->id == 7)
-                                                    <input type="file" name="file" @if ($application->data->owner->social_category_id == '602' || $application->data->owner->social_category_id == '603') {{'required'}} @endif>
-                                                @else
-                                                    <input type="file" name="file" id="{{$doc->id}}" required>
-                                                @endif
-                                                    <button class="btn btn-sm btn-primary" type="submit">Upload</button>
-                                                    <span id="upload-message"></span>
-                                                @endif
-                                            
+                                                    @else
+                                                        @if($doc->id == 4)
+                                                        <p style="padding-top: 15px"></p>
+                                                        @endif
+                                                        @if($doc->id == 7)
+                                                            <input type="file" name="file" @if ($application->data->owner->social_category_id == '602' || $application->data->owner->social_category_id == '603') {{'required'}} @endif>
+                                                        @elseif($doc->id == 9)
+                                                            <input type="file" name="file" id="{{$doc->id}}">
+                                                        @else
+                                                            <input type="file" name="file" id="{{$doc->id}}" @if($doc->isRequired) required @endif>
+                                                        @endif
+                                                        <button class="btn btn-sm btn-primary" type="submit">Upload</button>
+                                                        <span id="upload-message"></span>
+                                                    @endif
                                             </form>
                                         </td>
                                     </tr>
-                                   
-                                    @endforeach
+                                @endforeach
                                     <tr >
                                         <td colspan="3">
                                             <div align="right" class="style1">
@@ -163,32 +201,32 @@
                             <td>{{ $application->data->owner->pincode }}</td>
                         </tr>
                         <tr>
-                            <td><strong>Block ID:</strong></td>
-                            <td>{{ $application->data->owner->block_id }}</td>
+                            <td><strong>Block:</strong></td>
+                            <td>{{ getRegionNameFromId(407, $application->data->owner->block_id) }}</td>
                         </tr>
                         <tr>
                             <td><strong>Guardian:</strong></td>
                             <td>{{ $application->data->owner->guardian }}</td>
                         </tr>
                         <tr>
-                            <td><strong>Tehsil ID:</strong></td>
-                            <td>{{ $application->data->owner->tehsil_id }}</td>
+                            <td><strong>Tehsil:</strong></td>
+                            <td>{{ getRegionNameFromId(406, $application->data->owner->tehsil_id) }}</td>
                         </tr>
                         <tr>
                             <td><strong>Birth Date:</strong></td>
                             <td>{{ $application->data->owner->birth_date }}</td>
                         </tr>
                         <tr>
-                            <td><strong>District ID:</strong></td>
-                            <td>{{ $application->data->owner->district_id }}</td>
+                            <td><strong>District:</strong></td>
+                            <td>{{ getRegionNameFromId(404, $application->data->owner->district_id) }}</td>
                         </tr>
                         <tr>
-                            <td><strong>Panchayat ID:</strong></td>
-                            <td>{{ $application->data->owner->panchayat_id }}</td>
+                            <td><strong>Panchayat:</strong></td>
+                            <td>{{ getRegionNameFromId(408, $application->data->owner->panchayat_id) }}</td>
                         </tr>
                         <tr>
-                            <td><strong>Social Category ID:</strong></td>
-                            <td>{{ $application->data->owner->social_category_id }}</td>
+                            <td><strong>Social Category:</strong></td>
+                            <td>{{ getNameFromId('enums', $application->data->owner->social_category_id) }}</td>
                         </tr>
                         <tr>
                             <td><strong>Belongs to Minority:</strong></td>
@@ -199,8 +237,8 @@
                             <td>{{ $application->data->owner->spouse_aadhaar }}</td>
                         </tr> --}}
                         <tr>
-                            <td><strong>Constituency ID:</strong></td>
-                            <td>{{ $application->data->owner->constituency_id }}</td>
+                            <td><strong>Constituency:</strong></td>
+                              <td>{{ getRegionNameFromId(405, $application->data->owner->constituency_id) }}</td>
                         </tr>
                         <tr>
                             <td><strong>Guardian Prefix:</strong></td>
@@ -228,37 +266,37 @@
                             <td><strong>Pincode:</strong></td>
                             <td>{{ $application->data->enterprise->pincode }}</td>
                         </tr>
-                        <tr>
-                            <td><strong>Block ID:</strong></td>
-                            <td>{{ $application->data->enterprise->block_id }}</td>
+                         <tr>
+                            <td><strong>Block:</strong></td>
+                            <td>{{ getRegionNameFromId(407, $application->data->enterprise->block_id) }}</td>
                         </tr>
                         <tr>
                             <td><strong>Area Type:</strong></td>
                             <td>{{ $application->data->enterprise->area_type }}</td>
                         </tr>
-                        <tr>
-                            <td><strong>Tehsil ID:</strong></td>
-                            <td>{{ $application->data->enterprise->tehsil_id }}</td>
+                            <tr>
+                            <td><strong>Tehsil:</strong></td>
+                            <td>{{ getRegionNameFromId(406, $application->data->enterprise->tehsil_id) }}</td>
                         </tr>
                         <tr>
                             <td><strong>Employment:</strong></td>
                             <td>{{ $application->data->enterprise->employment }}</td>
                         </tr>
                         <tr>
-                            <td><strong>Activity ID:</strong></td>
-                            <td>{{ $application->data->enterprise->activity_id }}</td>
+                            <td><strong>Activity:</strong></td>
+                            <td>{{ getNameFromId('activities', $application->data->enterprise->activity_id) }}</td>
                         </tr>
                         <tr>
-                            <td><strong>District ID:</strong></td>
-                            <td>{{ $application->data->enterprise->district_id }}</td>
+                            <td><strong>District:</strong></td>
+                            <td>{{ getRegionNameFromId(404, $application->data->enterprise->district_id) }}</td>
+                        </tr>
+                         <tr>
+                            <td><strong>Panchayat:</strong></td>
+                            <td>{{ getRegionNameFromId(408, $application->data->enterprise->panchayat_id) }}</td>
                         </tr>
                         <tr>
-                            <td><strong>Panchayat ID:</strong></td>
-                            <td>{{ $application->data->enterprise->panchayat_id }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Constituency ID:</strong></td>
-                            <td>{{ $application->data->enterprise->constituency_id }}</td>
+                            <td><strong>Constituency:</strong></td>
+                              <td>{{ getRegionNameFromId(405, $application->data->enterprise->constituency_id) }}</td>
                         </tr>
                         @if(isset($application->data->enterprise->activity_details))
                             <tr>
@@ -272,14 +310,6 @@
                                 <td>{{ $application->data->enterprise->products }}</td>
                             </tr>
                         @endif
-                        <tr>
-                            <td><strong>Activity Type ID:</strong></td>
-                            <td class="activity">{{ $application->data->enterprise->activity_type_id }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Constitution Type ID:</strong></td>
-                            <td>{{ $application->data->enterprise->constitution_type_id }}</td>
-                        </tr>
                         <!-- Cost Section -->
                         <tr bgcolor="#E36E2C">
                             <td colspan="2"><strong>Cost Section</strong></td>
@@ -376,7 +406,7 @@
                         @if(is_array($application->data->owner->partner_social_category_id))
                         <tr>
                             <td><strong>Partner Social Category ID:</strong></td>
-                            <td>{{ implode(', ', $application->data->owner->partner_social_category_id) }}</td>
+                            <td>{{ getNameFromId('enums', implode(', ', $application->data->owner->partner_social_category_id)) }}</td>
                         </tr>
                         @endif
                         <!-- Finance Section -->
@@ -385,7 +415,7 @@
                         </tr>
                         <tr>
                             <td><strong>Bank Branch ID:</strong></td>
-                            <td>{{ $application->data->finance->bank_branch_id }}</td>
+                            <td>{{ getNameFromId('bank_branches', $application->data->finance->bank_branch_id) }}</td>
                         </tr>
                         <tr>
                             <td><strong>Own Contribution:</strong></td>
@@ -419,29 +449,45 @@
             
             
             var docId = 3; // ID of the <strong> element you want to update
-            var newValue = "Age Proof :- 10th /Passport/Birth Certificate"; // Change this to the desired value
-
-        // Find the <strong> element by its ID and update its content
-            $('#' + docId).text(newValue);
-
-
-            $('input.document-upload').change(function() {
-            // Check if all document upload inputs have files attached
-            var allFilesUploaded = true;
-            $('input.document-upload').each(function() {
-                if ($(this).get(0).files.length === 0) {
-                    allFilesUploaded = false;
-                    return false; // Exit loop if any input has no file attached
+            var newValue = 'Age Proof :- 10th /Passport/Birth Certificate ';
+            newValue += '<span style="color:red;">* (Required)</span>';
+            // Find the <strong> element by its ID and update its content
+            $('#' + docId).html(newValue);
+            $('#finalSubmissionButton').prop('disabled', true);
+                $('input[type=file]').change(function() {
+                    // Check if all required file inputs have files attached
+                    var allFilesUploaded = true;
+                    $('input[type=file][required]').each(function() {
+                        if ($(this).get(0).files.length === 0) {
+                            allFilesUploaded = false;
+                            return false; // Exit loop if any input has no file attached
+                        }
+                    });
+                    // Enable/disable final submission button based on document upload status
+                    if (allFilesUploaded) {
+                        $('#finalSubmissionButton').prop('disabled', false);
+                    } else {
+                        $('#finalSubmissionButton').prop('disabled', true);
+                    }
+                });
+                function checkRequiredInputs() {
+                    var requiredInputs = $('input[required]');
+                    for (var i = 0; i < requiredInputs.length; i++) {
+                        if (!requiredInputs[i].value) {
+                            return false;
+                        }
+                    }
+                    return true;
                 }
-            });
-
-            // Enable/disable final submission button based on document upload status
-            if (allFilesUploaded) {
-                $('#finalSubmissionButton').prop('disabled', false);
-            } else {
-                $('#finalSubmissionButton').prop('disabled', true);
-            }
-        });
+                // Disable the final submission button by default
+                var finalSubmissionButton = $('#finalSubmissionButton');
+                finalSubmissionButton.prop('disabled', true);
+                // Check required inputs when the page loads
+                finalSubmissionButton.prop('disabled', !checkRequiredInputs());
+                // Check required inputs whenever an input changes
+                $('input').on('input', function() {
+                    finalSubmissionButton.prop('disabled', !checkRequiredInputs());
+                });
 
 
             function loadActivityOptions() {
@@ -510,5 +556,4 @@
         }
     </style>
     
-
 

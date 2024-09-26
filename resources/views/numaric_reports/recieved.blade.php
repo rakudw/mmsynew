@@ -97,14 +97,14 @@
                                         @endforeach
                                     @endif
                                 @endforeach
-                                    <th scope="row" colspan="3" class="text-center">Total</th>
+                                    <!-- <th scope="row" colspan="3" class="text-center">Total</th>
                                     <td class="text-right"><b>{{ $totals['Received'] }}</b></td>
                                     <td class="text-right"><b>{{ $totals['Approved'] }}</b></td>
                                     <td class="text-right"><b>{{ $totals['RejectedByDLC'] }}</b></td>
                                     <td class="text-right"><b>{{ $totals['RejectedByBank'] }}</b></td>
                                     <td class="text-right"><b>{{ $totals['PendingForDLC'] }}</b></td>
                                     <td class="text-right"><b>{{ $totals['PendingAtBank'] }}</b></td>
-                                    <td class="text-right"><b>{{ $totals['Received'] + $totals['Approved'] + $totals['RejectedByDLC'] + $totals['RejectedByBank'] + $totals['PendingForDLC'] + $totals['PendingAtBank'] }}</b></td>
+                                    <td class="text-right"><b>{{ $totals['Received'] + $totals['Approved'] + $totals['RejectedByDLC'] + $totals['RejectedByBank'] + $totals['PendingForDLC'] + $totals['PendingAtBank'] }}</b></td> -->
                                 </tr>
                             </tbody>
                         </table>
@@ -130,6 +130,15 @@
             display: none;
         }
     }
+    .sidenav, .navbar{
+        display: none !important;
+    }
+    @media (min-width: 1200px) {
+    .sidenav.fixed-start+.main-content {
+        margin-left: 0 !important;
+    }
+}
+
 </style>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css"/>

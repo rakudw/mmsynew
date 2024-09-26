@@ -148,6 +148,44 @@ class ReportController extends Controller
         ]);
     }
 
+    public function bankBranchPending()
+    {
+
+        $parameters = $this->getReportParameters();
+        $period = !empty($parameters['period']) ? $parameters['period'] : ['start' => '2020-04-01', 'end' => '2024-05-22'];
+
+        // dd($parameters['period']);
+        $stats = ApplicationView::with([
+                'applicationTimelines' => fn($query) => $query->where('new_status_id', ApplicationStatusEnum::PENDING_FOR_LOAN_DISBURSEMENT->id())->orderByDesc('created_at'),
+            ])->whereBetween('sponsored_at', array_values($parameters['period']))
+            ->where('status_id', '>', ApplicationStatusEnum::WITHDRAWN->id())
+            ->get();
+            // dd($stats->toSql());
+            $data = [
+            // 'sanctioned' => $stats->filter(fn($r) => in_array($r->status_id, $this->getSanctionedStatusIds()))->all(),
+            'pending' => $stats->filter(fn($r) => $r->status_id == ApplicationStatusEnum::PENDING_FOR_LOAN_DISBURSEMENT->id())->all(),
+            // 'rejected' => $stats->filter(fn($r) => $r->status_id == ApplicationStatusEnum::LOAN_REJECTED->id())->all(),
+        ];
+
+        // $rejections = [];
+        // if (count($data['rejected']) > 0) {
+        //     $rejections = ApplicationTimeline::whereIn('application_id', collect($data['rejected'])->pluck('id')->all())->where('new_status_id', ApplicationStatusEnum::LOAN_REJECTED->id())->select(['application_id', 'remarks', 'created_at'])->get()->keyBy('application_id')->all();
+        // }
+
+        
+        $this->addJs('resources/ts/exporter.ts');
+        foreach ($data['pending'] as $applicationView) {
+            // dd($applicationView->getOriginal());
+        }
+        $bankBranch = 'hh';
+        return view('report.bank_pending', [
+            'bankBranch' => $bankBranch,
+            'data' => $data,
+            // 'rejections' => $rejections,
+            'parameters' => $parameters,
+        ]);
+    }
+
     private function getElementsCount(array $arr, array $keys): array
     {
         $result = ['count' => 0, 'capital_expenditure' => 0];

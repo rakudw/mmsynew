@@ -108,6 +108,19 @@
             display: none;
         }
     }
+    .sidenav, .navbar{
+        display: none !important;
+    }
+    @media (min-width: 1200px) {
+    .sidenav.fixed-start+.main-content {
+        margin-left: 0 !important;
+    }
+}
+    @media (min-width: 1400px) {
+    .container, .container-sm, .container-md, .container-lg, .container-xl, .container-xxl {
+        max-width: fit-content !important;
+    }
+}
 </style>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>

@@ -369,74 +369,78 @@
                                                 <div class="col-12 clearfix">&nbsp;</div>
                                             </div>
                                             @if ($application->isAFirm())
-                                                <div class="row mb-2">
-                                                    <div class="col">
-                                                        <div class="table-responsive">
-                                                            <table class="table align-items-center mb-0">
-                                                                <caption class="text-center">Partners</caption>
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th
-                                                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                                            Name
-                                                                        </th>
-                                                                        <th
-                                                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                                            Gender
-                                                                        </th>
-                                                                        <th
-                                                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                                            Date of Birth
-                                                                        </th>
-                                                                        <th
-                                                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                                            Category
-                                                                        </th>
-                                                                        <th
-                                                                            class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                                            Specially Abled
-                                                                        </th>
-                                                                        <th
-                                                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                                            Aadhaar Number
-                                                                        </th>
-                                                                        <th
-                                                                            class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                                                            Mobile
-                                                                        </th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    @foreach ($application->getData('owner', 'partner_name') as $partner)
+                                                @php($partners = $application->getData('owner', 'partner_name'))
+                                                @if($partners)
+                                                    <div class="row mb-2">
+                                                        <div class="col">
+                                                            <div class="table-responsive">
+                                                                <table class="table align-items-center mb-0">
+                                                                    <caption class="text-center">Partners</caption>
+                                                                    <thead>
                                                                         <tr>
-                                                                            <td>
-                                                                                {{ $partner }}
-                                                                            </td>
-                                                                            <td>
-                                                                                {{ $application->getData('owner', 'partner_gender')[$loop->index] }}
-                                                                            </td>
-                                                                            <td>
-                                                                                {{ $application->getData('owner', 'partner_birth_date')[$loop->index] }} <small title="At the time of application submission.">({{ $application->calculateAge($application->getData('owner', 'partner_birth_date')[$loop->index]) }} years)</small>
-                                                                            </td>
-                                                                            <td>
-                                                                                {{ \App\Enums\SocialCategoryEnum::fromId($application->getData('owner', 'partner_social_category_id')[$loop->index])->value }}
-                                                                            </td>
-                                                                            <td>
-                                                                                {{ $application->getData('owner', 'partner_is_specially_abled')[$loop->index] }}
-                                                                            </td>
-                                                                            <td class="align-middle text-center text-sm">
-                                                                                ********{{ substr($application->getData('owner', 'partner_aadhaar')[$loop->index], -4) }}
-                                                                            </td>
-                                                                            <td class="align-middle text-center">
-                                                                                <a href="tel:{{ $application->getData('owner', 'partner_mobile')[$loop->index] }}">{{ $application->getData('owner', 'partner_mobile')[$loop->index] }}</a>
-                                                                            </td>
+                                                                            <th
+                                                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                                                Name
+                                                                            </th>
+                                                                            <th
+                                                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                                                Gender
+                                                                            </th>
+                                                                            <th
+                                                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
+                                                                                Date of Birth
+                                                                            </th>
+                                                                            <th
+                                                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                                                Category
+                                                                            </th>
+                                                                            <th
+                                                                                class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                                                Specially Abled
+                                                                            </th>
+                                                                            <th
+                                                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                                                Aadhaar Number
+                                                                            </th>
+                                                                            <th
+                                                                                class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                                                                Mobile
+                                                                            </th>
                                                                         </tr>
-                                                                    @endforeach
-                                                                </tbody>
-                                                            </table>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        
+                                                                        @foreach ($partners as $partner)
+                                                                            <tr>
+                                                                                <td>
+                                                                                    {{ $partner }}
+                                                                                </td>
+                                                                                <td>
+                                                                                    {{ $application->getData('owner', 'partner_gender')[$loop->index] }}
+                                                                                </td>
+                                                                                <td>
+                                                                                    {{ $application->getData('owner', 'partner_birth_date')[$loop->index] }} <small title="At the time of application submission.">({{ $application->calculateAge($application->getData('owner', 'partner_birth_date')[$loop->index]) }} years)</small>
+                                                                                </td>
+                                                                                <td>
+                                                                                    {{ \App\Enums\SocialCategoryEnum::fromId($application->getData('owner', 'partner_social_category_id')[$loop->index])->value }}
+                                                                                </td>
+                                                                                <td>
+                                                                                    {{ $application->getData('owner', 'partner_is_specially_abled')[$loop->index] }}
+                                                                                </td>
+                                                                                <td class="align-middle text-center text-sm">
+                                                                                    ********{{ substr($application->getData('owner', 'partner_aadhaar')[$loop->index], -4) }}
+                                                                                </td>
+                                                                                <td class="align-middle text-center">
+                                                                                    <a href="tel:{{ $application->getData('owner', 'partner_mobile')[$loop->index] }}">{{ $application->getData('owner', 'partner_mobile')[$loop->index] }}</a>
+                                                                                </td>
+                                                                            </tr>
+                                                                        @endforeach
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                @endif
                                             @endif
                                             <div class="row mb-2">
                                                 <div class="col">
@@ -622,18 +626,8 @@
                     {{ __('Take Action') }}
                 </x-slot>
                 <x-slot name="form">
-                    @if(isset($actions[\App\Enums\ApplicationStatusEnum::PENDING_40_SUBSIDY_RELEASE->id()]))
-                        <div class="col-12 col-sm-6 mt-sm-0" data-status-vars="{{ \App\Enums\ApplicationStatusEnum::PENDING_40_SUBSIDY_RELEASE->id() }}">
-                          
-                                <x-forms.label class="form-label">&nbsp;</x-forms.label>
-                                <x-forms.input-group :dynamic="true">
-                                    <x-forms.label class="form-label">Second Subsidy Installment (40%)</x-forms.label>
-                                    <x-forms.input type="number" required="required" name="applicationData[subsidy][amount40]" class="form-control w-100" value="{{ old('applicationData[subsidy][amount40]', $application->getData('subsidy', 'amount40', null, $application->subsidyAmount(40))) }}" />
-                                </x-forms.input-group>
-                        </div>
-                    @endif
-                    @if(isset($actions[\App\Enums\ApplicationStatusEnum::PENDING_40_SUBSIDY_REQUEST->id()]))
-                        <div class="row" data-status-vars="{{ \App\Enums\ApplicationStatusEnum::PENDING_40_SUBSIDY_REQUEST->id() }}">
+                    @if(isset($actions[\App\Enums\ApplicationStatusEnum::PENDING_40_SUBSIDY_APPROVAL->id()]))
+                        <div class="row" data-status-vars="{{ \App\Enums\ApplicationStatusEnum::PENDING_40_SUBSIDY_APPROVAL->id() }}">
                             <div class="col-12 col-sm-6 mt-sm-0">
                                 <label>Physical Inspection Report<br /><br />
                                 <x-forms.input-group :dynamic="true">
@@ -955,26 +949,26 @@
                 }
             });
             // Show the OTP modal when the Submit button is clicked
-            submitButton.on("click", function(e) {
-                e.preventDefault();
+              // submitButton.on("click", function(e) {
+            //     e.preventDefault();
                 
-                $.ajax({
-                        type: "POST",
-                        url: "{{ route('send-otp') }}", // Replace with your server-side validation endpoint
-                        success: function(response) {
-                            if (response.success) {
-                                // OTP sent successfully, you can show the OTP input field in the modal
-                                otpModal.modal("show");
-                            } else {
-                                // Handle error, show an error message, etc.
-                                // You may need to add error handling logic in your controller as well
-                            }
-                        },
-                        error: function() {
-                            alert("An error occurred during OTP validation.");
-                        }
-                    });
-            });
+            //     $.ajax({
+            //             type: "POST",
+            //             url: "{{ route('send-otp') }}", // Replace with your server-side validation endpoint
+            //             success: function(response) {
+            //                 if (response.success) {
+            //                     alert("OTP sent successfully, you can show the OTP input field in the modal");
+            //                     otpModal.modal("show");
+            //                 } else {
+            //                     // Handle error, show an error message, etc.
+            //                     // You may need to add error handling logic in your controller as well
+            //                 }
+            //             },
+            //             error: function() {
+            //                 alert("An error occurred during OTP validation.");
+            //             }
+            //         });
+            // });
 
             // Verify OTP and submit the form
             verifyOtpButton.on("click", function() {
@@ -1009,7 +1003,7 @@
                 
             });
         @endif
-        @if(isset($actions[\App\Enums\ApplicationStatusEnum::PENDING_40_SUBSIDY_REQUEST->id()])
+        @if(isset($actions[\App\Enums\ApplicationStatusEnum::PENDING_40_SUBSIDY_RELEASE->id()])
         && auth()->user()->isGm())
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
             const submitButton = $("#submitButton");
@@ -1022,26 +1016,26 @@
                 }
             });
             // Show the OTP modal when the Submit button is clicked
-            submitButton.on("click", function(e) {
-                e.preventDefault();
+             // submitButton.on("click", function(e) {
+            //     e.preventDefault();
                 
-                $.ajax({
-                        type: "POST",
-                        url: "{{ route('send-otp') }}", // Replace with your server-side validation endpoint
-                        success: function(response) {
-                            if (response.success) {
-                                // OTP sent successfully, you can show the OTP input field in the modal
-                                otpModal.modal("show");
-                            } else {
-                                // Handle error, show an error message, etc.
-                                // You may need to add error handling logic in your controller as well
-                            }
-                        },
-                        error: function() {
-                            alert("An error occurred during OTP validation.");
-                        }
-                    });
-            });
+            //     $.ajax({
+            //             type: "POST",
+            //             url: "{{ route('send-otp') }}", // Replace with your server-side validation endpoint
+            //             success: function(response) {
+            //                 if (response.success) {
+            //                     // OTP sent successfully, you can show the OTP input field in the modal
+            //                     otpModal.modal("show");
+            //                 } else {
+            //                     // Handle error, show an error message, etc.
+            //                     // You may need to add error handling logic in your controller as well
+            //                 }
+            //             },
+            //             error: function() {
+            //                 alert("An error occurred during OTP validation.");
+            //             }
+            //         });
+            // });
 
             // Verify OTP and submit the form
             verifyOtpButton.on("click", function() {

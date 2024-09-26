@@ -12,14 +12,18 @@
                             <div class="empty-line"></div>
                             <a class="application_section" href="/application/new">Click Here To Start Your Application</a>
                         </div>
+                        @if($banner->minister_name)
                         <div class="minister-name-in-slider">
                             <h3 class="name-in-middle-slide">{{ $banner->minister_name }}</h3>
                             <h3 class="designation-in-middle-slide">{{ $banner->minister_designation }}</h3>
                         </div>
+                        @endif
 
-                        <div class="minister_image_name">
-                        <img src="{{ asset('storage/' . $banner->minister_image) }}" alt="img">
-                        </div>
+                        @if($banner->minister_image)
+                            <div class="minister_image_name">
+                            <img src="{{ asset('storage/' . $banner->minister_image) }}" alt="img">
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

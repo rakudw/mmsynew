@@ -26,9 +26,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        if (env('APP_ENV', 'local') == 'production') {
+            header('X-XSS-Protection: 1; mode=block');
+            header('X-Content-Type-Options: nosniff');
+        }
+
         Paginator::useBootstrapFive();
 
-        URL::forceScheme('http');
+        URL::forceScheme(env('APP_ENV', 'local') == 'production' ? 'https' : 'http');
 
         Model::shouldBeStrict(env('APP_ENV', 'local') != 'production');
 

@@ -9,6 +9,7 @@ use App\Models\ApplicationTimeline;
 use App\Models\BankBranch;
 use App\Models\Bank;
 use App\Models\Enum;
+use App\Models\Region;
 
 /**
  * @property string $name
@@ -33,7 +34,11 @@ class ApplicationView extends BaseView
 
     public function getUniqueIdAttribute()
     {
-        return 'MMSY-' . strtoupper(substr($this->enterprise_district ? $this->enterprise_district : 'NA', 0, 2)) . '-' . $this->id;
+        if($this->id < 25000) {
+            return 'RES' . str_pad($this->id, 4, '0', STR_PAD_LEFT);
+        }
+        $region = $this->region;
+        return 'MMSY-' . strtoupper(substr($region ? $region->name : 'NA', 0, 2)) . '-' . $this->id;
     }
 
     /**
@@ -126,11 +131,17 @@ class ApplicationView extends BaseView
         } elseif ($this->user()->isBankRO() || $this->user()->isNodalBank()) {
             $banks = [];
             $districts = [];
+            if ($this->user()->isNodalBank()) {
+                $districts = District::where('parent_id', 2)->pluck('id')->toArray();
+            }
+        
             foreach ($records as $record) {
                 if ($record->pivot->metadata) {
                     $metadata = json_decode($record->pivot->metadata);
                     $banks += isset($metadata->bank_ids) ? $metadata->bank_ids : [];
-                    $districts += isset($metadata->district_ids) ? $metadata->district_ids : [];
+                    if (!$this->user()->isNodalBank()) {
+                        $districts += isset($metadata->district_ids) ? $metadata->district_ids : [];
+                    }
                 }
             }
             if (empty($banks)) {
@@ -185,10 +196,10 @@ class ApplicationView extends BaseView
         return $this->project_cost - $this->own_contribution_amount - $this->finance_working_capital;
     }
 
-    public function newQuery($excludeDeleted = true)
+    /* public function newQuery($excludeDeleted = true)
     {
         return parent::newQuery($excludeDeleted)->where('view_applications.id', '>', 25000);
-        // return env('APP_ENV', 'local') == 'production' ? parent::newQuery($excludeDeleted)
-        //    ->where('view_applications.id', '>', 25000) : parent::newQuery($excludeDeleted);
-    }
+        return env('APP_ENV', 'local') == 'production' ? parent::newQuery($excludeDeleted)
+           ->where('view_applications.id', '>', 25000) : parent::newQuery($excludeDeleted);
+    } */
 }

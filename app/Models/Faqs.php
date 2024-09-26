@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Enums\BannerTypeEnum;
 use App\Interfaces\CrudInterface;
 
 /**

@@ -1,4 +1,5 @@
 <div class="wrapper">
+<div class="backdrop"></div> <div id="iframeContainer" class="iframe-container"></div>
     <div class="wrapper-inner">
     
         <!-- logo and nav section -->
@@ -17,7 +18,7 @@
                 <!-- <li><a href="/application/status">Applicant Login</a></li> -->
                 <li><a href="{{ auth()->user() ? route("logout") : route("login.applicant") }}">{{ auth()->user() ? 'Logout' : 'Applicant Login' }}</a></li>
                 {{-- <li><a href="#">Operational Guidelines</a></li> --}}
-                <li><a href="{{ route("login") }}">{{ auth()->user() ? 'Acount' : 'Department Login'}}</a></li>
+                <li><a href="{{ route("login") }}">{{ auth()->user() ? 'Account' : 'Department Login'}}</a></li>
             </ul>
         </div>
     
@@ -69,3 +70,14 @@
     </div>
     </div>
 </div> --}}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://sso.hp.gov.in/nodeapi/iframe/iframe.js" defer=""></script>
+<script>
+    $(document).ready(function () {
+        // Initial default font size value
+        @if (!Auth::check())
+            // getIframeSSO("10000074")
+        @endif
+        
+    });
+    </script>

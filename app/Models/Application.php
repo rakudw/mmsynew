@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
+use App\Models\Region;
 use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -148,6 +149,9 @@ class Application extends Base implements Auditable
 
     public function getUniqueIdAttribute()
     {
+        if($this->id < 25000) {
+            return 'RES' . str_pad($this->id, 4, '0', STR_PAD_LEFT);
+        }
         $region = $this->region;
         return 'MMSY-' . strtoupper(substr($region ? $region->name : 'NA', 0, 2)) . '-' . $this->id;
     }
@@ -774,20 +778,15 @@ class Application extends Base implements Auditable
      */
     public function scopeForCurrentUser($query)
     {
+        
         $records = $this->user()->getRoles();
-        if ($this->user()->isBankManager()) {
-            $branches = [];
-            foreach ($records as $record) {
-                if ($record->pivot->metadata) {
-                    $metadata = json_decode($record->pivot->metadata);
-                    $branches += property_exists($metadata, 'bank_branch_ids') ? $metadata->bank_branch_ids : [];
-                }
-            }
-            $branches = array_unique($branches);
-            return empty($branches) ? $query->where('region_id', 0) : $query->whereIn('data->finance->bank_branch_id', $branches);
-        } elseif ($this->user()->isBankRO() || $this->user()->isNodalBank()) {
+        if ($this->user()->isBankRO() || $this->user()->isNodalBank()) {
             $banks = [];
             $districts = [];
+            if ($this->user()->isNodalBank()) {
+                $districts = Region::where('parent_id', 2)->pluck('id')->toArray();
+            }
+         
             foreach ($records as $record) {
                 if ($record->pivot->metadata) {
                     $metadata = json_decode($record->pivot->metadata);
@@ -813,7 +812,18 @@ class Application extends Base implements Auditable
                     }
                 }
             }
-        } elseif ($this->user()->isSuperAdmin()) {
+        }
+        elseif ($this->user()->isBankManager()) {
+            $branches = [];
+            foreach ($records as $record) {
+                if ($record->pivot->metadata) {
+                    $metadata = json_decode($record->pivot->metadata);
+                    $branches += property_exists($metadata, 'bank_branch_ids') ? $metadata->bank_branch_ids : [];
+                }
+            }
+            $branches = array_unique($branches);
+            return empty($branches) ? $query->where('region_id', 0) : $query->whereIn('data->finance->bank_branch_id', $branches);
+        }elseif ($this->user()->isSuperAdmin()) {
             return $query;
         } else {
             $districts = [];

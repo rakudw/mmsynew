@@ -64,7 +64,7 @@
                                     </x-sidebar.nav-item>
                                     
                                     <x-sidebar.nav-item>
-                                        <x-sidebar.nav-link href="{{ route('dashboard.pendency', 321) }}" :active="request()->routeIs('dashboard.pendency.id', 321)">
+                                        <x-sidebar.nav-link href="{{ route('dashboard.pendency', 316) }}" :active="request()->routeIs('dashboard.pendency.id', 321)">
                                             <x-slot:icon></x-slot:icon>
                                             <x-slot:title>{{ __('Pending for 40% Request') }}</x-slot:title>
                                         </x-sidebar.nav-link>
@@ -279,22 +279,37 @@
             @endif
         @endif
 
-        @if(!auth()->user()->isApplicant() && !auth()->user()->isBankManager() && !auth()->user()->isEO())
+        @if(!auth()->user()->isApplicant()  && !auth()->user()->isEO())
             <x-sidebar.nav-item>
                 <x-sidebar.sub-menu :active="request()->routeIs('report.*')" :menuId="'reports'">
                     <x-slot:icon><em class="material-icons opacity-10">report</em></x-slot:icon>
                     <x-slot:title :title="__('Reports')">{{ __('Reports') }}</x-slot:title>
                     <x-slot:collapse>
                         <x-sidebar.collapse-show :menuId="'reports'">
-                            @if(auth()->user()->isBankManager() || auth()->user()->isBankRO() || auth()->user()->isGm() || auth()->user()->isSuperAdmin())
-                                @if(auth()->user()->isBankManager())
+                            @if(auth()->user()->isBankManager() || auth()->user()->isBankRO() || auth()->user()->isNodalBank() || auth()->user()->isGm() || auth()->user()->isSuperAdmin())
+                                @if(auth()->user()->isBankManager() || auth()->user()->isBankRO() || auth()->user()->isNodalBank() )
                                     <x-sidebar.nav-item>
                                         <x-sidebar.nav-link href="{{ route('report.banks') }}" :active="request()->routeIs('report.banks')">
                                             <x-slot:icon><em class="material-icons opacity-10">description</em></x-slot:icon>
                                             <x-slot:title>{{ __('Bank Overview') }}</x-slot:title>
                                         </x-sidebar.nav-link>
                                     </x-sidebar.nav-item>
-                                @endif
+									
+									      <x-sidebar.nav-item>
+                                        <x-sidebar.nav-link href="{{ route('report.banks-pending') }}" :active="request()->routeIs('report.banks-pending')">
+                                            <x-slot:icon><em class="material-icons opacity-10">description</em></x-slot:icon>
+                                            <x-slot:title>{{ __('Bank Pending List') }}</x-slot:title>
+                                        </x-sidebar.nav-link>
+                                    </x-sidebar.nav-item>
+									
+									
+                                @else
+                                <x-sidebar.nav-item>
+                                        <x-sidebar.nav-link href="{{ route('report.banks') }}" :active="request()->routeIs('report.banks')">
+                                            <x-slot:icon><em class="material-icons opacity-10">description</em></x-slot:icon>
+                                            <x-slot:title>{{ __('Bank Overview') }}</x-slot:title>
+                                        </x-sidebar.nav-link>
+                                    </x-sidebar.nav-item>
 
                                 {{-- <x-sidebar.nav-item>
                                     <x-sidebar.nav-link href="{{ route('report.applications', ['type' => 'pending']) }}" :active="request()->routeIs('report.applications') && request()->route()->parameter('type') == 'pending'">
@@ -385,6 +400,7 @@
                                         <x-slot:title>{{ __('Old Portal Status') }}</x-slot:title>
                                     </x-sidebar.nav-link>
                                 </x-sidebar.nav-item> --}}
+                                @endif
                             @endif
                             @if(auth()->user()->isNodalBank())
                               
@@ -425,6 +441,12 @@
                                 <x-sidebar.nav-link href="{{ route('numaric_reports.released') }}" :active="request()->routeIs('numaric_reports.released')">
                                     <x-slot:icon><em class="material-icons opacity-10">description</em></x-slot:icon>
                                     <x-slot:title>{{ __('All Status') }}</x-slot:title>
+                                </x-sidebar.nav-link>
+                            </x-sidebar.nav-item>
+                            <x-sidebar.nav-item>
+                                <x-sidebar.nav-link href="{{ route('numaric_reports.bankreport') }}" :active="request()->routeIs('numaric_reports.bankreport')">
+                                    <x-slot:icon><em class="material-icons opacity-10">description</em></x-slot:icon>
+                                    <x-slot:title>{{ __('Master Report') }}</x-slot:title>
                                 </x-sidebar.nav-link>
                             </x-sidebar.nav-item>
                         </x-sidebar.collapse-show>

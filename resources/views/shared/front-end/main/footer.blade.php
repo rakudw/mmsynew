@@ -1,5 +1,6 @@
 
 <div class="copyright">
+<div class="backdrop"></div> <div id="iframeContainer" class="iframe-container"></div>
     <div class="inner_copyright">
         <div class="reserved">
             2023@ ALL Rights Reserved by <a href="">Himachal Pradesh Government</a>
@@ -15,12 +16,14 @@
     }
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<script src="https://sso.hp.gov.in/nodeapi/iframe/iframe.js" defer=""></script>
 <script>
     $(document).ready(function () {
         // Initial default font size value
+        @if (!Auth::check())
+            // getIframeSSO("10000074")
+        @endif
         let defaultFontSize = 18; 
-  
         // Initial font size value
         let currentFontSize = defaultFontSize;
   

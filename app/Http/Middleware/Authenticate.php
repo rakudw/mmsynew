@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
+use Illuminate\Auth\AuthenticationException;
 
 class Authenticate extends Middleware
 {
@@ -12,10 +13,25 @@ class Authenticate extends Middleware
      * @param  \Illuminate\Http\Request  $request
      * @return string|null
      */
+
+     protected function authenticate($request, array $guards)
+    {
+        if ($this->auth->guard($guards)->check()) {
+            return $this->auth->shouldUse($guards);
+        }
+
+        throw new AuthenticationException(
+            'Unauthenticated.', $guards, $this->redirectTo($request)
+        );
+    }
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
-            return route('login');
+            if ($request->is('admin/*')) {
+                return route('login');
+            }
+
+            return 'https://sso.hp.gov.in/login-iframe?service_id=10000074';
         }
     }
 }

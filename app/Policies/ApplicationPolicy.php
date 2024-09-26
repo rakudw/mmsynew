@@ -77,12 +77,12 @@ class ApplicationPolicy
                 return true;
             }
         }
-        if($user->isEO())
-        {
-            if($application->application_status == ApplicationStatusEnum::SUBSIDY_60_RELEASED){
-                return true;
-            }
-        }
+        // if($user->isEO())
+        // {
+        //     if($application->application_status == ApplicationStatusEnum::SUBSIDY_60_RELEASED){
+        //         return true;
+        //     }
+        // }
 
         if($user->canScheduleMeeting() && $application->application_status == ApplicationStatusEnum::PENDING_FOR_DISTRICT_LEVEL_COMMITTEE) {
             return true;

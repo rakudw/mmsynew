@@ -25,12 +25,12 @@
              <button class="nav-link active" id="v-pills-hn-tab" data-bs-toggle="modal" data-bs-target="#helpDeskModal" type="button" aria-selected="true">
                <img src="{{ asset('images/customer-support.png') }}"/>HELPDESK NO</button>
 
-             <a data-bs-toggle="modal" data-bs-target="#successModal" href="#"><button class="nav-link" id="v-pills-n-tab" type="button" aria-selected="false" tabindex="-1" role="tab">
-                <img src="{{ asset('images/sucessstoreyicon.png') }}"/>SUCCESS STORIES</button></a>
+             <!-- <a data-bs-toggle="modal" data-bs-target="#successModal" href="#"><button class="nav-link" id="v-pills-n-tab" type="button" aria-selected="false" tabindex="-1" role="tab">
+                <img src="{{ asset('images/sucessstoreyicon.png') }}"/>SUCCESS STORIES</button></a> -->
              <a href="/mmsy-dashboard" target="_blank"><button class="nav-link" id="v-pills-nol-tab" type="button" aria-selected="false" tabindex="-1" role="tab">
                 <img src="{{ asset('images/security-officer.png') }}"/>MMSY DASHBOARD </button></a>
-             <a data-bs-toggle="modal" data-bs-target="#videoModal" href="#"><button class="nav-link" id="v-pills-ff-tab" type="button" aria-selected="false" tabindex="-1" role="tab">
-                <img src="{{ asset('images/vediotootor.png') }}"/>VIDEO TUTORIAL</button></a>
+             <!-- <a data-bs-toggle="modal" data-bs-target="#videoModal" href="#"><button class="nav-link" id="v-pills-ff-tab" type="button" aria-selected="false" tabindex="-1" role="tab">
+                <img src="{{ asset('images/vediotootor.png') }}"/>VIDEO TUTORIAL</button></a> -->
              <a data-bs-toggle="modal" data-bs-target="#NotificationModal" href="#"><button class="nav-link" id="v-pills-ff-tab" type="button" aria-selected="false" tabindex="-1" role="tab">
                 <img src="{{ asset('images/bell.png') }}"/>NOTIFICATION</button></a>
              <a data-bs-toggle="modal" data-bs-target="#myModal"><button class="nav-link" id="v-pills-ff-tab" type="button" aria-selected="false" tabindex="-1" role="tab">

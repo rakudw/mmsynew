@@ -35,6 +35,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+
 class ApplicationController extends Controller
 {
     /**
@@ -54,7 +55,7 @@ class ApplicationController extends Controller
      */
     public function create(Form $form, int $formDesignId = null)
     {
-      
+
         $formDesigns = $form->formDesigns()->orderBy('order')->get();
         // dd($formDesigns);
         $formDesign = (is_null($formDesignId) ? $formDesigns : $formDesigns->where('id', $formDesignId))->firstOrFail();
@@ -74,16 +75,25 @@ class ApplicationController extends Controller
         $Diss = Region::where('type_id', 404)->get();
         $application = null;
         $bankid = null;
-        return view('application.new', compact('form', 'activity',
-        'con', 'CAT', 'Diss', 'bank', 'application', 'bankid'));
+        return view('application.new', compact(
+            'form',
+            'activity',
+            'con',
+            'CAT',
+            'Diss',
+            'bank',
+            'application',
+            'bankid'
+        ));
     }
 
-    public function newedit( int $formDesignId = null)
+    public function newedit(int $formDesignId = null)
     {
-        $application = Application::where('created_by',auth()->user()->id)->first();
+        $application = Application::where('created_by', auth()->user()->id)->first();
+        // dd($application);
         if (!$this->user()->can('update', $application)) {
             return redirect()->route('application.newstatus')->withErrors(['custom_error' => 'You cannot edit your application.You will get notifications for further actions.'])
-            ->withInput();
+                ->withInput();
         }
         $activity = Enum::where('type', 'ACTIVITY_TYPE')->get();
         $bank = Bank::all();
@@ -94,15 +104,23 @@ class ApplicationController extends Controller
         $branchid = $application->data->finance->bank_branch_id;
         $bankid = BankBranch::where('id', $branchid)->get('bank_id')->first();
         // dd($application->data->owner->partner_name);
-        return view('application.new', compact('form', 'activity',
-        'con', 'CAT', 'Diss', 'bank', 'application', 'bankid'));
+        return view('application.new', compact(
+            'form',
+            'activity',
+            'con',
+            'CAT',
+            'Diss',
+            'bank',
+            'application',
+            'bankid'
+        ));
     }
 
     public function status()
     {
-        if(auth()->user()){
-            $applications = Application::where('created_by',auth()->user()->id)->get();
-        }else{
+        if (auth()->user()) {
+            $applications = Application::where('created_by', auth()->user()->id)->get();
+        } else {
             $applications = [];
         }
         // dd($applications);
@@ -111,16 +129,16 @@ class ApplicationController extends Controller
 
     public function newlogin(Request $request)
     {
-        $user = User::where('email',$request->get('combinedInput'))->first();
-        if($user){
+        $user = User::where('email', $request->get('combinedInput'))->first();
+        if ($user) {
             auth()->login($user, true);
-            $applications = Application::where('created_by',auth()->user()->id)->get();
-            if($applications){
+            $applications = Application::where('created_by', auth()->user()->id)->get();
+            if ($applications) {
                 $applications = $applications;
-            }else{
+            } else {
                 $applications = [];
             }
-        }else{
+        } else {
             $applications = [];
         }
         return view('application.status', compact('applications'));
@@ -131,61 +149,94 @@ class ApplicationController extends Controller
     {
         // return response()->json(request('activity_type_id'));
         if (request()->has('activity_type_id')) {
-        $activities = Activity::where('type_id', request('activity_type_id'))->get(); // Replace with your actual query to fetch activities
-        return response()->json($activities);
-        }
-        else if (request()->has('district_type_id')){
+            $activities = Activity::where('type_id', request('activity_type_id'))->get(); // Replace with your actual query to fetch activities
+            return response()->json($activities);
+        } else if (request()->has('district_type_id')) {
             // return response()->json(request('district_type_id'));
-            $cons = Region::where('type_id', 405 )->where('parent_id', request('district_type_id') )->get(); // Replace with your actual query to fetch activities
-            $teh = Region::where('type_id', 406 )->where('parent_id', request('district_type_id') )->get(); // Replace with your actual query to fetch activities
-            $block = Region::where('type_id', 407 )->where('parent_id', request('district_type_id') )->get(); // Replace with your actual query to fetch activities
+            $cons = Region::where('type_id', 405)->where('parent_id', request('district_type_id'))->get(); // Replace with your actual query to fetch activities
+            $teh = Region::where('type_id', 406)->where('parent_id', request('district_type_id'))->get(); // Replace with your actual query to fetch activities
+            $block = Region::where('type_id', 407)->where('parent_id', request('district_type_id'))->get(); // Replace with your actual query to fetch activities
             $responseData = [
                 'cons' => $cons,
                 'teh' => $teh,
                 'block' => $block,
             ];
-            
+
             return response()->json($responseData);
-        }else if (request()->has('block_type_id')){
+        } else if (request()->has('block_type_id')) {
             // return response()->json(request('district_type_id'));
-            $panchayat = Region::where('type_id', 408 )->where('parent_id', request('block_type_id') )->get(); // Replace with your actual query to fetch activities
+            $panchayat = Region::where('type_id', 408)->where('parent_id', request('block_type_id'))->get(); // Replace with your actual query to fetch activities
             return response()->json($panchayat);
-        }else if (request()->has('bank_id')){
+        } else if (request()->has('bank_id')) {
             // return response()->json(request('bank_id'));
             $branch = BankBranch::where('bank_id', request('bank_id'))->get(); // Replace with your actual query to fetch activities
             return response()->json($branch);
-        } 
+        }
     }
 
+    public function callback(Request $request)
+    {
+        if ($request->has('token')) {
+            $token = $request->token;
+            $client = new \GuzzleHttp\Client();
+            $response = $client->request('POST', 'https://sso.hp.gov.in/nodeapi/validate-token', [
+                'json' => [
+                    'token' => $token,
+                    'secret_key' => env('SSO_SECRET_KEY', '64544ef28c3464e7fb0a50430154076fd80adff05a9ed1613b72a9b72b7b9044'),
+                    'service_id' => env('SSO_SERVICE_ID', '10000075'),
+                ]
+            ]);
 
+            $body = $response->getBody();
+            $ssoUser = json_decode($body, true);
+
+            $user = User::where('email', $ssoUser['email'])->exists();
+            if (!$user) {
+                $user = User::create([
+                    'name' => $ssoUser['name'],
+                    'mobile' => $ssoUser['mobile'],
+                    'email' => $ssoUser['email'],
+                    'password' => Hash::make(mt_rand(10000000, 99999999)),
+                    'remember_token' => Str::random(10),
+                ]);
+            } else {
+                $user = User::where('email', $ssoUser['email'])->first();
+                auth()->login($user, true);
+            }
+
+
+            return redirect()->intended('/');
+        } else {
+            return redirect('/')->with('error', 'SSO token not found');
+        }
+    }
     public function saveData(Request $request)
-    {   
+    {
         $applicationId = $request->input('application_id');
         // dd($request->all());
         $filePath = public_path('validation.json');
-       
+
         $jsonContent = File::get($filePath);
-        
+
         $validationRules = json_decode($jsonContent, true);
         $validator = Validator::make($request->all(), $validationRules);
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
-                ->withInput(); 
+                ->withInput();
         }
         $partnerData = [];
         $estimatedProjectCost = 10000000;
-        if($request->input('activity_id') == 83){
+        if ($request->input('activity_id') == 83) {
             $estimatedProjectCost = 1000000;
-        }else{
+        } else {
             $estimatedProjectCost = 10000000;
-
         }
 
-        if($request->input('project_cost') > $estimatedProjectCost ){
+        if ($request->input('project_cost') > $estimatedProjectCost) {
             return redirect()->back()
-            ->withErrors(['<em class="fa-solid fa-warning"></em> Admissible Project cost under this scheme is up to ' . $estimatedProjectCost . '.'])
-            ->withInput(); 
+                ->withErrors(['<em class="fa-solid fa-warning"></em> Admissible Project cost under this scheme is up to ' . $estimatedProjectCost . '.'])
+                ->withInput();
         }
         // Loop through the partner details arrays and create partner objects
         $partnerNames = $request->input('partner_name');
@@ -198,7 +249,7 @@ class ApplicationController extends Controller
         // dd($partnerNames == null);
         if (is_array($partnerNames) && count($partnerNames) > 0) {
             foreach ($partnerNames as $key => $partnerName) {
-                if($partnerName){
+                if ($partnerName) {
                     $partnerData[] = [
                         'name' => $partnerName,
                         'gender' => $partnerGenders[$key],
@@ -211,164 +262,174 @@ class ApplicationController extends Controller
                 }
             }
         }
-            $jsonData = json_encode([
-                'cost' => [
-                    'land_cost' => $request->input('land_cost'),
-                    'assets_cost' => $request->input('assets_cost'),
-                    'land_status' => $request->input('land_status'),
-                    'assets_detail' => $request->input('assets_detail'),
-                    'building_area' => $request->input('building_area'),
-                    'building_cost' => $request->input('building_cost'),
-                    'machinery_cost' => $request->input('machinery_cost'),
-                    'building_status' => $request->input('building_status'),
-                    'working_capital' => $request->input('working_capital_cc'),
-                    'machinery_detail' => $request->input('machinery_detail'),
-                ],
-                'owner' => [
-                    'pan' => $request->input('owner_pan'),
-                    'name' => $request->input('owner_name'),
-                    'email' => $request->input('owner_email'),
-                    'gender' => $request->input('owner_gender'),
-                    'mobile' => $request->input('owner_mobile'),
-                    'aadhaar' => $request->input('owner_aadhaar'),
-                    'address' => $request->input('owner_address'),
-                    'post_office' => $request->input('owner_po'),
-                    'pincode' => $request->input('owner_pincode'),
-                    'block_id' => $request->input('owner_block_id'),
-                    'guardian' => $request->input('owner_guardian'),
-                    'tehsil_id' => $request->input('owner_tehsil_id'),
-                    'birth_date' => $request->input('owner_birth_date'),
-                    'district_id' => $request->input('owner_district_id'),
-                    'panchayat_id' => $request->input('owner_panchayat_id'),
-                    'marital_status' => $request->input('owner_marital_status'),
-                    'spouse_aadhaar' => null,
-                    'constituency_id' => $request->input('owner_constituency_id'),
-                    'guardian_prefix' => $request->input('owner_guardian_prefix'),
-                    'is_specially_abled' => $request->input('owner_is_specially_abled'),
-                    'partner_name' => $partnerNames,
-                    'partner_gender' => $partnerGenders,
-                    'partner_birth_date' => $partnerDOBs,
-                    'partner_aadhaar' => $partnerAadhaars,
-                    'partner_mobile' => $partnerMobiles,
-                    'partner_is_specially_abled' => $partnerSpeciallyAbled,
-                    'partner_social_category_id' => $partnerSocialCategories,
-                    'social_category_id' => $request->input('owner_social_category_id'),
-                    'belongs_to_minority' => $request->input('owner_belongs_to_minority'),
-                ],
-                'finance' => [
-                    'bank_branch_id' => $request->input('bank_branch_id'),
-                    'own_contribution' => $request->input('own_contribution'),
-                ],
-                'enterprise' => [
-                    'name' => $request->input('name'),
-                    'address' => $request->input('address'),
-                    'post_office' => $request->input('enterprise_po'),
-                    'pincode' => $request->input('pincode'),
-                    'block_id' => $request->input('block_id'),
-                    'area_type' => $request->input('area_type'),
-                    'tehsil_id' => $request->input('tehsil_id'),
-                    'employment' => $request->input('employment'),
-                    'activity_id' => $request->input('activity_id'),
-                    'district_id' => $request->input('district_id'),
-                    'panchayat_id' => $request->input('panchayat_id'),
-                    'constituency_id' => $request->input('constituency_id'),
-                    $request->input('activity_details') ? 'activity_details' : 'products' => $request->input('activity_details') ? $request->input('activity_details') : $request->input('products') ,
-                    'activity_type_id' => $request->input('activity_type_id'),
-                    'constitution_type_id' => $request->input('constitution_type_id'),
-                ],
-            ]);
-           
+        $jsonData = json_encode([
+            'cost' => [
+                'land_cost' => $request->input('land_cost'),
+                'assets_cost' => $request->input('assets_cost'),
+                'land_status' => $request->input('land_status'),
+                'assets_detail' => $request->input('assets_detail'),
+                'building_area' => $request->input('building_area'),
+                'building_cost' => $request->input('building_cost'),
+                'machinery_cost' => $request->input('machinery_cost'),
+                'building_status' => $request->input('building_status'),
+                'working_capital' => $request->input('working_capital_cc'),
+                'machinery_detail' => $request->input('machinery_detail'),
+            ],
+            'owner' => [
+                'pan' => $request->input('owner_pan'),
+                'name' => $request->input('owner_name'),
+                'email' => $request->input('owner_email'),
+                'gender' => $request->input('owner_gender'),
+                'mobile' => $request->input('owner_mobile'),
+                'aadhaar' => $request->input('owner_aadhaar'),
+                'address' => $request->input('owner_address'),
+                'post_office' => $request->input('owner_po'),
+                'pincode' => $request->input('owner_pincode'),
+                'block_id' => $request->input('owner_block_id'),
+                'guardian' => $request->input('owner_guardian'),
+                'tehsil_id' => $request->input('owner_tehsil_id'),
+                'birth_date' => $request->input('owner_birth_date'),
+                'district_id' => $request->input('owner_district_id'),
+                'panchayat_id' => $request->input('owner_panchayat_id'),
+                'marital_status' => $request->input('owner_marital_status'),
+                'spouse_aadhaar' => $request->input('spouse_aadhaar'),
+                'constituency_id' => $request->input('owner_constituency_id'),
+                'guardian_prefix' => $request->input('owner_guardian_prefix'),
+                'is_specially_abled' => $request->input('owner_is_specially_abled'),
+                'partner_name' => $partnerNames,
+                'partner_gender' => $partnerGenders,
+                'partner_birth_date' => $partnerDOBs,
+                'partner_aadhaar' => $partnerAadhaars,
+                'partner_mobile' => $partnerMobiles,
+                'partner_is_specially_abled' => $partnerSpeciallyAbled,
+                'partner_social_category_id' => $partnerSocialCategories,
+                'social_category_id' => $request->input('owner_social_category_id'),
+                'belongs_to_minority' => $request->input('owner_belongs_to_minority'),
+            ],
+            'finance' => [
+                'bank_branch_id' => $request->input('bank_branch_id'),
+                'own_contribution' => $request->input('own_contribution'),
+            ],
+            'enterprise' => [
+                'name' => $request->input('name'),
+                'address' => $request->input('address'),
+                'post_office' => $request->input('enterprise_po'),
+                'pincode' => $request->input('pincode'),
+                'block_id' => $request->input('block_id'),
+                'area_type' => $request->input('area_type'),
+                'tehsil_id' => $request->input('tehsil_id'),
+                'employment' => $request->input('employment'),
+                'activity_id' => $request->input('activity_id'),
+                'district_id' => $request->input('district_id'),
+                'panchayat_id' => $request->input('panchayat_id'),
+                'constituency_id' => $request->input('constituency_id'),
+                $request->input('activity_details') ? 'activity_details' : 'products' => $request->input('activity_details') ? $request->input('activity_details') : $request->input('products'),
+                'activity_type_id' => $request->input('activity_type_id'),
+                'constitution_type_id' => $request->input('constitution_type_id'),
+            ],
+        ]);
+
         $data = json_decode($jsonData);
         $phoneNumbers = [];
         $aadharNumbers = [];
         // dd($data);
         // Assuming 'partner_mobile' and 'partner_aadhaar' are fields to compare
-        foreach ($data->owner->partner_mobile as $mobile) {
-            $phoneNumbers[] = $mobile;
+        // foreach ($data->owner->partner_mobile as $mobile) {
+        //     $phoneNumbers[] = $mobile;
+        // }
+
+        if (!empty($data->owner->partner_mobile)) {
+            foreach ($data->owner->partner_mobile as $mobile) {
+                $phoneNumbers[] = $mobile;
+            }
         }
 
-        foreach ($data->owner->partner_aadhaar as $aadhar) {
-            $aadharNumbers[] = $aadhar;
+        if (!empty($data->owner->partner_aadhaar)) {
+            foreach ($data->owner->partner_aadhaar as $aadhar) {
+                $aadharNumbers[] = $aadhar;
+            }
         }
 
         // Check for an existing application with matching phone numbers or Aadhar numbers
         $ownerAadhaar = $data->owner->aadhaar;
-        if(Application::whereNotIn('status_id', [
+        if (Application::whereNotIn('status_id', [
             ApplicationStatusEnum::WITHDRAWN->id(),
             ApplicationStatusEnum::INCOMPLETE->id(),
             ApplicationStatusEnum::LOAN_REJECTED->id(),
             ApplicationStatusEnum::REVERTED_BACK_TO_APPLICANT->id(),
             ApplicationStatusEnum::REJECTED_AT_DISTRICT_INDUSTRIES_CENTER->id(),
             ApplicationStatusEnum::REJECTED_AT_DISTRICT_LEVEL_COMMITTEE->id()
-            ])->where(fn($query) => $query->whereJsonContains('data->owner->partner_aadhaar', $ownerAadhaar)->orWhere('data->owner->spouse_aadhaar', $ownerAadhaar)->orWhere('data->owner->aadhaar', $ownerAadhaar))->count() > 0) {
-                return redirect()->back()
+        ])->where(fn ($query) => $query->whereJsonContains('data->owner->partner_aadhaar', $ownerAadhaar)->orWhere('data->owner->spouse_aadhaar', $ownerAadhaar)->orWhere('data->owner->aadhaar', $ownerAadhaar))->count() > 0) {
+            return redirect()->back()
                 ->withErrors(['custom_error' => 'An application with the same data already exists.'])
-                ->withInput(); 
+                ->withInput();
         } else {
-                if($applicationId){
-                    $application =   Application::find($applicationId);
-                }else{
-                    $application = new Application();
-                }
-                $application->name = $request->input('name');
-                $application->form_id = 1;
-                $application->data = $data;
-                $application->region_id = $request->input('owner_district_id');
-                $application->status_id = 302;
-                if($applicationId){
-                    $application->update();
-                }else{
-                    $check = $this->registerUser($application);
-                    if (!$check){
-                        return redirect()->back()
+            if ($applicationId) {
+                $application =   Application::find($applicationId);
+            } else {
+                $application = new Application();
+            }
+            $application->name = $request->input('name');
+            $application->form_id = 1;
+            $application->data = $data;
+            $application->region_id = $request->input('district_id');
+            $application->status_id = 302;
+            if ($applicationId) {
+                $application->update();
+            } else {
+                $check = $this->registerUser($application);
+                if (!$check) {
+                    return redirect()->back()
                         ->withErrors(['custom_error' => 'Email Id already exist.'])
                         ->withInput();
-                    }
-                    $application->created_by = auth()->user()->id;
-                    $application->save();
-                    $template_name = 'SAVE_DATA';
-                    // Please Uncomment this for otp
-                    // $this->sendSms($application,$template_name);
                 }
-               
-              
-                return redirect()->route('newdocument');
-               
+                $application->created_by = auth()->user()->id;
+                $application->save();
+                $template_name = 'SAVE_DATA';
+                // Please Uncomment this for otp
+                // $this->sendSms($application,$template_name);
+            }
+
+
+            return redirect()->route('newdocument');
         }
 
         // return response()->json(request());
     }
-    public function sendSms($application,$template_name){
-        if(!SMSHelper::sendSMS($application->data->owner->mobile, $template_name, [$application->id])) {
+    public function sendSms($application, $template_name)
+    {
+        if (!SMSHelper::sendSMS($application->data->owner->mobile, $template_name, [$application->id])) {
             throw new Exception('SMS was not sent! ' . SMSHelper::getResponse());
         }
     }
-    public function registerUser($application){
+    public function registerUser($application)
+    {
         $user = [
             'name' => $application->data->owner->name,
             'email' => $application->data->owner->email,
             'password' => Hash::make(mt_rand(10000000, 99999999)),
             'remember_token' => Str::random(10),
         ];
-        $existUser = User::where('email',$application->data->owner->email)->first();
-        if ($existUser){
-         return false; 
+        $existUser = User::where('email', $application->data->owner->email)->first();
+        if ($existUser) {
+            return false;
         }
         $user = User::create($user);
         auth()->login($user, true);
         return $user;
     }
-    public function newDocument(Request $request,string $annexure = 'none') {
+    public function newDocument(Request $request, string $annexure = 'none')
+    {
         $application = Application::where('created_by', auth()->user()->id)->first();
-    
+
         if (!$this->user()->can('update', $application)) {
             return redirect()->route('application.newstatus')
                 ->withErrors(['custom_error' => 'You cannot edit your application. You will get notifications for further actions.'])
                 ->withInput();
         }
-    
+
         $allApplicationDocuments = $application->applicationDocuments;
-    
+
         // Fetching all DocumentTypes
         $Documenttype = DocumentType::all();
         // dd($application->data->enterprise->activity_id);
@@ -376,20 +437,20 @@ class ApplicationController extends Controller
         $Documenttype = $Documenttype->reject(function ($documentType) {
             return $documentType->id == 7 || $documentType->id == 8;
         });
-        
+
         // Include DocumentType ID 7 if the user's category is 602 or 603
         if ($application->data->owner->social_category_id == 602 || $application->data->owner->social_category_id == 603) {
             $Documenttype->push(DocumentType::find(7));
         }
-        
+
         // Include DocumentType ID 8 if the activity ID is 120
         if ($application->data->enterprise->activity_id == 84) {
             $Documenttype->push(DocumentType::find(8));
         }
         $annexure = strtolower($annexure) == 'none' ? null : strtolower($annexure);
-        return view('application.newdocument', compact('application', 'Documenttype', 'allApplicationDocuments','annexure'));
+        return view('application.newdocument', compact('application', 'Documenttype', 'allApplicationDocuments', 'annexure'));
     }
-    
+
 
     /**
      * Store a newly created resource in storage.
@@ -450,43 +511,41 @@ class ApplicationController extends Controller
             return redirect()->route('dashboard')->with('error', 'Application not found!');
         }
         // Check at least the project should be 10,000 worth
-        if($application->project_cost < 10000) {
+        if ($application->project_cost < 10000) {
             $type = $request->get('type');
             if ($type !== null) {
                 return redirect()->route('application.newedit')->withErrors(['<em class="fa-solid fa-warning"></em> The project cost of the application is way too low for consideration!']);
-            }else{
+            } else {
                 return redirect()->route('application.edit', [
                     'application' => $application,
                     'formDesignId' => 3,
                 ])->withErrors(['<em class="fa-solid fa-warning"></em> The project cost of the application is way too low for consideration!']);
             }
-            
         }
         // echo "<pre>";
         // print_r($application);
-        if($application->project_cost < 10000) {
+        if ($application->project_cost < 10000) {
             $type = $request->get('type');
             if ($type !== null) {
                 return redirect()->route('application.newedit')->withErrors(['<em class="fa-solid fa-warning"></em> The project cost of the application is way too low for consideration!']);
-            }else{
+            } else {
                 return redirect()->route('application.edit', [
                     'application' => $application,
                     'formDesignId' => 3,
                 ])->withErrors(['<em class="fa-solid fa-warning"></em> The project cost of the application is way too low for consideration!']);
             }
-            
         }
 
         // Check if the owners aadhaar number is already in the database!
         $ownerAadhaar = $application->getData('owner', 'aadhaar');
-        if(Application::whereNotIn('status_id', [
+        if (Application::whereNotIn('status_id', [
             ApplicationStatusEnum::WITHDRAWN->id(),
             ApplicationStatusEnum::INCOMPLETE->id(),
             ApplicationStatusEnum::LOAN_REJECTED->id(),
             ApplicationStatusEnum::REVERTED_BACK_TO_APPLICANT->id(),
             ApplicationStatusEnum::REJECTED_AT_DISTRICT_INDUSTRIES_CENTER->id(),
             ApplicationStatusEnum::REJECTED_AT_DISTRICT_LEVEL_COMMITTEE->id()
-            ])->where(fn($query) => $query->whereJsonContains('data->owner->partner_aadhaar', $ownerAadhaar)->orWhere('data->owner->spouse_aadhaar', $ownerAadhaar)->orWhere('data->owner->aadhaar', $ownerAadhaar))->count() > 0) {
+        ])->where(fn ($query) => $query->whereJsonContains('data->owner->partner_aadhaar', $ownerAadhaar)->orWhere('data->owner->spouse_aadhaar', $ownerAadhaar)->orWhere('data->owner->aadhaar', $ownerAadhaar))->count() > 0) {
             return redirect()->route('application.edit', [
                 'application' => $application,
                 'formDesignId' => 2,
@@ -530,7 +589,7 @@ class ApplicationController extends Controller
         if ($type !== null) {
 
             return redirect()->route('application.newstatus');
-        }else{
+        } else {
 
             return redirect()->route('applications.list');
         }
@@ -559,13 +618,12 @@ class ApplicationController extends Controller
             $applicationDocument->delete();
         }
         $type = $request->get('type');
-      
+
         if ($type !== null) {
             return redirect()->route('newdocument')->with('success', 'Document was removed from the application!');
-        }else{
+        } else {
             return redirect()->route('application.documents', ['application' => $application->id])->with('success', 'Document was removed from the application!');
         }
-       
     }
 
     public function upload(Application $application, DocumentType $documentType, Request $request)
@@ -576,6 +634,8 @@ class ApplicationController extends Controller
         $request->validate([
             'file' => 'required|file',
         ]);
+
+
         $file = $request->file('file');
         $fileHash = md5_file($file->getRealPath());
         $document = Document::where([
@@ -612,27 +672,32 @@ class ApplicationController extends Controller
         $type = $request->get('type');
         if ($type !== null) {
             return redirect()->route('newdocument')->with('success', 'Document uploaded successfully!');
-        }else{
+        } else {
             return redirect()->route('application.documents', ['application' => $application->id])->with('success', 'Document uploaded successfully!');
         }
     }
 
     public function uploadGeneric(Application $application, Request $request)
     {
+        // dd($request->all());
         if (!$this->user()->can('update', $application)) {
             return redirect()->route('dashboard')->with('error', 'Application not found!');
         }
         $request->validate([
-            'file' => 'required|file',
+            'file' => 'required|file|max:204802135',
             'document_name' => 'required',
         ]);
+
         $file = $request->file('file');
+
         $fileHash = md5_file($file->getRealPath());
+
         $document = Document::where([
             'hash' => $fileHash,
             'mime' => $file->getMimeType(),
             'created_by' => $this->user()->id,
         ])->first();
+
 
         if (!$document) {
             $document = new Document();
@@ -644,6 +709,7 @@ class ApplicationController extends Controller
             ]);
             $document->save();
         }
+
 
         $applicationDocument = $application->applicationDocuments()->where('document_name', $request->get('document_name'))->first();
         if ($applicationDocument) {
@@ -671,7 +737,7 @@ class ApplicationController extends Controller
     public function view(Application $application, string $annexure = 'none', ApplicationDocument $applicationDocument = null)
     {
         $application->load([
-            'timelines' => fn($query) => $query->with(['creator', 'creatorRole'])->orderBy('created_at', 'desc')->orderBy('id', 'desc'),
+            'timelines' => fn ($query) => $query->with(['creator', 'creatorRole'])->orderBy('created_at', 'desc')->orderBy('id', 'desc'),
         ]);
         if (!$this->user()->can('view', $application)) {
             return redirect()->route('dashboard')->with('danger', 'Application not available for view!');
@@ -692,15 +758,15 @@ class ApplicationController extends Controller
         }
 
         $oldPortalApplications = [];
-        if($this->user()->isNodalDIC()) {
+        if ($this->user()->isNodalDIC()) {
             $aadhaars = [];
-            if($application->getData('owner', 'aadhaar')) {
+            if ($application->getData('owner', 'aadhaar')) {
                 $aadhaars[] = base64_encode($application->getData('owner', 'aadhaar'));
-                if($application->getData('owner', 'spouse_aadhaar')) {
+                if ($application->getData('owner', 'spouse_aadhaar')) {
                     $aadhaars[] = base64_encode($application->getData('owner', 'spouse_aadhaar'));
                 }
-                if($application->getData('owner', 'partner_aadhaar')) {
-                    foreach($application->getData('owner', 'partner_aadhaar') as $partnerAadhaar) {
+                if ($application->getData('owner', 'partner_aadhaar')) {
+                    foreach ($application->getData('owner', 'partner_aadhaar') as $partnerAadhaar) {
                         $aadhaars[] = base64_encode($partnerAadhaar);
                     }
                 }
@@ -831,18 +897,18 @@ class ApplicationController extends Controller
         }
         return back();
     }
-    
-    
+
+
 
     public function update(Request $request, Application $application)
-    {   
+    {
         // dd('yaha adsaya');
         if ($application->status_id < ApplicationStatusEnum::PENDING_60_SUBSIDY_REQUEST->id()) {
             if (!$this->user()->can('update', $application)) {
                 return redirect()->route('dashboard')->with('error', 'Application not found!');
             }
         }
-       
+
         $validation = $request->validate([
             'applicationData' => 'nullable',
             'applicationDocument.*' => 'nullable|file',
@@ -851,7 +917,7 @@ class ApplicationController extends Controller
         ]);
 
         if (isset($validation['applicationData'])) {
-            
+
             foreach ($validation['applicationData'] as $key => $newData) {
                 $data = $application->data;
                 $existingData = property_exists($application->data, $key) ? (array) $application->data->$key : [];
@@ -904,13 +970,13 @@ class ApplicationController extends Controller
             'new_status_id' => $validation['status'],
         ]);
         $application->status_id = $validation['status'];
-        if($validation['status'] == 314){
+        if ($validation['status'] == 314) {
             $template_name = 'DLC_TO_BANK';
             // $this->sendSms($application,$template_name);
-        }elseif($validation['status'] == 315){
+        } elseif ($validation['status'] == 315) {
             $template_name = 'RELEASE_60';
             // $this->sendSms($application,$template_name);
-        }elseif($validation['status'] == 317){
+        } elseif ($validation['status'] == 317) {
             $template_name = 'RELEASE_40';
             // $this->sendSms($application,$template_name);
         }
@@ -1041,15 +1107,15 @@ class ApplicationController extends Controller
     {
         $user = User::findOrFail(auth()->id());
         $identity = $user->mobile ?? $user->email;
-        
+
         if (!$identity) {
             return response()->json(['success' => false, 'message' => 'User does not have a valid mobile number or email']);
         }
-        
+
         $otps = Otp::where('identity', $identity)->get();
         $currentOtp = null;
         $template_name = 'OTP_MSG_GM';
-        
+
         foreach ($otps as $otp) {
             if ($otp->expires_at < now()) {
                 $otp->forceDelete();
@@ -1083,16 +1149,17 @@ class ApplicationController extends Controller
             'success' => true
         ], 202);
     }
-    public function verifyOTP(Request $request){
-        
-        
+    public function verifyOTP(Request $request)
+    {
+
+
         $otp = request('otp');
-        $User = User::where('id',auth()->user()->id)->first();
+        $User = User::where('id', auth()->user()->id)->first();
         $identity = $User->mobile;
-        if ($identity == null){
+        if ($identity == null) {
             $identity = $User->email;
         }
-        $hhh =Otp::where('expires_at', '<', now())->get();
+        $hhh = Otp::where('expires_at', '<', now())->get();
         $dbOtp = Otp::where([
             'code' => $otp,
             'identity' => $identity,
@@ -1113,8 +1180,9 @@ class ApplicationController extends Controller
         }
         return response()->json(['success' => false, 'status' => 404]);
     }
-    public function otp($identity,$template_name){
-        if(!SMSHelper::sendSMS($identity, $template_name, [auth()->user()->id])) {
+    public function otp($identity, $template_name)
+    {
+        if (!SMSHelper::sendSMS($identity, $template_name, [auth()->user()->id])) {
             throw new Exception('SMS was not sent! ' . SMSHelper::getResponse());
         }
     }

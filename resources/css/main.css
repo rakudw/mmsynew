@@ -49,7 +49,7 @@ div#carouselExample button.carousel-control-next {
     z-index: -9999999999999999 !important;
 }
 
-.carousel-inner .sliderimg img:not(.minister_image_name img) {
+.carousel-inner .sliderimg img {
     height: 670px;
     width: 100%;
     object-fit: cover;

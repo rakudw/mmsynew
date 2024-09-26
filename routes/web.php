@@ -48,7 +48,7 @@ Route::controller(HomeController::class)->group(function () {
 Route::group(['prefix' => 'file-manager', 'middleware' => ['web', 'admin']], function () {
     Lfm::routes();
 });
-
+Route::get('/callback', [ApplicationController::class, 'callback'])->name('application.callback');
 Route::middleware('auth')->group(function () {
 
     Route::get('/logout', function () {
@@ -62,6 +62,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/banks', 'banks')->name('report.banks');
         Route::get('/bank/{bank}', 'bank')->name('report.bank');
         Route::get('/bank-branch/{bankBranch}', 'bankBranch')->name('report.bank_branch');
+        Route::get('/banks-pending', 'bankBranchPending')->name('report.banks-pending');
         Route::get('/applications/{type}', 'applications')->name('report.applications')->whereIn('type', ['sponsored', 'pending', 'rejected', 'sanctioned']);
     });
 
@@ -112,7 +113,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/annexure/{application}/{type?}/{download?}', 'annexure')->name('application.annexure');
         Route::get('/documents/{application}', 'documents')->name('application.documents');
         Route::get('/create/{form}/{formDesignId?}', 'create')->name('application.create')->withoutMiddleware(['auth']);
-        Route::get('/new', 'new')->name('application.new')->withoutMiddleware(['auth']);
+        Route::get('/new', 'new')->name('application.new');
         Route::get('/newedit', 'newedit')->name('application.newedit');#->withoutMiddleware(['auth']);
         Route::get('/newdocument', 'newDocument')->name('newdocument');#->withoutMiddleware(['auth']);
         Route::get('/status', 'status')->name('application.newstatus')->withoutMiddleware(['auth']);
@@ -161,6 +162,8 @@ Route::middleware('auth')->group(function () {
     Route::controller(MasterReportController::class)->prefix('/numaric_reports')->group(function () {
         Route::get('/application-recieved', 'recievedApplication')->name('numaric_reports.recieved');
         Route::get('/application-released', 'releasedApplication')->name('numaric_reports.released');
+        Route::get('/bankreport', 'bankReport')->name('numaric_reports.bankreport');
+        Route::get('/lb/bankreport', 'bankReportLB')->name('numaric_reports.bankreportlb');
         Route::get('/export-recieved/{type}', 'exportReports')->name('numaric_reports.exportReports');
     });
 });

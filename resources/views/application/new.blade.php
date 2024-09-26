@@ -35,8 +35,12 @@
     }
 </style>
 @section('scripts')
+<script src="https://sso.hp.gov.in/nodeapi/iframe/iframe.js" defer=""></script>
 <script>
     $(document).ready(function() {
+        @if (!Auth::check())
+            // getIframeSSO("10000074")
+        @endif
         @if($errors->any())
             $('#myModalError').show();
             @endif
@@ -267,12 +271,13 @@
         let totalAmount = 0
         // Get the values of subsidized components
         const buildingCost = parseFloat($('#building_cost').val()) || 0;
+        const landCost = parseFloat($('#land_cost').val()) || 0;
         const assetsCost = parseFloat($('#assets_cost').val()) || 0;
         const machineryCost = parseFloat($('#machinery_cost').val()) || 0;
         const working_capital = parseFloat($('#working_capital_cc').val()) || 0;
 
         // Sum the values of subsidized components
-        totalAmount = buildingCost + assetsCost + machineryCost + working_capital;
+        totalAmount = buildingCost + assetsCost + machineryCost + working_capital + landCost;
         // Update the total amount field
         // const activityTypeSelect = document.getElementById('activity_type_id');
 
@@ -291,7 +296,7 @@
     }
 
     // Attach input event handlers to the subsidized fields
-    $('#building_cost, #assets_cost, #machinery_cost, #working_capital_cc').on('input', function() {
+    $('#building_cost,#land_cost, #assets_cost, #machinery_cost, #working_capital_cc').on('input', function() {
         console.log("Input field value changed.");
         calculateTotal();
         var total = calculateTotal();
@@ -325,7 +330,7 @@
     }
 
     // Attach input event handlers to trigger calculation
-    $('#project_cost, #own_contribution').on('input', function () {
+    $('#own_contribution').on('input', function () {
         calculateOwnContributionAmount();
     });
 
@@ -357,13 +362,13 @@
         const ownContributionAmount = parseFloat($('#own_contribution_amount').val()) || 0;
         const workingCapital = parseFloat($('#working_capital_cc').val()) || 0;
 
-        const termLoan = (projectCost - ownContributionAmount - workingCapital).toFixed(2);
-
-        $('#term_loan').val(termLoan);
+        const termLoan = (projectCost - ownContributionAmount - workingCapital);
+        $('#term_loan').val(termLoan.toFixed(2));
+        return termLoan.toFixed(2)
     }
 
     // Attach input event handlers to trigger calculation
-    $('#project_cost, #own_contribution_amount, #working_capital_cc').on('input', function () {
+    $('#project_cost, #working_capital_cc, #own_contribution').on('focusout', function () {
         calculateTermLoan();
     });
 
@@ -386,5 +391,35 @@
 
     // Initial calculation
     calculateWorkingCapital();
+
+
+    function toggleAadharFieldBasedOnMaritalStatus() {
+    const maritalStatus = $('#marital_status');
+    const aadharField = $('#aadhar_number_field');
+    const aadharInput = $('#s_aadhar_number');
+
+    function toggleAadharField() {
+        if (maritalStatus.val() === 'Married') {
+            aadharField.show();
+            aadharInput.prop('required', true);
+        } else {
+            aadharField.hide();
+            aadharInput.prop('required', false);
+        }
+    }
+
+    // Initial check
+    toggleAadharField();
+
+    // Change event listener
+    maritalStatus.on('change', toggleAadharField);
+}
+
+$(document).ready(function () {
+    toggleAadharFieldBasedOnMaritalStatus();
+    function customValidation() {
+        console.log('custome')
+    }
+});
 </script>
 @endsection

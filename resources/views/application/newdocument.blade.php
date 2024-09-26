@@ -32,22 +32,22 @@
 <script>
 $(document).ready(function() {
     // Function to check if all required inputs are filled
-    function checkRequiredInputs() {
-        var requiredInputs = $('input[required]');
-        console.log('requiredInputs',requiredInputs)
-        for (var i = 0; i < requiredInputs.length - 1; i++) {
-            if (!requiredInputs[i].value) {
-                return false;
-            }
-        }
-        return true;
-    }
-    $('#finalSubmissionButton').prop('disabled', !checkRequiredInputs());
-    // Enable/disable the final submission button based on required input completion
-    $('input').on('input', function() {
-        var finalSubmissionButton = $('#finalSubmissionButton');
-        finalSubmissionButton.prop('disabled', !checkRequiredInputs());
-    });
+    // function checkRequiredInputs() {
+    //     var requiredInputs = $('input[required]');
+    //     console.log('requiredInputs',requiredInputs)
+    //     for (var i = 0; i < requiredInputs.length - 1; i++) {
+    //         if (!requiredInputs[i].value) {
+    //             return false;
+    //         }
+    //     }
+    //     return true;
+    // }
+    // $('#finalSubmissionButton').prop('disabled', !checkRequiredInputs());
+    // // Enable/disable the final submission button based on required input completion
+    // $('input').on('input', function() {
+    //     var finalSubmissionButton = $('#finalSubmissionButton');
+    //     finalSubmissionButton.prop('disabled', !checkRequiredInputs());
+    // });
    
     $('#previewButton').on('click', function() {
     $('#applicationModal').modal('show');

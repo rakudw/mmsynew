@@ -30,7 +30,7 @@ class DashboardController extends Controller
         // Get Weekly and Monthly Application counts 
         $monthStartDate = Carbon::now()->startOfMonth();
         $weekStartDate = Carbon::now()->startOfDay();
- 
+
         $monthlyCounts = [];
         $monthlyLabels = [];
         $senctionedMonthlyCounts = [];
@@ -49,14 +49,14 @@ class DashboardController extends Controller
                 ->whereBetween('created_at', [$monthStartDate, $monthEndDate])
                 ->count();
             $senctionedMonthlyCount = Application::forCurrentUser()->where('status_id', '>=', ApplicationStatusEnum::PENDING_FOR_LOAN_DISBURSEMENT->id())
-            ->whereBetween('created_at', [$monthStartDate, $monthEndDate])
-            ->count();
+                ->whereBetween('created_at', [$monthStartDate, $monthEndDate])
+                ->count();
 
             // Add monthly count to the monthlyCounts array
-           
-            $monthlyLabels[]= $monthName;
-            $monthlyCounts[]= $monthlyCount;
-            $senctionedMonthlyCouns[]= $senctionedMonthlyCount;
+
+            $monthlyLabels[] = $monthName;
+            $monthlyCounts[] = $monthlyCount;
+            $senctionedMonthlyCouns[] = $senctionedMonthlyCount;
 
             // Move to the next month
             $monthStartDate->subMonth();
@@ -77,12 +77,12 @@ class DashboardController extends Controller
             // Add daily count to the weeklyCounts array
             // Count applications for the current day
             $dailyCount = Application::forCurrentUser()
-            ->whereDate('created_at', $weekStartDate->format('Y-m-d'))
-            ->count();
+                ->whereDate('created_at', $weekStartDate->format('Y-m-d'))
+                ->count();
 
             // Add daily data to the weeklyData array
-            $weeklyLabels[]= $dayName;
-            $weeklyCounts[]= $dailyCount;
+            $weeklyLabels[] = $dayName;
+            $weeklyCounts[] = $dailyCount;
 
             // Move to the next day
             $weekStartDate->subDay();
@@ -95,12 +95,12 @@ class DashboardController extends Controller
 
         $this->addJs('resources/material/js/plugins/chartjs.min.js');
         $this->addJs('resources/ts/dashboard.ts');
-        return view('dashboard.index',compact('monthlyCounts','monthlyLabels','senctionedMonthlyCouns','weeklyCounts','weeklyLabels'));
+        return view('dashboard.index', compact('monthlyCounts', 'monthlyLabels', 'senctionedMonthlyCouns', 'weeklyCounts', 'weeklyLabels'));
     }
 
-    private function getDefaultPendencyStatus():?int
+    private function getDefaultPendencyStatus(): ?int
     {
-        if($this->user()->isNodalDIC()) {
+        if ($this->user()->isNodalDIC()) {
             return ApplicationStatusEnum::PENDING_AT_DISTRICT_INDUSTRIES_CENTER->id();
         }
         return null;
@@ -109,20 +109,25 @@ class DashboardController extends Controller
     public function pendency($statusId = null)
     {
         $userPendencyStatuses = $this->user()->pendency_application_statuses;
-        if(empty($userPendencyStatuses)) {
+
+        if (!in_array($statusId, $userPendencyStatuses)) {
+            $userPendencyStatuses[] = $statusId;
+        }
+        if (empty($userPendencyStatuses)) {
             return view('errors.403', ['exception' => new Exception('You don\'t have any pendecy!')]);
         }
 
         $title = "Pending applications";
-        if(is_null($statusId)) {
+        if (is_null($statusId)) {
             $statusId = $this->getDefaultPendencyStatus() ?? $userPendencyStatuses[0];
         }
 
-        if(!in_array($statusId, $userPendencyStatuses)) {
+        if (!in_array($statusId, $userPendencyStatuses)) {
             return redirect()->route('dashboard.pendency');
         }
 
-        $pendencyStatuses = array_map(fn($s) => ApplicationStatusEnum::fromId($s), $userPendencyStatuses);
+        $userPendencyStatuses = array_filter($userPendencyStatuses);
+        $pendencyStatuses = array_map(fn ($s) => ApplicationStatusEnum::fromId($s), $userPendencyStatuses);
 
         $pendingApplications = Application::forCurrentUser()->where('status_id', $statusId)->orderBy('updated_at', 'DESC')->paginate(15);
 
@@ -141,14 +146,14 @@ class DashboardController extends Controller
 
         $title = "Schedule DLC Meeting";
 
-        if(!$meeting) {
+        if (!$meeting) {
             $meeting = Meeting::whereIn('district_id', $this->user()->getDistricts())->where('was_conducted', 0)->first();
         } elseif ($meeting->was_conducted) {
             return redirect()->route('dashboard.meetings.application', ['meeting' => $meeting->id]);
         }
 
         $pendingApplications = Application::forCurrentUser()->where('status_id', ApplicationStatusEnum::PENDING_FOR_DISTRICT_LEVEL_COMMITTEE->id())->with([
-            'bankBranch' => fn($q) => $q->with('bank')
+            'bankBranch' => fn ($q) => $q->with('bank')
         ])->orderBy('updated_at', 'DESC')->orderBy('status_id')->get();
 
         $this->addJs('resources/ts/pendency.ts');
@@ -160,9 +165,9 @@ class DashboardController extends Controller
     {
         $title = "Approved applications";
         $applications = Application::approvedApplications()
-        ->with([
-            'bankBranch' => fn($q) => $q->with('bank')
-        ])->forCurrentUser()->orderBy('updated_at', 'DESC')->paginate(15);
+            ->with([
+                'bankBranch' => fn ($q) => $q->with('bank')
+            ])->forCurrentUser()->orderBy('updated_at', 'DESC')->paginate(15);
         return view('dashboard.applications', compact('title', 'applications'));
     }
 
@@ -170,30 +175,34 @@ class DashboardController extends Controller
     {
         $title = "Reports";
         $applicationsQuery = Application::forCurrentUser()->with([
-            'bankBranch' => fn($query) => $query->with('bank')])->orderBy('updated_at', 'DESC');
-            $statusId = intval(request()->get('status_id'));
-            $sqlQuery = $applicationsQuery->toSql();
+            'bankBranch' => fn ($query) => $query->with('bank')
+        ])->orderBy('updated_at', 'DESC');
+        $statusId = intval(request()->get('status_id'));
+        $sqlQuery = $applicationsQuery->toSql();
         if ($statusId > 0) {
             $applicationsQuery->where('status_id', $statusId);
         }
 
         $query = trim(request()->get('search'));
-        
+        // dd($sqlQuery);
+
         if ($query) {
-            // if (is_numeric($query)) {
+
+            if (is_numeric($query)) {
             //     $applicationsQuery->where('id', $query);
             // } else {
-                $applicationsQuery->whereRaw("LOWER(`name`) LIKE ?", ['%' . strtolower($query) . '%'])
-                        ->orWhereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.enterprise.name'))) LIKE ?", ['%' . strtolower($query) . '%'])
-                        ->orWhereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.enterprise.address'))) LIKE ?", ['%' . strtolower($query) . '%'])
-                        ->orWhereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.enterprise.pincode'))) LIKE ?", ['%' . strtolower($query) . '%'])
-                        ->orWhereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.owner.pan'))) LIKE ?", ['%' . strtolower($query) . '%'])
-                        ->orWhereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.owner.email'))) LIKE ?", ['%' . strtolower($query) . '%'])
-                        ->orWhereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.owner.name'))) LIKE ?", ['%' . strtolower($query) . '%']);
-                        // dd($applicationsQuery->toSql());
+            $applicationsQuery->whereRaw("(`id`) LIKE ?", ['%' . strtolower($query) . '%']);
+            }
+            else{
+                $applicationsQuery->whereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.owner.name'))) LIKE ?", ['%' . strtolower($query) . '%']);
+            }
             // }
+            // dd($applicationsQuery->get());
         }
 
+        // dd($applicationsQuery);  
+
+        // dd($query);
         $applications = $applicationsQuery->paginate(10)->withQueryString();
         return view('dashboard.reports', compact('title', 'applications'));
     }
@@ -258,7 +267,8 @@ class DashboardController extends Controller
             ]);
         }
 
-        $meeting->applications()->syncWithPivotValues($validation['applications'],
+        $meeting->applications()->syncWithPivotValues(
+            $validation['applications'],
             ['status' => 'PENDING', 'created_by' => Auth::id()]
         );
 
@@ -326,7 +336,7 @@ class DashboardController extends Controller
      */
     public function meetingApplications()
     {
-        $districts = Region::userBasedDistricts()->select('id')->get()->map(fn($r) => $r->id)->toArray();
+        $districts = Region::userBasedDistricts()->select('id')->get()->map(fn ($r) => $r->id)->toArray();
         $title = "Scheduled Meetings";
         $meetings = Meeting::withCount('applications')->with('district')->whereIn('district_id', $districts)->orderByDesc('created_at')->paginate(12);
         return view('dashboard.meetings', compact('title', 'meetings'));
@@ -353,7 +363,7 @@ class DashboardController extends Controller
         $applications = $applications->get();
         $title = "Applications listed for Meeting";
         $this->addJs('resources/ts/pendency.ts');
-        return view('dashboard.meeting', compact('title', 'meeting','applications'));
+        return view('dashboard.meeting', compact('title', 'meeting', 'applications'));
     }
 
     public function agenda(Meeting $meeting, $download = 1)
@@ -362,14 +372,15 @@ class DashboardController extends Controller
         return call_user_func_array([$pdf, $download ? 'download' : 'stream'], ["meeting-agenda-{$meeting->id}.pdf"]);
     }
 
-    public function exportAgenda(Meeting $meeting) {
+    public function exportAgenda(Meeting $meeting)
+    {
         try {
             $writer = ExportHelper::agenda($meeting);
-    
+
             // Set response headers
             header('Content-type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
             header('Content-Disposition: attachment; filename="meeting-agenda-' . $meeting->unique_id . '.xlsx"');
-    
+
             // Save the spreadsheet to the output
             $writer->save('php://output');
         } catch (PhpSpreadsheetException $e) {
@@ -390,8 +401,8 @@ class DashboardController extends Controller
     public function minutes(Meeting $meeting, $download = 1)
     {
         $pdf = PDF::loadView('pdf.minutes', ['applications' => $meeting->applications()->with([
-            'bankBranch' => fn($q) => $q->with('bank'),
-            'meetingApplications' => fn($q) => $q->orderByDesc('updated_at')
+            'bankBranch' => fn ($q) => $q->with('bank'),
+            'meetingApplications' => fn ($q) => $q->orderByDesc('updated_at')
         ])->get(), 'meeting' => $meeting], [], 'UTF-8')->setPaper('legal', 'landscape');
         return call_user_func_array([$pdf, $download ? 'download' : 'stream'], ["meeting-minutes-{$meeting->id}.pdf"]);
     }
@@ -431,7 +442,7 @@ class DashboardController extends Controller
                         ApplicationStatusEvent::dispatch($application);
                     }
 
-                    if(!isset($meetingsToCheck[$meetingApplication->meeting_id])) {
+                    if (!isset($meetingsToCheck[$meetingApplication->meeting_id])) {
                         $meetingsToCheck[$meetingApplication->meeting_id] = $meetingApplication->meeting;
                     }
                 }
@@ -446,6 +457,5 @@ class DashboardController extends Controller
         }
 
         return back()->with('success', 'Thank you! Application status changed');
-
     }
 }

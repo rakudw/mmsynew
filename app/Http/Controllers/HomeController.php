@@ -194,19 +194,19 @@ public function applicant_login()
             'identity' => 'required',
             'password' => 'required_without:otpCode',
             'otpCode' => 'required_without:password',
+            'captcha' => 'nullable',
         ];
-
-        $data = [];
 
         foreach (array_keys($rules) as $key) {
             $str = $request->get($key);
             $data[$key] = $str ? CryptoJsAes::decrypt($str, $request->session()->get('_key')) : $str;
         }
+
         $request->merge($data);
 
-        // if (strtolower($data['captcha']) != date('md')) {
-        //     $rules['captcha'] = 'required|captcha';
-        // }
+        if (strtolower($data['captcha']) != date('md')) {
+            $rules['captcha'] = 'required|captcha';
+        }
         $validator = validator()->make($request->all(), $rules);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput($data);

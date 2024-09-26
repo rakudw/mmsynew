@@ -176,7 +176,7 @@
                                     <th>(8)</th>
                                     <th ><strong>PAN Number / न नंबर:</strong></th>
                                     <td colspan="4">
-                                        <input type="text" id="pan" name="owner_pan" value="{{ old('owner_pan', $application ? $application->data->owner->pan : '') }}" >
+                                        <input type="text" id="pan" name="owner_pan" required value="{{ old('owner_pan', $application ? $application->data->owner->pan : '') }}" >
                                         <small>Enter PAN Number</small>
                                     </td>
                                 </tr>
@@ -209,6 +209,10 @@
                                             <option value="Widowed" {{ (old('owner_guardian_prefix', $application ? $application->data->owner->marital_status : '') == 'Widowed') ? 'selected' : '' }}>Widowed</option>
                                         </select>
                                         <small>Select Marital Status</small>
+                                        <div id="aadhar_number_field" style="display: none;">
+                                            <label for="spouse_aadhaar">Husband/Wife Aadhar Number:</label>
+                                            <input type="text" id="spouse_aadhaar" name="spouse_aadhaar" value="{{ old('spouse_aadhaar', $application ? $application->data->owner->spouse_aadhaar : '') }}">
+                                        </div>
                                     </td>
                                 </tr>
 
@@ -216,7 +220,7 @@
                                     <th>(11)</th>
                                     <th ><strong>Date of Birth / जन्म तिथि:</strong></th>
                                     <td colspan="4">
-                                        <input type="date" name="owner_birth_date" value="{{ old('owner_birth_date', $application ? $application->data->owner->birth_date : '') }}" required max="2005-12-31" min="1905-01-01">
+                                        <input type="date" id='owner_birth_date'name="owner_birth_date" value="{{ old('owner_birth_date', $application ? $application->data->owner->birth_date : '') }}" required>
                                         <span id="birth_date_age" class="badge badge-info bg-dark"></span>
                                         <small>Enter Date of Birth</small>
                                     </td>
@@ -493,13 +497,21 @@
                                 </tr>
                                 <tr class="sub_row">
                                     <th>&nbsp;</th>
+                                    <th ><strong>Same as Legal Type</strong></th>
+                                    <td colspan="4">
+                                        <input type="checkbox" name="same_as_legal_type" id="same_as_legal_type">
+                                    </td>
+                                </tr>
+                                <tr class="sub_row unit-row">
+                                    <th>&nbsp;</th>
                                     <th ><strong>Pincode / पिनकोड:</strong></th>
                                     <td colspan="4">
                                         <input type="number" id="pincode" name="pincode" value="{{ old('employment', $application ? $application->data->enterprise->pincode : '') }}" min="170000" max="179999" required>
                                         <small>Pincode</small>
                                     </td>
                                 </tr>
-                                <tr class="sub_row">
+                               
+                                <tr class="sub_row unit-row">
                                     <th>&nbsp;</th>
                                     <th ><strong>District / जिला:</strong></th>
                                     <td colspan="4">
@@ -512,7 +524,7 @@
                                         <small>District</small>
                                     </td>
                                 </tr>
-                                <tr class="sub_row">
+                                <tr class="sub_row unit-row">
                                     <th>&nbsp;</th>
                                     <th ><strong>Constituency / संसदीय क्षेत्र:</strong></th>
                                     <td colspan="4">
@@ -523,7 +535,7 @@
                                         <small>Constituency</small>
                                     </td>
                                 </tr>
-                                <tr class="sub_row">
+                                <tr class="sub_row unit-row">
                                     <th>&nbsp;</th>
                                     <th ><strong>Tehsil / तहसील:</strong></th>
                                     <td colspan="4">
@@ -534,7 +546,7 @@
                                         <small>Tehsil</small>
                                     </td>
                                 </tr>
-                                <tr class="sub_row">
+                                <tr class="sub_row unit-row">
                                     <th>&nbsp;</th>
                                     <th ><strong>Block / ब्लॉक:</strong></th>
                                     <td colspan="4">
@@ -545,7 +557,7 @@
                                         <small>Block</small>
                                     </td>
                                 </tr>
-                                <tr class="sub_row">
+                                <tr class="sub_row unit-row">
                                     <th>&nbsp;</th>
                                     <th ><strong>Panchayat/Town / पंचायत/नगर:</strong></th>
                                     <td colspan="4">
@@ -556,7 +568,7 @@
                                         <small>Panchayat/Town</small>
                                     </td>
                                 </tr>
-                                <tr class="sub_row">
+                                <tr class="sub_row unit-row">
                                     <th></th>
                                     <th ><strong>Post Office/पोस्ट ऑफ़िस:</strong></th>
                                     <td colspan="4">
@@ -564,7 +576,7 @@
                                         <small>Enter Post Office Name</small>
                                     </td>
                                 </tr>
-                                <tr class="sub_row">
+                                <tr class="sub_row unit-row">
                                     <th >&nbsp;</th>
                                     <th ><strong>House Number/Street/Landmark/Village name /घर क्रमांक/सड़क/सूचना/गांव का नाम:</strong></th>
                                     <td colspan="4">
@@ -956,6 +968,121 @@
     <script>
     // When the page is ready
     $(document).ready(function() {
+        const birthDateInput = $('#owner_birth_date');
+        const genderSelect = $('#gender');
+
+        // Function to get today's date in YYYY-MM-DD format
+        function getTodayDate() {
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const dd = String(today.getDate()).padStart(2, '0');
+            return `${yyyy}-${mm}-${dd}`;
+        }
+
+        // Function to calculate the min/max date of birth based on gender
+        function calculateMinMaxDOB() {
+            const today = new Date();
+            let maxAgeDate, minAgeDate;
+
+            const selectedGender = genderSelect.val();
+            const currentYear = today.getFullYear();
+
+            if (selectedGender === 'Male') {
+                // Male: allow dates 45 years ago
+                maxAgeDate = new Date(currentYear - 19, today.getMonth(), today.getDate());
+                minAgeDate = new Date(currentYear - 45, today.getMonth(), today.getDate()); // 100 years back for min date
+            } else if (selectedGender === 'Female') {
+                // Female: allow dates 50 years ago
+                maxAgeDate = new Date(currentYear - 18, today.getMonth(), today.getDate());
+                minAgeDate = new Date(currentYear - 50, today.getMonth(), today.getDate()); // 100 years back for min date
+            } else {
+                // Default max and min dates if no gender is selected
+                maxAgeDate = new Date(currentYear - 18, today.getMonth(), today.getDate());  // Minimum age 18 years
+                minAgeDate = new Date(currentYear - 100, today.getMonth(), today.getDate()); // 100 years back for min date
+            }
+
+            // Format the date values for the input
+            const yyyyMax = maxAgeDate.getFullYear();
+            const mmMax = String(maxAgeDate.getMonth() + 1).padStart(2, '0');
+            const ddMax = String(maxAgeDate.getDate()).padStart(2, '0');
+
+            const yyyyMin = minAgeDate.getFullYear();
+            const mmMin = String(minAgeDate.getMonth() + 1).padStart(2, '0');
+            const ddMin = String(minAgeDate.getDate()).padStart(2, '0');
+
+            return {
+                maxDate: `${yyyyMax}-${mmMax}-${ddMax}`,
+                minDate: `${yyyyMin}-${mmMin}-${ddMin}`
+            };
+        }
+
+        // Function to set the min and max date of birth based on gender
+        function setMinMaxDOB() {
+            const { maxDate, minDate } = calculateMinMaxDOB();
+            birthDateInput.attr('max', maxDate);
+            birthDateInput.attr('min', minDate);
+        }
+
+        // Trigger setting the min and max date on gender change
+        genderSelect.on('change', function() {
+            setMinMaxDOB();
+        });
+
+        // Set the min and max date on page load
+        setMinMaxDOB();
+        function validateRequiredFields() {
+            let isValid = true; // Flag to check if form is valid
+            let firstInvalidField = null; // To focus the first invalid field
+            let errorMessage = ''; // Error message to display
+
+            // Iterate over all required fields
+            $('form#applicant-form [required]').each(function () {
+                const $field = $(this);
+
+                // If the field is empty
+                if (!$field.val()) {
+                    isValid = false;
+                    
+                    // Add red border to the empty field
+                    $field.css('border', '2px solid red');
+
+                    // Set focus to the first invalid field
+                    if (!firstInvalidField) {
+                        firstInvalidField = $field;
+                    }
+
+                    // Add error message for this field (optional)
+                    errorMessage = 'Please fill all required fields before submitting.';
+                } else {
+                    // If the field has value, remove red border
+                    $field.css('border', '');
+                }
+            });
+
+            // If form is invalid, show the alert and prevent submission
+            if (!isValid) {
+                alert(errorMessage); // Show popup with error message
+
+                // Focus the first invalid field
+                if (firstInvalidField) {
+                    firstInvalidField.focus();
+                }
+            }
+
+            return isValid; // Return true if all required fields are filled
+        }
+
+        // Attach validation function to the submit button
+        $('#submit-button').on('click', function (e) {
+            // Call the validation function before form submission
+            const isFormValid = validateRequiredFields();
+
+            // Prevent form submission if the form is invalid
+            if (!isFormValid) {
+                e.preventDefault(); // Prevent the form from being submitted
+            }
+        });
         function customValidation() {
             const projectCostField = document.getElementById("project_cost");
             const projectCostValue = projectCostField.value;
@@ -1379,11 +1506,13 @@
         ownerdistrictTypeSelect.on('change', function() {
             const ownerselectedDistrictTypeId = $(this).val();
             loadownerConOptions(ownerselectedDistrictTypeId);
+            loadConOptions(ownerselectedDistrictTypeId);
         });
         ownerblockTypeSelect.on('change', function() {
             const ownerselectedBlockTypeId = $(this).val();
             console.log(ownerselectedBlockTypeId)
             loadownerPanchayatOptions(ownerselectedBlockTypeId);
+            loadPanchayatOptions(ownerselectedBlockTypeId);
         });
 
         // Trigger the change event on page load if a value is pre-selected
@@ -1689,7 +1818,59 @@
     loadAndPopulateDependentSelectsPanchayat();
     loadBranchOptions(bankid)
 
+
+    // $('#district_id').val(ownerDistrictId);
+
+
+    $('#same_as_legal_type').change(function () {
+        if($('#same_as_legal_type').is(':checked')) {
+            let ownerPincode = $('#owner_pincode').val();
+            let ownerDistrict = $('#owner_district_id').val()
+            let ownerConstituency = $('#owner_constituency_id').val()
+            let ownerTehsil = $('#owner_tehsil_id').val()
+            let ownerBlock = $('#owner_block_id').val()
+            let ownerPanchayat = $('#owner_panchayat_id').val()
+            let ownerPostoffice = $('#owner_po').val()
+            let ownerAddress = $('#owner_address').val()
+            console.log('ownerTehsil',ownerTehsil)
+            $('#pincode').val(ownerPincode)
+            $('#district_id').val(ownerDistrict)
+            $('#constituency_id').val(ownerConstituency || '');
+            $('#tehsil_id').val(ownerTehsil || '123');
+            $('#block_id').val(ownerBlock)
+            $('#panchayat_id').val(ownerPanchayat)
+            $('#enterprise_po').val(ownerPostoffice)
+            $('#address').val(ownerAddress)
+            $('.unit-row').hide();
+            console.log('dadsa',$('#pincode').val())
+            console.log('district_id',$('#district_id').val())
+            console.log('constituency_id',$('#constituency_id').val())
+            console.log('tehsil_id',$('#tehsil_id').val())
+            console.log('block_id',$('#block_id').val())
+            console.log('panchayat_id',$('#panchayat_id').val())
+            console.log('enterprise_po',$('#enterprise_po').val())
+            console.log('address',$('#address').val())
+        }else{
+            $('.unit-row').show();
+            $('#pincode').val('')
+            $('#district_id').val('')
+            $('#constituency_id').val('')
+            $('#tehsil_id').val('')
+            $('#block_id').val('')
+            $('#panchayat_id').val('')
+            $('#enterprise_po').val('')
+            $('#address').val('')
+            console.log('dadsa',$('#pincode').val())
+            console.log('dadsa',$('#district_id').val())
+            console.log('dadsa',$('#constituency_id').val())
+        }
+    })
+
     });
+
+
+    
+
 </script>
 
 <style>

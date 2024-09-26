@@ -91,50 +91,52 @@ class ApplicationHelper extends BaseHelper
                             break;
                     }
                     break;
-                case RoleEnum::GM_DIC->name:
-                    switch ($application->application_status) {
-                        case ApplicationStatusEnum::PENDING_60_SUBSIDY_REQUEST:
-                            $actions[ApplicationStatusEnum::PENDING_60_SUBSIDY_RELEASE->id()] = 'Send to Nodal Bank for 60% Subsidy Release';
-                            $actions[ApplicationStatusEnum::PENDING_FOR_LOAN_DISBURSEMENT->id()] = 'Revert Back to the Bank';
-                            break;
-                        case ApplicationStatusEnum::PENDING_40_SUBSIDY_REQUEST:
-                            $actions[ApplicationStatusEnum::PENDING_40_SUBSIDY_RELEASE->id()] = 'Send to Nodal Bank for 40% Subsidy Release';
-                            break;
-                        case ApplicationStatusEnum::PENDING_FOR_DISTRICT_LEVEL_COMMITTEE:
-                            $actions[ApplicationStatusEnum::PENDING_FOR_LOAN_DISBURSEMENT->id()] = 'Send to Bank for Loan Disbursement';
-                            $actions[ApplicationStatusEnum::REJECTED_AT_DISTRICT_LEVEL_COMMITTEE->id()] = 'Reject the Application';
-                            break;
-                    }
-                    break;
-                case RoleEnum::EO_DIC->name:
-                    switch ($application->application_status) {
-                        case ApplicationStatusEnum::SUBSIDY_60_RELEASED:
-                            $actions[ApplicationStatusEnum::PENDING_40_SUBSIDY_REQUEST->id()] = 'Send to DIC for 40% Subsidy Request';
-                            break;
-                    }
-                    break;
-                case RoleEnum::BANK_MANAGER->name:
-                    switch ($application->application_status) {
-                        case ApplicationStatusEnum::PENDING_FOR_BANK_CIBIL_COMMENTS:
-                            $actions[ApplicationStatusEnum::PENDING_FOR_DISTRICT_LEVEL_COMMITTEE->id()] = 'Comment on Viability and Feasibility';
-                            break;
-                        case ApplicationStatusEnum::PENDING_FOR_LOAN_DISBURSEMENT:
-                            $actions[ApplicationStatusEnum::PENDING_60_SUBSIDY_REQUEST->id()] = 'Sanction & Disburse the Loan';
-                            $actions[ApplicationStatusEnum::LOAN_REJECTED->id()] = 'Reject the Loan';
-                            break;
-                    }
-                    break;
-                case RoleEnum::NODAL_BANK->name:
-                    switch ($application->application_status) {
-                        case ApplicationStatusEnum::PENDING_60_SUBSIDY_RELEASE:
-                            $actions[ApplicationStatusEnum::SUBSIDY_60_RELEASED->id()] = 'Release 60% Subsidy';
-                            // $actions[ApplicationStatusEnum::PENDING_60_SUBSIDY_REQUEST->id()] = 'Revert Back To DIC';
-                            break;
-                        case ApplicationStatusEnum::PENDING_40_SUBSIDY_RELEASE:
-                            $actions[ApplicationStatusEnum::SUBSIDY_40_RELEASED->id()] = 'Release 40% Subsidy';
-                            break;
-                    }
-                    break;
+                    case RoleEnum::GM_DIC->name:
+                        switch ($application->application_status) {
+                            case ApplicationStatusEnum::PENDING_60_SUBSIDY_REQUEST:
+                                $actions[ApplicationStatusEnum::PENDING_60_SUBSIDY_RELEASE->id()] = 'Send to Nodal Bank for 60% Subsidy Release';
+                                $actions[ApplicationStatusEnum::PENDING_FOR_LOAN_DISBURSEMENT->id()] = 'Revert Back to the Bank';
+                                break;
+                            case ApplicationStatusEnum::PENDING_FOR_DISTRICT_LEVEL_COMMITTEE:
+                                $actions[ApplicationStatusEnum::REVERTED_BACK_TO_APPLICANT_BY_GM->id()] = 'Revert back to the Applicant';
+                                $actions[ApplicationStatusEnum::PENDING_FOR_LOAN_DISBURSEMENT->id()] = 'Send to Bank for Loan Disbursement';
+                                $actions[ApplicationStatusEnum::REJECTED_AT_DISTRICT_LEVEL_COMMITTEE->id()] = 'Reject the Application';
+                                break;
+                            case ApplicationStatusEnum::PENDING_40_SUBSIDY_APPROVAL:
+                                $actions[ApplicationStatusEnum::PENDING_40_SUBSIDY_RELEASE->id()] = 'Send to Nodal Bank for 40% Subsidy Release';
+                                $actions[ApplicationStatusEnum::REVERTED_BACK_TO_EO->id()] = 'Revert Back to Extension Officer';
+                                break;
+                        }
+                        break;
+                    case RoleEnum::EO_DIC->name:
+                        switch ($application->application_status) {
+                            case ApplicationStatusEnum::SUBSIDY_60_RELEASED:
+                            case ApplicationStatusEnum::REVERTED_BACK_TO_EO:
+                                $actions[ApplicationStatusEnum::PENDING_40_SUBSIDY_APPROVAL->id()] = 'Send to General Manager for 40% Subsidy Approval';
+                                break;
+                        }
+                        break;
+                    case RoleEnum::BANK_MANAGER->name:
+                        switch ($application->application_status) {
+                            case ApplicationStatusEnum::PENDING_FOR_BANK_CIBIL_COMMENTS:
+                                $actions[ApplicationStatusEnum::PENDING_FOR_DISTRICT_LEVEL_COMMITTEE->id()] = 'Comment on Viability and Feasibility';
+                                break;
+                            case ApplicationStatusEnum::PENDING_FOR_LOAN_DISBURSEMENT:
+                                $actions[ApplicationStatusEnum::PENDING_60_SUBSIDY_REQUEST->id()] = 'Sanction & Disburse the Loan';
+                                $actions[ApplicationStatusEnum::LOAN_REJECTED->id()] = 'Reject the Loan';
+                                break;
+                        }
+                        break;
+                    case RoleEnum::NODAL_BANK->name:
+                        switch ($application->application_status) {
+                            case ApplicationStatusEnum::PENDING_60_SUBSIDY_RELEASE:
+                                $actions[ApplicationStatusEnum::SUBSIDY_60_RELEASED->id()] = 'Release 60% Subsidy';
+                                break;
+                            case ApplicationStatusEnum::PENDING_40_SUBSIDY_RELEASE:
+                                $actions[ApplicationStatusEnum::SUBSIDY_40_RELEASED->id()] = 'Release 40% Subsidy';
+                                break;
+                        }
+                        break;
             }
         }
         if($application->created_by == $currentUser->id || $application->data->owner->email == $currentUser->email || $application->data->owner->mobile == $currentUser->mobile) {

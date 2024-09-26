@@ -44,7 +44,6 @@
             <label class="form-label">Select FY (Leave Blank if Selecting DateRange)</label>
             <select class="form-control fy" title="{{ request()->get('fy') }}" name="fy" id="status-id">
                 <option value="">Select FY</option>
-                <option value="All">-- All --</option>
                 <option value="2023-2024" @selected(request()->get('fy') == '2023-2024')>2023-2024</option>
                 <option value="2022-2023" @selected(request()->get('fy') == '2022-2023')>2022-2023</option>
                 <option value="2021-2022" @selected(request()->get('fy') == '2021-2022')>2021-2022</option>

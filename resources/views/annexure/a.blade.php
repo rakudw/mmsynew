@@ -20,7 +20,6 @@
         </style>
     </head>
     <body class="w100">
-        @php dd($application->getApprovalMeetingAttribute()); @endphp
         @php($meeting = $application->approval_meeting)
         <p class="text-right"><strong>Annexure-A</strong></p>
         <p class="text-center"><strong>Approval Letter under Mukhya Mantri Swavlamban Yojna</strong></p>
