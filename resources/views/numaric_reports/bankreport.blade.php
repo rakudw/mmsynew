@@ -15,213 +15,116 @@
             </div>
             <x-cards.body>
                 <div class="col-md-12">
-                <div class="table-container card mb-3">
+                    <div class="table-container card mb-3">
                     <table class="table table-bordered table-hover table-striped table-condensed wrap-table" id="table">
-                        <div class="row export-btns">
-                            <!-- <a href="{{ route('numaric_reports.exportReports','recieved') }}" style="width: 150px" class="btn btn-success ml-4">Download</a> -->
-                            <button id="printButton" style="width: 150px" class="btn btn-primary">Print</button>
-                            <button id="backButton" style="width: 150px" class="btn btn-danger" onclick="goBack()">Go Back</button>
-                        </div>
+                            <div class="row export-btns">
+                                <!-- <a href="{{ route('numaric_reports.exportReports','recieved') }}" style="width: 150px" class="btn btn-success ml-4">Download</a> -->
+                                <button id="printButton" style="width: 150px" class="btn btn-primary">Print</button>
+                                <button id="backButton" style="width: 150px" class="btn btn-danger" onclick="goBack()">Go Back</button>
+
+                            </div>
                         <thead>
-                            <tr>
-                                <th scope="col" rowspan="2" class="text-center">District</th>
-                                <th scope="col" colspan="4" class="text-center">At DIC (District Industries Center)</th>
-                                <th scope="col" rowspan="2" class="text-center">Pending At Bank For Comments</th>
-                                <th scope="col" colspan="4" class="text-center">At DLC (District Level Committee)</th>
-                                <th scope="col" rowspan="2" class="text-center">Pending At Bank For Loan Disbursment</th>
-                                <th scope="col" rowspan="2" class="text-center">Pending At Nodal DIC</th>
-                                <th scope="col" colspan="5" class="text-center">At Bank (Nodal Bank)</th>
-                                <th scope="col" rowspan="2" class="text-center">Reverted Back By GM</th>
-                                <th scope="col" rowspan="2" class="text-center">Bank Wise Details</th>
-                                <th scope="col" rowspan="2" class="text-center">District Wise Details</th>
-                            </tr>
-                            <tr>
-                                <th class="text-right">Recieved</th>
-                                <!-- <th class="text-right">Returned</th> -->
-                                <th class="text-right">Approved</th>
-                                <th class="text-right">Rejected</th>
-                                <th class="text-right">Pending</th>
-                                <th class="text-right">Recieved</th>
-                                <th class="text-right">Approved</th>
-                                <th class="text-right">Rejected</th>
-                                <th class="text-right">Pending</th>
-                                <th class="text-right">Recieved</th>
-                                <th class="text-right">Sanctioned</th>
-                                <th class="text-right">Pending</th>
-                                <th class="text-right">Total Amount Of Loan Involved <span style="color: red">(In lakhs)</span></th>
-                                <th class="text-right">Total Amount Of Subsidy Involved <span style="color: red">(In lakhs)</span></th>
-                            </tr>
+                        <tr>
+                            <th scope="col" rowspan="2" class="text-center">Sr. No.</th>
+                            <th scope="col" rowspan="2" class="text-center">Year</th> 
+                            <th scope="col" rowspan="2" class="text-center">Name of District</th>
+                            <th scope="col" colspan="3" class="text-center">No. of Application at DIC</th>
+                            <th scope="col" colspan="2" class="text-center">No. of Application at DLC</th>
+                            <th scope="col" rowspan="2" class="text-center">No. of Applications Pending At DIC</th>
+                            <th scope="col" rowspan="2" class="text-center">No. of Application Forwarded to bank</th>
+                            <th scope="col" colspan="3" class="text-center">Sanctioned By Bank</th>
+                            <th scope="col" rowspan="2" class="text-center">No. of Application rejected by the bank</th>
+                            <th scope="col" rowspan="2" class="text-center">No. of Cases pending at bank level</th>
+                            <th scope="col" rowspan="2" class="text-center">Bank Wise Details</th>
+                            <th scope="col" rowspan="2" class="text-center">District Wise Details</th>
+                        </tr>
+                        <tr>
+                            <th class="text-right">Received</th>
+                            <th class="text-right">Returned</th>
+                            <th class="text-right">Forwarded to DLC</th>
+                            <th class="text-right">Approved By DLC</th>
+                            <th class="text-right">Rejected By DLC</th>
+                            <th class="text-right">No. Of Cases</th>
+                            <th class="text-right">Total Amount Of Loan Involved <span style="color: red">(In lakhs)</span></th>
+                            <th class="text-right">Total Amount Of Subsidy Involved <span style="color: red">(In lakhs)</span></th>
+                        </tr>
                         </thead>
                         <tbody>
-                            @php
-                                $totalReceivedByDIC = 0;
-                                $totalApprovedByDIC = 0;
-                                $totalRejectedByDIC = 0;
-                                $totalPendingByDIC = 0;
-                                $totalPendingAtBankForComments = 0;
-                                $totalForwardedToDLC = 0;
-                                $totalApprovedByDLC = 0;
-                                $totalRejectedByDLC = 0;
-                                $totalPendingByDLC = 0;
-                                $totalPendingAtBankDisbursmentCount = 0;
-                                $totalPendingAtNodalDICCount = 0;
-                                $totalReceivedToNodalCount = 0;
-                                $totalSanctionedByNodalCount = 0;
-                                $totalPendingAtNodalCount = 0;
-                                $totalAmountOfLoanInvolved = 0;
-                                $totalAmountOfSubsidyInvolved = 0;
-                                $totalApplicationRevertedBackByGMCount = 0;
-                            @endphp
-
                             @foreach ($reportData as $index => $district)
-                                @if (isset($district['Year']) && array_key_exists('DistrictId', $district))
-                                    @foreach ($district['Year'] as $yearData)
-                                        <tr>
-                                            <td class="text-center">{{ $district['District'] }}</td>
-                                            <td class="text-right">
-                                                <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=305&kind=inc">
-                                                    {{ $yearData['Received By DIC'] }}
-                                                </a>   
-                                            </td>
-                                            <!-- <td class="text-right">
-                                                <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id[]=307,310&kind=arr">
-                                                    {{ $yearData['Returned By DIC'] }}
-                                                </a>   
-                                            </td> -->
-                                            <td class="text-right">
-                                                <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=307&kind=inc">
-                                                    {{ $yearData['Approved By DIC'] }}
-                                                </a>    
-                                            </td>
-                                            <td class="text-right">
-                                                <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=307">
-                                                    {{ $yearData['Rejected By DIC'] }}
-                                                </a>    
-                                            </td>
-                                            <td class="text-center">
-                                                <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&&status_id=306">
-                                                    {{ $yearData['Pending By DIC'] }}
-                                                </a>  
-                                            </td>
-                                            <td class="text-center">
-                                                <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&&status_id=308">
-                                                    {{ $yearData['Pending At Bank For Comments'] }}
-                                                </a>  
-                                            </td>
-                                            <td class="text-right">
-                                                <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=308&kind=inc">
-                                                    {{ $yearData['Forwarded To DLC'] }}
-                                                </a>   
-                                            </td>
-                                            <td class="text-right">
-                                                <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=310&kind=inc">
-                                                    {{ $yearData['Approved By DLC'] }}
-                                                </a>    
-                                            </td>
-                                            <td class="text-right">
-                                                <a target="_blank" href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=310">
-                                                    {{ $yearData['Rejected By DLC'] }}
-                                                </a>  
-                                            </td>
-                                            <td class="text-center">
-                                                <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=309">
-                                                    {{ $yearData['Pending By DLC'] }}
-                                                </a>  
-                                            </td>
-                                            <td class="text-center">
-                                                <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=311">
-                                                    {{ $yearData['Pending At Bank Disbursment Count'] }}
-                                                </a>  
-                                            </td>
-                                            <td class="text-center">
-                                                <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id[]=313,322&kind=arr">
-                                                    {{ $yearData['Pending At Nodal DIC Count'] }}
-                                                </a>  
-                                            </td>
-                                            <td class="text-right">
-                                                <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id[]=313,322&kind=arr_not">
-                                                    {{ $yearData['Received To Nodal Count'] }}
-                                                </a>   
-                                            </td>
-                                            <td class="text-right">
-                                                <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id[]=315,317&kind=arr">
-                                                    {{ $yearData['Sanctioned By Nodal Count'] }}
-                                                </a>    
-                                            </td>
-                                            <td class="text-right">
-                                                <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id[]=314,316&kind=arr">
-                                                    {{ $yearData['Pending At Nodal Count'] }}
-                                                </a>    
-                                            </td>
-                                            @php
-                                                $formatter = new NumberFormatter('en_IN', NumberFormatter::DECIMAL);
-                                                $formatter->setAttribute(NumberFormatter::MAX_FRACTION_DIGITS, 2);
-                                                $loanAmountInLakhs = $yearData['Total Amount Of Loan Involved'] / 100000;
-                                                $subsidyAmountInLakhs = $yearData['Total Amount Of Subsidy Involved'] / 100000;
-
-                                                $totalReceivedByDIC += $yearData['Received By DIC'];
-                                                $totalApprovedByDIC += $yearData['Approved By DIC'];
-                                                $totalRejectedByDIC += $yearData['Rejected By DIC'];
-                                                $totalPendingByDIC += $yearData['Pending By DIC'];
-                                                $totalPendingAtBankForComments += $yearData['Pending At Bank For Comments'];
-                                                $totalForwardedToDLC += $yearData['Forwarded To DLC'];
-                                                $totalApprovedByDLC += $yearData['Approved By DLC'];
-                                                $totalRejectedByDLC += $yearData['Rejected By DLC'];
-                                                $totalPendingByDLC += $yearData['Pending By DLC'];
-                                                $totalPendingAtBankDisbursmentCount += $yearData['Pending At Bank Disbursment Count'];
-                                                $totalPendingAtNodalDICCount += $yearData['Pending At Nodal DIC Count'];
-                                                $totalReceivedToNodalCount += $yearData['Received To Nodal Count'];
-                                                $totalSanctionedByNodalCount += $yearData['Sanctioned By Nodal Count'];
-                                                $totalPendingAtNodalCount += $yearData['Pending At Nodal Count'];
-                                                $totalAmountOfLoanInvolved += $yearData['Total Amount Of Loan Involved'];
-                                                $totalAmountOfSubsidyInvolved += $yearData['Total Amount Of Subsidy Involved'];
-                                                $totalApplicationRevertedBackByGMCount += $yearData['Application Reverted Back By GM Count'];
-                                            @endphp
-                                            <td class="text-right">{{ $formatter->format($loanAmountInLakhs) }}</td>
-                                            <td class="text-right">{{ $formatter->format($subsidyAmountInLakhs) }}</td>
-                                            <td class="text-center">
-                                                <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=321">
-                                                    {{ $yearData['Application Reverted Back By GM Count'] }}
-                                                </a>        
-                                            </td>
-                                            <td class="text-center">
-                                                <a href="/report/banks">View</a>
-                                            </td>
-                                            <td class="text-center">
-                                                <a href="#" onclick="handleClick({{ $district['DistrictId'] }}); return false;">View</a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                            @if (isset($district['Year']) && array_key_exists('DistrictId', $district))
+                                @foreach ($district['Year'] as $yearData)
+                                    <tr>
+                                        <td class="text-center">{{ $index + 1 }}</td>
+                                        <td  class="text-center">{{ end($district['Year'])['Year'] }}</td>
+                                        <td class="text-center">{{ $district['District'] }}</td>
+                                        <td class="text-right">
+                                            <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=306&kind=not">
+                                                {{ $yearData['Received'] }}
+                                            </a>   
+                                        </td>
+                                        <td class="text-right">
+                                            <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=307">
+                                                {{ $yearData['Returned'] }}
+                                            </a>   
+                                        </td>
+                                        <td class="text-right">
+                                             <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=309">
+                                                {{ $yearData['Forwarded To DLC'] }}
+                                            </a>   
+                                        </td>
+                                        <td class="text-right">
+                                            <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=311&kind=inc">
+                                                {{ $yearData['Approved By DLC'] }}
+                                            </a>    
+                                        </td>
+                                        <td class="text-right">
+                                            <a target="_blank" href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=310">
+                                                {{ $yearData['Rejected By DLC'] }}
+                                            </a>  
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id[]=313,322&kind=arr">
+                                                {{ $yearData['No of Applications Pending ar DLC'] }}
+                                            </a>  
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id[]=314,316&kind=arr">
+                                                {{ $yearData['No of Applications Forwarded to Bank'] }}
+                                            </a>      
+                                        </td>
+                                        <td class="text-right">
+                                            <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id[]=315,317&kind=arr">
+                                                {{ $yearData['No Of Cases'] }}
+                                            </a>       
+                                        </td>
+                                        @php
+                                            $formatter = new NumberFormatter('en_IN', NumberFormatter::DECIMAL);
+                                            $formatter->setAttribute(NumberFormatter::MAX_FRACTION_DIGITS, 2);
+                                        @endphp
+                                        <td class="text-right">{{ $formatter->format($yearData['Total Amount of Loan Involved'] / 100000) }}</td>
+                                        <td class="text-right">{{ $formatter->format($yearData['Total Amount of Subsidy Involved']) }} </td>
+                                        <td class="text-center">
+                                            <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=304">
+                                                {{ $yearData['No Of Application Rejected By The Bank'] }}
+                                            </a>       
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=311">
+                                                {{ $yearData['No Of Cases Pending at Bank Level'] }}
+                                            </a>        
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="/report/banks">View</a>
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="#" onclick="handleClick({{ $district['DistrictId'] }}); return false;">View</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                                 @endif
                             @endforeach
-
-                            <!-- Totals Row -->
-                            <tr>
-                                <td class="text-center"><strong>Totals</strong></td>
-                                <td class="text-right"><strong>{{ $totalReceivedByDIC }}</strong></td>
-                                <td class="text-right"><strong>{{ $totalApprovedByDIC }}</strong></td>
-                                <td class="text-right"><strong>{{ $totalRejectedByDIC }}</strong></td>
-                                <td class="text-center"><strong>{{ $totalPendingByDIC }}</strong></td>
-                                <td class="text-center"><strong>{{ $totalPendingAtBankForComments }}</strong></td>
-                                <td class="text-right"><strong>{{ $totalForwardedToDLC }}</strong></td>
-                                <td class="text-right"><strong>{{ $totalApprovedByDLC }}</strong></td>
-                                <td class="text-right"><strong>{{ $totalRejectedByDLC }}</strong></td>
-                                <td class="text-center"><strong>{{ $totalPendingByDLC }}</strong></td>
-                                <td class="text-center"><strong>{{ $totalPendingAtBankDisbursmentCount }}</strong></td>
-                                <td class="text-center"><strong>{{ $totalPendingAtNodalDICCount }}</strong></td>
-                                <td class="text-right"><strong>{{ $totalReceivedToNodalCount }}</strong></td>
-                                <td class="text-right"><strong>{{ $totalSanctionedByNodalCount }}</strong></td>
-                                <td class="text-right"><strong>{{ $totalPendingAtNodalCount }}</strong></td>
-                                <td class="text-right"><strong>{{ $formatter->format($totalAmountOfLoanInvolved / 100000) }}</strong></td>
-                                <td class="text-right"><strong>{{ $formatter->format($totalAmountOfSubsidyInvolved / 100000) }}</strong></td>
-                                <td class="text-center"><strong>{{ $totalApplicationRevertedBackByGMCount }}</strong></td>
-                                <td class="text-center"></td>
-                                <td class="text-center"></td>
-                            </tr>
                         </tbody>
                     </table>
-                </div>
-
                     </div>
                 </div>
             </x-cards.body>

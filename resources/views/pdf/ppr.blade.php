@@ -51,7 +51,12 @@
                 <tr>
                     <th scope="col">Category</th>
                     <td>
-                        {{ implode(', ', array_filter([$application->isSCOrST() ? 'SC/ST' : 'General/OBC', $application->isWomanEnterprise() ? 'Woman Enterprise' : null, $application->isSpeciallyAbledEnterprise() ? 'Divyangjan' : null]))}}
+                    {{ implode(', ', array_filter([
+                        $application->isWomanEnterprise()
+                            ? 'Woman(' . ($application->isST() ? 'ST' : ($application->isSCOrST() ? 'SC' : 'Gen')) . ')'
+                            : ($application->isSCOrST() ? 'SC/ST' : 'General/OBC'),
+                        $application->isSpeciallyAbledEnterprise() ? 'Divyangjan' : null
+                    ])) }}
                     </td>
                 </tr>
             </tbody>

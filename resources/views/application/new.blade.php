@@ -19,7 +19,7 @@
 
     <div class="row " id="formHolder">
         <div class="col-12">
-            <x-forms.form :activities="$activity" :cons="$con" :diss="$Diss" :cats="$CAT" :banks="$bank" :application="$application" :bankid="$bankid"/>
+            <x-forms.form :activities="$activity" :cons="$con" :diss="$Diss" :cats="$CAT" :banks="$bank" :application="$application" :bankid="$bankid" :ispreview="$ispreview"/>
         </div>
     </div>
 @endsection

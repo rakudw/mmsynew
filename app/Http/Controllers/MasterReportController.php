@@ -8,6 +8,8 @@ use App\Models\Region;
 use App\Models\Enum;
 use App\Models\Activity;
 use App\Enums\ApplicationStatusEnum;
+use App\Models\Views\ApplicationView;
+use Exception;
 use App\Exports\NumericReportExport;
 use App\Exports\NumaricAllStatusExport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -33,7 +35,7 @@ class MasterReportController extends Controller
         $title = $result['title'];
         $districts = Region::userBasedDistricts(null)->select('name', 'id')->get();
         $districtsIds = $district_ids == 'All' ? Region::userBasedDistricts(null)->pluck('id')->values() : $district_ids;
-
+       
         $query = $result['query']->whereIn('region_id', $districtsIds);
         $constituencies = Region::getConstituency(null)->select('name', 'id')->get();
         $constituenciesIds = $constituency_ids == 'All' ? Region::getConstituency(null)->pluck('id')->values() : $constituency_ids;
@@ -43,7 +45,7 @@ class MasterReportController extends Controller
         $blockIds = $block_ids == 'All' ? Region::getBlock(null)->pluck('id')->values() : $block_ids;
         $panchayatWards = Region::getPanchayatWard($blockIds)->select('name', 'id')->get();
         $panchayatWardsIds =  $panchayat_ids == 'All' ? Region::getPanchayatWard($blockIds)->pluck('id')->values() : $panchayat_ids;
-
+       
         // tehsilsIds
         if ($tehsil_ids != 'All') {
             $query->where(function ($query) use ($tehsilsIds) {
@@ -66,7 +68,7 @@ class MasterReportController extends Controller
                 }
             })->get();
         }
-
+        
         // blockIds
         if ($block_ids != 'All') {
             $query->where(function ($query) use ($blockIds) {
@@ -97,7 +99,7 @@ class MasterReportController extends Controller
         if ($activity_ids != 'All') {
             $query->whereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.enterprise.activity_id'))) LIKE ?", ['%' . $activity_ids . '%'])->get();
         }
-
+       
         $applications = $query->paginate($perPage == "All" ? 500000 : $perPage);
         // dd($applications);
 
@@ -113,7 +115,7 @@ class MasterReportController extends Controller
     public function convertDate($dateString) {
         // Define the possible date formats
         $formats = ['d/m/Y', 'Y/m/d', 'm/d/Y'];
-
+    
         foreach ($formats as $format) {
             $date = \DateTime::createFromFormat($format, $dateString);
             if ($date !== false) {
@@ -121,7 +123,7 @@ class MasterReportController extends Controller
                 return $date;
             }
         }
-
+    
         // If no format worked, return null or throw an exception
         throw new \Exception("Invalid date format: $dateString");
     }
@@ -149,7 +151,7 @@ class MasterReportController extends Controller
                 $query->whereBetween('created_at', [$formattedstartDate, $formattedEndDate]);
             }
         }
-
+        
         switch (request()->route()->parameter('type')) {
             case 'pending':
                 $statusId =  [
@@ -158,7 +160,7 @@ class MasterReportController extends Controller
                     ApplicationStatusEnum::PENDING_FOR_DISTRICT_LEVEL_COMMITTEE->id(),
                     ApplicationStatusEnum::PENDING_60_SUBSIDY_REQUEST->id(),
                     ApplicationStatusEnum::PENDING_60_SUBSIDY_RELEASE->id(),
-                    ApplicationStatusEnum::PENDING_40_SUBSIDY_APPROVAL->id(),
+                    ApplicationStatusEnum::PENDING_40_SUBSIDY_REQUEST->id(),
                     ApplicationStatusEnum::PENDING_40_SUBSIDY_RELEASE->id(),
                 ];
                 $query->whereIn('status_id', request()->get('status_id') ? [request()->get('status_id')] : $statusId)->orderBy('updated_at', 'DESC');
@@ -182,6 +184,7 @@ class MasterReportController extends Controller
                     $title = "Senctioned Applications for 60% subsidy";
                 } else {
                     $statusId = [
+                        ApplicationStatusEnum::PENDING_40_SUBSIDY_REQUEST->id(),
                         ApplicationStatusEnum::PENDING_40_SUBSIDY_RELEASE->id(),
                         ApplicationStatusEnum::SUBSIDY_40_RELEASED->id()
                     ];
@@ -216,7 +219,7 @@ class MasterReportController extends Controller
                 $title = "CGTMSE Fee";
                 break;
             default:
-
+            
                 if (request()->get('status_id') == 100) {
                     $statusId = [
                         309, 310, 311, 312, 313, 314, 315, 316, 317, 318, 319, 320, 321
@@ -234,22 +237,17 @@ class MasterReportController extends Controller
                     $query->where('status_id','>', $statusId);
                 } else if (request()->get('kind') == 'not') {
                     $query->whereNot('status_id', $statusId);
-                } else if (request()->get('kind') == 'arr_not') {
-                    $statusIds = request()->get('status_id')[0];
-                    $statusIdsArray = explode(',', $statusIds);
-                        $query->where('status_id', '>', trim($statusIdsArray[0]))
-                              ->whereNot('status_id', trim($statusIdsArray[1]));
                 } else if (request()->get('kind') == 'arr') {
                     $status_ids = explode(',', request()->get('status_id')[0]);
                     $query->whereIn('status_id', $status_ids);
                 }else{
                     $query->whereIn('status_id', $statusId);
                 }
-
+                
                 $title = "All Applications";
                 break;
         }
-
+        
         return ['query' => $query, 'statusId' => $statusId, 'title' => $title];
     }
     public function getDataFromDistricts(Request $request)
@@ -546,80 +544,25 @@ class MasterReportController extends Controller
     }
 
     // Reports for UCO Bank
-
-
-    public function bankReportLB(Request $request)
-    {
-
-
-
-        $district_ids = $request->input('district_id', 'All');
-        $tehsil_ids = $request->input('tehsil_id', 'All');
-        $constituency_ids = $request->input('constituency_id', 'All');
-        $block_ids = $request->input('block_id', 'All');
-        $panchayat_ids = $request->input('panchayat_id', 'All');
-
-            // $district_ids=['3'];
-        // Get Data from Filters
-        $title = 'Recieved Applications';
-        $districts = Region::userBasedDistricts(null)->select('name', 'id')->get();
-
-        $districtsIds = $district_ids == 'All' ? Region::where('parent_id', 2)->pluck('id')->toArray() : $district_ids;
-        $constituencies = null;
-        $tehsils = null;
-        $blocks = null;
-        $panchayatWards = null;
-        $statusId = null;
-        $categories = null;
-        $activities = null;
-        $perPage = null;
-        $selectedFY = request()->get('fy'); // Get the selected fiscal year from the request
-        if ($selectedFY && $selectedFY != 'All') {
-            // dd($selectedFY);
-            // Split the fiscal year into two years
-            list($startYear, $endYear) = explode('-', $selectedFY);
-
-            // Calculate the start and end dates of the fiscal year
-            $startDate = "{$startYear}-04-01";
-            $endDate = "{$endYear}-03-31";
-        }
-        // dd($districtsIds);
-        $reportData = $this->numaricQueryRecievedBank($districtsIds, $selectedFY);
-        $totals = null;
-
-        foreach ($reportData as $item) {
-            if (isset($item['Total'])) {
-                $totals = $item['Total'];
-                break;
-            }
-        }
-
-         echo"<pre>"; print_r($reportData); die;
-        $request->session()->flash('exportData', $reportData);
-        $request->session()->flash('totals', $totals);
-        return view('numaric_reports.bankreport', compact('districts', 'districtsIds', 'constituencies', 'tehsils', 'blocks', 'panchayatWards', 'title', 'statusId', 'reportData', 'totals', 'categories', 'activities', 'perPage'));
-    }
-
-
-
-
     public function bankReport(Request $request)
     {
-
-
-
         $district_ids = $request->input('district_id', 'All');
         $tehsil_ids = $request->input('tehsil_id', 'All');
         $constituency_ids = $request->input('constituency_id', 'All');
         $block_ids = $request->input('block_id', 'All');
         $panchayat_ids = $request->input('panchayat_id', 'All');
 
-            // $district_ids=['3'];
         // Get Data from Filters
         $title = 'Recieved Applications';
         $districts = Region::userBasedDistricts(null)->select('name', 'id')->get();
-
-        $districtsIds = $district_ids == 'All' ? Region::where('parent_id', 2)->pluck('id')->toArray() : $district_ids;
+        $districtsData = 0;
+        if(auth()->user()->isSuperAdmin()){
+            $districtsData =  Region::where('parent_id', 2)->pluck('id')->toArray();
+        }else{
+            $districtsData = Region::userBasedDistricts(null)->pluck('id')->values();
+        }
+        
+        $districtsIds = $district_ids == 'All' ? $districtsData : $district_ids;
         $constituencies = null;
         $tehsils = null;
         $blocks = null;
@@ -638,18 +581,16 @@ class MasterReportController extends Controller
             $startDate = "{$startYear}-04-01";
             $endDate = "{$endYear}-03-31";
         }
-        // dd($districtsIds);
+        // dd($districts);
         $reportData = $this->numaricQueryRecievedBank($districtsIds, $selectedFY);
         $totals = null;
-
+        //    dd($reportData);
         foreach ($reportData as $item) {
             if (isset($item['Total'])) {
                 $totals = $item['Total'];
                 break;
             }
         }
-
-        //  echo"<pre>"; print_r($reportData); die;
         $request->session()->flash('exportData', $reportData);
         $request->session()->flash('totals', $totals);
         return view('numaric_reports.bankreport', compact('districts', 'districtsIds', 'constituencies', 'tehsils', 'blocks', 'panchayatWards', 'title', 'statusId', 'reportData', 'totals', 'categories', 'activities', 'perPage'));
@@ -666,9 +607,7 @@ class MasterReportController extends Controller
             'Received' => 0,
             'Returned' => 0,
             'Forwarded To DLC' => 0,
-            'Pending At Bank For Comments' => 0,
             'Approved By DLC' => 0,
-            'Pending By DLC' => 0,
             'Rejected By DLC' => 0,
             'No of Applications Pending ar DLC' => 0,
             'No of Applications Forwarded to Bank' => 0,
@@ -677,7 +616,6 @@ class MasterReportController extends Controller
             'Total Amount of Subsidy Involved' => 0,
             'No Of Application Rejected By The Bank' => 0,
             'No Of Cases Pending at Bank Level' => 0,
-            'Application Reverted Back By GM' => 0,
         ];
 
         // Loop through each district
@@ -717,102 +655,60 @@ class MasterReportController extends Controller
         // dd($reportData);
         // Add the totals to the report data
         $reportData[] = ['Total' => $totals];
-        // dd($totals);
+
         return $reportData;
     }
 
     public function iterateBetweenDatesForBank($startDate, $endDate, $fiscalYear, $districtId, $totals)
     {
 
-        // At DIC
-        $receivedCountDic = Application::where('region_id', $districtId)
-            ->where('status_id', '>', 305)
-            ->whereBetween('created_at', [$startDate, $endDate])
-            ->count();
-        $approvedCountDic = Application::where('region_id', $districtId)
-            ->where('status_id', '>', 307)
-            ->whereBetween('created_at', [$startDate, $endDate])
-            ->count();
-        $returnedCountDic = Application::where('region_id', $districtId)
-            ->whereIn('status_id', [305])
-            ->whereBetween('created_at', [$startDate, $endDate])
-            ->count();
-        $rejectedCountDic = Application::where('region_id', $districtId)
-            ->whereIn('status_id', [307])
-            ->whereBetween('created_at', [$startDate, $endDate])
-            ->count();
-        $pendingCountDic = Application::where('region_id', $districtId)
-            ->whereIn('status_id', [306])
+        $receivedCount = Application::where('region_id', $districtId)
+            ->whereNot('status_id', 306)
             ->whereBetween('created_at', [$startDate, $endDate])
             ->count();
 
-        // At DIC
 
-        // At Bank For Comments
-
-        $pendingForBankCommentsCount = Application::where('region_id', $districtId)
-            ->whereIn('status_id', [308])
+        $returnedCount = Application::where('region_id', $districtId)
+            ->whereIn('status_id', [307]) // Assuming 318 corresponds to 'Reverted Back to Applicant'
             ->whereBetween('created_at', [$startDate, $endDate])
             ->count();
 
-        // At Bank For Comments
-
-        // At DLC
-        $recievedToDlcCount = Application::where('region_id', $districtId)
-            ->where('status_id', '>', 308)
+        $forwardedToDlcCount = Application::where('region_id', $districtId)
+            ->whereIn('status_id', [309]) // Assuming 312 corresponds to 'Pending for District Level Committee'
             ->whereBetween('created_at', [$startDate, $endDate])
             ->count();
+
         $approvedByDlcCount = Application::where('region_id', $districtId)
-            ->where('status_id', '>', 310)
+            ->where('status_id', '>', 311)
             ->whereBetween('created_at', [$startDate, $endDate])
             ->count();
+
         $rejectedByDlcCount = Application::where('region_id', $districtId)
             ->whereIn('status_id', [310])
             ->whereBetween('created_at', [$startDate, $endDate])
             ->count();
-        $pendingCountDlc = Application::where('region_id', $districtId)
-            ->whereIn('status_id', [309])
+
+        $pendingAtDlcCount = Application::where('region_id', $districtId)
+            ->whereIn('status_id', [313, 322])
             ->whereBetween('created_at', [$startDate, $endDate])
             ->count();
 
-        // At DLC
+        $forwardedToBankCount = Application::where('region_id', $districtId)
+            ->whereIn('status_id', [314, 316])
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->count();
 
-        // At Bank For Loan Disbursment
+        $noOfCasesCount = Application::where('region_id', $districtId)
+            ->whereIn('status_id', [315, 317])
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->count();
 
-        $pendingAtBankDisbursmentCount = Application::where('region_id', $districtId)
-            ->whereIn('status_id', [311])
-            ->whereBetween('created_at', [$startDate, $endDate])
-            ->count();
-        // At Bank For Loan Disbursment
-        // At Nodal DIC
-        $pendingAtNodalDICCount = Application::where('region_id', $districtId)
-            ->whereIn('status_id', [313,322])
-            ->whereBetween('created_at', [$startDate, $endDate])
-            ->count();
-        // At Nodal DIC
-        // At Nodal Bank
-
-        $recievedToNodalCount = Application::where('region_id', $districtId)
-            ->where('status_id', '>', 313)
-            ->whereNot('status_id', 322)
-            ->whereBetween('created_at', [$startDate, $endDate])
-            ->count();
-        $sanctionedByNodalCount = Application::where('region_id', $districtId)
-            ->whereIn('status_id', [315,317])
-            ->whereBetween('created_at', [$startDate, $endDate])
-            ->count();
-        $pendingAtNodalCount = Application::where('region_id', $districtId)
-            ->whereIn('status_id', [314,316])
-            ->whereBetween('created_at', [$startDate, $endDate])
-            ->count();
-        // At Nodal Bank
-// dd('sdsd');
         $totalAmountOfLoanInvolved = Application::where('region_id', $districtId)
-        ->whereBetween('created_at', [$startDate, $endDate])
-        ->get()
-        ->sum(function ($application) {
-            return isset($application->data->loan->term_loan) ? $application->data->loan->term_loan : 0;
-        });
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->get()
+            ->sum(function ($application) {
+                return isset($application->data->loan->term_loan) ? $application->data->loan->term_loan : 0;
+            });
 
         $totalAmountOfSubsidyInvolved = Application::where('region_id', $districtId)
             ->whereBetween('created_at', [$startDate, $endDate])
@@ -827,117 +723,45 @@ class MasterReportController extends Controller
                 }
             });
 
-
-        $totalAmountOfSubsidyPending40 = Application::where('region_id', $districtId)
-       ->whereIn('status_id', [314])
-        ->whereBetween('created_at', [$startDate, $endDate])
-        ->get()
-        ->sum(function ($application) {
-            if ($application->id <= 25000) {
-                return (isset($application->data->old_40_subsidy->subsidy_25) ? floatval($application->data->old_40_subsidy->subsidy_25) : 0)
-                    + (isset($application->data->old_40_subsidy->subsidy_40) ? floatval($application->data->old_40_subsidy->subsidy_40) : 0);
-                //    + (isset($application->data->old_40_subsidy->subsidy_60) ? floatval($application->data->old_40_subsidy->subsidy_60) : 0);
-            } else {
-                return isset($application->data->subsidy->amount) ? floatval($application->data->subsidy->amount) : 0;
-            }
-        });
-
-
-        $totalAmountOfSubsidyPending60 = Application::where('region_id', $districtId)
-        ->whereIn('status_id', [316])
-        ->whereBetween('created_at', [$startDate, $endDate])
-        ->get()
-        ->sum(function ($application) {
-            if ($application->id <= 25000) {
-                return (isset($application->data->old_40_subsidy->subsidy_25) ? floatval($application->data->old_40_subsidy->subsidy_25) : 0)
-               //     + (isset($application->data->old_40_subsidy->subsidy_40) ? floatval($application->data->old_40_subsidy->subsidy_40) : 0)
-                    + (isset($application->data->old_40_subsidy->subsidy_60) ? floatval($application->data->old_40_subsidy->subsidy_60) : 0);
-            } else {
-                return isset($application->data->subsidy->amount) ? floatval($application->data->subsidy->amount) : 0;
-            }
-        });
-
-
-        $totalAmountOfSubsidyREL = Application::where('region_id', $districtId)
-        ->whereIn('status_id', [315,317])
-         ->whereBetween('created_at', [$startDate, $endDate])
-         ->get()
-         ->sum(function ($application) {
-             if ($application->id <= 25000) {
-                 return
-                  (isset($application->data->old_40_subsidy->subsidy_25) ? floatval($application->data->old_40_subsidy->subsidy_25) : 0)
-                      +
-                      (isset($application->data->old_40_subsidy->subsidy_40) ? floatval($application->data->old_40_subsidy->subsidy_40) : 0)
-                     + (isset($application->data->old_40_subsidy->subsidy_60) ? floatval($application->data->old_40_subsidy->subsidy_60) : 0);
-             } else {
-                 return isset($application->data->subsidy->amount) ? floatval($application->data->subsidy->amount) : 0;
-             }
-         });
-
-
-        $applicationRevertedBackByGMCount = Application::where('region_id', $districtId)
-            ->whereIn('status_id', [321])
+        $rejectedByBankCount = Application::where('region_id', $districtId)
+            ->whereIn('status_id', [304])
             ->whereBetween('created_at', [$startDate, $endDate])
             ->count();
 
-        $totals['receivedCountDic'] = $receivedCountDic;
-        $totals['approvedCountDic'] = $approvedCountDic;
-        $totals['returnedCountDic'] = $returnedCountDic;
-        $totals['rejectedCountDic'] = $rejectedCountDic;
-        $totals['pendingCountDic'] = $pendingCountDic;
+        $pendingAtBankCount = Application::where('region_id', $districtId)
+            ->whereIn('status_id', [311])
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->count();
 
-        $totals['pendingForBankCommentsCount'] = $pendingForBankCommentsCount;
-
-        $totals['recievedToDlcCount'] = $recievedToDlcCount;
-        $totals['approvedByDlcCount'] = $approvedByDlcCount;
-        $totals['rejectedByDlcCount'] = $rejectedByDlcCount;
-        $totals['pendingCountDlc'] = $pendingCountDlc;
-
-        $totals['pendingAtBankDisbursmentCount'] = $pendingAtBankDisbursmentCount;
-        $totals['pendingAtNodalDICCount'] = $pendingAtNodalDICCount;
-
-        $totals['recievedToNodalCount'] = $recievedToNodalCount;
-        $totals['sanctionedByNodalCount'] = $sanctionedByNodalCount;
-        $totals['pendingAtNodalCount'] = $pendingAtNodalCount;
-
-        $totals['totalAmountOfLoanInvolved'] = $totalAmountOfLoanInvolved;
-        $totals['totalAmountOfSubsidyInvolved'] = $totalAmountOfSubsidyInvolved;
-
-        $totals['applicationRevertedBackByGMCount'] = $applicationRevertedBackByGMCount;
-
-        $totals['totalAmountOfSubsidyPending60'] = $totalAmountOfSubsidyPending60;
-        $totals['totalAmountOfSubsidyPending40'] = $totalAmountOfSubsidyPending40;
-        $totals['totalAmountOfSubsidyREL'] = $totalAmountOfSubsidyREL;
-
+        $totals['Received'] += $receivedCount;
+        $totals['Returned'] += $returnedCount;
+        $totals['Forwarded To DLC'] += $forwardedToDlcCount;
+        $totals['Approved By DLC'] += $approvedByDlcCount;
+        $totals['Rejected By DLC'] += $rejectedByDlcCount;
+        $totals['No of Applications Pending ar DLC'] += $pendingAtDlcCount;
+        $totals['No of Applications Forwarded to Bank'] += $forwardedToBankCount;
+        $totals['No Of Cases'] += $noOfCasesCount;
+        $totals['Total Amount of Loan Involved'] += $totalAmountOfLoanInvolved;
+        $totals['Total Amount of Subsidy Involved'] += $totalAmountOfSubsidyInvolved;
+        $totals['No Of Application Rejected By The Bank'] += $rejectedByBankCount;
+        $totals['No Of Cases Pending at Bank Level'] += $pendingAtBankCount;
 
         // Create an array for the current fiscal year's data
         $fiscalYearData = [
             'Year' => $fiscalYear ? $fiscalYear : null,
-            'Received By DIC' => $receivedCountDic,
-            'Approved By DIC' => $approvedCountDic,
-            'Returned By DIC' => $returnedCountDic,
-            'Rejected By DIC' => $rejectedCountDic,
-            'Pending By DIC' => $pendingCountDic,
-            'Pending At Bank For Comments' => $pendingForBankCommentsCount,
-            'Forwarded To DLC' => $recievedToDlcCount,
+            'Received' => $receivedCount,
+            'Returned' => $returnedCount,
+            'Forwarded To DLC' => $forwardedToDlcCount,
             'Approved By DLC' => $approvedByDlcCount,
             'Rejected By DLC' => $rejectedByDlcCount,
-            'Pending By DLC' => $pendingCountDlc,
-            'Pending At Bank Disbursment Count' => $pendingAtBankDisbursmentCount,
-            'Pending At Nodal DIC Count' => $pendingAtNodalDICCount,
-            'Received To Nodal Count' => $recievedToNodalCount,
-            'Sanctioned By Nodal Count' => $sanctionedByNodalCount,
-            'Pending At Nodal Count' => $pendingAtNodalCount,
-            'Total Amount Of Loan Involved' => $totalAmountOfLoanInvolved,
-            'Total Amount Of Subsidy Involved' => $totalAmountOfSubsidyInvolved,
-            'Application Reverted Back By GM Count' => $applicationRevertedBackByGMCount,
-            'Pending40' => $totalAmountOfSubsidyPending40,
-            'Pending60' => $totalAmountOfSubsidyPending60,
-            'totalAmountOfSubsidyREL' => $totalAmountOfSubsidyREL,
-
+            'No of Applications Pending ar DLC' => $pendingAtDlcCount,
+            'No of Applications Forwarded to Bank' => $forwardedToBankCount,
+            'No Of Cases' => $noOfCasesCount,
+            'Total Amount of Loan Involved' => $totalAmountOfLoanInvolved,
+            'Total Amount of Subsidy Involved' => $totalAmountOfSubsidyInvolved,
+            'No Of Application Rejected By The Bank' => $rejectedByBankCount,
+            'No Of Cases Pending at Bank Level' => $pendingAtBankCount,
         ];
-
-
 
         // Return only the fiscal year data
         return $fiscalYearData;

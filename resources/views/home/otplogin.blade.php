@@ -138,11 +138,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="text-center d-none">
-                                        <img alt="{{ __('Security code') }}" src="{{ $captchaUrl }}" />
-                                        <button type="button" class="btn btn-theme-primary" id="captchaRefreshButton">
-                                            <em class="fa fa-refresh"></em>
-                                        </button>
+                                    <div class="text-center">
+                                        <label for="captcha">{{ $captchaQuestion }} = ?</label>
+                                        <input type="text" name="captcha" id="captcha" required>
                                     </div>
                                     <div class="input-group input-group-outline mb-3 d-none">
                                         <label for="captcha" class="form-label">{{ __('Security Code') }}</label>

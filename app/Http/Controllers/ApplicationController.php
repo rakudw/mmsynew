@@ -73,6 +73,7 @@ class ApplicationController extends Controller
         $con = Enum::where('type', 'CONSTITUTION_TYPE')->get();
         $CAT = Enum::where('type', 'SOCIAL_CATEGORY')->get();
         $Diss = Region::where('type_id', 404)->get();
+        $ispreview = false;
         $application = null;
         $bankid = null;
         return view('application.new', compact(
@@ -83,14 +84,15 @@ class ApplicationController extends Controller
             'Diss',
             'bank',
             'application',
-            'bankid'
+            'bankid',
+            'ispreview'
         ));
     }
 
-    public function newedit(int $formDesignId = null)
-    {
+    public function newedit(Request $request, int $formDesignId = null)
+    {   
+        $ispreview = $request->query('Is_Preview') == 'Yes';
         $application = Application::where('created_by', auth()->user()->id)->first();
-        // dd($application);
         if (!$this->user()->can('update', $application)) {
             return redirect()->route('application.newstatus')->withErrors(['custom_error' => 'You cannot edit your application.You will get notifications for further actions.'])
                 ->withInput();
@@ -112,7 +114,8 @@ class ApplicationController extends Controller
             'Diss',
             'bank',
             'application',
-            'bankid'
+            'bankid',
+            'ispreview'
         ));
     }
 
@@ -120,11 +123,12 @@ class ApplicationController extends Controller
     {
         if (auth()->user()) {
             $applications = Application::where('created_by', auth()->user()->id)->get();
+            $activities = Activity::all();
         } else {
             $applications = [];
         }
         // dd($applications);
-        return view('application.status', compact('applications'));
+        return view('application.status', compact('applications', 'activities'));
     }
 
     public function newlogin(Request $request)
@@ -183,27 +187,25 @@ class ApplicationController extends Controller
                 'json' => [
                     'token' => $token,
                     'secret_key' => env('SSO_SECRET_KEY', '64544ef28c3464e7fb0a50430154076fd80adff05a9ed1613b72a9b72b7b9044'),
-                    'service_id' => env('SSO_SERVICE_ID', '10000075'),
+                    'service_id' => env('SSO_SERVICE_ID', '10000074'),
                 ]
             ]);
 
             $body = $response->getBody();
             $ssoUser = json_decode($body, true);
 
-            $user = User::where('email', $ssoUser['email'])->exists();
-            if (!$user) {
-                $user = User::create([
+            $user = User::firstOrCreate(
+                ['mobile' => $ssoUser['mobile']],
+                [
                     'name' => $ssoUser['name'],
                     'mobile' => $ssoUser['mobile'],
                     'email' => $ssoUser['email'],
                     'password' => Hash::make(mt_rand(10000000, 99999999)),
                     'remember_token' => Str::random(10),
-                ]);
-            } else {
-                $user = User::where('email', $ssoUser['email'])->first();
-                auth()->login($user, true);
-            }
+                ]
+            );
 
+            auth()->login($user, true);
 
             return redirect()->intended('/');
         } else {
@@ -334,20 +336,12 @@ class ApplicationController extends Controller
         $aadharNumbers = [];
         // dd($data);
         // Assuming 'partner_mobile' and 'partner_aadhaar' are fields to compare
-        // foreach ($data->owner->partner_mobile as $mobile) {
-        //     $phoneNumbers[] = $mobile;
-        // }
-
-        if (!empty($data->owner->partner_mobile)) {
-            foreach ($data->owner->partner_mobile as $mobile) {
-                $phoneNumbers[] = $mobile;
-            }
+        foreach ($data->owner->partner_mobile as $mobile) {
+            $phoneNumbers[] = $mobile;
         }
 
-        if (!empty($data->owner->partner_aadhaar)) {
-            foreach ($data->owner->partner_aadhaar as $aadhar) {
-                $aadharNumbers[] = $aadhar;
-            }
+        foreach ($data->owner->partner_aadhaar as $aadhar) {
+            $aadharNumbers[] = $aadhar;
         }
 
         // Check for an existing application with matching phone numbers or Aadhar numbers
@@ -372,7 +366,7 @@ class ApplicationController extends Controller
             $application->name = $request->input('name');
             $application->form_id = 1;
             $application->data = $data;
-            $application->region_id = $request->input('district_id');
+            $application->region_id = $request->input('owner_district_id');
             $application->status_id = 302;
             if ($applicationId) {
                 $application->update();
@@ -407,6 +401,7 @@ class ApplicationController extends Controller
         $user = [
             'name' => $application->data->owner->name,
             'email' => $application->data->owner->email,
+            'mobile' =>  $application->data->owner->mobile,
             'password' => Hash::make(mt_rand(10000000, 99999999)),
             'remember_token' => Str::random(10),
         ];
@@ -448,7 +443,8 @@ class ApplicationController extends Controller
             $Documenttype->push(DocumentType::find(8));
         }
         $annexure = strtolower($annexure) == 'none' ? null : strtolower($annexure);
-        return view('application.newdocument', compact('application', 'Documenttype', 'allApplicationDocuments', 'annexure'));
+        $activities = Activity::all();
+        return view('application.newdocument', compact('application', 'Documenttype', 'allApplicationDocuments', 'annexure', 'activities'));
     }
 
 

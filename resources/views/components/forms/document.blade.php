@@ -63,7 +63,17 @@ function getNameFromId($table, $id, $nameColumn = 'name') {
                                 </tr>
                                 <tr>
                                     <th>Industry Type:</th>
-                                    <td>{{ $application->data->enterprise->activity_type_id }}</td>
+                                    <td>
+                                        @if ($application->data->enterprise->activity_type_id == 201)
+                                            Manufacturing
+                                        @elseif ($application->data->enterprise->activity_type_id == 202)
+                                            Servicing
+                                        @elseif ($application->data->enterprise->activity_type_id == 203)
+                                            Trading
+                                        @else
+                                            Unknown
+                                        @endif
+                                    </td>
                                     <th>Aadhar No:</th>
                                     <td>{{ $application->data->owner->aadhaar }}</td>
                                     <th>Project Cost:</th>
@@ -80,13 +90,7 @@ function getNameFromId($table, $id, $nameColumn = 'name') {
                                         </div>
                                     </td>
                                 </tr>
-                                @php
-                                    $order = [1,2,3,9,5,4,6,7,8,10,11,12];
-                                    $doctype = collect($doctype)->sortBy(function($doc) use ($order) {
-                                    return array_search($doc->id, $order);
-                                });
-                            @endphp
-                            @foreach($doctype as $doc)
+                                @foreach($doctype as $doc)
                                     <tr>
                                         <th>{{$doc->id}}</th>
                                         <th>
@@ -453,7 +457,10 @@ function getNameFromId($table, $id, $nameColumn = 'name') {
             newValue += '<span style="color:red;">* (Required)</span>';
             // Find the <strong> element by its ID and update its content
             $('#' + docId).html(newValue);
+
+
             $('#finalSubmissionButton').prop('disabled', true);
+
                 $('input[type=file]').change(function() {
                     // Check if all required file inputs have files attached
                     var allFilesUploaded = true;
@@ -479,16 +486,18 @@ function getNameFromId($table, $id, $nameColumn = 'name') {
                     }
                     return true;
                 }
+
                 // Disable the final submission button by default
                 var finalSubmissionButton = $('#finalSubmissionButton');
                 finalSubmissionButton.prop('disabled', true);
+
                 // Check required inputs when the page loads
                 finalSubmissionButton.prop('disabled', !checkRequiredInputs());
+
                 // Check required inputs whenever an input changes
                 $('input').on('input', function() {
                     finalSubmissionButton.prop('disabled', !checkRequiredInputs());
                 });
-
 
             function loadActivityOptions() {
             

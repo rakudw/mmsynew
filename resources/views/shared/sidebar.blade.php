@@ -294,15 +294,6 @@
                                             <x-slot:title>{{ __('Bank Overview') }}</x-slot:title>
                                         </x-sidebar.nav-link>
                                     </x-sidebar.nav-item>
-									
-									      <x-sidebar.nav-item>
-                                        <x-sidebar.nav-link href="{{ route('report.banks-pending') }}" :active="request()->routeIs('report.banks-pending')">
-                                            <x-slot:icon><em class="material-icons opacity-10">description</em></x-slot:icon>
-                                            <x-slot:title>{{ __('Bank Pending List') }}</x-slot:title>
-                                        </x-sidebar.nav-link>
-                                    </x-sidebar.nav-item>
-									
-									
                                 @else
                                 <x-sidebar.nav-item>
                                         <x-sidebar.nav-link href="{{ route('report.banks') }}" :active="request()->routeIs('report.banks')">

@@ -15,7 +15,11 @@
                                 <tr class="backk">
                                     <td colspan="6">
                                         <div align="center" class="style1">
+                                            @if($ispreview == 'true')<h6>Preview Of Application MMSY-{{ $application->id }}</h6> 
+                                            @else
                                             <h6>Application For The Approval Under Mukhya Mantri Swavlamban Yojana/मुख्यमंत्री स्वावलंबन योजना के अंतर्गत मंजूरी के लिए आवेदन</h6>
+                                            @endif
+                                            
                                             @if($application)<h6>You are editing the Application MMSY-{{ $application->id }}</h6>@endif
                                         </div>
                                     </td>
@@ -497,7 +501,7 @@
                                 </tr>
                                 <tr class="sub_row">
                                     <th>&nbsp;</th>
-                                    <th ><strong>Same as Legal Type</strong></th>
+                                    <th ><strong>Same as applicant address</strong></th>
                                     <td colspan="4">
                                         <input type="checkbox" name="same_as_legal_type" id="same_as_legal_type">
                                     </td>
@@ -789,7 +793,17 @@
                                 </tr>
                                 <tr>
                                     <td colspan="6"><div align="center">&nbsp;&nbsp;&nbsp;&nbsp;
+                                            
+                                            
+                                            @if($ispreview == 'true')
+                                                @if($application->status->id == 302 || $application->status->id == 301 || $application->status->id == 305)
+                                                <a href="{{ route('application.newedit', ['application' => $application,]) }}">
+                                                    <button class="btn btn-secondary">Edit Your Application</button>
+                                                </a>
+                                                @endif
+                                            @else
                                             <input  type="submit" class="button" id="submit-button" value="{{ $application ? 'Update' : 'Save'}} Applicant Data">
+                                            @endif
                                     </div></td>
                                     
                                 </tr>
@@ -967,10 +981,20 @@
 
     <script>
     // When the page is ready
+    
     $(document).ready(function() {
         const birthDateInput = $('#owner_birth_date');
         const genderSelect = $('#gender');
+        const urlParams = new URLSearchParams(window.location.search);
+        const isPreview = urlParams.get('Is_Preview') === 'Yes';
 
+        if (isPreview) {
+            // If in preview mode, disable all form inputs, selects, textareas, and buttons
+            let formElements = document.querySelectorAll('#applicant-form input, #applicant-form  select, #applicant-form  textarea, #applicant-form  button');
+            formElements.forEach(function(element) {
+                element.disabled = true;
+            });
+        }
         // Function to get today's date in YYYY-MM-DD format
         function getTodayDate() {
             const today = new Date();

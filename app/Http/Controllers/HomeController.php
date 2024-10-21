@@ -75,24 +75,43 @@ class HomeController extends Controller
     }
 
     public function login()
-    {
-        // dd(request()->query('source'));
-        $source = request()->query('source');
-        // You can use $source to determine the source and customize your logic
-        if ($source === 'existing_application') {
-            request()->session()->put('_key', Str::random(8));
-            return view('home.otplogin', [
-                'captchaUrl' => captcha_src(),
-            ]);
-        }
-        if ($this->user()) {
-            return redirect('dashboard');
-        }
+{
+    $source = request()->query('source');
+
+    if ($source === 'existing_application') {
         request()->session()->put('_key', Str::random(8));
-        return view('home.login', [
-            'captchaUrl' => captcha_src(),
+
+        // Generate two random numbers for the captcha
+        $num1 = rand(1, 9);
+        $num2 = rand(1, 9);
+        $captchaQuestion = "$num1 + $num2";
+
+        // Store the correct answer in the session
+        session(['captcha_answer' => $num1 + $num2]);
+
+        return view('home.otplogin', [
+            'captchaQuestion' => $captchaQuestion,
         ]);
     }
+
+    if ($this->user()) {
+        return redirect('dashboard');
+    }
+
+    request()->session()->put('_key', Str::random(8));
+
+    // Generate two random numbers for the captcha
+    $num1 = rand(1, 9);
+    $num2 = rand(1, 9);
+    $captchaQuestion = "$num1 + $num2";
+
+    // Store the correct answer in the session
+    session(['captcha_answer' => $num1 + $num2]);
+
+    return view('home.login', [
+        'captchaQuestion' => $captchaQuestion,
+    ]);
+}
     
 public function applicant_login()
     {
@@ -104,18 +123,26 @@ public function applicant_login()
             $applications = [];
         }
         // You can use $source to determine the source and customize your logic
+        // Generate two random numbers for the captcha
+        $num1 = rand(1, 9);
+        $num2 = rand(1, 9);
+        $captchaQuestion = "$num1 + $num2";
         if ($source === 'existing_application') {
             request()->session()->put('_key', Str::random(8));
             return view('home.otplogin', [
-                'captchaUrl' => captcha_src(),
+                'captchaQuestion' => $captchaQuestion,
             ]);
         }
         if ($this->user()) {
             return redirect('dashboard');
         }
+        // Generate two random numbers for the captcha
+        $num1 = rand(1, 9);
+        $num2 = rand(1, 9);
+        $captchaQuestion = "$num1 + $num2";
         request()->session()->put('_key', Str::random(8));
         return view('home.status', compact('applications'), [
-            'captchaUrl' => captcha_src(),
+            'captchaQuestion' => $captchaQuestion,
         ]);
     }
     public function grievance(Request $request)
@@ -194,24 +221,31 @@ public function applicant_login()
             'identity' => 'required',
             'password' => 'required_without:otpCode',
             'otpCode' => 'required_without:password',
-            'captcha' => 'nullable',
+            'captcha' => 'required',
         ];
+        
+        $data = [];
 
         foreach (array_keys($rules) as $key) {
             $str = $request->get($key);
             $data[$key] = $str ? CryptoJsAes::decrypt($str, $request->session()->get('_key')) : $str;
         }
-
         $request->merge($data);
-
-        if (strtolower($data['captcha']) != date('md')) {
-            $rules['captcha'] = 'required|captcha';
-        }
+        // dd($data);
+        // if (strtolower($data['captcha']) != date('md')) {
+        //     $rules['captcha'] = 'required|captcha';
+        // }
         $validator = validator()->make($request->all(), $rules);
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput($data);
         }
         $validatedRequestData = $validator->validated();
+        // if ($request->session()->get('captcha_answer') != $data['captcha']) {
+        //     // dd($data['captcha']);
+        //     return redirect()->back()
+        //     ->withErrors(['captcha' => 'The captcha answer is incorrect.'])
+        //     ->withInput($data);
+        // }
         try {
             AuthHelper::login(trim($validatedRequestData['identity']), $validatedRequestData['password'], $validatedRequestData['otpCode']);
             return redirect('dashboard');
@@ -229,7 +263,7 @@ public function applicant_login()
 
         // If not found in users table, check if it exists in the application table
         if (!$user) {
-            $applicationUser = Application::whereJsonContains('data->enterprise->mobile', $identity)->first();
+            $applicationUser = Application::whereJsonContains('data->owner->mobile', $identity)->first();
         }
 
         // If the identity is an email, check if it exists in the users table

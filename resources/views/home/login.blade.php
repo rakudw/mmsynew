@@ -140,14 +140,14 @@
                                         </div>
                                     </div>
                                     <div class="text-center d-none">
-                                        <img alt="{{ __('Security code') }}" src="{{ $captchaUrl }}" />
+                                        <label for="captcha">{{ $captchaQuestion }} = ?</label>
                                         <button type="button" class="btn btn-theme-primary" id="captchaRefreshButton">
                                             <em class="fa fa-refresh"></em>
                                         </button>
                                     </div>
                                     <div class="input-group input-group-outline mb-3 d-none">
                                         <label for="captcha" class="form-label">{{ __('Security Code') }}</label>
-                                        <input id="captcha" type="text" required="required" minlength="{{ config('captcha.default.length') }}" maxlength="{{ config('captcha.default.length') }}" class="form-control mt-1 @error('captcha') is-invalid @enderror" name="captcha" required="required" />
+                                        <input id="captcha" type="text" required="required"  class="form-control mt-1 @error('captcha') is-invalid @enderror" name="captcha" required="required" />
                                         @error('captcha')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>

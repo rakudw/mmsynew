@@ -19,59 +19,94 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <div class="row " id="formHolder">
         <div class="col-12">
-            @if(is_array($applications) ? count($applications) > 0 : $applications->isNotEmpty())
-                @foreach ($applications as $application)
-                <table class="table" style="margin-top: 35px;">
-                    <tbody>
-                        
-                        <tr bgcolor="#E36E2C">
-                            <td colspan="6">
-                                <div align="center" class="style1">
-                                    <h5><b>{{ __('Application Status') }}</b></h5>
-                                </div>
-                                @if($application->status_id == '302')
-                                <div align="center" class="style1">
-                                    <h5>Click <a href="{{ route('application.newedit', [
-                                        'application' => $application,
-                                    ]) }}"> here</a> to complete your application</h5>
-                                </div>
-                                @endif
-                                @if($application->status_id == '305')
-                                <div align="center" class="style1">
-                                    <h5>Click <a href="{{ route('application.newedit', [
-                                        'application' => $application,
-                                    ]) }}"> here</a> to complete your application</h5>
-                                </div>
-                                @endif
-                            </td>
-                        </tr>
-                        <tr>
-                            <th>Applicant ID:</th>
-                            <td>MMSY-{{ $application->id }}</td>
-                            <th>Applicant Name:</th>
-                            <td>{{ $application->data->owner->name }}</td>
-                            <th>Pan No:</th>
-                            <td>{{ $application->data->owner->pan }}</td>
-                        </tr>
-                        <tr>
-                            <th>Date of Birth:</th>
-                            <td>{{ $application->data->owner->birth_date }}</td>
-                            <th>Mobile No:</th>
-                            <td>{{ $application->data->owner->mobile }}</td>
-                            <th>Gender:</th>
-                            <td>{{ $application->data->owner->gender }}</td>
-                        </tr>
-                        <tr>
-                            <th>Industry Type:</th>
-                            <td>{{ $application->data->enterprise->activity_type_id }}</td>
-                            <th>Aadhar No:</th>
-                            <td>{{ $application->data->owner->aadhaar }}</td>
-                            <th>Project Cost:</th>
-                            <td>{{ $application->getProjectCostAttribute() }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                @endforeach
+            @if($applications->count() > 0)
+            @foreach ($applications as $application)
+            <table class="table" style="margin-top: 35px;">
+                <tbody>
+                    
+                    <tr bgcolor="#E36E2C">
+                        <td colspan="6">
+                            <div align="center" class="style1">
+                                <h5><b>{{ __('Application Status') }}</b></h5>
+                            </div>
+                            @if($application->status->id == '302')
+                            <div align="center" class="style1">
+                                <h5>Click <a href="{{ route('application.newedit', [
+                                    'application' => $application,
+                                ]) }}"> here</a> to complete your application</h5>
+                            </div>
+                            @endif
+                            <a class="btn btn-primary text-white btn-sm"style="margin-left: 30px;" 
+                                href="{{ route('application.details', ['application' => $application->id]) }}"
+                                download="Application-Details-{{ $application->id }}.pdf"><em class="fa fa-download"></em> Print / Download</a>
+                            <a class="btn btn-primary text-white btn-sm"style="margin-left: 30px;" href="{{ route('application.newedit', ['application' => $application, 'Is_Preview' => 'Yes',]) }}">
+                                 Preview Your Application</button>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Applicant ID:</th>
+                        <td>MMSY-{{ $application->id }}</td>
+                        <th>Applicant Name:</th>
+                        <td>{{ $application->data->owner->name }}</td>
+                        <th>Pan No:</th>
+                        <td>{{ $application->data->owner->pan }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date of Birth:</th>
+                        <td>{{ $application->data->owner->birth_date }}</td>
+                        <th>Mobile No:</th>
+                        <td>{{ $application->data->owner->mobile }}</td>
+                        <th>Gender:</th>
+                        <td>{{ $application->data->owner->gender }}</td>
+                    </tr>
+                    <tr>
+                        <th>Industry Type:</th>
+                        <td>
+                            @if ($application->data->enterprise->activity_type_id == 201)
+                                Manufacturing
+                            @elseif ($application->data->enterprise->activity_type_id == 202)
+                                Servicing
+                            @elseif ($application->data->enterprise->activity_type_id == 203)
+                                Trading
+                            @else
+                                Unknown
+                            @endif
+                        </td>
+                        <th>Aadhar No:</th>
+                        <td>{{ $application->data->owner->aadhaar }}</td>
+                        <th>Project Cost:</th>
+                        <td>{{ $application->getProjectCostAttribute() }}</td>
+                    </tr>
+                    <tr>
+                        <th>Activity Name</th>
+                        <td>
+                            @if ($activities->count() > 0)
+                                @foreach ($activities as $activity)
+                                    @if ($activity->id == $application->data->enterprise->activity_id)
+                                        {{ $activity->name }}
+                                    @endif
+                                @endforeach
+                            @else
+                                Unknown
+                            @endif
+                        </td>
+                        <th>Activity ID</th>
+                        <td>
+                            @if ($activities->count() > 0)
+                                @foreach ($activities as $activity)
+                                    @if ($activity->id == $application->data->enterprise->activity_id)
+                                        {{ $activity->id }}
+                                    @endif
+                                @endforeach
+                            @else
+                                Unknown
+                            @endif
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            @endforeach
             @else
             <div class="container">
                 <div class="row justify-content-center">
@@ -122,18 +157,16 @@
         $printedRemarks = []; 
     @endphp
 
-    @if($application->timelines())
+    @if(isset($application->timelines) && count($application->timelines) > 0)
         <div style="margin-bottom: 20px">
         <h5 style="background-color: rgb(255, 138, 48); padding: 10px; color: white">REMARKS</h5>
 
-            @foreach($application->timelines() as $key => $timeline)
+            @foreach($application->timelines as $key => $timeline)
                 @if(isset($timeline->remarks) && !in_array($timeline->remarks, $printedRemarks))
                     @php
                         $printedRemarks[] = $timeline->remarks; 
                     @endphp
-                        <a class="btn btn-primary text-white btn-sm"style="margin-left: 30px;" 
-                                href="{{ route('application.details', ['application' => $application->id]) }}"
-                                download="Application-Details-{{ $application->id }}.pdf"><em class="fa fa-download"></em> Print / Download</a>
+                        
                         <span style="background-color: rgb(255, 138, 48); padding: 5px 10px; color: white; border-radius: 5px; display:inline-block; margin:10px ">{{ $timeline->remarks }} </span> &nbsp; &nbsp; @if($key < count($application->timelines) - 1) => @endif
                 @endif
             @endforeach
@@ -142,18 +175,23 @@
         <p>No status updates available.</p>
     @endif
 
-        <h5 style="background-color: rgb(255, 138, 48); padding: 10px; color: white">{{ $application->name }}</h5>
+        <h5 style="background-color: rgb(255, 138, 48); padding: 10px; color: white">{{ $application->status->name }}</h5>
 
-        @if($application->status_id == 306)
+        @if($application->status->id == 306)
             <p>Your application is submitted and pending at DIC. You will get notifications for further actions.</br> आपका आवेदन सबमिट किया गया है और DIC में लंबित है। आपको आगे की कार्रवाई के लिए सूचनाएं मिलेंगी।</p>
         @endif
-        @if($application->status_id == 302)
+        @if($application->status->id == 302)
             <p>Your application is not completed yet please click on below button to complete it.</br> आपका आवेदन अभी पूरा नहीं हुआ है, कृपया नीचे दिए गए बटन पर क्लिक करके इसे पूरा करें।</p>
         @endif
         <hr style="background-color: rgb(255, 138, 48);">
-        @if($application->status_id == 302 || $application->status_id == 305)
+        @if($application->status->id == 302 || $application->status->id == 305)
         <a href="{{ route('application.newedit', ['application' => $application,]) }}">
-            <button class="btn btn-primary">{{ $application->status_id == 302 ? 'Complete' : 'Edit'}} Your Application</button>
+            <button class="btn btn-primary">{{ $application->status->id == 302 ? 'Complete' : 'Edit'}} Your Application</button>
+        </a>
+        @endif
+        @if($application->status->id == 302 || $application->status->id == 301)
+        <a href="{{ route('application.newedit', ['application' => $application,]) }}">
+            <button class="btn btn-primary">Edit Your Application</button>
         </a>
         @endif
     </div>
@@ -171,8 +209,8 @@
 <script>
 $(document).ready(function() {
     @if (!Auth::check())
-        getIframeSSO("10000074")
-    @endif
+            // getIframeSSO("10000074")
+        @endif
     // Function to show OTP input field and hide Send OTP button
     function showOtpInput() {
         $('.otp-input').show();
