@@ -26,27 +26,56 @@
                         <thead>
                         <tr>
                             <th scope="col" rowspan="2" class="text-center">Sr. No.</th>
-                            <th scope="col" rowspan="2" class="text-center">Year</th> 
+                            <th scope="col" rowspan="2" class="text-center">Year</th>
                             <th scope="col" rowspan="2" class="text-center">Name of District</th>
-                            <th scope="col" colspan="3" class="text-center">No. of Application at DIC</th>
-                            <th scope="col" colspan="2" class="text-center">No. of Application at DLC</th>
-                            <th scope="col" rowspan="2" class="text-center">No. of Applications Pending At DIC</th>
-                            <th scope="col" rowspan="2" class="text-center">No. of Application Forwarded to bank</th>
-                            <th scope="col" colspan="3" class="text-center">Sanctioned By Bank</th>
-                            <th scope="col" rowspan="2" class="text-center">No. of Application rejected by the bank</th>
-                            <th scope="col" rowspan="2" class="text-center">No. of Cases pending at bank level</th>
+                            <th scope="col" colspan="5" class="text-center">No. of Application at DIC</th>
+                            <th scope="col" rowspan="2" class="text-center">No. applications at Bank for Comments</th>
+                            <th scope="col" colspan="4" class="text-center">No of Cases at District Level Committee</th>
+                            <th scope="col" rowspan="2" class="text-center">No of Cases Forwarded to Bank for Sanction</th>
+                            <th scope="col" colspan="6" class="text-center">Sanctioned By Bank</th>
+
+
+                            <th scope="col" colspan="4" class="text-center">60% Cases</th>
+                            <th scope="col" colspan="4" class="text-center">40% Cases</th>
+
                             <th scope="col" rowspan="2" class="text-center">Bank Wise Details</th>
                             <th scope="col" rowspan="2" class="text-center">District Wise Details</th>
                         </tr>
                         <tr>
                             <th class="text-right">Received</th>
-                            <th class="text-right">Returned</th>
-                            <th class="text-right">Forwarded to DLC</th>
+                            <th class="text-right">Returned/Rejected</th>
+                            <th class="text-right">Withdrawn</th>
+                            <th class="text-right">Applications Pending to be forwarded to Banks for Comments</th>
+                            <th class="text-right">Applications Forwarded to Banks for Comments</th>
+{{--                            <th class="text-right">Considered Application Revert by Banks </th>--}}
+
+{{--                            <th class="text-right">Applications Pending At Bank For Comments</th>--}}
+                            <th class="text-right">Cases Placed In DLC</th>
                             <th class="text-right">Approved By DLC</th>
                             <th class="text-right">Rejected By DLC</th>
-                            <th class="text-right">No. Of Cases</th>
+                            <th class="text-right">No of Cases Pending At DLC Level to be place in DLC</th>
+                            {{-- Bank Section   --}}
+                            <th class="text-right">No. of cases Sanctioned by Bank</th>
+                            <th class="text-right">Total Amount of Investment Involved <span style="color: red">(In lakhs)</span></th>
                             <th class="text-right">Total Amount Of Loan Involved <span style="color: red">(In lakhs)</span></th>
                             <th class="text-right">Total Amount Of Subsidy Involved <span style="color: red">(In lakhs)</span></th>
+                            <th class="text-right">No. of Application rejected by the bank</th>
+                            <th class="text-right">No. of cases pending at bank level for sanction</th>
+                            {{-- Bank Section  End --}}
+
+                            {{-- 60%  Section   --}}
+                            <th class="text-right">Cases Pending at GM DIC For 60% Release</th>
+                            <th class="text-right">Cases sent to Nodal bank for release of 60% Capital Subsidy by GM DIC</th>
+                            <th class="text-right">60% Capital subsidy released by Nodal Bank</th>
+                            <th class="text-right">Cases Pending for 60% Capital subsidy released by Nodal Bank</th>
+                            {{-- 60%  Section End  --}}
+
+                            {{-- 40%  Section   --}}
+                            <th class="text-right">Cases Pending at GM DIC For 40% Release</th>
+                            <th class="text-right">Cases sent to Nodal Bank for release of 40% Capital Subsidy By GM DIC</th>
+                            <th class="text-right">40% Capital subsidy   released by Nodal Bank</th>
+                            <th class="text-right">Cases Pending for 40% Capital subsidy released by Nodal Bank</th>
+                            {{-- 40%  Section End  --}}
                         </tr>
                         </thead>
                         <tbody>
@@ -58,61 +87,140 @@
                                         <td  class="text-center">{{ end($district['Year'])['Year'] }}</td>
                                         <td class="text-center">{{ $district['District'] }}</td>
                                         <td class="text-right">
-                                            <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=306&kind=not">
+                                            <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=302&kind=inc">
                                                 {{ $yearData['Received'] }}
-                                            </a>   
+                                            </a>
                                         </td>
                                         <td class="text-right">
-                                            <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=307">
+                                            <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id[]=305,307&kind=arr">
                                                 {{ $yearData['Returned'] }}
-                                            </a>   
+                                            </a>
                                         </td>
                                         <td class="text-right">
-                                             <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=309">
+                                            <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=303">
+                                                {{ $yearData['Withdrawn'] }}
+                                            </a>
+                                        </td>
+                                        <td class="text-right">
+                                            <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=306">
+                                                {{ $yearData['PendingDIC'] }}
+                                            </a>
+                                        </td>
+                                        <td class="text-right">
+                                            <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=307&kind=incor">
+                                                {{ $yearData['Forwarded To Bank For Comments'] }}
+                                            </a>
+                                        </td>
+                                {{-- Bank For comments Section  --}}
+
+                                        <td class="text-right">
+                                            <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=308">
+                                                {{ $yearData['Applications Pending At Bank For Comments'] }}
+                                            </a>
+                                        </td>
+                                    {{-- End Bank For comments Section  --}}
+                                    {{-- DLC  Section  --}}
+
+                                        <td class="text-right">
+                                            <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=308&kind=incor">
                                                 {{ $yearData['Forwarded To DLC'] }}
-                                            </a>   
+                                            </a>
                                         </td>
                                         <td class="text-right">
-                                            <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=311&kind=inc">
+                                            <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=310&kind=incor">
                                                 {{ $yearData['Approved By DLC'] }}
-                                            </a>    
+                                            </a>
                                         </td>
                                         <td class="text-right">
                                             <a target="_blank" href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=310">
                                                 {{ $yearData['Rejected By DLC'] }}
-                                            </a>  
+                                            </a>
                                         </td>
+
                                         <td class="text-center">
-                                            <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id[]=313,322&kind=arr">
+                                            <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=309">
                                                 {{ $yearData['No of Applications Pending ar DLC'] }}
-                                            </a>  
+                                            </a>
                                         </td>
+                                        {{-- End DLC  Section  --}}
                                         <td class="text-center">
-                                            <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id[]=314,316&kind=arr">
+                                            <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=310&kind=incor">
                                                 {{ $yearData['No of Applications Forwarded to Bank'] }}
-                                            </a>      
+                                            </a>
                                         </td>
+                                        {{-- Nodal Bank  Section  --}}
                                         <td class="text-right">
-                                            <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id[]=315,317&kind=arr">
+                                            <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=311&kind=inc">
                                                 {{ $yearData['No Of Cases'] }}
-                                            </a>       
+                                            </a>
                                         </td>
                                         @php
                                             $formatter = new NumberFormatter('en_IN', NumberFormatter::DECIMAL);
                                             $formatter->setAttribute(NumberFormatter::MAX_FRACTION_DIGITS, 2);
                                         @endphp
+                                        <td class="text-right">{{ $formatter->format($yearData['Total Amount of Investment Involved'] / 100000) }}</td>
                                         <td class="text-right">{{ $formatter->format($yearData['Total Amount of Loan Involved'] / 100000) }}</td>
-                                        <td class="text-right">{{ $formatter->format($yearData['Total Amount of Subsidy Involved']) }} </td>
+                                        <td class="text-right">{{ $formatter->format($yearData['Total Amount of Subsidy Involved'] / 100000) }} </td>
                                         <td class="text-center">
                                             <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=304">
                                                 {{ $yearData['No Of Application Rejected By The Bank'] }}
-                                            </a>       
+                                            </a>
                                         </td>
                                         <td class="text-center">
                                             <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=311">
                                                 {{ $yearData['No Of Cases Pending at Bank Level'] }}
-                                            </a>        
+                                            </a>
                                         </td>
+                                        {{-- End Nodal Bank  Section  --}}
+
+                                        {{-- Cases 60% Section--}}
+                                        <td class="text-center">
+                                            <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=313">
+                                                {{ $yearData['Cases Pending at GM DIC For 60% Release'] }}
+                                            </a>
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=313&kind=inc">
+                                                {{ $yearData['Cases sent to Nodal bank for release of 60% Capital Subsidy by GM DIC'] }}
+                                            </a>
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=314&kind=inc">
+                                                {{ $yearData['60% Capital subsidy released by Nodal Bank'] }}
+                                            </a>
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=314">
+                                                {{ $yearData['Cases Pending for 60% Capital subsidy released by Nodal Bank'] }}
+                                            </a>
+                                        </td>
+
+
+                                        {{-- Cases 40% Section--}}
+                                        <td class="text-center">
+                                            <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=322">
+                                                {{ $yearData['Cases Pending at GM DIC For 40% Release'] }}
+                                            </a>
+                                        </td>
+
+                                        <td class="text-center">
+                                            <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=315&kind=inc">
+                                                {{ $yearData['Cases sent to Nodal Bank for release of 40% Capital Subsidy By GM DIC'] }}
+                                            </a>
+                                        </td>
+
+                                        <td class="text-center">
+                                            <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=316&kind=inc">
+                                                {{ $yearData['40% Capital subsidy released by Nodal Bank'] }}
+                                            </a>
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=316">
+                                                {{ $yearData['Cases Pending for 40% Capital subsidy released by Nodal Bank'] }}
+                                            </a>
+                                        </td>
+
+
                                         <td class="text-center">
                                             <a href="/report/banks">View</a>
                                         </td>
@@ -136,6 +244,18 @@
 </div>
 @endsection
 <style>
+    .row{
+        padding-right: 0 !important;
+    }
+    .container-fluid, .card-body, .table-container{
+        padding: 0 !important;
+    }
+    .table thead th{
+        padding: 2px !important;
+    }
+    .wrap-table td, .wrap-table th{
+        font-size: 0.7em !important;
+    }
     .export-btns a,
     .export-btns button {
         margin-left: 15px;
@@ -149,9 +269,9 @@
     .wrap-table td, .wrap-table th {
         white-space: normal !important;
         word-wrap: break-word !important;
-        font-size: 0.9em; 
-        max-width: 100px; 
-        overflow: hidden; 
+        font-size: 0.9em;
+        max-width: 100px;
+        overflow: hidden;
     }
     @media print {
 

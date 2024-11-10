@@ -139,7 +139,7 @@ class Application extends Base implements Auditable
     public function getSubsidyAmountAttribute()
     {
         $amount = $this->getData('subsidy', 'amount');
-        return is_null($amount) ? round($this->subsidy_eligible_amount * ($this->subsidy_percentage / 100)) : $amount;
+        return is_null($amount) ? round((float) $this->subsidy_eligible_amount * ($this->subsidy_percentage / 100)) : round((float) $amount);
     }
 
     public function subsidyAmount(int $percent = 60)
@@ -452,15 +452,15 @@ class Application extends Base implements Auditable
 {
     try {
         $activities = CacheHelper::cached(CacheKeyEnum::ALL_ACTIVITIES);
-        
+
         if (!$activities) {
             throw new ModelNotFoundException('Activities cache is empty');
         }
-        
+
         $activity = collect($activities)
             ->where('id', $this->getData('enterprise', 'activity_id'))
             ->first();
-        
+
         if (!$activity) {
             throw new ModelNotFoundException('Activity not found');
         }
@@ -476,7 +476,7 @@ class Application extends Base implements Auditable
     }
 }
 
-    
+
 
     public function getApplicantAgeAttribute(): int
     {
@@ -778,7 +778,7 @@ class Application extends Base implements Auditable
      */
     public function scopeForCurrentUser($query)
     {
-        
+
         $records = $this->user()->getRoles();
         if ($this->user()->isBankRO() || $this->user()->isNodalBank()) {
             $banks = [];
@@ -786,7 +786,7 @@ class Application extends Base implements Auditable
             if ($this->user()->isNodalBank()) {
                 $districts = Region::where('parent_id', 2)->pluck('id')->toArray();
             }
-         
+
             foreach ($records as $record) {
                 if ($record->pivot->metadata) {
                     $metadata = json_decode($record->pivot->metadata);
@@ -794,7 +794,7 @@ class Application extends Base implements Auditable
                     $districts += property_exists($metadata, 'district_ids') ? $metadata->district_ids : [];
                 }
             }
-            
+
             if (empty($banks)) {
                 if ($this->user()->isNodalBank()) {
                     if (!empty($districts)) {
