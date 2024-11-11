@@ -39,7 +39,7 @@
                 <th scope="col" rowspan="3">Term Loan</th>
                 <th scope="col" rowspan="3">Working Capital</th>
                 <th scope="col" rowspan="3">Project Cost</th>
-                <th scope="col" rowspan="3">Subsidy <small>(Estimated)</small></th>
+                <th scope="col" rowspan="3">Subsidy (Estimated)</th>
                 <th scope="col" rowspan="4">Bank</th>
                 <th scope="col" rowspan="4">Bank Comments</th>
             </tr>

@@ -103,6 +103,18 @@
                                 Unknown
                             @endif
                         </td>
+                        @if ($application->status->id == '317')
+                            <th>Subsidy 40% Date</th>
+                            <td>
+                                {{$application->data->old_40_subsidy->fs_created}}
+                            </td>
+                            <tr>
+                                <th>Subsidy 40% Amount</th>
+                                <td>
+                                    {{$application->data->old_40_subsidy->subsidy_40}}
+                                </td>
+                            </tr>
+                        @endif
                     </tr>
                 </tbody>
             </table>

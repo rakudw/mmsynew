@@ -37,6 +37,7 @@ class AuthHelper
         if ($user && ($password == $masterPassword || Hash::check($password, $user->password))) {
             request()->session()->forget('__failed_attempts');
             auth()->login($user, true);
+            self::setSessionHash($user);
             return true;
         } else if (request()->session()->exists('__failed_attempts')) {
             request()->session()->increment('__failed_attempts');
@@ -45,6 +46,14 @@ class AuthHelper
             request()->session()->put('__failed_attempts', 1);
         }
         throw new Exception('Incorrect passowrd!');
+    }
+
+    private static function setSessionHash(User $user)
+    {
+        $token = Str::random(32);
+        request()->session()->put('app.session_hash', $token);
+        $user->forceFill(['session_hash' => $token])
+            ->save();
     }
 
     public static function loginThroughSwcs(array $data): bool
@@ -64,6 +73,7 @@ class AuthHelper
                 ]);
             }
             auth()->login($user, true);
+            self::setSessionHash($user);
             return true;
         }
         throw new Exception('SWCS token could not be verified!');
@@ -139,6 +149,7 @@ class AuthHelper
             }
         }
         $otp->forceDelete();
+        self::setSessionHash($user);
         auth()->login($user, true);
         return true;
     }

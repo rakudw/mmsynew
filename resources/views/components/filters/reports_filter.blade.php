@@ -29,7 +29,7 @@
                     @endforeach
                 </select>
             </div>
-
+        
         @endif
         <div class="col-md-4">
             <label class="form-label">Select Date Range</label>
@@ -39,7 +39,7 @@
             </div>
         </div>
 
-
+     
         <div class="col-md-4">
             <label class="form-label">Select FY (Leave Blank if Selecting DateRange)</label>
             <select class="form-control fy" title="{{ request()->get('fy') }}" name="fy" id="status-id">
@@ -99,7 +99,7 @@
                                     </label>
                                 </li>
                             @endforeach
-
+                    
                     </ul>
                 </div>
             </div>
@@ -322,7 +322,7 @@
             $('#block-town-multiselect li input').removeAttr('checked');
             $('#panchayat-ward-multiselect li input').removeAttr('checked');
         }
-
+        
         function hitDistrictFun(clickedId){
             const selectedDistricts = [];
             if (clickedId === 'select-all-districts-multiselect') {
@@ -334,7 +334,7 @@
                 });
             }
             getData('district',selectedDistricts)
-
+        
         }
         $('#constituency-multiselect').on('change', 'li input', function () {
             const clickedId = $(this).attr('id');
@@ -397,7 +397,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function (response) {
-
+                
                     // Handle the response and populate child dropdowns here
                     if(type == 'district'){
                         populateDropdown('constituency-multiselect', response.constituencies, selectedConstituency,'constituency_id[]','constituency-checkbox')
@@ -409,7 +409,7 @@
                         populateDropdown('panchayat-ward-multiselect', response.panchayatWards, selectedPanchayat,'panchayat_id[]','panchayat-checkbox')
                         $('#panchayat-ward-multiselect li input').removeAttr('checked');
                     }
-
+                    
                     // console.log(response);
                 },
                 error: function (error) {

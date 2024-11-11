@@ -47,16 +47,16 @@ $notPendingNotRejected = ($type == 'pending' || $type == 'rejected');
                                         <th>Term Loan</th>{{-- 11 --}}
                                     @endif
                                     @if (!$notPendingNotRejected && $isStep60Or40)
-                                        <th>60% CIS</th>{{-- 12 --}}
+                                        <th>60% Subsidy Amount Of Disbursement</th>{{-- 12 --}}
                                     @endif
                                     @if (!$notPendingNotRejected && $isStep60Or40)
-                                        <th>60% DATE</th>{{-- 12 --}}
+                                        <th>60% Subsidy Date Of Disbursement</th>{{-- 12 --}}
                                     @endif
                                     @if ($step == '40' && !$notPendingNotRejected)
-                                        <th>40% CIS</th>{{-- 13 --}}
+                                        <th>40% Subsidy Amount Of Disbursement</th>{{-- 13 --}}
                                     @endif
                                     @if ($step == '40' && !$notPendingNotRejected)
-                                        <th>40% DATE</th>{{-- 13 --}}
+                                        <th>40% Subsidy Date Of Disbursement</th>{{-- 13 --}}
                                     @endif
                                     
                                     {{-- @if (!$notPendingNotRejected && $step == '40')
@@ -95,19 +95,35 @@ $notPendingNotRejected = ($type == 'pending' || $type == 'rejected');
                                         @endif
                                         
                                         @if (!$notPendingNotRejected && $isStep60Or40)
-                                            <td class="text-left">{{ optional($application->data->subsidy)->amount60 ?? 'NA' }} </td>{{-- 12 --}}
+                                            @if (isset($application->data->subsidy))
+                                                <td class="text-left">{{ optional($application->data->subsidy)->amount60 ?? 'NA' }}</td>{{-- 12 --}}
+                                            @else
+                                                <td class="text-left">NA</td>{{-- 12 --}}
+                                            @endif
                                         @endif
-                                        
+
                                         @if (!$notPendingNotRejected && $isStep60Or40)
-                                            <td class="text-left">{{ optional($application->data->subsidy)->date60 ?? 'NA' }} </td>{{-- 12 --}}
+                                            @if (isset($application->data->subsidy))
+                                                <td class="text-left">{{ optional($application->data->subsidy)->date60 ?? 'NA' }}</td>{{-- 12 --}}
+                                            @else
+                                                <td class="text-left">NA</td>{{-- 12 --}}
+                                            @endif
                                         @endif
-                                        
+
                                         @if ($step == '40' && !$notPendingNotRejected)
-                                            <td class="text-left">{{ optional($application->data->subsidy)->amount40 ?? 'NA' }}</td>{{-- 13 --}}
+                                            @if (isset($application->data->subsidy))
+                                                <td class="text-left">{{ optional($application->data->subsidy)->amount40 ?? 'NA' }}</td>{{-- 13 --}}
+                                            @else
+                                                <td class="text-left">NA</td>{{-- 13 --}}
+                                            @endif
                                         @endif
-                                        
+
                                         @if ($step == '40' && !$notPendingNotRejected)
-                                            <td class="text-left">{{ optional($application->data->subsidy)->date40 ?? 'NA' }}</td>{{-- 13 --}}
+                                            @if (isset($application->data->subsidy))
+                                                <td class="text-left">{{ optional($application->data->subsidy)->date40 ?? 'NA' }}</td>{{-- 13 --}}
+                                            @else
+                                                <td class="text-left">NA</td>{{-- 13 --}}
+                                            @endif
                                         @endif
                                         
                                         {{-- @if (!$notPendingNotRejected && $step == '40')
@@ -119,7 +135,13 @@ $notPendingNotRejected = ($type == 'pending' || $type == 'rejected');
                                         <td class="text-left">{{ $application->getData('enterprise', 'employment') }}</td>{{-- 16 --}}
                                         <td class="text-left" title="{{ $application->bank_branch_details }}">{{ $application->bank_branch_details }}</td>{{-- 17 --}}
                                         @if ($isStep60Or40 && !$notPendingNotRejected)
-                                            <td class="text-left">{{ $step == '40' ? optional($application->data->subsidy)->date40 ?? 'NA' : optional($application->data->subsidy)->date60 ?? 'NA' }}</td>{{-- 13 --}}
+                                            
+
+                                            @if (isset($application->data->subsidy))
+                                                <td class="text-left">{{ $step == '40' ? optional($application->data->subsidy)->date40 ?? 'NA' : optional($application->data->subsidy)->date60 ?? 'NA' }}</td>{{-- 13 --}}
+                                            @else
+                                                <td class="text-left">NA</td>{{-- 12 --}}
+                                            @endif
                                         @endif
                                     </tr>
                                 @endforeach

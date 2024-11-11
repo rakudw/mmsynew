@@ -12,7 +12,7 @@ return array(
     |
     */
     'show_warnings' => false,   // Throw an Exception on warnings from dompdf
-    'orientation' => 'portrait',
+    'orientation' => 'landscape',
     /*
      * Dejavu Sans font is missing glyphs for converted entities, turn it off if you need to show € and £.
      */
@@ -188,7 +188,7 @@ return array(
          *
          * @var int
          */
-        "dpi" => 96,
+        "dpi" => 120,
 
         /**
          * Enable inline PHP

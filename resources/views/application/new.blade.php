@@ -394,32 +394,25 @@
 
 
     function toggleAadharFieldBasedOnMaritalStatus() {
-    const maritalStatus = $('#marital_status');
-    const aadharField = $('#aadhar_number_field');
-    const aadharInput = $('#s_aadhar_number');
+    var maritalStatus = document.getElementById('marital_status');
+    var aadharField = document.getElementById('aadhar_number_field');
+    var aadharInput = document.getElementById('s_aadhar_number');
 
     function toggleAadharField() {
-        if (maritalStatus.val() === 'Married') {
-            aadharField.show();
-            aadharInput.prop('required', true);
+        if (maritalStatus.value === 'Married') {
+            aadharField.style.display = 'block';
+            aadharInput.required = true;
         } else {
-            aadharField.hide();
-            aadharInput.prop('required', false);
+            aadharField.style.display = 'none';
+            aadharInput.required = false;
         }
     }
 
-    // Initial check
-    toggleAadharField();
+    document.addEventListener('DOMContentLoaded', toggleAadharField);
 
-    // Change event listener
-    maritalStatus.on('change', toggleAadharField);
+    maritalStatus.addEventListener('change', toggleAadharField);
 }
 
-$(document).ready(function () {
-    toggleAadharFieldBasedOnMaritalStatus();
-    function customValidation() {
-        console.log('custome')
-    }
-});
+toggleAadharFieldBasedOnMaritalStatus();
 </script>
 @endsection

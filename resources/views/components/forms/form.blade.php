@@ -1,4 +1,3 @@
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.1.0-beta.1/css/select2.min.css" rel="stylesheet">
@@ -215,7 +214,11 @@
                                         <small>Select Marital Status</small>
                                         <div id="aadhar_number_field" style="display: none;">
                                             <label for="spouse_aadhaar">Husband/Wife Aadhar Number:</label>
+											@if(!empty($application->data->owner->spouse_aadhaar))
                                             <input type="text" id="spouse_aadhaar" name="spouse_aadhaar" value="{{ old('spouse_aadhaar', $application ? $application->data->owner->spouse_aadhaar : '') }}">
+										@else
+											<input type="text" id="spouse_aadhaar" name="spouse_aadhaar" value="">
+										@endif
                                         </div>
                                     </td>
                                 </tr>
@@ -224,7 +227,7 @@
                                     <th>(11)</th>
                                     <th ><strong>Date of Birth / जन्म तिथि:</strong></th>
                                     <td colspan="4">
-                                        <input type="date" id='owner_birth_date'name="owner_birth_date" value="{{ old('owner_birth_date', $application ? $application->data->owner->birth_date : '') }}" required>
+                                        <input type="date" id='owner_birth_date' name="owner_birth_date" value="{{ old('owner_birth_date', $application ? $application->data->owner->birth_date : '') }}" required >
                                         <span id="birth_date_age" class="badge badge-info bg-dark"></span>
                                         <small>Enter Date of Birth</small>
                                     </td>
@@ -363,12 +366,64 @@
                                                         <div id="partnerShareholderContainer" style="display: flex; flex-wrap: wrap; align-items: flex-end;">
                                                             <button class="btn btn-primary" type="button" id="addPartnerButton">Add More</button>
                                                             <!-- Partner Row Template -->
-                                                            @if ($application && $application->data->owner->partner_name)
-                                                                @foreach ($application->data->owner->partner_name as $index => $partnerName)
+                                                            @if($application)
+                                                                @php($partners = $application->getData('owner', 'partner_name'))
+                                                                @if($partners)
+                                                                    @if ($application &&        $application->data->owner->partner_name)
+                                                                        @foreach ($application->data->owner->partner_name as $index => $partnerName)
+                                                                            <div class="partner-row" style="display: flex; align-items: flex-end;">
+                                                                                <div style="margin-right: 10px;">
+                                                                                    <label for="partner_name">Name:</label>
+                                                                                    <input type="text" name="partner_name[]" required value="{{ old('partner_name.' . $index, $partnerName) }}">
+                                                                                </div>
+                                                                                <div style="margin-right: 10px;">
+                                                                                    <label for="partner_gender">Gender:</label>
+                                                                                    <select name="partner_gender[]" required>
+                                                                                        <option value="Male" {{ old('partner_gender.' . $index, optional($application->data->owner->partner_gender)[$index]) == 'Male' ? 'selected' : '' }}>Male</option>
+                                                                                        <option value="Female" {{ old('partner_gender.' . $index, optional($application->data->owner->partner_gender)[$index]) == 'Female' ? 'selected' : '' }}>Female</option>
+                                                                                        <option value="Other" {{ old('partner_gender.' . $index, optional($application->data->owner->partner_gender)[$index]) == 'Other' ? 'selected' : '' }}>Other</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <div style="margin-right: 10px;">
+                                                                                    <label for="partner_birth_date">Date Of Birth:</label>
+                                                                                    <input type="date" name="partner_birth_date[]" required max="2005-12-31" min="1905-01-01" value="{{ old('partner_birth_date.' . $index, optional($application->data->owner->partner_birth_date)[$index]) }}">
+                                                                                </div>
+                                                                                <div style="margin-right: 10px;">
+                                                                                    <label for="partner_social_category_id">Social Category:</label>
+                                                                                    <select id="partner_social_category_id" name="partner_social_category_id[]" required>
+                                                                                        <option value="">--Select Category--</option>
+                                                                                        @foreach($cats as $cat)
+                                                                                        <option value="{{ $cat->id }}" {{ old('partner_social_category_id.' . $index, optional($application->data->owner->partner_social_category_id)[$index]) == $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
+                                                                                        @endforeach
+                                                                                    </select>
+                                                                                </div>
+                                                                                <div style="margin-right: 10px;">
+                                                                                    <label for="partner_is_specially_abled">Specially Abled:</label>
+                                                                                    <select name="partner_is_specially_abled[]" required>
+                                                                                        <option value="Yes" {{ old('partner_is_specially_abled.' . $index, optional($application->data->owner->partner_is_specially_abled)[$index]) == 'Yes' ? 'selected' : '' }}>Yes</option>
+                                                                                        <option value="No" {{ old('partner_is_specially_abled.' . $index, optional($application->data->owner->partner_is_specially_abled)[$index]) == 'No' ? 'selected' : '' }}>No</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                                <div style="margin-right: 10px;">
+                                                                                    <label for="partner_aadhaar">Aadhaar Number:</label>
+                                                                                    <input type="text" name="partner_aadhaar[]" pattern="^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$" required value="{{ old('partner_aadhaar.' . $index, optional($application->data->owner->partner_aadhaar)[$index]) }}">
+                                                                                </div>
+                                                                                <div style="">
+                                                                                    <label for="partner_mobile">Mobile (Linked To The Aadhaar):</label>
+                                                                                    <input type="tel" name="partner_mobile[]" pattern="^[6-9]{1}[0-9]{9}$" required value="{{ old('partner_mobile.' . $index, optional($application->data->owner->partner_mobile)[$index]) }}">
+                                                                                </div>
+                                                                                <div style="display: flex; align-items: center;">
+                                                                                    <button class="btn btn-danger remove-partner-button" type="button">Remove</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        @endforeach
+                                                                    @endif
+                                                                    @else
+                                                                
                                                                     <div class="partner-row" style="display: flex; align-items: flex-end;">
                                                                         <div style="margin-right: 10px;">
                                                                             <label for="partner_name">Name:</label>
-                                                                            <input type="text" name="partner_name[]" required value="{{ old('partner_name.' . $index, $partnerName) }}">
+                                                                            <input type="text" name="partner_name[]" value="{{ old('partner_name.' . $index, $partnerName) }}" required>
                                                                         </div>
                                                                         <div style="margin-right: 10px;">
                                                                             <label for="partner_gender">Gender:</label>
@@ -379,13 +434,13 @@
                                                                             </select>
                                                                         </div>
                                                                         <div style="margin-right: 10px;">
-                                                                            <label for="partner_birth_date">Date Of Birth:</label>
-                                                                            <input type="date" name="partner_birth_date[]" required max="2005-12-31" min="1905-01-01" value="{{ old('partner_birth_date.' . $index, optional($application->data->owner->partner_birth_date)[$index]) }}">
+                                                                        <label for="partner_birth_date">Date Of Birth:</label>
+                                                                        <input type="date" name="partner_birth_date[]" required max="2005-12-31" min="1905-01-01" value="{{ old('partner_birth_date.' . $index, optional($application->data->owner->partner_birth_date)[$index]) }}">
                                                                         </div>
                                                                         <div style="margin-right: 10px;">
                                                                             <label for="partner_social_category_id">Social Category:</label>
                                                                             <select id="partner_social_category_id" name="partner_social_category_id[]" required>
-                                                                                <option value="">--Select Category--</option>
+                                                                            <option value="">--Select Category--</option>
                                                                                 @foreach($cats as $cat)
                                                                                 <option value="{{ $cat->id }}" {{ old('partner_social_category_id.' . $index, optional($application->data->owner->partner_social_category_id)[$index]) == $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
                                                                                 @endforeach
@@ -394,8 +449,8 @@
                                                                         <div style="margin-right: 10px;">
                                                                             <label for="partner_is_specially_abled">Specially Abled:</label>
                                                                             <select name="partner_is_specially_abled[]" required>
-                                                                                <option value="Yes" {{ old('partner_is_specially_abled.' . $index, optional($application->data->owner->partner_is_specially_abled)[$index]) == 'Yes' ? 'selected' : '' }}>Yes</option>
-                                                                                <option value="No" {{ old('partner_is_specially_abled.' . $index, optional($application->data->owner->partner_is_specially_abled)[$index]) == 'No' ? 'selected' : '' }}>No</option>
+                                                                            <option value="Yes" {{ old('partner_is_specially_abled.' . $index, optional($application->data->owner->partner_is_specially_abled)[$index]) == 'Yes' ? 'selected' : '' }}>Yes</option>
+                                                                            <option value="No" {{ old('partner_is_specially_abled.' . $index, optional($application->data->owner->partner_is_specially_abled)[$index]) == 'No' ? 'selected' : '' }}>No</option>
                                                                             </select>
                                                                         </div>
                                                                         <div style="margin-right: 10px;">
@@ -410,53 +465,7 @@
                                                                             <button class="btn btn-danger remove-partner-button" type="button">Remove</button>
                                                                         </div>
                                                                     </div>
-                                                                @endforeach
-                                                            @else
-                                                                <div class="partner-row" style="display: flex; align-items: flex-end;">
-                                                                    <div style="margin-right: 10px;">
-                                                                        <label for="partner_name">Name:</label>
-                                                                        <input type="text" name="partner_name[]" required>
-                                                                    </div>
-                                                                    <div style="margin-right: 10px;">
-                                                                        <label for="partner_gender">Gender:</label>
-                                                                        <select name="partner_gender[]" required>
-                                                                            <option value="Male">Male</option>
-                                                                            <option value="Female">Female</option>
-                                                                            <option value="Other">Other</option>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div style="margin-right: 10px;">
-                                                                        <label for="partner_birth_date">Date Of Birth:</label>
-                                                                        <input type="date" name="partner_birth_date[]" required max="2005-12-31" min="1905-01-01">
-                                                                    </div>
-                                                                    <div style="margin-right: 10px;">
-                                                                        <label for="partner_social_category_id">Social Category:</label>
-                                                                        <select id="partner_social_category_id" name="partner_social_category_id[]" required>
-                                                                            <option value="">--Select Category--</option>
-                                                                            @foreach($cats as $cat)
-                                                                            <option value="{{ $cat->id }}">{{ $cat->name }}</option>
-                                                                            @endforeach
-                                                                        </select>
-                                                                    </div>
-                                                                    <div style="margin-right: 10px;">
-                                                                        <label for="partner_is_specially_abled">Specially Abled:</label>
-                                                                        <select name="partner_is_specially_abled[]" required>
-                                                                            <option value="Yes">Yes</option>
-                                                                            <option value="No">No</option>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div style="margin-right: 10px;">
-                                                                        <label for="partner_aadhaar">Aadhaar Number:</label>
-                                                                        <input type="text" name="partner_aadhaar[]" pattern="^[2-9]{1}[0-9]{3}[0-9]{4}[0-9]{4}$" required>
-                                                                    </div>
-                                                                    <div style="">
-                                                                        <label for="partner_mobile">Mobile (Linked To The Aadhaar):</label>
-                                                                        <input type="tel" name="partner_mobile[]" pattern="^[6-9]{1}[0-9]{9}$" required>
-                                                                    </div>
-                                                                    <div style="display: flex; align-items: center;">
-                                                                        <button class="btn btn-danger remove-partner-button" type="button">Remove</button>
-                                                                    </div>
-                                                                </div>
+                                                                @endif
                                                             @endif
                                                             
                                                         </div>
@@ -514,7 +523,6 @@
                                         <small>Pincode</small>
                                     </td>
                                 </tr>
-                               
                                 <tr class="sub_row unit-row">
                                     <th>&nbsp;</th>
                                     <th ><strong>District / जिला:</strong></th>
@@ -576,7 +584,13 @@
                                     <th></th>
                                     <th ><strong>Post Office/पोस्ट ऑफ़िस:</strong></th>
                                     <td colspan="4">
-                                        <input type="text" id="enterprise_po" name="enterprise_po" value="{{ old('employment', $application ? $application->data->enterprise->post_office : '') }}"  required>
+                                        <input 
+                                            type="text" 
+                                            id="enterprise_po" 
+                                            name="enterprise_po" 
+                                            value="{{ old('enterprise_po', isset($application->data->enterprise->post_office) ? $application->data->enterprise->post_office : '') }}"  
+                                            required
+                                        >
                                         <small>Enter Post Office Name</small>
                                     </td>
                                 </tr>
@@ -616,12 +630,21 @@
                                 <!-- Cost of Land -->
                                 <tr class="sub_row">
                                     <th></th>
-                                    <th ><strong>Cost of Land / भूमि का लागत:</strong></th>
+                                    <th><strong>Cost of Land / भूमि का लागत:</strong></th>
                                     <td colspan="4">
-                                        <input type="number" id="land_cost" name="land_cost" value="{{ old('land_cost', $application ? $application->data->cost->land_cost : '') }}" min="0" data-condition="land_status:To be Purchased,To be Taken on Lease" required>
+                                        <input 
+                                            type="number" 
+                                            id="land_cost" 
+                                            name="land_cost" 
+                                            value="{{ old('land_cost', isset($application->data->cost->land_cost) ? $application->data->cost->land_cost : '') }}" 
+                                            min="0" 
+                                            data-condition="land_status:To be Purchased,To be Taken on Lease" 
+                                            required
+                                        >
                                         <small>Cost of Land</small>
                                     </td>
                                 </tr>
+
                                 <tr>
                                     <th >(20)</th>
                                     <th ><strong>Building Status / इमारत की स्थिति:</strong></th>
@@ -639,12 +662,13 @@
                                 <!-- (38) -->
                                 <tr class="sub_row">
                                     <th></th>
-                                    <th ><strong>Cost of Building Construction / इमारत निर्माण की लागत:</strong></th>
+                                    <th><strong>Cost of Building Construction / इमारत निर्माण की लागत:</strong></th>
                                     <td colspan="4">
-                                        <input type="number" id="building_cost" name="building_cost" value="{{ old('building_cost', $application ? $application->data->cost->building_cost : '') }}" min="0" data-condition="building_status:To be Constructed,To be Taken on Rent" required>
+                                        <input type="number" id="building_cost" name="building_cost" value="{{ old('building_cost', $application->data->cost->building_cost ?? '') }}" min="0" data-condition="building_status:To be Constructed,To be Taken on Rent" required>
                                         <small>Cost of Building Construction</small> <span class="badge bg-danger">  Subsidized Component/अनुदानित घटक</span>
                                     </td>
                                 </tr>
+
 
                                 <!-- (39) -->
                                 <tr class="sub_row">
@@ -793,18 +817,18 @@
                                 </tr>
                                 <tr>
                                     <td colspan="6"><div align="center">&nbsp;&nbsp;&nbsp;&nbsp;
-                                            
-                                            
-                                            @if($ispreview == 'true')
-                                                @if($application->status->id == 302 || $application->status->id == 301 || $application->status->id == 305)
-                                                <a href="{{ route('application.newedit', ['application' => $application,]) }}">
-                                                    <button class="btn btn-secondary">Edit Your Application</button>
-                                                </a>
+                                                
+                                                
+                                                @if($ispreview == 'true')
+                                                    @if($application->status->id == 302 || $application->status->id == 301 || $application->status->id == 305)
+                                                    <a href="{{ route('application.newedit', ['application' => $application,]) }}">
+                                                        <button class="btn btn-secondary">Edit Your Application</button>
+                                                    </a>
+                                                    @endif
+                                                @else
+                                                <input  type="submit" class="button" id="submit-button" value="{{ $application ? 'Update' : 'Save'}} Applicant Data">
                                                 @endif
-                                            @else
-                                            <input  type="submit" class="button" id="submit-button" value="{{ $application ? 'Update' : 'Save'}} Applicant Data">
-                                            @endif
-                                    </div></td>
+                                        </div></td>
                                     
                                 </tr>
                             </tbody>
@@ -979,9 +1003,12 @@
         </div>
     </form>
 
+<?php
+
+//echo"<pre>"; print_r($application->data->enterprise);  die;
+?>
     <script>
     // When the page is ready
-    
     $(document).ready(function() {
         const birthDateInput = $('#owner_birth_date');
         const genderSelect = $('#gender');
@@ -1184,7 +1211,7 @@
 
             });
             // Load options based on the selected activity type ID
-            // console.log('dadsa',selectedActivityTypeId)
+            console.log('dadsa',selectedActivityTypeId)
             // if (selectedActivityTypeId === '202' || selectedActivityTypeId === '203' || selectedActivityTypeId === '201') {
                 // Load options dynamically based on your logic here
                 // You can make an AJAX request to fetch data from the server and populate the options
@@ -1197,8 +1224,11 @@
                     activity_type_id: selectedActivityTypeId
                     },
                     success: function(data) {
+						
+						
+						console.log(data);
                         // Add the retrieved options to the select element
-                        let selectedConstituencyId = '{{ old('activity_id', $application ? $application->data->enterprise->activity_id : '') }}';
+                        let selectedConstituencyId = '{{$application->data->enterprise->activity_id ??'' }}';
                         data.forEach(function(option) {
                             activitySelect.append($('<option>', {
                                 value: option.id,
@@ -1530,13 +1560,11 @@
         ownerdistrictTypeSelect.on('change', function() {
             const ownerselectedDistrictTypeId = $(this).val();
             loadownerConOptions(ownerselectedDistrictTypeId);
-            loadConOptions(ownerselectedDistrictTypeId);
         });
         ownerblockTypeSelect.on('change', function() {
             const ownerselectedBlockTypeId = $(this).val();
             console.log(ownerselectedBlockTypeId)
             loadownerPanchayatOptions(ownerselectedBlockTypeId);
-            loadPanchayatOptions(ownerselectedBlockTypeId);
         });
 
         // Trigger the change event on page load if a value is pre-selected
@@ -1842,10 +1870,6 @@
     loadAndPopulateDependentSelectsPanchayat();
     loadBranchOptions(bankid)
 
-
-    // $('#district_id').val(ownerDistrictId);
-
-
     $('#same_as_legal_type').change(function () {
         if($('#same_as_legal_type').is(':checked')) {
             let ownerPincode = $('#owner_pincode').val();
@@ -1891,10 +1915,6 @@
     })
 
     });
-
-
-    
-
 </script>
 
 <style>

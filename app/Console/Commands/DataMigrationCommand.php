@@ -132,48 +132,28 @@ class DataMigrationCommand extends Command
     }
 
     private function createAnnexureARecords() {
+
         $this->info('Processing Annexure-A records ...');
-        
-        // Fetch the records from the old database
         $oldAnnexureARecords = DB::connection('old-mysql')
             ->table('tb_gm_annexure_a')
+            ->where('gaa_status', 2)
+            ->where('gaa_nodal_status', 1)
+            ->where('gaa_amount_of_eligible', '!=', '') 
             ->get();
         
-        // Initialize the pending loan disbursement counter
-        $pendingLoanDisbursementCount = 0;
-        $LoanRejectionCount = 0;
-        $Rejected60cases = 0;
-        $Pending60casesAtDIC = 0;
-        $Pending60casesAtNodal = 0;
-        $Release60cases = 0;
-        $R40cases = 0;
-    
-        // Use a progress bar for better visualization
-        $this->withProgressBar($oldAnnexureARecords, function($oldAnnexureA) use (&$pendingLoanDisbursementCount,&$LoanRejectionCount,&$Rejected60cases,&$Pending60casesAtDIC, &$Pending60casesAtNodal, &$Release60cases, &$R40cases) {
+        $this->withProgressBar($oldAnnexureARecords, function($oldAnnexureA) {
             $application = Application::where('data->old_data->a_id', $oldAnnexureA->gaa_app_id)->first();
-    
             if ($application) {
                 $this->info("Processing application {$oldAnnexureA->gaa_app_id} ...");
-                
-                // Add initial timeline entry
-                $this->addApplicationTimeline(
-                    $application,
-                    ApplicationStatusEnum::PENDING_FOR_DISTRICT_LEVEL_COMMITTEE,
-                    ApplicationStatusEnum::PENDING_FOR_LOAN_DISBURSEMENT,
-                    $this->tryParseDateTime($oldAnnexureA->gaa_approved_by),
-                    'Approved in DLC',
-                    RoleEnum::GM_DIC,
-                    $application->gm_id
-                );
-    
-                // Check if the loan is approved (gaa_status == 2)
+                $this->addApplicationTimeline($application, ApplicationStatusEnum::PENDING_FOR_DISTRICT_LEVEL_COMMITTEE, ApplicationStatusEnum::PENDING_FOR_LOAN_DISBURSEMENT, $this->tryParseDateTime($oldAnnexureA->gaa_approved_by), 'Approved in DLC', RoleEnum::GM_DIC, $application->gm_id);
+                // if approved
                 if ($oldAnnexureA->gaa_status == 2) {
-                    $applicationStatus = ApplicationStatusEnum::UNKNOWN;
-                    
+
+                    $applicationStatus = ApplicationStatusEnum::PENDING_60_SUBSIDY_RELEASE;
+
                     $managerIds = $application->bank_branch_manager_ids ?? [];
                     $managerId = !empty($managerIds) ? $managerIds[0] : null;
-    
-                    // Add timeline entry for loan approval
+
                     $this->addApplicationTimeline(
                         $application,
                         ApplicationStatusEnum::PENDING_FOR_LOAN_DISBURSEMENT,
@@ -183,8 +163,7 @@ class DataMigrationCommand extends Command
                         RoleEnum::BANK_MANAGER,
                         $managerId
                     );
-    
-                    // Update application data with loan information
+
                     $applicationData = $application->data;
                     $applicationData->loan = [
                         'term_loan' => intval($oldAnnexureA->gaa_term_loan_1) ? intval($oldAnnexureA->gaa_term_loan_1) : intval($oldAnnexureA->gaa_term),
@@ -195,145 +174,49 @@ class DataMigrationCommand extends Command
                         'own_contribution' => intval($oldAnnexureA->gaa_own_contribution) ? intval($oldAnnexureA->gaa_own_contribution) : intval($oldAnnexureA->gaa_own),
                         'disbursement_date' => $this->fixDate($oldAnnexureA->gaa_date_installment, $this->tryParseDateTime($oldAnnexureA->gaa_approved_by)),
                     ];
-                    
-    
-                    #Pending at nodal bank for 60%
-                    if ($oldAnnexureA->gaa_nodal_submit_date != null && $oldAnnexureA->gaa_subsidy_edit_remarks == '' && $oldAnnexureA->gaa_nodal_status == 0){
-                        $applicationData->old_annexure_a = $oldAnnexureA;
-                        // die($applicationData);
-                        $applicationStatus = ApplicationStatusEnum::PENDING_60_SUBSIDY_RELEASE;
-                        $this->addApplicationTimeline(
-                            $application,
-                            ApplicationStatusEnum::PENDING_60_SUBSIDY_REQUEST,
-                            ApplicationStatusEnum::PENDING_60_SUBSIDY_RELEASE,
-                            $this->tryParseDateTime($oldAnnexureA->gaa_approved_by),
-                            '',
-                            RoleEnum::GM_DIC,
-                            $application->gm_id
-                        );
-                        
-                        $Pending60casesAtNodal++;
-                         // Update subsidy data
-                        $applicationData->subsidy = [
-                            'amount' => $oldAnnexureA->gaa_amount_of_subsidy_involved_25,
-                            'amount60' => $oldAnnexureA->gaa_amount_of_subsidy_involved_60,
-                            'percentage' => intval($oldAnnexureA->gaa_eligile_subsidy),
-                        ];
-                        
-                    }
 
-                    # pending for 60% at DIC
-                    if ($oldAnnexureA->gaa_nodal_submit_date == null && $oldAnnexureA->gaa_subsidy_edit_remarks == '' && $oldAnnexureA->gaa_nodal_status == 0 ){
-                        $applicationData->old_annexure_a = $oldAnnexureA;
-                        // die($applicationData);
-                        $applicationStatus = ApplicationStatusEnum::PENDING_60_SUBSIDY_REQUEST;
-                        $this->addApplicationTimeline(
-                            $application,
-                            ApplicationStatusEnum::PENDING_FOR_LOAN_DISBURSEMENT,
-                            ApplicationStatusEnum::PENDING_60_SUBSIDY_REQUEST,
-                            $this->tryParseDateTime($oldAnnexureA->gaa_approved_by),
-                            'Loan Approved',
-                            RoleEnum::BANK_MANAGER,
-                            $managerId
-                        );
-                        
-                        $Pending60casesAtDIC++;
-                        
-                    }
-                    #Rejected cases by nodal bank for 60 %
-                    if ($oldAnnexureA->gaa_nodal_status == 0 && $oldAnnexureA->gaa_subsidy_edit_remarks != '' ){
-                        $applicationData->old_annexure_a = $oldAnnexureA;
-                        // die($applicationData);
-                        $applicationStatus = ApplicationStatusEnum::PENDING_60_SUBSIDY_REQUEST;
-                        $this->addApplicationTimeline(
-                            $application,
-                            ApplicationStatusEnum::PENDING_60_SUBSIDY_RELEASE,
-                            ApplicationStatusEnum::PENDING_60_SUBSIDY_REQUEST,
-                            $this->tryParseDateTime($oldAnnexureA->gaa_approved_by),
-                            trim($oldAnnexureA->gaa_subsidy_edit_remarks) ? trim($oldAnnexureA->gaa_subsidy_edit_remarks) : '60% Subsidy Request Rejected BY Nodal Bank',
-                            RoleEnum::NODAL_BANK,
-                            $application->nodal_bank_user_ids[0]
-                        );
-                        
-                        $Rejected60cases++;
-                        
-                    }
+                    $this->addApplicationTimeline($application, ApplicationStatusEnum::PENDING_60_SUBSIDY_REQUEST, ApplicationStatusEnum::PENDING_60_SUBSIDY_RELEASE, $this->tryParseDateTime($oldAnnexureA->gaa_approved_by), '', RoleEnum::GM_DIC, $application->gm_id);
 
-                    // Handle 60% subsidy release
-                    if($oldAnnexureA->gaa_nodal_status == 1 && $oldAnnexureA->gaa_status == 2 && $oldAnnexureA->gaa_amount_of_eligible != '' && $oldAnnexureA->gaa_nodal_submit_date != null && $oldAnnexureA->gaa_date_of_dis_subsidy != null) {
-                        // $applicationData = $application->data;
-                        $applicationData->subsidy = [
-                            'amount' => $oldAnnexureA->gaa_amount_of_subsidy_involved_25,
-                            'amount60' => $oldAnnexureA->gaa_amount_of_subsidy_involved_60,
-                            'percentage' => intval($oldAnnexureA->gaa_eligile_subsidy),
-                        ];
-                        // If 'subsidy' is not set or is an object, convert it to an array
-                        if (!is_array($applicationData->subsidy)) {
-                            $applicationData->subsidy = (array) ($applicationData->subsidy ?? []); // Ensure it's an array
-                        }
+                    $applicationData->subsidy = [
+                        'amount' => $oldAnnexureA->gaa_amount_of_subsidy_involved_25,
+                        'amount60' => $oldAnnexureA->gaa_amount_of_subsidy_involved_60,
+                        'percentage' => intval($oldAnnexureA->gaa_eligile_subsidy),
+                    ];
+
+                    if($oldAnnexureA->gaa_nodal_status == 1 && $oldAnnexureA->gaa_status == 2 && $oldAnnexureA->gaa_amount_of_eligible != '') {
+
                         $applicationData->subsidy['date60'] = $this->fixDate($oldAnnexureA->gaa_date_of_dis_subsidy, $this->tryParseDateTime($oldAnnexureA->gaa_approved_by));
                         $applicationData->subsidy['utrno60'] = 'NA(Old Release)';
                         $applicationStatus = ApplicationStatusEnum::SUBSIDY_60_RELEASED;
-    
-                        $this->addApplicationTimeline(
-                            $application,
-                            ApplicationStatusEnum::PENDING_60_SUBSIDY_RELEASE,
-                            ApplicationStatusEnum::SUBSIDY_60_RELEASED,
-                            $this->fixDate($oldAnnexureA->gaa_date_of_dis_subsidy, $this->tryParseDateTime($oldAnnexureA->gaa_approved_by)) ?? $this->tryParseDateTime($oldAnnexureA->gaa_approved_by),
-                            trim($oldAnnexureA->gaa_subsidy_edit_remarks) ? trim($oldAnnexureA->gaa_subsidy_edit_remarks) : '60% Subsidy Released',
-                            RoleEnum::NODAL_BANK,
-                            $application->nodal_bank_user_ids[0]
-                        );
-                        $Release60cases++;
-                        // Handle 40% subsidy release
+
+                        $this->addApplicationTimeline($application, ApplicationStatusEnum::PENDING_60_SUBSIDY_RELEASE, ApplicationStatusEnum::SUBSIDY_60_RELEASED, $this->fixDate($oldAnnexureA->gaa_date_of_dis_subsidy, $this->tryParseDateTime($oldAnnexureA->gaa_approved_by)) ?? $this->tryParseDateTime($oldAnnexureA->gaa_approved_by), trim($oldAnnexureA->gaa_subsidy_edit_remarks) ? trim($oldAnnexureA->gaa_subsidy_edit_remarks) : '60% Subsidy Released', RoleEnum::NODAL_BANK, $application->nodal_bank_user_ids[0]);
+
                         $oldFourtysubsidyEntry = DB::connection('old-mysql')
                             ->table('tb_fourtysubsidy')
                             ->where('fs_app_id', $oldAnnexureA->gaa_app_id)
                             ->first();
-    
+
                         if ($oldFourtysubsidyEntry) {
-                            $R40cases++;
-                            $this->addApplicationTimeline(
-                                $application,
-                                ApplicationStatusEnum::SUBSIDY_60_RELEASED,
-                                ApplicationStatusEnum::PENDING_40_SUBSIDY_RELEASE,
-                                $this->fixDate($oldFourtysubsidyEntry->gm_date, $oldFourtysubsidyEntry->fs_created) ?? $oldFourtysubsidyEntry->fs_created,
-                                '40% Subsidy Requested',
-                                RoleEnum::GM_DIC,
-                                $application->gm_id
-                            );
-    
+                            $this->addApplicationTimeline($application, ApplicationStatusEnum::SUBSIDY_60_RELEASED, ApplicationStatusEnum::PENDING_40_SUBSIDY_RELEASE, $this->fixDate($oldFourtysubsidyEntry->gm_date, $oldFourtysubsidyEntry->fs_created) ?? $oldFourtysubsidyEntry->fs_created, '40% Subsidy Requested', RoleEnum::GM_DIC, $application->gm_id);
+
                             $applicationData->old_40_subsidy = $oldFourtysubsidyEntry;
+
                             $applicationStatus = ApplicationStatusEnum::PENDING_40_SUBSIDY_RELEASE;
-    
                             if($oldFourtysubsidyEntry->nodal_status == 1 && $oldFourtysubsidyEntry->gm_status == 1) {
-                                $this->addApplicationTimeline(
-                                    $application,
-                                    ApplicationStatusEnum::PENDING_40_SUBSIDY_RELEASE,
-                                    ApplicationStatusEnum::SUBSIDY_40_RELEASED,
-                                    $this->fixDate($oldFourtysubsidyEntry->gm_date, $oldFourtysubsidyEntry->fs_created) ?? $oldFourtysubsidyEntry->fs_created,
-                                    '40% Subsidy Released',
-                                    RoleEnum::NODAL_BANK,
-                                    $application->nodal_bank_user_ids[0]
-                                );
+                                $this->addApplicationTimeline($application, ApplicationStatusEnum::PENDING_40_SUBSIDY_RELEASE, ApplicationStatusEnum::SUBSIDY_40_RELEASED, $this->fixDate($oldFourtysubsidyEntry->gm_date, $oldFourtysubsidyEntry->fs_created) ?? $oldFourtysubsidyEntry->fs_created, '40% Subsidy Released', RoleEnum::NODAL_BANK, $application->nodal_bank_user_ids[0]);
                                 $applicationStatus = ApplicationStatusEnum::SUBSIDY_40_RELEASED;
                             }
                         }
                     }
-    
-                    // Update the application data and status
                     $application->update([
                         'data' => $applicationData,
                         'status_id' => $applicationStatus->id(),
                     ]);
-    
-                } 
-                // Handle rejected loans
-                else if(($oldAnnexureA->gaa_status == 1 || $oldAnnexureA->gaa_status == 3) && $oldAnnexureA->gaa_remarks != '') {
-                    $this->info("Application {$oldAnnexureA->gaa_app_id} is loan rejected ...");
+
+                } else if($oldAnnexureA->gaa_status == 3 || $oldAnnexureA->gaa_status == 4) { // rejected
                     $bankBranchManagerIds = $application->bank_branch_manager_ids ?? [];
                     $managerId = !empty($bankBranchManagerIds) ? $bankBranchManagerIds[0] : null;
-                    
+
                     $this->addApplicationTimeline(
                         $application,
                         ApplicationStatusEnum::PENDING_FOR_LOAN_DISBURSEMENT,
@@ -343,53 +226,16 @@ class DataMigrationCommand extends Command
                         RoleEnum::BANK_MANAGER,
                         $managerId
                     );
-                    $LoanRejectionCount++;
-                    // Update the application status to "Loan Rejected"
+
                     $application->update([
                         'status_id' => ApplicationStatusEnum::LOAN_REJECTED->id(),
-                    ]);
-    
-                } 
-                // Handle pending loan disbursement
-                else if($oldAnnexureA->gaa_status == 1 && (empty($oldAnnexureA->gaa_remarks) || $oldAnnexureA->gaa_remarks == null)) {
-                    $bankBranchManagerIds = $application->bank_branch_manager_ids ?? [];
-                    $managerId = !empty($bankBranchManagerIds) ? $bankBranchManagerIds[0] : null;
-    
-                    // Increment the pending loan disbursement count
-                    $pendingLoanDisbursementCount++;
-    
-                    $this->info("Application {$oldAnnexureA->gaa_app_id} is pending for loan disbursement ...");
-    
-                    $this->addApplicationTimeline(
-                        $application,
-                        ApplicationStatusEnum::PENDING_FOR_LOAN_DISBURSEMENT,
-                        ApplicationStatusEnum::PENDING_FOR_LOAN_DISBURSEMENT,
-                        $this->tryParseDateTime($oldAnnexureA->gaa_created),
-                        $oldAnnexureA->gaa_remarks ? $oldAnnexureA->gaa_remarks : '',
-                        RoleEnum::BANK_MANAGER,
-                        $managerId
-                    );
-    
-                    // Update the application status to "Pending for Loan Disbursement"
-                    $application->update([
-                        'status_id' => ApplicationStatusEnum::PENDING_FOR_LOAN_DISBURSEMENT->id(),
                     ]);
                 }
             } else {
                 $this->info("Application {$oldAnnexureA->gaa_app_id} not found!");
             }
         });
-    
-        // Output the total count of applications pending for loan disbursement
-        $this->info("Total applications pending for loan disbursement: {$pendingLoanDisbursementCount}");
-        $this->info("Total applications pending for loan Rejection: {$LoanRejectionCount}");
-        $this->info("Total applications Rejected for DIC 60% inspection: {$Rejected60cases}");
-        $this->info("Total applications Pending at DIC for 60% Request: {$Pending60casesAtDIC}");
-        $this->info("Total applications Pending at Nodal for 60% Release: {$Pending60casesAtNodal}");
-        $this->info("Total applications Realeased from Nodal for 60% Subsidy: {$Release60cases}");
-        $this->info("Total applications came in 40 %: {$R40cases}");
     }
-    
 
     private function fixDate(?string $str, $referenceDate, $fallbackDate = null) : ?string
     {
@@ -762,149 +608,27 @@ class DataMigrationCommand extends Command
     }
 
     private function getActivityId(string $oldActivityId)
-{
-    // Load activities once if not already loaded
-    if (!$this->activities) {
-        $this->activities = DB::connection('old-mysql')
-            ->table('tb_activities')
-            ->where('a_status', 1)
+    {
+        if (!$this->activities) {
+            $this->activities = DB::connection('old-mysql')
+                ->table('tb_activities')
+                ->where('a_status', 1)
             ->get();
-    }
-
-    // Find old activity by id
-    $oldActivity = $this->activities->firstWhere('a_id', $oldActivityId == 30 ? 169 : $oldActivityId);
-
-    if (!$oldActivity) {
-        dd('Old activity not found in database!', $oldActivityId);
-    }
-
-    // Normalize the old activity name
-    $normalizedOldName = $this->normalizeString($oldActivity->a_name);
-
-    // Check for direct match using normalized names
-    $activity = Activity::where(DB::raw('LOWER(REPLACE(name, ".", ""))'), $normalizedOldName)
-        ->orWhere(DB::raw('LOWER(REPLACE(name, ".", ""))'), $this->normalizeString($oldActivity->a_name))
-        ->first();
-
-    // If no exact match is found, try fuzzy matching
-    if (!$activity) {
-        $newActivities = Activity::all();  // Load all new activities for fuzzy matching
-
-        $bestMatchActivity = null;
-        $bestMatchScore = 0;
-
-        foreach ($newActivities as $newActivity) {
-            // Normalize new activity name
-            $normalizedNewName = $this->normalizeString($newActivity->name);
-
-            // Perform word-by-word matching
-            $oldActivityWords = explode(' ', $normalizedOldName);
-            $newActivityWords = explode(' ', $normalizedNewName);
-
-            // Get the number of matching words
-            $matchingWords = array_intersect($oldActivityWords, $newActivityWords);
-            $matchScore = count($matchingWords);
-
-            // If word matching gives a high score, choose this activity
-            if ($matchScore > $bestMatchScore) {
-                $bestMatchScore = $matchScore;
-                $bestMatchActivity = $newActivity;
-            }
-
-            // If we have a perfect match on words, break early
-            if ($matchScore === count($oldActivityWords)) {
-                $activity = $newActivity;
-                break;
-            }
-
-            // Fallback: Use Levenshtein distance or similar_text for more flexible matching
-            if (!$activity && $this->isSimilar($normalizedOldName, $normalizedNewName)) {
-                $bestMatchActivity = $newActivity;
-                $bestMatchScore = PHP_INT_MAX; // Assume fuzzy match is the last resort
-            }
         }
-
-        if (!$activity && $bestMatchActivity) {
-            $activity = $bestMatchActivity;
+        $oldActivity = $this->activities->firstWhere('a_id', $oldActivityId == 30 ? 169 : $oldActivityId);
+        if (!$oldActivity) {
+            dd('Old activity not found in database!', $oldActivityId);
         }
-
+        if (isset($this->activityMappings[$oldActivity->a_name])) {
+            $oldActivity->a_name = $this->activityMappings[$oldActivity->a_name];
+        }
+        $activity = Activity::where('name', trim($oldActivity->a_name, '. '))->orWhere('name', $oldActivity->a_name)->first();
         if (!$activity) {
-            // Log or store activities that are not found for manual review
-            dd("\n'{$oldActivity->a_name}' activity not found even after fuzzy matching!");
+            dd("\n'{$oldActivity->a_name}' activity not fournd!");
         }
+        return $activity->id;
     }
 
-    return $activity->id;
-}
-
-
-    // Normalize the string by removing noise words, special characters, etc.
-    private function normalizeString($string)
-    {
-        // Convert to lowercase
-        $string = strtolower($string);
-
-        // Remove noise words that don't contribute to matching
-        $noiseWords = ['costing', 'up to', 'rs', 'lakhs', 'exshowroom', 'price', 'including', 'excluding'];
-        $string = str_replace($noiseWords, '', $string);
-
-        // Remove special characters like commas, periods, etc.
-        $string = preg_replace('/[^\w\s]/', '', $string);
-
-        // Replace multiple spaces with a single space
-        $string = preg_replace('/\s+/', ' ', $string);
-
-        // Trim any extra spaces at the start and end
-        return trim($string);
-    }
-
-    // Fuzzy matching method using Levenshtein, similar_text, substring, and word matching
-    private function isSimilar($str1, $str2)
-    {
-        // Normalize strings
-        $str1 = $this->normalizeString($str1);
-        $str2 = $this->normalizeString($str2);
-
-        // Check for exact substring match
-        if (strpos($str2, $str1) !== false || strpos($str1, $str2) !== false) {
-            return true;
-        }
-
-        // Calculate Levenshtein distance
-        $levDistance = levenshtein($str1, $str2);
-
-        // Calculate similarity percentage
-        $similarPercent = 0;
-        similar_text($str1, $str2, $similarPercent);
-
-        // Check for word matching (over 50% word match)
-        if ($this->wordMatch($str1, $str2)) {
-            return true;
-        }
-
-        // Use combined weighted matching (Levenshtein + similar_text)
-        $levWeight = 0.4;  // Weight for Levenshtein distance
-        $simWeight = 0.6;  // Weight for similar_text percentage
-        $matchScore = ($levWeight * (1 - ($levDistance / max(strlen($str1), strlen($str2))))) + ($simWeight * ($similarPercent / 100));
-
-        // Consider it a match if the combined score is high enough (above 70%)
-        return $matchScore > 0.7;
-    }
-
-    // Check if there is a significant word overlap between two strings
-    private function wordMatch($str1, $str2)
-    {
-        // Split the strings into words
-        $words1 = explode(' ', $str1);
-        $words2 = explode(' ', $str2);
-
-        // Get the common words between the two sets of words
-        $commonWords = array_intersect($words1, $words2);
-        $totalWords = max(count($words1), count($words2));
-
-        // If more than 50% of the words match, consider it a match
-        return (count($commonWords) / $totalWords) > 0.5;
-    }
     private function getActivityTypeId(string $oldActivityType): int
     {
         switch ($oldActivityType) {

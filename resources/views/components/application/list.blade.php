@@ -14,6 +14,7 @@
             @else
                 <x-table.th>Sr. No.</x-table.th>
             @endif
+            <x-table.th>Application Id</x-table.th>
             <x-table.th>Enterprise</x-table.th>
             <x-table.th>Applicant</x-table.th>
             <x-table.th>Subsidy Eligibility<hr class="m-0" />Subsidy Category</x-table.th>

@@ -39,6 +39,7 @@ class User extends Authenticatable
         'mobile_verified_at',
         'password',
         'remember_token',
+        'session_hash',
     ];
 
     /**
@@ -49,6 +50,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'session_hash',
     ];
 
     /**

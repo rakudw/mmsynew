@@ -8,8 +8,6 @@ use App\Models\Region;
 use App\Models\Enum;
 use App\Models\Activity;
 use App\Enums\ApplicationStatusEnum;
-use App\Models\Views\ApplicationView;
-use Exception;
 use App\Exports\NumericReportExport;
 use App\Exports\NumaricAllStatusExport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -160,7 +158,7 @@ class MasterReportController extends Controller
                     ApplicationStatusEnum::PENDING_FOR_DISTRICT_LEVEL_COMMITTEE->id(),
                     ApplicationStatusEnum::PENDING_60_SUBSIDY_REQUEST->id(),
                     ApplicationStatusEnum::PENDING_60_SUBSIDY_RELEASE->id(),
-                    ApplicationStatusEnum::PENDING_40_SUBSIDY_REQUEST->id(),
+                    ApplicationStatusEnum::PENDING_40_SUBSIDY_APPROVAL->id(),
                     ApplicationStatusEnum::PENDING_40_SUBSIDY_RELEASE->id(),
                 ];
                 $query->whereIn('status_id', request()->get('status_id') ? [request()->get('status_id')] : $statusId)->orderBy('updated_at', 'DESC');
@@ -184,7 +182,6 @@ class MasterReportController extends Controller
                     $title = "Senctioned Applications for 60% subsidy";
                 } else {
                     $statusId = [
-                        ApplicationStatusEnum::PENDING_40_SUBSIDY_REQUEST->id(),
                         ApplicationStatusEnum::PENDING_40_SUBSIDY_RELEASE->id(),
                         ApplicationStatusEnum::SUBSIDY_40_RELEASED->id()
                     ];
@@ -237,14 +234,19 @@ class MasterReportController extends Controller
                     $query->where('status_id','>', $statusId);
                 } else if (request()->get('kind') == 'not') {
                     $query->whereNot('status_id', $statusId);
-                } else if (request()->get('kind') == 'arr') {
-                    $status_ids = explode(',', request()->get('status_id')[0]);
-                    $query->whereIn('status_id', $status_ids);
-                } else if (request()->get('kind') == 'incor') {
+                } else if (request()->get('kind') == 'arr_not') {
+                    $statusIds = request()->get('status_id')[0];
+                    $statusIdsArray = explode(',', $statusIds);
+                        $query->where('status_id', '>', trim($statusIdsArray[0]))
+                              ->whereNot('status_id', trim($statusIdsArray[1]));
+                }else if (request()->get('kind') == 'incor') {
                     $query->where(function ($query) use ($statusId) {
                         $query->where('status_id', '>', $statusId)
                             ->orWhere('status_id', 304);
                     });
+                }else if (request()->get('kind') == 'arr') {
+                    $status_ids = explode(',', request()->get('status_id')[0]);
+                    $query->whereIn('status_id', $status_ids);
                 }else{
                     $query->whereIn('status_id', $statusId);
                 }
@@ -549,25 +551,25 @@ class MasterReportController extends Controller
     }
 
     // Reports for UCO Bank
-    public function bankReport(Request $request)
+
+
+    public function bankReportLB(Request $request)
     {
+
+
+
         $district_ids = $request->input('district_id', 'All');
         $tehsil_ids = $request->input('tehsil_id', 'All');
         $constituency_ids = $request->input('constituency_id', 'All');
         $block_ids = $request->input('block_id', 'All');
         $panchayat_ids = $request->input('panchayat_id', 'All');
 
+            // $district_ids=['3'];
         // Get Data from Filters
         $title = 'Recieved Applications';
         $districts = Region::userBasedDistricts(null)->select('name', 'id')->get();
-        $districtsData = 0;
-        if(auth()->user()->isSuperAdmin()){
-            $districtsData =  Region::where('parent_id', 2)->pluck('id')->toArray();
-        }else{
-            $districtsData = Region::userBasedDistricts(null)->pluck('id')->values();
-        }
 
-        $districtsIds = $district_ids == 'All' ? $districtsData : $district_ids;
+        $districtsIds = $district_ids == 'All' ? Region::where('parent_id', 2)->pluck('id')->toArray() : $district_ids;
         $constituencies = null;
         $tehsils = null;
         $blocks = null;
@@ -586,16 +588,73 @@ class MasterReportController extends Controller
             $startDate = "{$startYear}-04-01";
             $endDate = "{$endYear}-03-31";
         }
-        // dd($districts);
+        // dd($districtsIds);
         $reportData = $this->numaricQueryRecievedBank($districtsIds, $selectedFY);
         $totals = null;
-        //    dd($reportData);
+
         foreach ($reportData as $item) {
             if (isset($item['Total'])) {
                 $totals = $item['Total'];
                 break;
             }
         }
+
+         echo"<pre>"; print_r($reportData); die;
+        $request->session()->flash('exportData', $reportData);
+        $request->session()->flash('totals', $totals);
+        return view('numaric_reports.bankreport', compact('districts', 'districtsIds', 'constituencies', 'tehsils', 'blocks', 'panchayatWards', 'title', 'statusId', 'reportData', 'totals', 'categories', 'activities', 'perPage'));
+    }
+
+
+
+
+    public function bankReport(Request $request)
+    {
+
+
+
+        $district_ids = $request->input('district_id', 'All');
+        $tehsil_ids = $request->input('tehsil_id', 'All');
+        $constituency_ids = $request->input('constituency_id', 'All');
+        $block_ids = $request->input('block_id', 'All');
+        $panchayat_ids = $request->input('panchayat_id', 'All');
+
+            // $district_ids=['3'];
+        // Get Data from Filters
+        $title = 'Recieved Applications';
+        $districts = Region::userBasedDistricts(null)->select('name', 'id')->get();
+
+        $districtsIds = $district_ids == 'All' ? Region::where('parent_id', 2)->pluck('id')->toArray() : $district_ids;
+        $constituencies = null;
+        $tehsils = null;
+        $blocks = null;
+        $panchayatWards = null;
+        $statusId = null;
+        $categories = null;
+        $activities = null;
+        $perPage = null;
+        $selectedFY = request()->get('fy'); // Get the selected fiscal year from the request
+        if ($selectedFY && $selectedFY != 'All') {
+            // dd($selectedFY);
+            // Split the fiscal year into two years
+            list($startYear, $endYear) = explode('-', $selectedFY);
+
+            // Calculate the start and end dates of the fiscal year
+            $startDate = "{$startYear}-04-01";
+            $endDate = "{$endYear}-03-31";
+        }
+        // dd($districtsIds);
+        $reportData = $this->numaricQueryRecievedBank($districtsIds, $selectedFY);
+        $totals = null;
+
+        foreach ($reportData as $item) {
+            if (isset($item['Total'])) {
+                $totals = $item['Total'];
+                break;
+            }
+        }
+
+        //  echo"<pre>"; print_r($reportData); die;
         $request->session()->flash('exportData', $reportData);
         $request->session()->flash('totals', $totals);
         return view('numaric_reports.bankreport', compact('districts', 'districtsIds', 'constituencies', 'tehsils', 'blocks', 'panchayatWards', 'title', 'statusId', 'reportData', 'totals', 'categories', 'activities', 'perPage'));

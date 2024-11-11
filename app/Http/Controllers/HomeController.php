@@ -145,6 +145,7 @@ public function applicant_login()
             'captchaQuestion' => $captchaQuestion,
         ]);
     }
+
     public function grievance(Request $request)
     {
         // Do nothing because of X and Y.
@@ -263,7 +264,7 @@ public function applicant_login()
 
         // If not found in users table, check if it exists in the application table
         if (!$user) {
-            $applicationUser = Application::whereJsonContains('data->owner->mobile', $identity)->first();
+            $applicationUser = Application::whereJsonContains('data->enterprise->mobile', $identity)->first();
         }
 
         // If the identity is an email, check if it exists in the users table
