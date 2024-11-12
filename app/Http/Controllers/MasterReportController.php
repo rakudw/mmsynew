@@ -374,7 +374,7 @@ class MasterReportController extends Controller
                 break;
             }
         }
-        $request->session()->flash('exportData', $reportData);
+        $request->session()->flash('exportData', $reportData); 
         $request->session()->flash('totals', $totals);
         $request->session()->flash('statusCodes', $statusCodes);
         return view('numaric_reports.released', compact('districts', 'constituencies', 'tehsils', 'blocks', 'panchayatWards', 'title', 'statusId', 'reportData', 'totals', 'statusCodes', 'categories', 'activities', 'perPage'));
@@ -634,6 +634,7 @@ class MasterReportController extends Controller
         $activities = null;
         $perPage = null;
         $selectedFY = request()->get('fy'); // Get the selected fiscal year from the request
+        
         if ($selectedFY && $selectedFY != 'All') {
             // dd($selectedFY);
             // Split the fiscal year into two years
@@ -662,7 +663,7 @@ class MasterReportController extends Controller
 
     public function numaricQueryRecievedBank($districtIds, $selectedFY)
     {
-        $selectedFiscalYears = $selectedFY && $selectedFY !== "All" ? [$selectedFY] : ['2020-2021', '2021-2022', '2022-2023', '2023-2024'];
+        $selectedFiscalYears = $selectedFY && $selectedFY !== "All" ? [$selectedFY] : ['2020-2021', '2021-2022', '2022-2023', '2023-2024','2024-2025'];
 
         $reportData = [];
 
@@ -707,25 +708,33 @@ class MasterReportController extends Controller
             // Loop through each fiscal year
             if (!$selectedFY) {
                 $startDateString = request()->get('startDate');
-                $startDate = date_create_from_format('d/m/Y', $startDateString);
+                $startDate = date_create_from_format('Y/m/d', $startDateString);
 
                 $formattedStartDate = $startDate ? $startDate->format('Y-m-d') : '2019-04-01';
 
                 // $startDate = date("Y-m-d", strtotime(request()->get('startDate'))) ?: '2019-04-01';
 
                 $endDateString = request()->get('endDate');
-                $endDate = date_create_from_format('d/m/Y', $endDateString);
+                $endDate = date_create_from_format('Y/m/d', $endDateString);
 
                 $formattedEndDate = $endDate ? $endDate->format('Y-m-d') : date('Y-m-d');
-
+              
                 $districtData['Year'][] = $this->iterateBetweenDatesForBank($formattedStartDate, $formattedEndDate, null, $districtId, $totals);
 
             } else {
                 foreach ($selectedFiscalYears as $fiscalYear) {
+                    // dd($fiscalYear);
                     list($startYear, $endYear) = explode('-', $fiscalYear);
-                    $startDate = "{$startYear}-04-01";
-                    $endDate = "{$endYear}-03-31";
-                    $districtData['Year'][] = $this->iterateBetweenDatesForBank($startDate, $endDate, $fiscalYear, $districtId, $totals);
+                    
+                    $startDateString = "{$startYear}-04-01";
+                    $startDate = date_create_from_format('Y-m-d', $startDateString);
+                    $formattedStartDate = $startDate ? $startDate->format('Y-m-d') : '2019-04-01';
+            
+                    $endDateString = "{$endYear}-03-31";
+                    $endDate = date_create_from_format('Y-m-d', $endDateString);
+                    $formattedEndDate = $endDate ? $endDate->format('Y-m-d') : date('Y-m-d');
+            
+                    $districtData['Year'][] = $this->iterateBetweenDatesForBank($formattedStartDate, $formattedEndDate, $fiscalYear, $districtId, $totals);
                 }
             }
             // Add the district data to the report data
