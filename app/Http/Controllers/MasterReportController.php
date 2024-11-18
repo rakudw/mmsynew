@@ -374,7 +374,7 @@ class MasterReportController extends Controller
                 break;
             }
         }
-        $request->session()->flash('exportData', $reportData); 
+        $request->session()->flash('exportData', $reportData);
         $request->session()->flash('totals', $totals);
         $request->session()->flash('statusCodes', $statusCodes);
         return view('numaric_reports.released', compact('districts', 'constituencies', 'tehsils', 'blocks', 'panchayatWards', 'title', 'statusId', 'reportData', 'totals', 'statusCodes', 'categories', 'activities', 'perPage'));
@@ -634,7 +634,6 @@ class MasterReportController extends Controller
         $activities = null;
         $perPage = null;
         $selectedFY = request()->get('fy'); // Get the selected fiscal year from the request
-        
         if ($selectedFY && $selectedFY != 'All') {
             // dd($selectedFY);
             // Split the fiscal year into two years
@@ -663,7 +662,7 @@ class MasterReportController extends Controller
 
     public function numaricQueryRecievedBank($districtIds, $selectedFY)
     {
-        $selectedFiscalYears = $selectedFY && $selectedFY !== "All" ? [$selectedFY] : ['2020-2021', '2021-2022', '2022-2023', '2023-2024','2024-2025'];
+        $selectedFiscalYears = $selectedFY && $selectedFY !== "All" ? [$selectedFY] : ['2020-2021', '2021-2022', '2022-2023', '2023-2024'];
 
         $reportData = [];
 
@@ -689,11 +688,15 @@ class MasterReportController extends Controller
             'No Of Application Rejected By The Bank' => 0,
             'No Of Cases Pending at Bank Level' => 0,
             'Cases sent to Nodal bank for release of 60% Capital Subsidy by GM DIC' => 0,
+            'Total Amount Pending at Nodal bank for release of 60% Subsidy' => 0,
             '60% Capital subsidy released by Nodal Bank' => 0,
+            'Total Amount Approved at Nodal bank for release of 60% Subsidy' => 0,
             'Cases Pending for 60% Capital subsidy released by Nodal Bank' => 0,
             'Cases Pending at GM DIC For 60% Release' => 0,
             'Cases sent to Nodal Bank for release of 40% Capital Subsidy By GM DIC' => 0,
+            'Total Amount Pending at Nodal bank for release of 40% Subsidy' => 0,
             '40% Capital subsidy released by Nodal Bank' => 0,
+            'Total Amount Approved at Nodal bank for release of 40% Subsidy' => 0,
             'Cases Pending for 40% Capital subsidy released by Nodal Bank' => 0,
             'Cases Pending at GM DIC For 40% Release' => 0,
         ];
@@ -851,6 +854,26 @@ class MasterReportController extends Controller
             ->get()
             ->sum('subsidy_amount');
 
+        $totalAmountOf60SubsidyPending = Application::where('region_id', $districtId)
+            ->whereIn('status_id', [314])
+            ->get()
+            ->sum('subsidy60_amount');
+
+        $totalAmountOf40SubsidyPending = Application::where('region_id', $districtId)
+            ->whereIn('status_id', [316])
+            ->get()
+            ->sum('subsidy40_amount');
+
+        $totalAmountOf60SubsidyReleased = Application::where('region_id', $districtId)
+            ->whereIn('status_id', [315])
+            ->get()
+            ->sum('subsidy60_amount');
+
+        $totalAmountOf40SubsidyReleased = Application::where('region_id', $districtId)
+            ->whereIn('status_id', [317])
+            ->get()
+            ->sum('subsidy40_amount');
+
         $rejectedByBankCount = Application::where('region_id', $districtId)
             ->whereIn('status_id', [304])
             ->whereBetween('created_at', [$startDate, $endDate])
@@ -931,12 +954,16 @@ class MasterReportController extends Controller
         $totals['No Of Cases Pending at Bank Level'] += $pendingAtBankCount;
         // 60% Cases Section
         $totals['Cases sent to Nodal bank for release of 60% Capital Subsidy by GM DIC'] += $sentToNodalBank60;
+        $totals['Total Amount Pending at Nodal bank for release of 60% Subsidy'] += $totalAmountOf60SubsidyPending;
         $totals['60% Capital subsidy released by Nodal Bank'] += $releasedByNodalBank60;
+        $totals['Total Amount Approved at Nodal bank for release of 60% Subsidy'] += $totalAmountOf60SubsidyReleased;
         $totals['Cases Pending for 60% Capital subsidy released by Nodal Bank'] += $pendingForNodalBank60;
         $totals['Cases Pending at GM DIC For 60% Release'] += $pendingAtGmForNodalBank60;
         // 40% Cases Section
         $totals['Cases sent to Nodal Bank for release of 40% Capital Subsidy By GM DIC'] += $sentToNodalBank40;
+        $totals['Total Amount Pending at Nodal bank for release of 40% Subsidy'] += $totalAmountOf40SubsidyPending;
         $totals['40% Capital subsidy released by Nodal Bank'] += $releasedByNodalBank40;
+        $totals['Total Amount Approved at Nodal bank for release of 40% Subsidy'] += $totalAmountOf40SubsidyReleased;
         $totals['Cases Pending for 40% Capital subsidy released by Nodal Bank'] += $pendingForNodalBank40;
         $totals['Cases Pending at GM DIC For 40% Release'] += $pendingAtGmForNodalBank40;
 
@@ -975,12 +1002,16 @@ class MasterReportController extends Controller
             'No Of Cases Pending at Bank Level' => $pendingAtBankCount,
             // 60% Cases Section
             'Cases sent to Nodal bank for release of 60% Capital Subsidy by GM DIC' => $sentToNodalBank60,
+            'Total Amount Pending at Nodal bank for release of 60% Subsidy' => $totalAmountOf60SubsidyPending,
             '60% Capital subsidy released by Nodal Bank' => $releasedByNodalBank60,
+            'Total Amount Approved at Nodal bank for release of 60% Subsidy' => $totalAmountOf60SubsidyReleased,
             'Cases Pending for 60% Capital subsidy released by Nodal Bank' =>  $pendingForNodalBank60,
             'Cases Pending at GM DIC For 60% Release' =>  $pendingAtGmForNodalBank60,
             // 40% Cases Section
             'Cases sent to Nodal Bank for release of 40% Capital Subsidy By GM DIC' =>  $sentToNodalBank40,
+            'Total Amount Pending at Nodal bank for release of 40% Subsidy' =>  $totalAmountOf40SubsidyPending,
             '40% Capital subsidy released by Nodal Bank' => $releasedByNodalBank40,
+            'Total Amount Approved at Nodal bank for release of 40% Subsidy' => $totalAmountOf40SubsidyReleased,
             'Cases Pending for 40% Capital subsidy released by Nodal Bank' => $pendingForNodalBank40,
             'Cases Pending at GM DIC For 40% Release' => $pendingAtGmForNodalBank40,
         ];

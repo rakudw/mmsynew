@@ -141,6 +141,46 @@ class Application extends Base implements Auditable
         $amount = $this->getData('subsidy', 'amount');
         return is_null($amount) ? round((float) $this->subsidy_eligible_amount * ($this->subsidy_percentage / 100)) : round((float) $amount);
     }
+    public function getSubsidy60AmountAttribute()
+    {   
+        $amount = 0;
+
+        $eligibleSubsidyAmount1 = (float) $this->getData('old_annexure_a', 'gaa_eligible_subsidy_amount_1');
+        $subsidyAmount60 = (float) $this->getData('subsidy', 'amount60');
+
+        if ($eligibleSubsidyAmount1) {
+            $amount = $eligibleSubsidyAmount1;
+        } else {
+            $amount = $subsidyAmount60;
+        }
+
+        return $amount;
+    }
+    public function getSubsidy40AmountAttribute()
+    {   
+        $amount = 0;
+
+        // Retrieve and ensure numeric values for the subtraction
+        $gaaEligibleSubsidyAmount = (float) $this->getData('old_annexure_a', 'gaa_eligible_subsidy_amount');
+        $gaaEligibleSubsidyAmount1 = (float) $this->getData('old_annexure_a', 'gaa_eligible_subsidy_amount_1');
+
+        // Calculate the eligible subsidy amount difference
+        $eligibleSubsidyAmount1 = $gaaEligibleSubsidyAmount - $gaaEligibleSubsidyAmount1;
+
+        // Ensure numeric value for the 40% subsidy amount
+        $subsidyAmount40 = (float) $this->getData('subsidy', 'amount40');
+
+        // Determine the final amount
+        if ($eligibleSubsidyAmount1 > 0) {
+            $amount = $eligibleSubsidyAmount1;
+        } elseif ($subsidyAmount40 > 0) {
+            $amount = $subsidyAmount40;
+        }
+
+        return $amount;
+    }
+
+
 
     public function subsidyAmount(int $percent = 60)
     {
