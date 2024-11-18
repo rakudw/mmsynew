@@ -213,9 +213,9 @@
 <script>
     // JavaScript to handle custom multiselect
     $(document).ready(function () {
-        $('#activity-id').selectize({
-          sortField: 'text'
-      });
+    //     $('#activity-id').selectize({
+    //       sortField: 'text'
+    //   });
         // Event delegation to capture form submission
         $('form').on('submit', function (event) {
         event.preventDefault(); // Prevent the default form submission

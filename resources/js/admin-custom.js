@@ -27,9 +27,6 @@
 // js for slider
 document.addEventListener("DOMContentLoaded", function () {
     var carouselElement = document.getElementById("carouselExample");
-    var carousel = new bootstrap.Carousel(carouselElement, {
-        interval: 4000 // 4 seconds
-    });
 });
 
 

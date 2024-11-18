@@ -380,95 +380,147 @@
 <script>
 
 $(document).ready(function() {
-        let totals = {
-            Received: 0,
-            Returned: 0,
-            Withdrawn: 0,
-            PendingDIC: 0,
-            ForwardedToBankForComments: 0,
-            ApplicationsPendingAtBankForComments: 0,
-            ForwardedToDLC: 0,
-            ApprovedByDLC: 0,
-            RejectedByDLC: 0,
-            PendingAtDLC: 0,
-            ForwardedToBank: 0,
-            NoOfCases: 0,
-            InvestmentInvolved: 0,
-            LoanInvolved: 0,
-            SubsidyInvolved: 0,
-            RejectedByBank: 0,
-            PendingAtBank: 0,
-            PendingAtGMDIC60: 0,
-            SentToNodalBank60: 0,
-            ReleasedByNodalBank60: 0,
-            PendingForNodalBank60: 0,
-            PendingAtGMDIC40: 0,
-            SentToNodalBank40: 0,
-            ReleasedByNodalBank40: 0,
-            PendingForNodalBank40: 0
-        };
+        setTimeout(() => {
+            let totals = {
+                Received: 0,
+                Returned: 0,
+                Withdrawn: 0,
+                PendingDIC: 0,
+                ForwardedToBankForComments: 0,
+                ApplicationsPendingAtBankForComments: 0,
+                ForwardedToDLC: 0,
+                ApprovedByDLC: 0,
+                RejectedByDLC: 0,
+                PendingAtDLC: 0,
+                ForwardedToBank: 0,
+                NoOfCases: 0,
+                InvestmentInvolved: 0,
+                LoanInvolved: 0,
+                SubsidyInvolved: 0,
+                RejectedByBank: 0,
+                PendingAtBank: 0,
+                PendingAtGMDIC60: 0,
+                SentToNodalBank60: 0,
+                ReleasedByNodalBank60: 0,
+                PendingForNodalBank60: 0,
+                PendingAtGMDIC40: 0,
+                SentToNodalBank40: 0,
+                ReleasedByNodalBank40: 0,
+                PendingForNodalBank40: 0
+            };
 
-        document.querySelectorAll('tbody tr').forEach(row => {
-            totals.Received += parseInt(row.children[3].innerText) || 0;
-            totals.Returned += parseInt(row.children[4].innerText) || 0;
-            totals.Withdrawn += parseInt(row.children[5].innerText) || 0;
-            totals.PendingDIC += parseInt(row.children[6].innerText) || 0;
-            totals.ForwardedToBankForComments += parseInt(row.children[7].innerText) || 0;
-            totals.ApplicationsPendingAtBankForComments += parseInt(row.children[8].innerText) || 0;
-            totals.ForwardedToDLC += parseInt(row.children[9].innerText) || 0;
-            totals.ApprovedByDLC += parseInt(row.children[10].innerText) || 0;
-            totals.RejectedByDLC += parseInt(row.children[11].innerText) || 0;
-            totals.PendingAtDLC += parseInt(row.children[12].innerText) || 0;
-            totals.ForwardedToBank += parseInt(row.children[13].innerText) || 0;
-            totals.NoOfCases += parseInt(row.children[14].innerText) || 0;
-            totals.InvestmentInvolved += parseFloat(row.children[15].innerText.replace(/,/g, '')) || 0;
-            totals.LoanInvolved += parseFloat(row.children[16].innerText.replace(/,/g, '')) || 0;
-            totals.SubsidyInvolved += parseFloat(row.children[17].innerText.replace(/,/g, '')) || 0;
-            totals.RejectedByBank += parseInt(row.children[18].innerText) || 0;
-            totals.PendingAtBank += parseInt(row.children[19].innerText) || 0;
-            totals.PendingAtGMDIC60 += parseInt(row.children[20].innerText) || 0;
-            totals.SentToNodalBank60 += parseInt(row.children[21].innerText) || 0;
-            totals.ReleasedByNodalBank60 += parseInt(row.children[22].innerText) || 0;
-            totals.PendingForNodalBank60 += parseInt(row.children[23].innerText) || 0;
-            totals.PendingAtGMDIC40 += parseInt(row.children[24].innerText) || 0;
-            totals.SentToNodalBank40 += parseInt(row.children[25].innerText) || 0;
-            totals.ReleasedByNodalBank40 += parseInt(row.children[26].innerText) || 0;
-            totals.PendingForNodalBank40 += parseInt(row.children[27].innerText) || 0;
-        });
+            document.querySelectorAll('tbody tr').forEach(row => {
+                if (row.children[3]) {
+                    totals.Received += parseInt(row.children[3].innerText) || 0;
+                }
+                if (row.children[4]) {
+                    totals.Returned += parseInt(row.children[4].innerText) || 0;
+                }
+                if (row.children[5]) {
+                    totals.Withdrawn += parseInt(row.children[5].innerText) || 0;
+                }
+                if (row.children[6]) {
+                    totals.PendingDIC += parseInt(row.children[6].innerText) || 0;
+                }
+                if (row.children[7]) {
+                    totals.ForwardedToBankForComments += parseInt(row.children[7].innerText) || 0;
+                }
+                if (row.children[8]) {
+                    totals.ApplicationsPendingAtBankForComments += parseInt(row.children[8].innerText) || 0;
+                }
+                if (row.children[9]) {
+                    totals.ForwardedToDLC += parseInt(row.children[9].innerText) || 0;
+                }
+                if (row.children[10]) {
+                    totals.ApprovedByDLC += parseInt(row.children[10].innerText) || 0;
+                }
+                if (row.children[11]) {
+                    totals.RejectedByDLC += parseInt(row.children[11].innerText) || 0;
+                }
+                if (row.children[12]) {
+                    totals.PendingAtDLC += parseInt(row.children[12].innerText) || 0;
+                }
+                if (row.children[13]) {
+                    totals.ForwardedToBank += parseInt(row.children[13].innerText) || 0;
+                }
+                if (row.children[14]) {
+                    totals.NoOfCases += parseInt(row.children[14].innerText) || 0;
+                }
+                if (row.children[15]) {
+                    totals.InvestmentInvolved += parseFloat(row.children[15].innerText.replace(/,/g, '')) || 0;
+                }
+                if (row.children[16]) {
+                    totals.LoanInvolved += parseFloat(row.children[16].innerText.replace(/,/g, '')) || 0;
+                }
+                if (row.children[17]) {
+                    totals.SubsidyInvolved += parseFloat(row.children[17].innerText.replace(/,/g, '')) || 0;
+                }
+                if (row.children[18]) {
+                    totals.RejectedByBank += parseInt(row.children[18].innerText) || 0;
+                }
+                if (row.children[19]) {
+                    totals.PendingAtBank += parseInt(row.children[19].innerText) || 0;
+                }
+                if (row.children[20]) {
+                    totals.PendingAtGMDIC60 += parseInt(row.children[20].innerText) || 0;
+                }
+                if (row.children[21]) {
+                    totals.SentToNodalBank60 += parseInt(row.children[21].innerText) || 0;
+                }
+                if (row.children[22]) {
+                    totals.ReleasedByNodalBank60 += parseInt(row.children[22].innerText) || 0;
+                }
+                if (row.children[23]) {
+                    totals.PendingForNodalBank60 += parseInt(row.children[23].innerText) || 0;
+                }
+                if (row.children[24]) {
+                    totals.PendingAtGMDIC40 += parseInt(row.children[24].innerText) || 0;
+                }
+                if (row.children[25]) {
+                    totals.SentToNodalBank40 += parseInt(row.children[25].innerText) || 0;
+                }
+                if (row.children[26]) {
+                    totals.ReleasedByNodalBank40 += parseInt(row.children[26].innerText) || 0;
+                }
+                if (row.children[27]) {
+                    totals.PendingForNodalBank40 += parseInt(row.children[27].innerText) || 0;
+                }
+            });
 
-        function formatINR(amount) {
-            return new Intl.NumberFormat('en-IN', {
-                style: 'currency',
-                currency: 'INR',
-                minimumFractionDigits: 2
-            }).format(amount);
-        }
+            function formatINR(amount) {
+                return new Intl.NumberFormat('en-IN', {
+                    style: 'currency',
+                    currency: 'INR',
+                    minimumFractionDigits: 2
+                }).format(amount);
+            }
 
-        document.getElementById('totalReceived').innerHTML = `<strong>${totals.Received}</strong>`;
-        document.getElementById('totalReturned').innerHTML = `<strong>${totals.Returned}</strong>`;
-        document.getElementById('totalWithdrawn').innerHTML = `<strong>${totals.Withdrawn}</strong>`;
-        document.getElementById('totalPendingDIC').innerHTML = `<strong>${totals.PendingDIC}</strong>`;
-        document.getElementById('totalForwardedToBankForComments').innerHTML = `<strong>${totals.ForwardedToBankForComments}</strong>`;
-        document.getElementById('totalApplicationsPendingAtBankForComments').innerHTML = `<strong>${totals.ApplicationsPendingAtBankForComments}</strong>`;
-        document.getElementById('totalForwardedToDLC').innerHTML = `<strong>${totals.ForwardedToDLC}</strong>`;
-        document.getElementById('totalApprovedByDLC').innerHTML = `<strong>${totals.ApprovedByDLC}</strong>`;
-        document.getElementById('totalRejectedByDLC').innerHTML = `<strong>${totals.RejectedByDLC}</strong>`;
-        document.getElementById('totalPendingAtDLC').innerHTML = `<strong>${totals.PendingAtDLC}</strong>`;
-        document.getElementById('totalForwardedToBank').innerHTML = `<strong>${totals.ForwardedToBank}</strong>`;
-        document.getElementById('totalNoOfCases').innerHTML = `<strong>${totals.NoOfCases}</strong>`;
-        document.getElementById('totalInvestmentInvolved').innerHTML = `<strong>${formatINR(totals.InvestmentInvolved)}</strong>`;
-        document.getElementById('totalLoanInvolved').innerHTML = `<strong>${formatINR(totals.LoanInvolved)}</strong>`;
-        document.getElementById('totalSubsidyInvolved').innerHTML = `<strong>${formatINR(totals.SubsidyInvolved)}</strong>`;
-        document.getElementById('totalRejectedByBank').innerHTML = `<strong>${totals.RejectedByBank}</strong>`;
-        document.getElementById('totalPendingAtBank').innerHTML = `<strong>${totals.PendingAtBank}</strong>`;
-        document.getElementById('totalPendingAtGMDIC60').innerHTML = `<strong>${totals.PendingAtGMDIC60}</strong>`;
-        document.getElementById('totalSentToNodalBank60').innerHTML = `<strong>${totals.SentToNodalBank60}</strong>`;
-        document.getElementById('totalReleasedByNodalBank60').innerHTML = `<strong>${totals.ReleasedByNodalBank60}</strong>`;
-        document.getElementById('totalPendingForNodalBank60').innerHTML = `<strong>${totals.PendingForNodalBank60}</strong>`;
-        document.getElementById('totalPendingAtGMDIC40').innerHTML = `<strong>${totals.PendingAtGMDIC40}</strong>`;
-        document.getElementById('totalSentToNodalBank40').innerHTML = `<strong>${totals.SentToNodalBank40}</strong>`;
-        document.getElementById('totalReleasedByNodalBank40').innerHTML = `<strong>${totals.ReleasedByNodalBank40}</strong>`;
-        document.getElementById('totalPendingForNodalBank40').innerHTML = `<strong>${totals.PendingForNodalBank40}</strong>`;
+            document.getElementById('totalReceived').innerHTML = `<strong>${totals.Received}</strong>`;
+            document.getElementById('totalReturned').innerHTML = `<strong>${totals.Returned}</strong>`;
+            document.getElementById('totalWithdrawn').innerHTML = `<strong>${totals.Withdrawn}</strong>`;
+            document.getElementById('totalPendingDIC').innerHTML = `<strong>${totals.PendingDIC}</strong>`;
+            document.getElementById('totalForwardedToBankForComments').innerHTML = `<strong>${totals.ForwardedToBankForComments}</strong>`;
+            document.getElementById('totalApplicationsPendingAtBankForComments').innerHTML = `<strong>${totals.ApplicationsPendingAtBankForComments}</strong>`;
+            document.getElementById('totalForwardedToDLC').innerHTML = `<strong>${totals.ForwardedToDLC}</strong>`;
+            document.getElementById('totalApprovedByDLC').innerHTML = `<strong>${totals.ApprovedByDLC}</strong>`;
+            document.getElementById('totalRejectedByDLC').innerHTML = `<strong>${totals.RejectedByDLC}</strong>`;
+            document.getElementById('totalPendingAtDLC').innerHTML = `<strong>${totals.PendingAtDLC}</strong>`;
+            document.getElementById('totalForwardedToBank').innerHTML = `<strong>${totals.ForwardedToBank}</strong>`;
+            document.getElementById('totalNoOfCases').innerHTML = `<strong>${totals.NoOfCases}</strong>`;
+            document.getElementById('totalInvestmentInvolved').innerHTML = `<strong>${formatINR(totals.InvestmentInvolved)}</strong>`;
+            document.getElementById('totalLoanInvolved').innerHTML = `<strong>${formatINR(totals.LoanInvolved)}</strong>`;
+            document.getElementById('totalSubsidyInvolved').innerHTML = `<strong>${formatINR(totals.SubsidyInvolved)}</strong>`;
+            document.getElementById('totalRejectedByBank').innerHTML = `<strong>${totals.RejectedByBank}</strong>`;
+            document.getElementById('totalPendingAtBank').innerHTML = `<strong>${totals.PendingAtBank}</strong>`;
+            document.getElementById('totalPendingAtGMDIC60').innerHTML = `<strong>${totals.PendingAtGMDIC60}</strong>`;
+            document.getElementById('totalSentToNodalBank60').innerHTML = `<strong>${totals.SentToNodalBank60}</strong>`;
+            document.getElementById('totalReleasedByNodalBank60').innerHTML = `<strong>${totals.ReleasedByNodalBank60}</strong>`;
+            document.getElementById('totalPendingForNodalBank60').innerHTML = `<strong>${totals.PendingForNodalBank60}</strong>`;
+            document.getElementById('totalPendingAtGMDIC40').innerHTML = `<strong>${totals.PendingAtGMDIC40}</strong>`;
+            document.getElementById('totalSentToNodalBank40').innerHTML = `<strong>${totals.SentToNodalBank40}</strong>`;
+            document.getElementById('totalReleasedByNodalBank40').innerHTML = `<strong>${totals.ReleasedByNodalBank40}</strong>`;
+            document.getElementById('totalPendingForNodalBank40').innerHTML = `<strong>${totals.PendingForNodalBank40}</strong>`;
+        }, 2000);
     });
 
      function handleClick(districtId, year) {
