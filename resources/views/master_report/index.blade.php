@@ -14,8 +14,8 @@ $notPendingNotRejected = ($type == 'pending' || $type == 'rejected');
         <x-cards.card>
             <x-cards.header class="px-md-4 py-md-3">
                 <div class="row">
-                    <x-filters.reports_filter :statusId="$statusId" :constituencies="$constituencies" :districts="$districts" :tehsils="$tehsils" :blocks="$blocks" :panchayatWards="$panchayatWards" :categories="$categories" :activities="$activities" :perPage="$perPage"> 
-                    </x-filters.reports_filter> 
+                    <x-filters.reports_filter :statusId="$statusId" :constituencies="$constituencies" :districts="$districts" :tehsils="$tehsils" :blocks="$blocks" :panchayatWards="$panchayatWards" :categories="$categories" :activities="$activities" :perPage="$perPage">
+                    </x-filters.reports_filter>
                 </div>
             </x-cards.header>
             <x-cards.body>
@@ -34,7 +34,20 @@ $notPendingNotRejected = ($type == 'pending' || $type == 'rejected');
                                     <th>Sr. No.</th> {{-- 1 --}}
                                     <th>ID</th>{{-- 2 --}}
                                     <th>Status</th>{{-- 3 --}}
+                                    @if ($has60SubsidyPending)
+                                        <th>60% Pending Amount At Nodal <span style="color: red">(In Lakhs)</span></th>
+                                    @endif
+                                    @if ($has40SubsidyPending)
+                                        <th>40% Pending Amount At Nodal <span style="color: red">(In Lakhs)</span></th>
+                                    @endif
+                                    @if ($has60SubsidyReleased)
+                                        <th>60% Approved Amount By Nodal <span style="color: red">(In Lakhs)</span></th>
+                                    @endif
+                                    @if ($has40SubsidyReleased)
+                                        <th>40% Approved Amount By Nodal <span style="color: red">(In Lakhs)</span></th>
+                                    @endif
                                     <th>Name & Address</th>{{-- 4 --}}
+
                                     <th>Block</th>{{-- 5 --}}
                                     <th>Ph. No.</th>{{-- 6 --}}
                                     <th>Activity</th>{{-- 7 --}}
@@ -58,7 +71,7 @@ $notPendingNotRejected = ($type == 'pending' || $type == 'rejected');
                                     @if ($step == '40' && !$notPendingNotRejected)
                                         <th>40% Subsidy Date Of Disbursement</th>{{-- 13 --}}
                                     @endif
-                                    
+
                                     {{-- @if (!$notPendingNotRejected && $step == '40')
                                         <th>100% CGTMSE</th>
                                     @endif --}}
@@ -80,7 +93,20 @@ $notPendingNotRejected = ($type == 'pending' || $type == 'rejected');
                                         <td class="text-center"><b>{{ $srNo }}<b></td>{{-- 1 --}}
                                         <td class="text-left" title="{{ $application->unique_id }}"><a href="/application/view/{{ $application->id }}"> {{ $application->unique_id }}</a></td>{{-- 2 --}}
                                         <td class="text-left" title="{{ $application->application_status ? $application->application_status->value : 'NA' }}">{{ $application->application_status ? $application->application_status->value : 'NA' }}</td>{{-- 3 --}}
+                                        @if ($has60SubsidyPending)
+                                            <td class="text-left">{{ $application->subsidy60_amount ? '₹' . \App\Helpers\ApplicationHelper::formatInLakhs($application->subsidy60_amount) : 'NA' }}</td>
+                                        @endif
+                                        @if ($has40SubsidyPending)
+                                            <td class="text-left">{{ $application->subsidy40_amount ? '₹' . \App\Helpers\ApplicationHelper::formatInLakhs($application->subsidy40_amount) : 'NA' }}</td>
+                                        @endif
+                                        @if ($has60SubsidyReleased)
+                                            <td class="text-left">{{ $application->subsidy60_amount ? '₹' . \App\Helpers\ApplicationHelper::formatInLakhs($application->subsidy60_amount) : 'NA' }}</td>
+                                        @endif
+                                        @if ($has40SubsidyReleased)
+                                            <td class="text-left">{{ $application->subsidy40_amount ? '₹' . \App\Helpers\ApplicationHelper::formatInLakhs($application->subsidy40_amount) : 'NA' }}</td>
+                                        @endif
                                         <td class="text-left" title="{{ $application->getOwnerAddressAttribute()  }}">{{ $application->getOwnerAddressAttribute() }}</td>{{-- 4 --}}
+
                                         <td class="text-left">{{ $application->getOwnerBlock()  }}</td>{{-- 5 --}}
                                         <td class="text-left">{{ $application->getMobileAttribute()  }}</td>{{-- 6 --}}
                                         <td class="text-left" title="{{ $application->getActivityAttribute() != '[]' ? $application->getActivityAttribute() : $application->activity_type->value  }}">{{ $application->getActivityAttribute() != '[]' ? $application->getActivityAttribute() : $application->activity_type->value  }}</td>{{-- 7 --}}
@@ -90,10 +116,10 @@ $notPendingNotRejected = ($type == 'pending' || $type == 'rejected');
                                         @if ($isStep60Or40 && !$notPendingNotRejected)<td class="text-left">{{ $application->getSubsidyEligibleAmountAttribute() }}</td>@endif{{-- 10 --}}
                                         @if (!$notPendingNotRejected)
                                             <td class="text-left">
-                                                {{ $application->getTermLoanAttribute() }}  
+                                                {{ $application->getTermLoanAttribute() }}
                                             </td>{{-- 11 --}}
                                         @endif
-                                        
+
                                         @if (!$notPendingNotRejected && $isStep60Or40)
                                             @if (isset($application->data->subsidy))
                                                 <td class="text-left">{{ optional($application->data->subsidy)->amount60 ?? 'NA' }}</td>{{-- 12 --}}
@@ -125,7 +151,7 @@ $notPendingNotRejected = ($type == 'pending' || $type == 'rejected');
                                                 <td class="text-left">NA</td>{{-- 13 --}}
                                             @endif
                                         @endif
-                                        
+
                                         {{-- @if (!$notPendingNotRejected && $step == '40')
                                             <td class="text-left">14405.44</td>
                                         @endif --}}
@@ -135,7 +161,7 @@ $notPendingNotRejected = ($type == 'pending' || $type == 'rejected');
                                         <td class="text-left">{{ $application->getData('enterprise', 'employment') }}</td>{{-- 16 --}}
                                         <td class="text-left" title="{{ $application->bank_branch_details }}">{{ $application->bank_branch_details }}</td>{{-- 17 --}}
                                         @if ($isStep60Or40 && !$notPendingNotRejected)
-                                            
+
 
                                             @if (isset($application->data->subsidy))
                                                 <td class="text-left">{{ $step == '40' ? optional($application->data->subsidy)->date40 ?? 'NA' : optional($application->data->subsidy)->date60 ?? 'NA' }}</td>{{-- 13 --}}
@@ -145,7 +171,7 @@ $notPendingNotRejected = ($type == 'pending' || $type == 'rejected');
                                         @endif
                                     </tr>
                                 @endforeach
-                                
+
                             </tbody>
                         </table>
                         @endif
@@ -172,7 +198,7 @@ $notPendingNotRejected = ($type == 'pending' || $type == 'rejected');
 
 
 <script type="text/javascript">
-    
+
     $(document).ready(function () {
         debugger;
         $('#table').DataTable({

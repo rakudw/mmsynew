@@ -165,4 +165,7 @@ class ApplicationHelper extends BaseHelper
             return [];
         }
     }
+    public static function formatInLakhs($amount) {
+        return number_format($amount / 100000, 2);
+    }
 }

@@ -142,7 +142,7 @@ class Application extends Base implements Auditable
         return is_null($amount) ? round((float) $this->subsidy_eligible_amount * ($this->subsidy_percentage / 100)) : round((float) $amount);
     }
     public function getSubsidy60AmountAttribute()
-    {   
+    {
         $amount = 0;
 
         $eligibleSubsidyAmount1 = (float) $this->getData('old_annexure_a', 'gaa_eligible_subsidy_amount_1');
@@ -157,7 +157,7 @@ class Application extends Base implements Auditable
         return $amount;
     }
     public function getSubsidy40AmountAttribute()
-    {   
+    {
         $amount = 0;
 
         // Retrieve and ensure numeric values for the subtraction

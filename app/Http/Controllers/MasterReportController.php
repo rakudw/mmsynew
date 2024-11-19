@@ -97,6 +97,28 @@ class MasterReportController extends Controller
         if ($activity_ids != 'All') {
             $query->whereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(`data`, '$.enterprise.activity_id'))) LIKE ?", ['%' . $activity_ids . '%'])->get();
         }
+        $extra = request()->get('extra');
+
+        $has60SubsidyPending = false;
+        $has40SubsidyPending = false;
+        $has60SubsidyReleased = false;
+        $has40SubsidyReleased = false;
+
+        if ($extra == '60pending') {
+            $has60SubsidyPending = true;
+        }
+
+        if ($extra == '40pending') {
+            $has40SubsidyPending = true;
+        }
+
+        if ($extra == '60released') {
+            $has60SubsidyReleased = true;
+        }
+
+        if ($extra == '40released') {
+            $has40SubsidyReleased = true;
+        }
 
         $applications = $query->paginate($perPage == "All" ? 500000 : $perPage);
         // dd($applications);
@@ -108,7 +130,7 @@ class MasterReportController extends Controller
 
         $activities = Activity::select('id', 'name')->get();
         // dd($query->toSql());
-        return view('master_report.index', compact('applications', 'statusId', 'districts', 'constituencies', 'tehsils', 'blocks', 'panchayatWards', 'title', 'categories', 'activities', 'perPage'));
+        return view('master_report.index', compact('applications', 'statusId', 'districts', 'constituencies', 'tehsils', 'blocks', 'panchayatWards', 'title', 'categories', 'activities', 'perPage', 'has60SubsidyPending', 'has40SubsidyPending', 'has60SubsidyReleased', 'has40SubsidyReleased'));
     }
     public function convertDate($dateString) {
         // Define the possible date formats
@@ -252,7 +274,7 @@ class MasterReportController extends Controller
                                 ->orWhere('status_id', 304);
                         });
                     }
-                   
+
                 }else if (request()->get('kind') == 'arr') {
                     $status_ids = explode(',', request()->get('status_id')[0]);
                     $query->whereIn('status_id', $status_ids);
@@ -731,22 +753,22 @@ class MasterReportController extends Controller
                 $endDate = date_create_from_format('Y/m/d', $endDateString);
 
                 $formattedEndDate = $endDate ? $endDate->format('Y-m-d') : date('Y-m-d');
-              
+
                 $districtData['Year'][] = $this->iterateBetweenDatesForBank($formattedStartDate, $formattedEndDate, null, $districtId, $totals);
 
             } else {
                 foreach ($selectedFiscalYears as $fiscalYear) {
                     // dd($fiscalYear);
                     list($startYear, $endYear) = explode('-', $fiscalYear);
-                    
+
                     $startDateString = "{$startYear}-04-01";
                     $startDate = date_create_from_format('Y-m-d', $startDateString);
                     $formattedStartDate = $startDate ? $startDate->format('Y-m-d') : '2019-04-01';
-            
+
                     $endDateString = "{$endYear}-03-31";
                     $endDate = date_create_from_format('Y-m-d', $endDateString);
                     $formattedEndDate = $endDate ? $endDate->format('Y-m-d') : date('Y-m-d');
-            
+
                     $districtData['Year'][] = $this->iterateBetweenDatesForBank($formattedStartDate, $formattedEndDate, $fiscalYear, $districtId, $totals);
                 }
             }
