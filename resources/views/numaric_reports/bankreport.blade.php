@@ -28,7 +28,7 @@
                             <th scope="col" rowspan="2" class="text-center">Sr. No.</th>
                             <th scope="col" rowspan="2" class="text-center">Year</th>
                             <th scope="col" rowspan="2" class="text-center">Name of District</th>
-                            <th scope="col" colspan="5" class="text-center">No. of Application at DIC</th>
+                            <th scope="col" colspan="6" class="text-center">No. of Application at DIC</th>
                             <th scope="col" rowspan="2" class="text-center">No. applications at Bank for Comments</th>
                             <th scope="col" colspan="4" class="text-center">No of Cases at District Level Committee</th>
                             <th scope="col" rowspan="2" class="text-center">No of Cases Forwarded to Bank for Sanction</th>
@@ -50,7 +50,8 @@
 {{--                            <th class="text-right">Considered Application Revert by Banks </th>--}}
 
 {{--                            <th class="text-right">Applications Pending At Bank For Comments</th>--}}
-                            <th class="text-right">Cases Placed In DLC</th>
+                            <th class="text-right">Considered Application Revert by Banks</th>
+                            <th class="text-right">Cases placed in DLC</th>
                             <th class="text-right">Approved By DLC</th>
                             <th class="text-right">Rejected By DLC</th>
                             <th class="text-right">No of Cases Pending At DLC Level to be place in DLC</th>
@@ -127,6 +128,11 @@
 
                                         <td class="text-right">
                                             <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=308&kind=incor">
+                                                {{ $yearData['Considered Application Revert by Banks'] }}
+                                            </a>
+                                        </td>
+                                        <td class="text-right">
+                                            <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=308&kind=incor&extra=not">
                                                 {{ $yearData['Forwarded To DLC'] }}
                                             </a>
                                         </td>
@@ -263,6 +269,7 @@
                                 <td class="text-right" id="totalPendingDIC"></td>
                                 <td class="text-right" id="totalForwardedToBankForComments"></td>
                                 <td class="text-right" id="totalApplicationsPendingAtBankForComments"></td>
+                                <td class="text-right" id="consideredRevertByBank"></td>
                                 <td class="text-right" id="totalForwardedToDLC"></td>
                                 <td class="text-right" id="totalApprovedByDLC"></td>
                                 <td class="text-right" id="totalRejectedByDLC"></td>
@@ -414,6 +421,7 @@ $(document).ready(function() {
                 PendingDIC: 0,
                 ForwardedToBankForComments: 0,
                 ApplicationsPendingAtBankForComments: 0,
+                consideredRevertByBank: 0,
                 ForwardedToDLC: 0,
                 ApprovedByDLC: 0,
                 RejectedByDLC: 0,
@@ -446,29 +454,30 @@ $(document).ready(function() {
                 if (row.children[6]) totals.PendingDIC += parseInt(row.children[6].innerText) || 0;
                 if (row.children[7]) totals.ForwardedToBankForComments += parseInt(row.children[7].innerText) || 0;
                 if (row.children[8]) totals.ApplicationsPendingAtBankForComments += parseInt(row.children[8].innerText) || 0;
-                if (row.children[9]) totals.ForwardedToDLC += parseInt(row.children[9].innerText) || 0;
-                if (row.children[10]) totals.ApprovedByDLC += parseInt(row.children[10].innerText) || 0;
-                if (row.children[11]) totals.RejectedByDLC += parseInt(row.children[11].innerText) || 0;
-                if (row.children[12]) totals.PendingAtDLC += parseInt(row.children[12].innerText) || 0;
-                if (row.children[13]) totals.ForwardedToBank += parseInt(row.children[13].innerText) || 0;
-                if (row.children[14]) totals.NoOfCases += parseInt(row.children[14].innerText) || 0;
-                if (row.children[15]) totals.InvestmentInvolved += parseFloat(row.children[15].innerText.replace(/,/g, '')) || 0;
-                if (row.children[16]) totals.LoanInvolved += parseFloat(row.children[16].innerText.replace(/,/g, '')) || 0;
-                if (row.children[17]) totals.SubsidyInvolved += parseFloat(row.children[17].innerText.replace(/,/g, '')) || 0;
-                if (row.children[18]) totals.RejectedByBank += parseInt(row.children[18].innerText) || 0;
-                if (row.children[19]) totals.PendingAtBank += parseInt(row.children[19].innerText) || 0;
-                if (row.children[20]) totals.PendingAtGMDIC60 += parseInt(row.children[20].innerText) || 0;
-                if (row.children[21]) totals.SentToNodalBank60 += parseInt(row.children[21].innerText) || 0;
-                if (row.children[22]) totals.TotalAmountPendingAtNodalBank60 += parseFloat(row.children[22].innerText.replace(/,/g, '')) || 0;
-                if (row.children[23]) totals.ReleasedByNodalBank60 += parseInt(row.children[23].innerText) || 0;
-                if (row.children[24]) totals.TotalAmount60Approved += parseFloat(row.children[24].innerText.replace(/,/g, '')) || 0;
-                if (row.children[25]) totals.PendingForNodalBank60 += parseInt(row.children[25].innerText) || 0;
-                if (row.children[26]) totals.PendingAtGMDIC40 += parseInt(row.children[26].innerText) || 0;
-                if (row.children[27]) totals.SentToNodalBank40 += parseInt(row.children[27].innerText) || 0;
-                if (row.children[28]) totals.TotalAmountPendingAtNodalBank40 += parseFloat(row.children[28].innerText.replace(/,/g, '')) || 0;
-                if (row.children[29]) totals.ReleasedByNodalBank40 += parseInt(row.children[29].innerText) || 0;
-                if (row.children[30]) totals.TotalAmount40Approved += parseFloat(row.children[30].innerText.replace(/,/g, '')) || 0;
-                if (row.children[31]) totals.PendingForNodalBank40 += parseInt(row.children[31].innerText) || 0;
+                if (row.children[9]) totals.consideredRevertByBank += parseInt(row.children[9].innerText) || 0;
+                if (row.children[10]) totals.ForwardedToDLC += parseInt(row.children[9].innerText) || 0;
+                if (row.children[11]) totals.ApprovedByDLC += parseInt(row.children[10].innerText) || 0;
+                if (row.children[12]) totals.RejectedByDLC += parseInt(row.children[11].innerText) || 0;
+                if (row.children[13]) totals.PendingAtDLC += parseInt(row.children[12].innerText) || 0;
+                if (row.children[14]) totals.ForwardedToBank += parseInt(row.children[13].innerText) || 0;
+                if (row.children[15]) totals.NoOfCases += parseInt(row.children[14].innerText) || 0;
+                if (row.children[16]) totals.InvestmentInvolved += parseFloat(row.children[15].innerText.replace(/,/g, '')) || 0;
+                if (row.children[17]) totals.LoanInvolved += parseFloat(row.children[16].innerText.replace(/,/g, '')) || 0;
+                if (row.children[18]) totals.SubsidyInvolved += parseFloat(row.children[17].innerText.replace(/,/g, '')) || 0;
+                if (row.children[19]) totals.RejectedByBank += parseInt(row.children[18].innerText) || 0;
+                if (row.children[20]) totals.PendingAtBank += parseInt(row.children[19].innerText) || 0;
+                if (row.children[21]) totals.PendingAtGMDIC60 += parseInt(row.children[20].innerText) || 0;
+                if (row.children[22]) totals.SentToNodalBank60 += parseInt(row.children[21].innerText) || 0;
+                if (row.children[23]) totals.TotalAmountPendingAtNodalBank60 += parseFloat(row.children[22].innerText.replace(/,/g, '')) || 0;
+                if (row.children[24]) totals.ReleasedByNodalBank60 += parseInt(row.children[23].innerText) || 0;
+                if (row.children[25]) totals.TotalAmount60Approved += parseFloat(row.children[24].innerText.replace(/,/g, '')) || 0;
+                if (row.children[26]) totals.PendingForNodalBank60 += parseInt(row.children[25].innerText) || 0;
+                if (row.children[27]) totals.PendingAtGMDIC40 += parseInt(row.children[26].innerText) || 0;
+                if (row.children[28]) totals.SentToNodalBank40 += parseInt(row.children[27].innerText) || 0;
+                if (row.children[29]) totals.TotalAmountPendingAtNodalBank40 += parseFloat(row.children[28].innerText.replace(/,/g, '')) || 0;
+                if (row.children[30]) totals.ReleasedByNodalBank40 += parseInt(row.children[29].innerText) || 0;
+                if (row.children[31]) totals.TotalAmount40Approved += parseFloat(row.children[30].innerText.replace(/,/g, '')) || 0;
+                if (row.children[32]) totals.PendingForNodalBank40 += parseInt(row.children[31].innerText) || 0;
             });
 
             function formatINR(amount) {
@@ -485,6 +494,7 @@ $(document).ready(function() {
             document.getElementById('totalPendingDIC').innerHTML = `<strong>${totals.PendingDIC}</strong>`;
             document.getElementById('totalForwardedToBankForComments').innerHTML = `<strong>${totals.ForwardedToBankForComments}</strong>`;
             document.getElementById('totalApplicationsPendingAtBankForComments').innerHTML = `<strong>${totals.ApplicationsPendingAtBankForComments}</strong>`;
+            document.getElementById('consideredRevertByBank').innerHTML = `<strong>${totals.consideredRevertByBank}</strong>`;
             document.getElementById('totalForwardedToDLC').innerHTML = `<strong>${totals.ForwardedToDLC}</strong>`;
             document.getElementById('totalApprovedByDLC').innerHTML = `<strong>${totals.ApprovedByDLC}</strong>`;
             document.getElementById('totalRejectedByDLC').innerHTML = `<strong>${totals.RejectedByDLC}</strong>`;

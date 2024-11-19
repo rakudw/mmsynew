@@ -240,10 +240,19 @@ class MasterReportController extends Controller
                         $query->where('status_id', '>', trim($statusIdsArray[0]))
                               ->whereNot('status_id', trim($statusIdsArray[1]));
                 }else if (request()->get('kind') == 'incor') {
-                    $query->where(function ($query) use ($statusId) {
-                        $query->where('status_id', '>', $statusId)
-                            ->orWhere('status_id', 304);
-                    });
+                    if(request()->get('extra') == "not"){
+                        $query->where(function ($query) use ($statusId) {
+                            $query->where('status_id', '>', $statusId)
+                                ->orWhere('status_id', 304);
+                        })
+                        ->where('status_id', '!=', 309);
+                    }else{
+                        $query->where(function ($query) use ($statusId) {
+                            $query->where('status_id', '>', $statusId)
+                                ->orWhere('status_id', 304);
+                        });
+                    }
+                   
                 }else if (request()->get('kind') == 'arr') {
                     $status_ids = explode(',', request()->get('status_id')[0]);
                     $query->whereIn('status_id', $status_ids);
@@ -676,6 +685,7 @@ class MasterReportController extends Controller
             'Considered Application Revert by Banks' => 0,
             'Rejected Applications Revert by Banks' => 0,
             'Applications Pending At Bank For Comments' => 0,
+            'Considered Application Revert by Banks' => 0,
             'Forwarded To DLC' => 0,
             'Approved By DLC' => 0,
             'Rejected By DLC' => 0,
@@ -791,8 +801,17 @@ class MasterReportController extends Controller
             ->where('status_id', 308)
             ->whereBetween('created_at', [$startDate, $endDate])
             ->count();
-//        DLC Section Start Committee
+    //        DLC Section Start Committee
         $forwardedToDlcCount = Application::where('region_id', $districtId)
+            ->where(function ($query) {
+                $query->where('status_id', '>', 308)
+                    ->orWhere('status_id', 304);
+            })
+            ->where('status_id', '!=', 309)
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->count();
+            // dd($forwardedToDlcCount);
+        $concederdApplicationRevertByBank = Application::where('region_id', $districtId)
             ->where(function ($query) {
                 $query->where('status_id', '>', 308)
                     ->orWhere('status_id', 304);
@@ -939,6 +958,7 @@ class MasterReportController extends Controller
         $totals['Applications Pending At Bank For Comments'] += $pendindAtBankForCommentsCount;
         //            Bank Comments  Section End
         $totals['Forwarded To DLC'] += $forwardedToDlcCount;
+        $totals['Considered Application Revert by Banks'] += $concederdApplicationRevertByBank;
         $totals['Approved By DLC'] += $approvedByDlcCount;
         $totals['Rejected By DLC'] += $rejectedByDlcCount;
         $totals['No of Applications Pending ar DLC'] += $pendingAtDlcCount;
@@ -984,6 +1004,7 @@ class MasterReportController extends Controller
             //            Bank Comments  Section End
             // DLC Section Start
             'Forwarded To DLC' => $forwardedToDlcCount,
+            'Considered Application Revert by Banks' => $concederdApplicationRevertByBank,
             'Approved By DLC' => $approvedByDlcCount,
             'Rejected By DLC' => $rejectedByDlcCount,
             'No of Applications Pending ar DLC' => $pendingAtDlcCount,
