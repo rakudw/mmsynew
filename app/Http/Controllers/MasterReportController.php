@@ -897,21 +897,25 @@ class MasterReportController extends Controller
 
         $totalAmountOf60SubsidyPending = Application::where('region_id', $districtId)
             ->whereIn('status_id', [314])
+            ->whereBetween('created_at', [$startDate, $endDate])
             ->get()
             ->sum('subsidy60_amount');
 
         $totalAmountOf40SubsidyPending = Application::where('region_id', $districtId)
             ->whereIn('status_id', [316])
+            ->whereBetween('created_at', [$startDate, $endDate])
             ->get()
             ->sum('subsidy40_amount');
 
         $totalAmountOf60SubsidyReleased = Application::where('region_id', $districtId)
             ->whereIn('status_id', [315])
+            ->whereBetween('created_at', [$startDate, $endDate])
             ->get()
             ->sum('subsidy60_amount');
 
         $totalAmountOf40SubsidyReleased = Application::where('region_id', $districtId)
             ->whereIn('status_id', [317])
+            ->whereBetween('created_at', [$startDate, $endDate])
             ->get()
             ->sum('subsidy40_amount');
 

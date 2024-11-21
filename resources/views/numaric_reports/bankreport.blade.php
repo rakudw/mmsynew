@@ -67,19 +67,19 @@
                             {{-- 60%  Section   --}}
                             <th class="text-right">Cases Pending at GM DIC For 60% Release</th>
                             <th class="text-right">Cases sent to Nodal bank for release of 60% Capital Subsidy by GM DIC</th>
-                            <th class="text-right">Total Amount Pending at Nodal bank for release of 60% Subsidy <span style="color: red">(In lakhs)</span></th>
                             <th class="text-right">60% Capital subsidy released by Nodal Bank</th>
-                            <th class="text-right">Total Amount Approved at Nodal bank for release of 60% Subsidy <span style="color: red">(In lakhs)</span></th>
+                            <th class="text-right">Total Amount Released at Nodal bank for release of 60% Subsidy <span style="color: red">(In lakhs)</span></th>
                             <th class="text-right">Cases Pending for 60% Capital subsidy released by Nodal Bank</th>
+                            <th class="text-right">Total Amount Pending at Nodal bank for release of 60% Subsidy <span style="color: red">(In lakhs)</span></th>
                             {{-- 60%  Section End  --}}
 
                             {{-- 40%  Section   --}}
                             <th class="text-right">Cases Pending at GM DIC For 40% Release</th>
                             <th class="text-right">Cases sent to Nodal Bank for release of 40% Capital Subsidy By GM DIC</th>
-                            <th class="text-right">Total Amount Pending at Nodal bank for release of 40% Subsidy <span style="color: red">(In lakhs)</span></th>
-                            <th class="text-right">40% Capital subsidy   released by Nodal Bank</th>
-                            <th class="text-right">Total Amount Approved at Nodal bank for release of 40% Subsidy <span style="color: red">(In lakhs)</span></th>
+                            <th class="text-right">40% Capital subsidy released by Nodal Bank</th>
+                            <th class="text-right">Total Amount Released at Nodal bank for release of 40% Subsidy <span style="color: red">(In lakhs)</span></th>
                             <th class="text-right">Cases Pending for 40% Capital subsidy released by Nodal Bank</th>
+                            <th class="text-right">Total Amount Pending at Nodal bank for release of 40% Subsidy <span style="color: red">(In lakhs)</span></th>
                             {{-- 40%  Section End  --}}
                         </tr>
                         </thead>
@@ -194,9 +194,7 @@
                                                 {{ $yearData['Cases sent to Nodal bank for release of 60% Capital Subsidy by GM DIC'] }}
                                             </a>
                                         </td>
-                                        <td class="text-right">
-                                            {{ $formatter->format($yearData['Total Amount Pending at Nodal bank for release of 60% Subsidy'] / 100000) }}
-                                        </td>
+
 
                                         <td class="text-center">
                                             <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=314&kind=inc&extra=60released&per_page=All">
@@ -213,7 +211,9 @@
                                                 {{ $yearData['Cases Pending for 60% Capital subsidy released by Nodal Bank'] }}
                                             </a>
                                         </td>
-
+                                        <td class="text-right">
+                                            {{ $formatter->format($yearData['Total Amount Pending at Nodal bank for release of 60% Subsidy'] / 100000) }}
+                                        </td>
 
                                         {{-- Cases 40% Section--}}
                                         <td class="text-center">
@@ -228,9 +228,6 @@
                                             </a>
                                         </td>
 
-                                        <td class="text-right">
-                                            {{ $formatter->format($yearData['Total Amount Pending at Nodal bank for release of 40% Subsidy'] / 100000) }}
-                                        </td>
 
                                         <td class="text-center">
                                             <a href="master_report/applications/all/0?district_id[]={{ $district['DistrictId'] }}&fy={{ $yearData['Year'] }}&status_id=316&kind=inc&extra=40released&per_page=All">
@@ -239,7 +236,7 @@
                                         </td>
 
                                         <td class="text-right">
-                                ˀ                {{ $formatter->format($yearData['Total Amount Approved at Nodal bank for release of 40% Subsidy'] / 100000) }}
+                                       {{ $formatter->format($yearData['Total Amount Approved at Nodal bank for release of 40% Subsidy'] / 100000) }}
                                         </td>
 
                                         <td class="text-center">
@@ -248,6 +245,9 @@
                                             </a>
                                         </td>
 
+                                        <td class="text-right">
+                                            {{ $formatter->format($yearData['Total Amount Pending at Nodal bank for release of 40% Subsidy'] / 100000) }}
+                                        </td>
 
                                         <td class="text-center">
                                             <a href="/report/banks">View</a>
@@ -283,16 +283,18 @@
                                 <td class="text-right" id="totalPendingAtBank"></td>
                                 <td class="text-right" id="totalPendingAtGMDIC60"></td>
                                 <td class="text-right" id="totalSentToNodalBank60"></td>
-                                <td class="text-right" id="totalTotalAmountPendingAtNodalBank60"></td>
+
                                 <td class="text-right" id="totalReleasedByNodalBank60"></td>
                                 <td class="text-right" id="totalTotalAmount60Approved"></td>
                                 <td class="text-right" id="totalPendingForNodalBank60"></td>
+                                <td class="text-right" id="totalTotalAmountPendingAtNodalBank60"></td>
                                 <td class="text-right" id="totalPendingAtGMDIC40"></td>
                                 <td class="text-right" id="totalSentToNodalBank40"></td>
-                                <td class="text-right" id="totalTotalAmountPendingAtNodalBank40"></td>
+
                                 <td class="text-right" id="totalReleasedByNodalBank40"></td>
                                 <td class="text-right" id="totalTotalAmount40Approved"></td>
                                 <td class="text-right" id="totalPendingForNodalBank40"></td>
+                                <td class="text-right" id="totalTotalAmountPendingAtNodalBank40"></td>
                                 <td colspan="2"></td>
                             </tr>
                         </tfoot>
@@ -448,7 +450,6 @@
             };
 
             document.querySelectorAll('.tbdy tr').forEach(row => {
-                console.log(row.children[3].innerText);
                 if (row.children[3]) totals.Received += parseInt(row.children[3].innerText.replace(/,/g, '')) || 0;
                 if (row.children[4]) totals.Returned += parseInt(row.children[4].innerText.replace(/,/g, '')) || 0;
                 if (row.children[5]) totals.Withdrawn += parseInt(row.children[5].innerText.replace(/,/g, '')) || 0;
@@ -469,16 +470,16 @@
                 if (row.children[20]) totals.PendingAtBank += parseInt(row.children[20].innerText.replace(/,/g, '')) || 0;
                 if (row.children[21]) totals.PendingAtGMDIC60 += parseInt(row.children[21].innerText.replace(/,/g, '')) || 0;
                 if (row.children[22]) totals.SentToNodalBank60 += parseInt(row.children[22].innerText.replace(/,/g, '')) || 0;
-                if (row.children[23]) totals.TotalAmountPendingAtNodalBank60 += parseFloat(row.children[23].innerText.replace(/,/g, '')) || 0;
-                if (row.children[24]) totals.ReleasedByNodalBank60 += parseInt(row.children[24].innerText.replace(/,/g, '')) || 0;
-                if (row.children[25]) totals.TotalAmount60Approved += parseFloat(row.children[25].innerText.replace(/,/g, '')) || 0;
-                if (row.children[26]) totals.PendingForNodalBank60 += parseInt(row.children[26].innerText.replace(/,/g, '')) || 0;
+                if (row.children[23]) totals.ReleasedByNodalBank60 += parseInt(row.children[23].innerText.replace(/,/g, '')) || 0;
+                if (row.children[24]) totals.TotalAmount60Approved += parseFloat(row.children[24].innerText.replace(/,/g, '')) || 0;
+                if (row.children[25]) totals.PendingForNodalBank60 += parseInt(row.children[25].innerText.replace(/,/g, '')) || 0;
+                if (row.children[26]) totals.TotalAmountPendingAtNodalBank60 += parseFloat(row.children[26].innerText.replace(/,/g, '')) || 0;
                 if (row.children[27]) totals.PendingAtGMDIC40 += parseInt(row.children[27].innerText.replace(/,/g, '')) || 0;
                 if (row.children[28]) totals.SentToNodalBank40 += parseInt(row.children[28].innerText.replace(/,/g, '')) || 0;
-                if (row.children[29]) totals.TotalAmountPendingAtNodalBank40 += parseFloat(row.children[29].innerText.replace(/,/g, '')) || 0;
-                if (row.children[30]) totals.ReleasedByNodalBank40 += parseInt(row.children[30].innerText.replace(/,/g, '')) || 0;
-                if (row.children[31]) totals.TotalAmount40Approved += parseFloat(row.children[31].innerText.replace(/,/g, '')) || 0;
-                if (row.children[32]) totals.PendingForNodalBank40 += parseInt(row.children[32].innerText.replace(/,/g, '')) || 0;
+                if (row.children[29]) totals.ReleasedByNodalBank40 += parseInt(row.children[29].innerText.replace(/,/g, '')) || 0;
+                if (row.children[30]) totals.TotalAmount40Approved += parseFloat(row.children[30].innerText.replace(/,/g, '')) || 0;
+                if (row.children[31]) totals.PendingForNodalBank40 += parseInt(row.children[31].innerText.replace(/,/g, '')) || 0;
+                if (row.children[32]) totals.TotalAmountPendingAtNodalBank40 += parseFloat(row.children[32].innerText.replace(/,/g, '')) || 0;
             });
 
             function formatINR(amount) {
@@ -509,16 +510,16 @@
             document.getElementById('totalPendingAtBank').innerHTML = `<strong>${totals.PendingAtBank}</strong>`;
             document.getElementById('totalPendingAtGMDIC60').innerHTML = `<strong>${totals.PendingAtGMDIC60}</strong>`;
             document.getElementById('totalSentToNodalBank60').innerHTML = `<strong>${totals.SentToNodalBank60}</strong>`;
-            document.getElementById('totalTotalAmountPendingAtNodalBank60').innerHTML = `<strong>${formatINR(totals.TotalAmountPendingAtNodalBank60)}</strong>`;
             document.getElementById('totalReleasedByNodalBank60').innerHTML = `<strong>${totals.ReleasedByNodalBank60}</strong>`;
             document.getElementById('totalTotalAmount60Approved').innerHTML = `<strong>${formatINR(totals.TotalAmount60Approved)}</strong>`;
             document.getElementById('totalPendingForNodalBank60').innerHTML = `<strong>${totals.PendingForNodalBank60}</strong>`;
+            document.getElementById('totalTotalAmountPendingAtNodalBank60').innerHTML = `<strong>${formatINR(totals.TotalAmountPendingAtNodalBank60)}</strong>`;
             document.getElementById('totalPendingAtGMDIC40').innerHTML = `<strong>${totals.PendingAtGMDIC40}</strong>`;
             document.getElementById('totalSentToNodalBank40').innerHTML = `<strong>${totals.SentToNodalBank40}</strong>`;
-            document.getElementById('totalTotalAmountPendingAtNodalBank40').innerHTML = `<strong>${formatINR(totals.TotalAmountPendingAtNodalBank40)}</strong>`;
             document.getElementById('totalReleasedByNodalBank40').innerHTML = `<strong>${totals.ReleasedByNodalBank40}</strong>`;
             document.getElementById('totalTotalAmount40Approved').innerHTML = `<strong>${formatINR(totals.TotalAmount40Approved)}</strong>`;
             document.getElementById('totalPendingForNodalBank40').innerHTML = `<strong>${totals.PendingForNodalBank40}</strong>`;
+            document.getElementById('totalTotalAmountPendingAtNodalBank40').innerHTML = `<strong>${formatINR(totals.TotalAmountPendingAtNodalBank40)}</strong>`;
         }, 2000);
     });
 
