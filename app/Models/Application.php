@@ -99,10 +99,13 @@ class Application extends Base implements Auditable
     {
         return $this->belongsTo(Form::class, 'form_id');
     }
-
     public function getProjectCostAttribute()
     {
-        return $this->capital_expenditure + intval($this->getData('cost', 'working_capital', null, 0));
+        $workingCapital = $this->getData('cost', 'working_capital', null);
+        if ($workingCapital !== null) {
+            return $this->capital_expenditure + round($workingCapital);
+        }
+        return $this->capital_expenditure;
     }
 
     public function getFinanceWorkingCapitalAttribute()
@@ -123,7 +126,11 @@ class Application extends Base implements Auditable
 
     public function getOwnContributionAmountAttribute()
     {
-        return round($this->project_cost * ($this->getData('finance', 'own_contribution', null, 10) / 100));
+        $ownContribution = $this->getData('finance', 'own_contribution', null);
+        if ($ownContribution !== null) {
+            return round($ownContribution);
+        }
+        return round($this->project_cost * 0.10);
     }
 
     public function getTermLoanAttribute()

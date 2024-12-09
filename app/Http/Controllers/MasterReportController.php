@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\Request;
 use App\Models\Application;
 use App\Models\Region;
@@ -12,11 +13,14 @@ use App\Exports\NumericReportExport;
 use App\Exports\NumaricAllStatusExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\DB;
-
+use SoapClient;
 class MasterReportController extends Controller
 {
+
+
     public function index(Request $request)
     {
+
         // Get Data from Filters
         $district_ids = request()->get('district_id') ? request()->get('district_id') : 'All';
         $tehsil_ids = request()->get('tehsil_id') ? request()->get('tehsil_id') : 'All';
@@ -259,15 +263,15 @@ class MasterReportController extends Controller
                 } else if (request()->get('kind') == 'arr_not') {
                     $statusIds = request()->get('status_id')[0];
                     $statusIdsArray = explode(',', $statusIds);
-                        $query->where('status_id', '>', trim($statusIdsArray[0]))
-                              ->whereNot('status_id', trim($statusIdsArray[1]));
+                    $query->where('status_id', '>', trim($statusIdsArray[0]))
+                        ->whereNot('status_id', trim($statusIdsArray[1]));
                 }else if (request()->get('kind') == 'incor') {
                     if(request()->get('extra') == "not"){
                         $query->where(function ($query) use ($statusId) {
                             $query->where('status_id', '>', $statusId)
                                 ->orWhere('status_id', 304);
                         })
-                        ->where('status_id', '!=', 309);
+                            ->where('status_id', '!=', 309);
                     }else{
                         $query->where(function ($query) use ($statusId) {
                             $query->where('status_id', '>', $statusId)
@@ -595,7 +599,7 @@ class MasterReportController extends Controller
         $block_ids = $request->input('block_id', 'All');
         $panchayat_ids = $request->input('panchayat_id', 'All');
 
-            // $district_ids=['3'];
+        // $district_ids=['3'];
         // Get Data from Filters
         $title = 'Recieved Applications';
         $districts = Region::userBasedDistricts(null)->select('name', 'id')->get();
@@ -630,7 +634,7 @@ class MasterReportController extends Controller
             }
         }
 
-         echo"<pre>"; print_r($reportData); die;
+        echo"<pre>"; print_r($reportData); die;
         $request->session()->flash('exportData', $reportData);
         $request->session()->flash('totals', $totals);
         return view('numaric_reports.bankreport', compact('districts', 'districtsIds', 'constituencies', 'tehsils', 'blocks', 'panchayatWards', 'title', 'statusId', 'reportData', 'totals', 'categories', 'activities', 'perPage'));
@@ -638,11 +642,8 @@ class MasterReportController extends Controller
 
 
 
-
     public function bankReport(Request $request)
     {
-
-
 
         $district_ids = $request->input('district_id', 'All');
         $tehsil_ids = $request->input('tehsil_id', 'All');
@@ -650,8 +651,8 @@ class MasterReportController extends Controller
         $block_ids = $request->input('block_id', 'All');
         $panchayat_ids = $request->input('panchayat_id', 'All');
 
-            // $district_ids=['3'];
-        // Get Data from Filters
+        // $district_ids=['3'];
+        // Get Data from Filtersˀ
         $title = 'Recieved Applications';
         $districts = Region::userBasedDistricts(null)->select('name', 'id')->get();
 
@@ -676,6 +677,7 @@ class MasterReportController extends Controller
         }
         // dd($districtsIds);
         $reportData = $this->numaricQueryRecievedBank($districtsIds, $selectedFY);
+//        dd($reportData);
         $totals = null;
 
         foreach ($reportData as $item) {
@@ -742,23 +744,23 @@ class MasterReportController extends Controller
             ];
             // Loop through each fiscal year
             if (!$selectedFY) {
-                $startDateString = request()->get('startDate');
+                $startDateString = request()->get('start_date');
                 $startDate = date_create_from_format('Y/m/d', $startDateString);
 
                 $formattedStartDate = $startDate ? $startDate->format('Y-m-d') : '2019-04-01';
 
                 // $startDate = date("Y-m-d", strtotime(request()->get('startDate'))) ?: '2019-04-01';
 
-                $endDateString = request()->get('endDate');
+                $endDateString = request()->get('end_date');
                 $endDate = date_create_from_format('Y/m/d', $endDateString);
 
                 $formattedEndDate = $endDate ? $endDate->format('Y-m-d') : date('Y-m-d');
-
+//                dd($startDateString, $formattedEndDate);
                 $districtData['Year'][] = $this->iterateBetweenDatesForBank($formattedStartDate, $formattedEndDate, null, $districtId, $totals);
 
             } else {
                 foreach ($selectedFiscalYears as $fiscalYear) {
-                    // dd($fiscalYear);
+                     dd($fiscalYear);
                     list($startYear, $endYear) = explode('-', $fiscalYear);
 
                     $startDateString = "{$startYear}-04-01";
@@ -823,7 +825,7 @@ class MasterReportController extends Controller
             ->where('status_id', 308)
             ->whereBetween('created_at', [$startDate, $endDate])
             ->count();
-    //        DLC Section Start Committee
+        //        DLC Section Start Committee
         $forwardedToDlcCount = Application::where('region_id', $districtId)
             ->where(function ($query) {
                 $query->where('status_id', '>', 308)
@@ -832,7 +834,7 @@ class MasterReportController extends Controller
             ->where('status_id', '!=', 309)
             ->whereBetween('created_at', [$startDate, $endDate])
             ->count();
-            // dd($forwardedToDlcCount);
+        // dd($forwardedToDlcCount);
         $concederdApplicationRevertByBank = Application::where('region_id', $districtId)
             ->where(function ($query) {
                 $query->where('status_id', '>', 308)
@@ -879,18 +881,19 @@ class MasterReportController extends Controller
 // Concerned Bank Section End
 
         $totalAmountOfInvestInvolved = Application::where('region_id', $districtId)
+            ->where('status_id', '>', 311)
             ->whereBetween('created_at', [$startDate, $endDate])
             ->get()
-            ->sum('capital_expenditure');
+            ->sum('project_cost');
 
         $totalAmountOfTearmLoanInvolved = Application::where('region_id', $districtId)
+            ->where('status_id', '>', 311)
             ->whereBetween('created_at', [$startDate, $endDate])
             ->get()
-            ->sum(function ($application) {
-                return isset($application->data->loan->term_loan) ? $application->data->loan->term_loan : 0;
-            });
+            ->sum('term_loan');
 
         $totalAmountOfSubsidyInvolved = Application::where('region_id', $districtId)
+            ->where('status_id', '>', 311)
             ->whereBetween('created_at', [$startDate, $endDate])
             ->get()
             ->sum('subsidy_amount');
